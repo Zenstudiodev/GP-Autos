@@ -1,0 +1,546 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * Created by PhpStorm.
+ * User: Carlos
+ * Date: 1/06/2017
+ * Time: 4:22 PM
+ */
+class Carros_model extends CI_Model
+{
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
+
+
+	/**
+	 * ADMIN
+	 */
+	function actualizar_carro($data)
+	{
+		$datos = array(
+			//'id_carro'                 => $data['id_carro'],
+			'crr_codigo'               => $data['crr_codigo'],
+			'crr_fecha'                => $data['crr_fecha'],
+			'crr_placa'                => $data['crr_placa'],
+			'id_tipo_carro'            => $data['id_tipo_carro'],
+			'id_marca'                 => $data['id_marca'],
+			'id_linea'                 => $data['id_linea'],
+			'id_ubicacion'             => $data['id_ubicacion'],
+			'crr_moneda_precio'        => $data['crr_moneda_precio'],
+			'crr_precio'               => $data['crr_precio'],
+			//'crr_descripcion'          => $data['crr_descripcion'],
+			//'crr_img'                  => $data['crr_img'],
+			//'crr_img_ext'              => $data['crr_img_ext'],
+			//'crr_img_path'             => $data['crr_img_path'],
+			'crr_modelo'               => $data['crr_modelo'],
+			'crr_origen'               => $data['crr_origen'],
+			'crr_ac'                   => $data['crr_ac'],
+			'crr_alarma'               => $data['crr_alarma'],
+			'crr_aros_magnecio'        => $data['crr_aros_magnecio'],
+			'crr_bolsas_aire'          => $data['crr_bolsas_aire'],
+			'crr_cerradura_central'    => $data['crr_cerradura_central'],
+			'crr_cilindros'            => $data['crr_cilindros'],
+			'crr_color'                => $data['crr_color'],
+			'crr_combustible'          => $data['crr_combustible'],
+			'crr_espejos'              => $data['crr_espejos'],
+			'crr_kilometraje'          => $data['crr_kilometraje'],
+			'crr_motor'                => $data['crr_motor'],
+			'crr_platos'               => $data['crr_platos'],
+			'crr_polarizado'           => $data['crr_polarizado'],
+			'crr_puertas'              => $data['crr_puertas'],
+			'crr_radio'                => $data['crr_radio'],
+			'crr_sunroof'              => $data['crr_sunroof'],
+			'crr_tapiceria'            => $data['crr_tapiceria'],
+			'crr_timon_hidraulico'     => $data['crr_timon_hidraulico'],
+			'crr_transmision'          => $data['crr_transmision'],
+			'crr_4x4'                  => $data['crr_4x4'],
+			'crr_vidrios_electricos'   => $data['crr_vidrios_electricos'],
+			//'crr_suspension_delantera' => $data['crr_suspension_delantera'],
+			//'crr_suspension_trasera'   => $data['crr_suspension_trasera'],
+			'crr_freno_delantero'      => $data['crr_freno_delantero'],
+			'crr_freno_trasero'        => $data['crr_freno_trasero'],
+			'crr_blindaje'             => $data['crr_blindaje'],
+			//'crr_caja'                 => $data['crr_caja'],
+			//'crr_freno'                => $data['crr_freno'],
+			//'crr_suspension'           => $data['crr_suspension'],
+			//'crr_ejes'                 => $data['crr_ejes'],
+			'crr_otros'                => $data['crr_otros'],
+			'crr_estado'               => $data['crr_estado'],
+			//'crr_contacto'             => $data['crr_contacto'],
+			'crr_contacto_nombre'      => $data['crr_contacto_nombre'],
+			'crr_contacto_telefono'    => $data['crr_contacto_telefono'],
+			'crr_contacto_email'       => $data['crr_contacto_email'],
+			'crr_estatus'              => $data['crr_estatus'],
+			'id_predio_virtual'        => $data['id_predio_virtual'],
+			//'crr_date'                 => $data['crr_date'],
+			'crr_premium'              => $data['crr_premium'],
+			'crr_certiauto'            => $data['crr_certiauto'],
+			//'crr_cuotaseguro'          => $data['crr_cuotaseguro'],
+			//'crr_cuotafinanciamiento'  => $data['crr_cuotafinanciamiento'],
+			'crr_nombre_propietario'   => $data['crr_nombre_propietario'],
+			'crr_telefono_propietario' => $data['crr_telefono_propietario'],
+			'crr_vencimiento'          => $data['crr_vencimiento'],
+		);
+		$this->db->where('id_carro', $data['id_carro']);
+		$query = $this->db->update('carro', $datos);
+	}
+
+	function crear_carro($data)
+	{
+		$datos = array(
+			'id_carro'                 => $data['id_carro'],
+			'crr_codigo'               => $data['crr_codigo'],
+			'crr_fecha'                => $data['crr_fecha'],
+			'crr_placa'                => $data['crr_placa'],
+			'id_tipo_carro'            => $data['id_tipo_carro'],
+			'id_marca'                 => $data['id_marca'],
+			'id_linea'                 => $data['id_linea'],
+			'id_ubicacion'             => $data['id_ubicacion'],
+			'crr_moneda_precio'        => $data['crr_moneda_precio'],
+			'crr_precio'               => $data['crr_precio'],
+			//'crr_descripcion'          => $data['crr_descripcion'],
+			'crr_img'                  => $data['crr_img'],
+			//'crr_img_ext'              => $data['crr_img_ext'],
+			//'crr_img_path'             => $data['crr_img_path'],
+			'crr_modelo'               => $data['crr_modelo'],
+			'crr_origen'               => $data['crr_origen'],
+			'crr_ac'                   => $data['crr_ac'],
+			'crr_alarma'               => $data['crr_alarma'],
+			'crr_aros_magnecio'        => $data['crr_aros_magnecio'],
+			'crr_bolsas_aire'          => $data['crr_bolsas_aire'],
+			'crr_cerradura_central'    => $data['crr_cerradura_central'],
+			'crr_cilindros'            => $data['crr_cilindros'],
+			'crr_color'                => $data['crr_color'],
+			'crr_combustible'          => $data['crr_combustible'],
+			'crr_espejos'              => $data['crr_espejos'],
+			'crr_kilometraje'          => $data['crr_kilometraje'],
+			'crr_motor'                => $data['crr_motor'],
+			'crr_platos'               => $data['crr_platos'],
+			'crr_polarizado'           => $data['crr_polarizado'],
+			'crr_puertas'              => $data['crr_puertas'],
+			'crr_radio'                => $data['crr_radio'],
+			'crr_sunroof'              => $data['crr_sunroof'],
+			'crr_tapiceria'            => $data['crr_tapiceria'],
+			'crr_timon_hidraulico'     => $data['crr_timon_hidraulico'],
+			'crr_transmision'          => $data['crr_transmision'],
+			'crr_4x4'                  => $data['crr_4x4'],
+			'crr_vidrios_electricos'   => $data['crr_vidrios_electricos'],
+			//'crr_suspension_delantera' => $data['crr_suspension_delantera'],
+			//'crr_suspension_trasera'   => $data['crr_suspension_trasera'],
+			'crr_freno_delantero'      => $data['crr_freno_delantero'],
+			'crr_freno_trasero'        => $data['crr_freno_trasero'],
+			'crr_blindaje'             => $data['crr_blindaje'],
+			//'crr_caja'                 => $data['crr_caja'],
+			//'crr_freno'                => $data['crr_freno'],
+			//'crr_suspension'           => $data['crr_suspension'],
+			//'crr_ejes'                 => $data['crr_ejes'],
+			'crr_otros'                => $data['crr_otros'],
+			'crr_estado'               => $data['crr_estado'],
+			//'crr_contacto'             => $data['crr_contacto'],
+			'crr_contacto_nombre'      => $data['crr_contacto_nombre'],
+			'crr_contacto_telefono'    => $data['crr_contacto_telefono'],
+			'crr_contacto_email'       => $data['crr_contacto_email'],
+			'crr_estatus'              => $data['crr_estatus'],
+			'id_predio_virtual'        => $data['id_predio_virtual'],
+			//'crr_date'                 => $data['crr_date'],
+			'crr_premium'              => $data['crr_premium'],
+			'crr_certiauto'            => $data['crr_certiauto'],
+			//'crr_cuotaseguro'          => $data['crr_cuotaseguro'],
+			//'crr_cuotafinanciamiento'  => $data['crr_cuotafinanciamiento'],
+			'crr_nombre_propietario'   => $data['crr_nombre_propietario'],
+			'crr_telefono_propietario' => $data['crr_telefono_propietario'],
+			'crr_vencimiento'          => $data['crr_vencimiento'],
+		);
+		$this->db->insert('carro', $datos);
+		$insert_id = $this->db->insert_id();
+
+		return $insert_id;
+	}
+
+
+	function ListarCarros()
+	{
+		$where = "crr_estatus='Alta'";
+		$this->db->where($where);
+		$query = $this->db->get('carro');
+
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function ListarCarros_admin()
+	{
+		$query = $this->db->get('carro');
+
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function get_datos_carro_admin($codigo_carro)
+	{
+		$this->db->where('id_carro', $codigo_carro);
+		$query = $this->db->get('carro');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function dar_baja_carro_id($carro_id)
+	{
+		$datos = array(
+			'crr_estatus' => 'Baja'
+		);
+		$this->db->where('id_carro', $carro_id);
+		$query = $this->db->update('carro', $datos);
+	}
+
+	function renovar_carro($data){
+
+		$datos = array(
+			'crr_vencimiento'          => $data['fecha_vencimiento'],
+		);
+		$this->db->where('id_carro', $data['id_carro']);
+		$query = $this->db->update('carro', $datos);
+
+	}
+
+	function reactivar_carro($carro_id){
+
+	}
+
+	function carros_con_fecha_de_vencimiento()
+	{
+
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->where('crr_vencimiento !=', '0000-00-00');
+		$this->db->from('carro');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+
+	function guardar_transaccion($data)
+	{
+		$datos = array(
+			'fecha'      => $data['fecha'],
+			'id_carro'   => $data['id_carro'],
+			'boleta'     => $data['boleta'],
+			'banco'      => $data['banco'],
+			'tipo'       => $data['tipo'],
+			'id_usuario' => $data['id_usuario'],
+		);
+		$this->db->insert('transacciones', $datos);
+		$insert_id = $this->db->insert_id();
+
+		return $insert_id;
+	}
+
+	function get_transacciones()
+	{
+		$query = $this->db->get('transacciones');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function get_carros_frontPage()
+	{
+
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->where('crr_estado', 'Usado');
+		$this->db->where('id_predio_virtual', 9);
+		$this->db->order_by('', 'RANDOM');
+		$this->db->limit(8);
+		$query = $this->db->get('carro');
+
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function get_datos_carro($codigo_carro)
+	{
+		$this->db->where('crr_codigo', $codigo_carro);
+		$this->db->where('crr_estatus', 'Alta');
+		$query = $this->db->get('carro');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function get_tapicerias()
+	{
+		$this->db->distinct('crr_tapiceria');
+		$this->db->select('crr_tapiceria');
+		$this->db->from('carro');
+		$this->db->order_by('crr_tapiceria', 'ASC');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function get_transmision()
+	{
+		$this->db->distinct('crr_transmision');
+		$this->db->select('crr_transmision');
+		$this->db->from('carro');
+		$this->db->order_by('crr_transmision', 'ASC');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	//para el buscador
+	function predios()
+	{
+		$this->db->where('prv_estatus', 'Alta');
+		$query = $this->db->get('predio_virtual');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function tipos_vehiculo()
+	{
+		$query = $this->db->get('tipo_carro');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function marca_vehiculo()
+	{
+		$query = $this->db->get('marca');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function lineas_vehiculo($tipo, $marca)
+	{
+		$this->db->distinct('id_linea');
+		$this->db->select('id_linea');
+		$this->db->from('carro');
+		$this->db->where('id_marca', $marca);
+		$this->db->where('id_tipo_carro', $tipo);
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->order_by('id_linea', 'ASC');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function marcas_vehiculo($tipo)
+	{
+		$this->db->distinct('id_marca');
+		$this->db->select('id_marca');
+		$this->db->from('carro');
+		$this->db->where('id_tipo_carro', $tipo);
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->order_by('id_marca', 'ASC');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function ubicaciones_vehiculo()
+	{
+		$this->db->distinct('id_ubicacion');
+		$this->db->select('id_ubicacion');
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->from('carro');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function combustible_vehiculo()
+	{
+		$query = $this->db->get('combustible');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function resultado_busqueda($tipo_vehiculo, $marca, $linea, $combustible, $origen, $p_min, $p_max, $a_min, $a_max)
+	{
+		$this->db->from('carro');
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->where('crr_estado', 'Usado');
+		$this->db->where('id_tipo_carro', $tipo_vehiculo);
+
+		if ($marca != 'todos')
+		{
+			$this->db->where('id_marca', $marca);
+		}
+		if ($linea != 'todos')
+		{
+			$this->db->where('id_linea', $linea);
+		}
+		if ($combustible != 'todos')
+		{
+			$this->db->where('crr_combustible', $combustible);
+		}
+		if ($origen != 'TODOS')
+		{
+			$this->db->where('crr_origen', $origen);
+		}
+
+
+		if ($p_min != null)
+		{
+			$this->db->where('crr_precio >', $p_min);
+		}
+		if ($p_max != null)
+		{
+			$this->db->where('crr_precio <', $p_max);
+		}
+		$this->db->order_by('crr_modelo', 'DESC');
+		if ($a_min != null)
+		{
+			$this->db->where('crr_modelo  >=', $a_min);
+		}
+		if ($a_max != null)
+		{
+			$this->db->where('crr_modelo  <=', $a_max);
+		}
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	function numero_registros_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $combustible, $origen, $p_min, $p_max, $a_min, $a_max)
+	{
+		//$this->db->from('carro');
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->where('crr_estado', 'Usado');
+		$ubicacion     = urldecode($ubicacion);
+		$tipo_vehiculo = urldecode($tipo_vehiculo);
+		$marca         = urldecode($marca);
+		$linea         = urldecode($linea);
+		if ($ubicacion != 'TODOS')
+		{
+			$this->db->where('id_ubicacion', $ubicacion);
+		}
+		$this->db->where('id_tipo_carro', $tipo_vehiculo);
+
+		if ($marca != 'TODOS')
+		{
+			$this->db->where('id_marca', $marca);
+		}
+		if ($linea != 'TODOS')
+		{
+			$this->db->where('id_linea', $linea);
+		}
+		if ($combustible != 'TODOS')
+		{
+			$this->db->where('crr_combustible', $combustible);
+		}
+		if ($origen != 'TODOS')
+		{
+			$this->db->where('crr_origen', $origen);
+		}
+
+		if ($p_min != null)
+		{
+			$this->db->where('crr_precio >', $p_min);
+		}
+		if ($p_max != null)
+		{
+			$this->db->where('crr_precio <', $p_max);
+		}
+		$this->db->order_by('crr_modelo', 'DESC');
+
+		if ($a_min != null)
+		{
+			$this->db->where('crr_modelo  >=', $a_min);
+		}
+		if ($a_max != null)
+		{
+			$this->db->where('crr_modelo  <=', $a_max);
+		}
+
+		return $this->db->count_all_results('carro');
+		/*$query = $this->db->get('carro');
+		return $query->num_rows();*/
+	}
+
+	function resultado_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $combustible, $origen, $p_min, $p_max, $a_min, $a_max, $limit, $start)
+	{
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->where('crr_estado', 'Usado');
+		$ubicacion     = urldecode($ubicacion);
+		$tipo_vehiculo = urldecode($tipo_vehiculo);
+		$marca         = urldecode($marca);
+		$linea         = urldecode($linea);
+		if ($ubicacion != 'TODOS')
+		{
+			$this->db->where('id_ubicacion', $ubicacion);
+		}
+		$this->db->where('id_tipo_carro', $tipo_vehiculo);
+
+		if ($marca != 'TODOS')
+		{
+			$this->db->where('id_marca', $marca);
+		}
+		if ($linea != 'TODOS')
+		{
+			$this->db->where('id_linea', $linea);
+		}
+		if ($combustible != 'TODOS')
+		{
+			$this->db->where('crr_combustible', $combustible);
+		}
+		if ($origen != 'TODOS')
+		{
+			$this->db->where('crr_origen', $origen);
+		}
+
+		if ($p_min != null)
+		{
+			$this->db->where('crr_precio >', $p_min);
+		}
+		if ($p_max != null)
+		{
+			$this->db->where('crr_precio <', $p_max);
+		}
+		$this->db->order_by('crr_modelo', 'DESC');
+		$this->db->order_by('crr_precio', 'ASC');
+
+		if ($a_min != null)
+		{
+			$this->db->where('crr_modelo  >=', $a_min);
+		}
+		if ($a_max != null)
+		{
+			$this->db->where('crr_modelo  <=', $a_max);
+		}/**/
+		$this->db->limit($limit, $start);
+
+		$query = $this->db->get('carro');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+	//Predio virtual
+	function get_predio_number_result($predio_id)
+	{
+		$this->db->where('id_predio_virtual', $predio_id);
+		$this->db->where('crr_estatus', 'Alta');
+
+		//$query = $this->db->get('carro');
+		return $this->db->count_all_results('carro');
+	}
+
+	function get_carros_for_predio($predio_id, $limit, $start)
+	{
+		$this->db->where('id_predio_virtual', $predio_id);
+		$this->db->where('crr_estatus', 'Alta');
+		$this->db->order_by('crr_modelo', 'DESC');
+		$this->db->order_by('crr_precio', 'ASC');
+
+		$this->db->limit($limit, $start);
+		$query = $this->db->get('carro');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+
+
+}
