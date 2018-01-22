@@ -15,6 +15,16 @@ class Banners extends Base_Controller
 		$this->load->model('Banners_model');
 	}
 
+
+	function guardar_click_busqueda(){
+		$banner_id = $this->input->post('banner_id');
+		$this->Banners_model->guardar_click_banner_busqueda($banner_id);
+	}
+	function guardar_visualizacion_busqueda(){
+		$banner_id = $this->input->post('banner_id_v');
+		$this->Banners_model->guardar_vista_banner_busqueda($banner_id);
+	}
+
 	function guardar_click(){
 		$banner_id = $this->input->post('banner_id');
 		$this->Banners_model->guardar_click_banner_header($banner_id);

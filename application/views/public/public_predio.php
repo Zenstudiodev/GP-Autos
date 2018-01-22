@@ -361,7 +361,11 @@ foreach ($ubicaciones->result() as $ubicacion)
 				{
 					echo 'Aun no hay carros';
 				} ?>
+                <div class="row">
+		            <?php echo $links; ?>
+                </div>
             </div>
+
         </div>
     </div>
     </div>

@@ -315,10 +315,14 @@ foreach ($ubicaciones->result() as $ubicacion)
 
 
                             <div class="col s12 m12">
-                                <div class="hoverable">
-                                    <a href="<?php echo $banner->link;?>" target="_blank"><img
-                                                src="<?php echo base_url().$banner->imagen;?>"
-                                                class="responsive-img"></a>
+                                <div id="banners_busqueda" class="hoverable">
+                                    <div class="item">
+                                        <a href="<?php echo $banner->link;?>" target="_blank"
+                                           banner_busqueda_id="<?php echo $banner->id_banner?>">
+                                            <img src="<?php echo base_url().$banner->imagen;?>"
+                                                 class="responsive-img">
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
