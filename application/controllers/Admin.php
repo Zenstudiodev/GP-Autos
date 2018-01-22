@@ -18,12 +18,21 @@ class Admin extends Base_Controller
 	public function index()
 	{
 		$data           = compobarSesion();
-		$data['carros'] = $this->Carros_model->ListarCarros();
+		$data['carros'] = $this->Carros_model->ListarCarros_admin();
 		if ($this->session->flashdata('mensaje'))
 		{
 			$data['mensaje'] = $this->session->flashdata('mensaje');
 		}
 		echo $this->templates->render('admin/admin_home', $data);
+	}
+	public function carros_de_baja(){
+		$data           = compobarSesion();
+		$data['carros'] = $this->Carros_model->ListarCarros_baja_admin();
+		if ($this->session->flashdata('mensaje'))
+		{
+			$data['mensaje'] = $this->session->flashdata('mensaje');
+		}
+		echo $this->templates->render('admin/carro_baja', $data);
 	}
 
 	public function editarCarro()

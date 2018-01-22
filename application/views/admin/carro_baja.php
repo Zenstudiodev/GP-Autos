@@ -94,15 +94,10 @@
 										?>
                                         <tr class="gradeX">
                                             <td>
-		                                        <?php
-		                                        if($carro->crr_estatus == 'Alta'){?>
-                                                    <div class="btn-group" role="group" aria-label="...">
-                                                        <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/renovar_carro/'. $carro->crr_codigo?>"><i class="icon-calendar"></i> Renovar</a>
-                                                        <a class="btn btn-danger btn-xs" href="<?php echo base_url().'index.php/admin/dar_de_baja_btn/'. $carro->crr_codigo?>"><i class="icon-remove"></i> Dar de baja</a>
-                                                    </div>
-
-
-                                                <?php } ?></td>
+                                                <div class="btn-group" role="group" aria-label="...">
+                                                    <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/renovar_carro/'. $carro->crr_codigo?>"><i class="icon-calendar"></i> Renovar</a>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <a href="<?php echo base_url() . 'index.php/admin/editarCarro/' . $carro->id_carro ?>">
 													<?php echo $carro->crr_codigo ?>

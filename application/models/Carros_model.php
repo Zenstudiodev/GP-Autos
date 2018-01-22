@@ -174,8 +174,18 @@ class Carros_model extends CI_Model
 
 	function ListarCarros_admin()
 	{
+		$this->db->where('crr_estatus', 'Alta');
 		$query = $this->db->get('carro');
 
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+	function ListarCarros_baja_admin()
+	{
+		$this->db->where('crr_estatus', 'Baja');
+		$this->db->order_by('crr_vencimiento', 'DESC');
+		$this->db->limit(10);
+		$query = $this->db->get('carro');
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
