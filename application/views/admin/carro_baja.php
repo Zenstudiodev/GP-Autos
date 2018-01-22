@@ -95,7 +95,7 @@
                                         <tr class="gradeX">
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="...">
-                                                    <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/renovar_carro/'. $carro->crr_codigo?>"><i class="icon-calendar"></i> Renovar</a>
+                                                    <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/reactivar_carro/'. $carro->crr_codigo?>"><i class="icon-calendar"></i> Renovar</a>
                                                 </div>
                                             </td>
                                             <td>

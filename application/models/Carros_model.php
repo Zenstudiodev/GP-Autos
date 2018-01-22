@@ -217,8 +217,13 @@ class Carros_model extends CI_Model
 
 	}
 
-	function reactivar_carro($carro_id){
-
+	function reactivar_carro($data){
+		$datos = array(
+			'crr_vencimiento'          => $data['fecha_vencimiento'],
+			'crr_estatus'          => 'Alta'
+		);
+		$this->db->where('id_carro', $data['id_carro']);
+		$query = $this->db->update('carro', $datos);
 	}
 
 	function carros_con_fecha_de_vencimiento()

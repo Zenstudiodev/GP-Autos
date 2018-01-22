@@ -303,8 +303,45 @@ class Admin extends Base_Controller
 	}
 
 	public function  reactivar_carro(){
+		$data           = compobarSesion();
+		$data['titulo'] = 'Renovar carro';
+		//id carro
+		$data['id_carro'] = $this->uri->segment(3);
 
+		if ($this->session->flashdata('mensaje'))
+		{
+			$data['mensaje'] = $this->session->flashdata('mensaje');
+		}
+
+		$data['carro']        = $this->Carros_model->get_datos_carro_admin($data['id_carro']);
+
+		echo $this->templates->render('admin/reactivar_carro', $data);
 	}
+	public function  reactivar_carro_p(){
+		$data   = compobarSesion();
+
+		$datos_carro =array(
+			'id_carro'=> $this->input->post('carro_id'),
+			'fecha_vencimiento'=>$this->input->post('vencimiento'),
+		);
+
+
+		$datos_transaccion = array(
+			'fecha'      => $this->input->post('fecha'),
+			'id_carro'   => $this->input->post('carro_id'),
+			'boleta'     => $this->input->post('boleta'),
+			'banco'      => $this->input->post('banco'),
+			'tipo'       => $this->input->post('tipo'),
+			'id_usuario' => $data['user_id'],
+
+		);
+		$this->Carros_model->reactivar_carro($datos_carro);
+		$this->Carros_model->guardar_transaccion($datos_transaccion);
+
+		$this->session->set_flashdata('mensaje', 'Carro COD:'.$datos_carro['id_carro'].' Reactivado correctamente correctamente');
+		redirect(base_url() . 'index.php/admin/' , 'refresh');
+	}
+
 	public function banners()
 	{
 		$data            = compobarSesion();
