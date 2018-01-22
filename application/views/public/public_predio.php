@@ -386,12 +386,6 @@ foreach ($ubicaciones->result() as $ubicacion)
     var a_carro_min;
     var a_carro_max;
 
-    //BANNER
-    jQuery('#camera_wrap_1').camera({
-        thumbnails: false,
-        height: 'auto',
-        pagination: false
-    });
 
     function actualizarCampoInput(valor, campoInput) {
         //display en input fields

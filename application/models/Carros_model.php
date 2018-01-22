@@ -161,7 +161,6 @@ class Carros_model extends CI_Model
 		return $insert_id;
 	}
 
-
 	function ListarCarros()
 	{
 		$where = "crr_estatus='Alta'";
@@ -171,7 +170,6 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function ListarCarros_admin()
 	{
 		$this->db->where('crr_estatus', 'Alta');
@@ -236,7 +234,6 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 
 	function guardar_transaccion($data)
 	{
