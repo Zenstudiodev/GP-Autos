@@ -488,6 +488,24 @@
         marca = $("#marca_carro").val();
         tipo = $("#tipo_carro").val();
 
+        //Actualizar marcas
+            $('#marca_carro option').remove();
+            marca = $(this).val();
+            tipo = $("#tipo_carro").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
+                success: function (data) {
+                    $('#marca_carro').append('<option value="TODOS">TODOS</option>');
+                    $.each(data, function (key, value) {
+                        $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
+                    });
+                    $('select').material_select();
+                }
+            });
+
+
     });
     //submit form
     $( "#filtro_form" ).submit(function( event ) {

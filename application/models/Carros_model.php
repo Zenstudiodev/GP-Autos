@@ -83,7 +83,6 @@ class Carros_model extends CI_Model
 			//'crr_cuotafinanciamiento'  => $data['crr_cuotafinanciamiento'],
 			'crr_nombre_propietario'   => $data['crr_nombre_propietario'],
 			'crr_telefono_propietario' => $data['crr_telefono_propietario'],
-			'crr_vencimiento'          => $data['crr_vencimiento'],
 		);
 		$this->db->where('id_carro', $data['id_carro']);
 		$query = $this->db->update('carro', $datos);

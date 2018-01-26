@@ -485,4 +485,13 @@ class Admin extends Base_Controller
 		echo $this->templates->render('admin/transacciones', $data);
 
 	}
+	public function carro_imagen(){
+		$data           = compobarSesion();
+		$data['carros'] = $this->Carros_model->ListarCarros_admin();
+		if ($this->session->flashdata('mensaje'))
+		{
+			$data['mensaje'] = $this->session->flashdata('mensaje');
+		}
+		echo $this->templates->render('admin/carro_imagen', $data);
+	}
 }
