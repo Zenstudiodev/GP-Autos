@@ -352,7 +352,7 @@ foreach ($ubicaciones->result() as $ubicacion)
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4"><?php echo character_limiter($carro->id_marca, 2); ?>
                                         <i class="material-icons right">close</i></span>
-                                    <p class=><?php echo character_limiter($carro->id_linea, 9); ?>
+                                    <p class=><?php echo character_limiter($carro->id_linea, 7); ?>
                                         - <?php echo $carro->crr_modelo ?><br>
 										<?php if ($carro->crr_moneda_precio == '$')
 										{
