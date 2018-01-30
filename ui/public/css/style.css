@@ -287,6 +287,13 @@ i.small {
 }
 
 
+a.wts_btn {
+    background-color: #25D366;
+    color: #fff;
+    padding: 15px;
+    margin: 30px;
+}
+
 
 @media only screen and (max-width: 600px){
     img.camera_thumb {

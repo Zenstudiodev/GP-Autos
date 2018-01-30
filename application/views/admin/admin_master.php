@@ -70,11 +70,19 @@
 
 <div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
     <ul>
-        <li><a href="<?php echo base_url()?>index.php/admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+
+        <!--<li><a href="<?php /*echo base_url()*/?>index.php/admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
+
         <li><a href="<?php echo base_url()?>index.php/admin"><i class="icon icon-signal"></i> <span>Carros</span></a> </li>
+	    <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
         <li><a href="<?php echo base_url()?>index.php/admin/banners"><i class="icon icon-file"></i> <span>Banners</span></a> </li>
+        <?php }?>
+	    <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
         <li><a href="<?php echo base_url()?>index.php/admin/banners_header"><i class="icon icon-file"></i> <span>Banners Header</span></a> </li>
+	    <?php }?>
+	    <?php if($rol =='gerente' || $rol == 'developer' || $rol==''){?>
         <li><a href="<?php echo base_url()?>index.php/admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a> </li>
+        <?php }?>
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
         <li ><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
         <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>

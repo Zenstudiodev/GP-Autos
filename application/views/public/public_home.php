@@ -330,9 +330,15 @@
                                     </p>
                                 </div>
                                 <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4"><?php echo character_limiter($carro->id_marca, 2); ?>
+                                    <span class="card-title grey-text text-darken-4">
+                                        <?php
+                                        $marca_str = character_limiter($carro->id_marca, 2);
+                                        echo $marca_carro ?>
                                         <i class="material-icons right">close</i></span>
-                                    <p class=><?php echo character_limiter($carro->id_linea, 9); ?>
+                                    <p class="">
+                                        <?php
+                                        $linea_str = character_limiter($carro->id_linea, 6);
+                                        echo $linea_str; ?>
                                         - <?php echo $carro->crr_modelo ?><br>
                                         <?php if ($carro->crr_moneda_precio == '$') {
                                             setlocale(LC_MONETARY, "en_US");

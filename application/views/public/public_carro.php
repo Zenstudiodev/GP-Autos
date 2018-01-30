@@ -281,6 +281,11 @@ else
 					{ ?>
                         <img src="<?php echo base_url() ?>/ui/public/images/logo_certiauto.png">
 					<?php } ?>
+                    <div class="section"></div>
+                    <div class="dr_chat">
+                        <a class="wts_btn" target="_blank" href="https://api.whatsapp.com/send?phone=+502<?php echo $data_carro->crr_contacto_telefono?>&text=<?php echo urlencode('Estoy interesado en el carro codigo:'.$data_carro->id_carro ) ?>">Chat directo <img src="<?php echo  base_url(); ?>ui/public/images/ws_icon.png"></a>
+                    </div>
+                    <div class="section"></div>
                 </div>
                 <div class="col s12 m7">
                     <ul id="tabs-swipe-demo" class="tabs">
@@ -631,6 +636,7 @@ else
         </div>
     </div>
     <div class="divider"></div>
+
     <div class="section">
         <!--TODO BOTONES PARA ACCIONES -->
 
