@@ -46,8 +46,8 @@
                                 <th>titulo</th>
                                 <th>vencimiento</th>
                                 <th>estado</th>
-                                <th>clicks</th>
                                 <th>Visualizaciones</th>
+                                <th>clicks</th>
                                 <th>Imágen</th>
 
                             </tr>
