@@ -364,19 +364,30 @@ class Admin extends Base_Controller
 		echo $this->templates->render('admin/admin_editar_banner', $data);
 	}
 
+	public function crear_banner_header(){
+		$data           = compobarSesion();
+		$data['titulo'] = 'Crear Banner Header';
+
+		if ($this->session->flashdata('mensaje'))
+		{
+			$data['mensaje'] = $this->session->flashdata('mensaje');
+		}
+
+		echo $this->templates->render('admin/admin_crear_banner_header', $data);
+	}
+	public function guardar_banner_header(){}
+	public function banners_header()
+	{
+		$data            = compobarSesion();
+		$data['banners'] = $this->Banners_model->banners_header();
+		echo $this->templates->render('admin/admin_banners_header', $data);
+	}
 	public function editar_banner_header()
 	{
 		//id banner
 		$data['id_banner']   = $this->uri->segment(3);
 		$data['banner_data'] = $this->Banners_model->banner_header_data($data['id_banner']);
 		echo $this->templates->render('admin/admin_editar_banner_header', $data);
-	}
-
-	public function banners_header()
-	{
-		$data            = compobarSesion();
-		$data['banners'] = $this->Banners_model->banners_header();
-		echo $this->templates->render('admin/admin_banners_header', $data);
 	}
 
 

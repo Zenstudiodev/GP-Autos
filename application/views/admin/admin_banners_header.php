@@ -38,7 +38,7 @@
                         <h5>Listado de Banners</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <a class="btn btn-success">Nuevo</a>
+                        <a href="<?php echo base_url()?>admin/crear_banner_header" class="btn btn-success">Nuevo</a>
                         <table class="table table-bordered data-table">
                             <thead>
                             <tr>
