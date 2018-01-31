@@ -98,10 +98,12 @@ $transmision_carro_select         = array(
 );
 $transmision_carro_select_options = array(
 	'TODOS'   => 'TODOS',
-	'AUTOMATICA'   => 'AUTOMATICA',
-	'MECANICA' => 'MECANICA',
-	'TIPTRONIC'  => 'TIPTRONIC',
 );
+
+foreach ($transmisiones->result() as $transmision)
+{
+	$transmision_carro_select_options[$transmision->crr_transmision] = $transmision->crr_transmision;
+}
 
 //COMBUSTIBLE
 $combustible_carro_select         = array(
@@ -142,7 +144,6 @@ foreach ($ubicaciones->result() as $ubicacion)
 }
 
 ?>
-
     <div class="container">
         <!--row para incluir buscador-->
         <div class="row">
@@ -403,6 +404,7 @@ foreach ($ubicaciones->result() as $ubicacion)
         var buscador_marca;
         var buscador_linea;
         var buscador_combustible;
+        var buscador_transmision;
         var buscador_origen;
         var buscador_precio_min;
         var buscador_precio_max;
@@ -519,6 +521,7 @@ foreach ($ubicaciones->result() as $ubicacion)
             buscador_marca = '<?php echo urldecode($s_marca);?>';
             buscador_linea = '<?php echo urldecode($s_linea);?>';
             buscador_combustible = '<?php echo urldecode($s_combustible);?>';
+            buscador_transmision = '<?php echo urldecode($s_transmision);?>';
             buscador_origen = '<?php echo $s_origen;?>';
             buscador_precio_min = '<?php echo $precio_min;?>';
             buscador_precio_max = '<?php echo $precio_max;?>';
@@ -530,6 +533,7 @@ foreach ($ubicaciones->result() as $ubicacion)
                 buscador_marca + ' - ' +
                 buscador_linea + ' - ' +
                 buscador_combustible + ' - ' +
+                buscador_transmision + ' - ' +
                 buscador_origen + ' - ' +
                 buscador_precio_min + ' - ' +
                 buscador_precio_max + ' - ' +
@@ -572,6 +576,7 @@ foreach ($ubicaciones->result() as $ubicacion)
                 }
             });
 
+            $("#transmision_carro").val(buscador_transmision);
             $("#combustible_carro").val(buscador_combustible);
             $("#origen_carro").val(buscador_origen);
             $("#p_carro_min").val(buscador_precio_min);
@@ -597,6 +602,7 @@ foreach ($ubicaciones->result() as $ubicacion)
             buscador_tipo = $("#tipo_carro").val();
             buscador_marca = $('#marca_carro').val();
             buscador_linea = $('#linea_carro').val();
+            buscador_transmision = $('#transmision_carro').val();
             buscador_combustible= $("#combustible_carro").val();
             buscador_origen = $("#origen_carro").val();
             buscador_precio_min = $("#p_carro_min").val();
@@ -605,7 +611,7 @@ foreach ($ubicaciones->result() as $ubicacion)
             buscador_a_max = $("#a_carro_max").val();
 
             var filtros;
-            filtros = '<?php echo base_url()?>'+'index.php/carro/filtro/'+buscador_ubicacion+'/'+buscador_tipo+'/'+buscador_marca+'/'+buscador_linea+'/'+buscador_combustible+'/'+buscador_origen+'/'+buscador_precio_min+'-'+buscador_precio_max+'/'+buscador_a_min+'-'+buscador_a_max;
+            filtros = '<?php echo base_url()?>'+'index.php/carro/filtro/'+buscador_ubicacion+'/'+buscador_tipo+'/'+buscador_marca+'/'+buscador_linea+'/'+buscador_transmision+'/'+buscador_combustible+'/'+buscador_origen+'/'+buscador_precio_min+'-'+buscador_precio_max+'/'+buscador_a_min+'-'+buscador_a_max;
             window.location.assign(filtros);
         });
 

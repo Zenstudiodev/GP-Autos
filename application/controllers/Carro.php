@@ -91,25 +91,31 @@ class Carro extends Base_Controller
 		//marca
 		$data['s_marca'] = $this->uri->segment(5);
 		$data['s_marca'] =strtoupper($data['s_marca']);
-		//marca
+		//linea
 		$data['s_linea'] = $this->uri->segment(6);
 		if($data['s_linea'] == 'null'){
 			$data['s_linea']= 'TODOS';
 		}
 		$data['s_linea'] =strtoupper($data['s_linea']);
+		//transmision
+		$data['s_transmision'] = $this->uri->segment(7);
+		if($data['s_transmision'] == 'null'){
+			$data['s_transmision']= 'TODOS';
+		}
+		$data['s_transmision'] =strtoupper($data['s_transmision']);
 		//combustible
-		$data['s_combustible'] = $this->uri->segment(7);
+		$data['s_combustible'] = $this->uri->segment(8);
 		if($data['s_combustible'] == 'null'){
 			$data['s_combustible']= 'TODOS';
 		}
 		$data['s_combustible'] =strtoupper($data['s_combustible']);
 		//origen
-		$data['s_origen'] = $this->uri->segment(8);
+		$data['s_origen'] = $this->uri->segment(9);
 		$data['s_origen'] =strtoupper($data['s_origen']);
 		//precio
-		$data['s_precio'] = $this->uri->segment(9);
+		$data['s_precio'] = $this->uri->segment(10);
 		//modelo
-		$data['s_modelo'] = $this->uri->segment(10);
+		$data['s_modelo'] = $this->uri->segment(11);
 
 
 		$precio = explode("-", $data['s_precio']);
@@ -131,12 +137,14 @@ class Carro extends Base_Controller
 
 		$data['combustibles'] = $this->Carros_model->combustible_vehiculo();
 		$data['ubicaciones']  = $this->Carros_model->ubicaciones_vehiculo();
+		$data['transmisiones']  = $this->Carros_model->get_transmision();
 
 
 		$ubicacion = $data['s_ubicacion'];
 		$tipo_vehiculo        = $data['s_tipo'];
 		$marca                = $data['s_marca'];
 		$linea                = $data['s_linea'];
+		$transmision          = $data['s_transmision'];
 		$combustible          = $data['s_combustible'];
 		$origen               = $data['s_origen'];
 		$p_min                = $precio[0];
@@ -145,15 +153,15 @@ class Carro extends Base_Controller
 		$a_max                = $modelo[1];
 
 		//
-		$data['numero_resultados'] = $this->Carros_model->numero_registros_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $combustible, $origen, $p_min, $p_max, $a_min, $a_max);
+		$data['numero_resultados'] = $this->Carros_model->numero_registros_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $p_min, $p_max, $a_min, $a_max);
 
 
 		//pagination
 		$config = array();
-		$config["base_url"] = base_url() . "index.php/carro/filtro/".$data['s_ubicacion'].'/'.$data['s_tipo'].'/'.$data['s_marca'].'/'.$data['s_linea'].'/'.$data['s_combustible'].'/'.$data['s_origen'].'/'.$data['s_precio'].'/'.$data['s_modelo'];
+		$config["base_url"] = base_url() . "index.php/carro/filtro/".$data['s_ubicacion'].'/'.$data['s_tipo'].'/'.$data['s_marca'].'/'.$data['s_linea'].'/'.$data['s_transmision'].'/'.$data['s_combustible'].'/'.$data['s_origen'].'/'.$data['s_precio'].'/'.$data['s_modelo'];
 		$config["total_rows"] = $data['numero_resultados'];
 		$config["per_page"] = 20;
-		$config["uri_segment"] =11;
+		$config["uri_segment"] =12;
 		$config["full_tag_open"] = '<ul class="pagination">';
 		$config["full_tag_close"] = '</ul>';
 		$config["num_tag_open"] = '<li class="waves-effect">';
@@ -170,10 +178,10 @@ class Carro extends Base_Controller
 		$config["prev_tag_close"] = '</li>';
 
 		$this->pagination->initialize($config);
-		$page = ($this->uri->segment(10)) ? $this->uri->segment(11) : 0;
+		$page = ($this->uri->segment(11)) ? $this->uri->segment(12) : 0;
 		$data["links"] = $this->pagination->create_links();
 
-		$data['carros'] = $this->Carros_model->resultado_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $combustible, $origen, $p_min, $p_max, $a_min, $a_max, $config["per_page"], $page);
+		$data['carros'] = $this->Carros_model->resultado_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $p_min, $p_max, $a_min, $a_max, $config["per_page"], $page);
 		$data['banners'] = $this->Banners_model->banneers_activos();
 		$data['header_banners'] = $this->Banners_model->header_banners_activos();
 

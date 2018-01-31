@@ -283,7 +283,7 @@ else
 					<?php } ?>
                     <div class="section"></div>
                     <div class="dr_chat">
-                        <a class="wts_btn" target="_blank" href="https://api.whatsapp.com/send?phone=+502<?php echo $data_carro->crr_contacto_telefono?>&text=<?php echo urlencode('Estoy interesado en el carro codigo:'.$data_carro->id_carro ) ?>">Chat directo <img src="<?php echo  base_url(); ?>ui/public/images/ws_icon.png"></a>
+                        <a class="wts_btn" target="_blank" href="https://api.whatsapp.com/send?phone=+502<?php echo $data_carro->crr_contacto_telefono?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo:'.$data_carro->id_carro ) ?>">Chat directo <img src="<?php echo  base_url(); ?>ui/public/images/ws_icon.png"></a>
                     </div>
                     <div class="section"></div>
                 </div>

@@ -20,6 +20,7 @@ class Home extends Base_Controller
         $data['carros'] = $this->Carros_model->get_carros_frontPage();
         $data['tipos'] = $this->Carros_model->tipos_vehiculo();
         $data['marca'] = $this->Carros_model->marca_vehiculo();
+	    $data['transmisiones']  = $this->Carros_model->get_transmision();
         $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
         $data['ubicaciones'] = $this->Carros_model->ubicaciones_vehiculo();
 	    $data['header_banners'] = $this->Banners_model->header_banners_activos();

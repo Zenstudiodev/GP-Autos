@@ -296,6 +296,8 @@ class Carros_model extends CI_Model
 		$this->db->distinct('crr_transmision');
 		$this->db->select('crr_transmision');
 		$this->db->from('carro');
+		$this->db->where('crr_transmision !=' , ' ');
+		$this->db->where('crr_estatus', 'Alta');
 		$this->db->order_by('crr_transmision', 'ASC');
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) return $query;
@@ -417,7 +419,7 @@ class Carros_model extends CI_Model
 		else return false;
 	}
 
-	function numero_registros_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $combustible, $origen, $p_min, $p_max, $a_min, $a_max)
+	function numero_registros_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $p_min, $p_max, $a_min, $a_max)
 	{
 		//$this->db->from('carro');
 		$this->db->where('crr_estatus', 'Alta');
@@ -439,6 +441,10 @@ class Carros_model extends CI_Model
 		if ($linea != 'TODOS')
 		{
 			$this->db->where('id_linea', $linea);
+		}
+		if ($transmision != 'TODOS')
+		{
+			$this->db->where('crr_transmision', $transmision);
 		}
 		if ($combustible != 'TODOS')
 		{
@@ -473,7 +479,7 @@ class Carros_model extends CI_Model
 		return $query->num_rows();*/
 	}
 
-	function resultado_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $combustible, $origen, $p_min, $p_max, $a_min, $a_max, $limit, $start)
+	function resultado_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $p_min, $p_max, $a_min, $a_max, $limit, $start)
 	{
 		$this->db->where('crr_estatus', 'Alta');
 		$this->db->where('crr_estado', 'Usado');
@@ -494,6 +500,10 @@ class Carros_model extends CI_Model
 		if ($linea != 'TODOS')
 		{
 			$this->db->where('id_linea', $linea);
+		}
+		if ($transmision != 'TODOS')
+		{
+			$this->db->where('crr_transmision', $transmision);
 		}
 		if ($combustible != 'TODOS')
 		{
