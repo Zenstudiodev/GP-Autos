@@ -12,9 +12,6 @@ $this->layout('public/public_master', [
 $numero_banners = $banners->num_rows();
 $banners = $banners->result();
 
-
-
-
 ?>
 
 

@@ -16,7 +16,7 @@ if ($banner_data)
 	'user_id'  => $user_id,
 	'username' => $username,
 	'rol'      => $rol,
-    ]);
+]);
 $fecha_vencimiento_sugerida = New DateTime();
 $fecha_vencimiento_sugerida->modify('+ 30 days');
 
@@ -36,30 +36,33 @@ $fecha_vencimiento_sugerida->modify('+ 30 days');
         <div id="breadcrumb"></div>
     </div>
     <div class="container-fluid">
-            <hr>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="widget-box">
-                        <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
-                            <h5>Datos del banner</h5>
-                        </div>
-                        <div class="widget-content nopadding">
+        <hr>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>Datos del banner</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <div class="container">
 
-                            <form action="<?php echo base_url().'index.php/admin/actualizar_banner_header'?>" method="post" class="form-horizontal">
-                                <div class="control-group">
-                                    <label class="control-label">ID :</label>
-                                    <div class="controls">
-                                        <input type="text" class="span11" value=""
-                                               id="id" name="id" readonly/>
+                            <form action="<?php echo base_url() . 'index.php/admin/actualizar_banner_header' ?>"
+                                  method="post" class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label for="id" class="col-sm-2 control-label">ID :</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" value="" id="id" name="id"/>
                                     </div>
                                 </div>
-                                <div class="control-group">
-                                    <label class="control-label">Fecha:</label>
-                                    <div class="controls">
-                                        <input type="text" class="span11" value="" id="fecha" name="fecha"
-                                               readonly />
+                                <div class="form-group">
+                                    <label for="id" class="col-sm-2 control-label">Fecha :</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" value="" id="fecha" name="fecha"
+                                               readonly/>
                                     </div>
                                 </div>
+
                                 <div class="control-group">
                                     <label class="control-label">Titulo</label>
                                     <div class="controls">
@@ -91,8 +94,10 @@ $fecha_vencimiento_sugerida->modify('+ 30 days');
                                 <div class="control-group">
                                     <label class="control-label">Vencimiento</label>
                                     <div class="controls">
-                                        <input type="text" data-date="<?php echo $fecha_vencimiento_sugerida->format('Y-m-d')?>"
-                                               data-date-format="yyyy-mm-dd" value="<?php echo $fecha_vencimiento_sugerida->format('Y-m-d')?>"
+                                        <input type="text"
+                                               data-date="<?php echo $fecha_vencimiento_sugerida->format('Y-m-d') ?>"
+                                               data-date-format="yyyy-mm-dd"
+                                               value="<?php echo $fecha_vencimiento_sugerida->format('Y-m-d') ?>"
                                                class="datepicker span11" id="vencimiento" name="vencimiento">
                                         <span class="help-block">Formato de fecha  (aaaa-mm-dd)</span></div>
                                 </div>
@@ -113,8 +118,9 @@ $fecha_vencimiento_sugerida->modify('+ 30 days');
                         </div>
                     </div>
                 </div>
-
             </div>
+
+        </div>
     </div>
 </div>
 </div>
@@ -129,7 +135,6 @@ $fecha_vencimiento_sugerida->modify('+ 30 days');
 <script src="<?php echo base_url() ?>ui/admin/js/masked.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.form_common.js"></script>
-
 
 
 <?php $this->stop() ?>
