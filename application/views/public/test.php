@@ -23,6 +23,20 @@
     <?php
 //constuccion de campos de buscador
 
+    //PREDIO
+    $predio_carro_select = array(
+        'name' => 'predio_carro',
+        'id' => 'predio_carro',
+        'class' => 'browser-default',
+    );
+
+    $predio_carro_select_options = array(
+        'TODOS' => 'TODOS',
+    );
+    foreach ($predios->result() as $predio) {
+        $predio_carro_select_options[$predio->id_predio_virtual] = $predio->prv_nombre;
+    }
+
 //UBICACION
     $ubicacion_carro_select = array(
         'name' => 'ubicacion_carro',
@@ -131,6 +145,7 @@
     ?>
     <section id="homeCarros">
         <div class="container">
+
             <!--row para incluir buscador-->
             <div class="row">
                 <div class="col m3 s12">
@@ -175,7 +190,7 @@
                                                 <div class="row">
                                                     <div class=" s12">
                                                         <label for="tipo_carro">Predio </label>
-                                                        <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, $s_ubicacion) ?>
+                                                        <?php echo form_dropdown($predio_carro_select, $predio_carro_select_options, $s_ubicacion) ?>
                                                     </div>
                                                 </div>
                                                 <div class="row">
