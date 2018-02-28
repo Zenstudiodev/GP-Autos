@@ -15,6 +15,8 @@ $s_ubicacion = $datos_buscador['ubicacion'];
 
 $s_tipo = $datos_buscador['tipo'];
 $s_marca = $datos_buscador['marca'];
+
+
 $s_linea = $datos_buscador['linea'];
 
 //constuccion de campos de buscador
@@ -126,6 +128,19 @@ $origen_carro_select_options = array(
     'AGENCIA' => 'AGENCIA',
     'RODADO' => 'RODADO',
 );
+
+//MONEDA.
+$moneda_carro_select = array(
+    'name' => 'moneda_carro',
+    'id' => 'moneda_carro',
+    'class' => 'browser-default',
+);
+$moneda_carro_select_options = array(
+    'TODOS' => 'TODOS',
+    'Q' => 'Q',
+    '$' => '$',
+);
+
 //UBICACIONES
 $ubicaciones_carro_select = array(
     'name' => 'ubicacion',
@@ -198,7 +213,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                     <p class="text-right"><i class="fa fa-phone"></i>
                         (+502) 2460-7261
                         <a href="https://www.facebook.com/gpautosprediovirtual/" target="_blank"><i
-                                    class="fa fa-facebook-official fa-2x"></i></a>
+                                class="fa fa-facebook-official fa-2x"></i></a>
                     </p>
                 </div>
             </div>
@@ -221,7 +236,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                     <a href="<?php echo base_url() ?>index.php/Productos/financiamiento"
                        class="collection-item black-text">
                         Financiamiento <i
-                                class="material-icons  secondary-content orange-text darken-3">aattach_money</i>
+                            class="material-icons  secondary-content orange-text darken-3">aattach_money</i>
                     </a>
                     <a href="<?php echo base_url() ?>index.php/Productos/seguros" class="collection-item black-text">
                         Seguros <i class="material-icons  secondary-content orange-text darken-3">assignment</i>
@@ -310,7 +325,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
 <div id="buscado_global">
     <div id="floating_menu" class="orange darken-3">
         <a href="#" data-activates="slide-out" class="button-collapse white-text ">Buscar <i
-                    class="material-icons dp48">search</i></a>
+                class="material-icons dp48">search</i></a>
 
     </div>
     <ul id="slide-out" class="side-nav">
@@ -349,25 +364,16 @@ foreach ($ubicaciones->result() as $ubicacion) {
                                 <div class="row">
                                     <div class=" s12">
                                         <label for="tipo_carro">Predio </label>
-                                        <?php echo form_dropdown($predio_carro_select, $predio_carro_select_options, $s_ubicacion) ?>
+                                        <?php echo form_dropdown($predio_carro_select, $predio_carro_select_options) ?>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class=" s12">
                                         <label for="tipo_carro">Ubicacion </label>
-                                        <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, $s_ubicacion) ?>
+                                        <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options) ?>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class=" s12">
-                                        <label for="tipo_carro">Moneda </label>
-                                        <select name="ubicacion_carro" id="ubicacion_carro"
-                                                class="browser-default">
-                                            <option value="Q">Q</option>
-                                            <option value="$">$</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div class="row">
                                     <div class=" s12">
                                         <label for="tipo_carro">Tipo de Vehiculo</label>
@@ -377,7 +383,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                                 <div class="row">
                                     <div class=" col s12">
                                         <label for="tipo_carro">Marca</label>
-                                        <?php echo form_dropdown($marca_carro_select, $marca_carro_select_options, $s_marca) ?>
+                                        <?php echo form_dropdown($marca_carro_select, $marca_carro_select_options) ?>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -417,6 +423,12 @@ foreach ($ubicaciones->result() as $ubicacion) {
                             <div class="collapsible-header"><i class="material-icons">attach_money</i>Precio
                             </div>
                             <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="tipo_carro">Moneda</label>
+                                        <?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options) ?>
+                                    </div>
+                                </div>
                                 <div class="row">
 
                                     <p id="p_carro"></p>
@@ -504,7 +516,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                 <div class="fb-page" data-href="https://www.facebook.com/gpautosprediovirtual/" data-small-header="true"
                      data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
                     <blockquote cite="https://www.facebook.com/gpautosprediovirtual/" class="fb-xfbml-parse-ignore"><a
-                                href="https://www.facebook.com/gpautosprediovirtual/">GP Autos</a></blockquote>
+                            href="https://www.facebook.com/gpautosprediovirtual/">GP Autos</a></blockquote>
                 </div>
             </div>
         </div>
@@ -541,9 +553,17 @@ foreach ($ubicaciones->result() as $ubicacion) {
 <?php echo $this->section('js_p') ?>
 <!-- JS personalizado -->
 <script>
-    var buscador_ubicacion;
-    var marca;
-    var tipo;
+    var filtro_predio;
+    var filtro_ubicacion;
+    var filtro_marca;
+    var filtro_tipo;
+    var filtro_linea;
+    var filtro_transmision;
+    var filtro_combustible;
+    var filtro_origen;
+    var filtro_moneda;
+    var filtro_precio;
+    var filtro_modelo;
 
     //precio carro
     var precioCarroSlider;
@@ -636,6 +656,9 @@ foreach ($ubicaciones->result() as $ubicacion) {
     });
 
     $(document).ready(function () {
+
+
+
         // Initialize side buscador
         $('.button-collapse').sideNav({
             menuWidth: 310, // Default is 300
@@ -648,17 +671,28 @@ foreach ($ubicaciones->result() as $ubicacion) {
             }, // A function to be called when sideNav is closed
         });
 
-        marca = $("#marca_carro").val();
-        tipo = $("#tipo_carro").val();
+        $('.collapsible').collapsible({
+            accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            onOpen: function (el) {
+                console.log(el);
+            }, // Callback for Collapsible open
+            onClose: function (el) {
+                console.log('Closed');
+            } // Callback for Collapsible close
+        });
+
+
+        filtro_marca = '<?php echo $datos_buscador['marca']; ?>';
+        filtro_tipo = $("#tipo_carro").val();
 
         //Actualizar marcas
-        $('#marca_carro option').remove();
-        marca = $(this).val();
-        tipo = $("#tipo_carro").val();
+        //$('#marca_carro option').remove();
+        //filtro_marca = $(this).val();
+        filtro_tipo = $("#tipo_carro").val();
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
+            url: '<?php echo base_url()?>index.php/Carro/marcas?filtro_tipo=' + filtro_tipo,
             success: function (data) {
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
@@ -668,36 +702,57 @@ foreach ($ubicaciones->result() as $ubicacion) {
             }
         });
 
+        filtro_predio = '<?php echo $datos_buscador['predio']; ?>';
+
+        filtro_ubicacion = '<?php echo $datos_buscador['ubicacion']; ?>';
+        filtro_transmision = '<?php echo $datos_buscador['transmision']; ?>';
+        filtro_combustible = '<?php echo $datos_buscador['combustible']; ?>';
+        filtro_origen = '<?php echo $datos_buscador['origen']; ?>';
+        filtro_moneda = '<?php echo $datos_buscador['moneda']; ?>';
+
+        //filtro_precio = '<?php echo $datos_buscador['precio']; ?>';
+        //filtro_modelo = '<?php echo $datos_buscador['modelo']; ?>';
+
+        //asignar valores de session a formulario de buscador
+        $("#predio_carro").val(filtro_predio);
+        $("#ubicacion_carro").val(filtro_ubicacion);
+        console.log('marca' + filtro_marca);
+        $("#marca_carro").val(filtro_marca);
+
+
+        console.log('cargado de session ' + filtro_predio + ' - ' + filtro_transmision + ' - ' + filtro_combustible + ' - ' + filtro_origen + ' - ' + filtro_moneda);
 
     });
     //submit form
     $("#filtro_form").submit(function (event) {
         event.preventDefault();
         //alert( "Handler for .submit() called." );
-        buscador_ubicacion = $("#ubicacion_carro").val();
+        filtro_predio = $("#predio_carro").val();
+        filtro_ubicacion = $("#ubicacion_carro").val();
         buscador_tipo = $("#tipo_carro").val();
         buscador_marca = $('#marca_carro').val();
-        buscador_linea = $('#linea_carro').val();
+        filtro_linea = $('#linea_carro').val();
         buscador_transmision = $('#transmision_carro').val();
         buscador_combustible = $("#combustible_carro").val();
         buscador_origen = $("#origen_carro").val();
+        buscador_moneda = $("#moneda_carro").val();
         buscador_precio_min = $("#p_carro_min").val();
         buscador_precio_max = $("#p_carro_max").val();
         buscador_a_min = $("#a_carro_min").val();
         buscador_a_max = $("#a_carro_max").val();
         var filtros;
-        filtros = '<?php echo base_url()?>' + 'index.php/home/test_filtro/' + buscador_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + buscador_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
+        filtros = '<?php echo base_url()?>' + 'index.php/home/test_filtro/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
         window.location.assign(filtros);
     });
     //Actualizar marcas
     $("#tipo_carro").change(function (e) {
         $('#marca_carro option').remove();
-        marca = $(this).val();
-        tipo = $("#tipo_carro").val();
+        filtro_marca = $(this).val();
+        filtro_tipo = $("#tipo_carro").val();
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
+            url: '<?php echo base_url()?>index.php/Carro/marcas?filtro_tipo=' + filtro_tipo,
             success: function (data) {
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
@@ -710,19 +765,19 @@ foreach ($ubicaciones->result() as $ubicacion) {
     //Actualizar lineas
     $("#marca_carro").change(function (e) {
         $('#linea_carro option').remove();
-        marca = $(this).val();
-        tipo = $("#tipo_carro").val();
+        filtro_marca = $(this).val();
+        filtro_tipo = $("#tipo_carro").val();
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+            url: '<?php echo base_url()?>index.php/Carro/lineas?filtro_tipo=' + filtro_tipo + '&filtro_marca=' + filtro_marca,
             success: function (data) {
                 $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
                     $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
                 });
                 $('select').material_select();
-                $("#linea_carro").val(buscador_linea);
+                $("#linea_carro").val(filtro_linea);
             }
         });
     });

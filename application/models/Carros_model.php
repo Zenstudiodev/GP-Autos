@@ -418,7 +418,7 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
+	//Main buscador
 	function numero_registros_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $p_min, $p_max, $a_min, $a_max)
 	{
 		//$this->db->from('carro');
@@ -480,7 +480,6 @@ class Carros_model extends CI_Model
 		/*$query = $this->db->get('carro');
 		return $query->num_rows();*/
 	}
-
 	function resultado_busqueda_paginacion($ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $p_min, $p_max, $a_min, $a_max, $limit, $start)
 	{
 		$this->db->where('crr_estatus', 'Alta');
@@ -541,8 +540,148 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+    //Main buscador test
+    function numero_registros_busqueda_paginacion_test($predio,$ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $moneda, $p_min, $p_max, $a_min, $a_max)
+    {
+        //$this->db->from('carro');
+        $this->db->where('crr_estatus', 'Alta');
+        $this->db->where('crr_estado', 'Usado');
 
-	//Predio virtual
+        $ubicacion     = urldecode($ubicacion);
+        $tipo_vehiculo = urldecode($tipo_vehiculo);
+        $marca         = urldecode($marca);
+        $linea         = urldecode($linea);
+
+        if ($predio != 'TODOS')
+        {
+            $this->db->where('id_predio_virtual', $predio);
+        }
+        if ($ubicacion != 'TODOS')
+        {
+            $this->db->where('id_ubicacion', $ubicacion);
+        }
+        $this->db->where('id_tipo_carro', $tipo_vehiculo);
+
+        if ($marca != 'TODOS')
+        {
+            $this->db->where('id_marca', $marca);
+        }
+        if ($linea != 'TODOS')
+        {
+            $this->db->where('id_linea', $linea);
+        }
+        if ($transmision != 'TODOS')
+        {
+            $this->db->where('crr_transmision', $transmision);
+        }
+        if ($combustible != 'TODOS')
+        {
+            $this->db->where('crr_combustible', $combustible);
+        }
+        if ($origen != 'TODOS')
+        {
+            $this->db->where('crr_origen', $origen);
+        }
+        if ($moneda != 'TODOS')
+        {
+            $this->db->where('crr_moneda_precio', $moneda);
+        }
+
+        if ($p_min != null)
+        {
+            $this->db->where('crr_precio >', $p_min);
+        }
+        if ($p_max != null)
+        {
+            $this->db->where('crr_precio <', $p_max);
+        }
+        $this->db->order_by('crr_modelo', 'DESC');
+
+        if ($a_min != null)
+        {
+            $this->db->where('crr_modelo  >=', $a_min);
+        }
+        if ($a_max != null)
+        {
+            $this->db->where('crr_modelo  <=', $a_max);
+        }
+
+        return $this->db->count_all_results('carro');
+        /*$query = $this->db->get('carro');
+        return $query->num_rows();*/
+    }
+    function resultado_busqueda_paginacion_test($predio,$ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $moneda, $p_min, $p_max, $a_min, $a_max, $limit, $start)
+    {
+        $this->db->where('crr_estatus', 'Alta');
+        $this->db->where('crr_estado', 'Usado');
+        $ubicacion     = urldecode($ubicacion);
+        $tipo_vehiculo = urldecode($tipo_vehiculo);
+        $marca         = urldecode($marca);
+        $linea         = urldecode($linea);
+
+        if ($predio != 'TODOS')
+        {
+            $this->db->where('id_predio_virtual', $predio);
+        }
+        if ($ubicacion != 'TODOS')
+        {
+            $this->db->where('id_ubicacion', $ubicacion);
+        }
+        $this->db->where('id_tipo_carro', $tipo_vehiculo);
+
+        if ($marca != 'TODOS')
+        {
+            $this->db->where('id_marca', $marca);
+        }
+        if ($linea != 'TODOS')
+        {
+            $this->db->where('id_linea', $linea);
+        }
+        if ($transmision != 'TODOS')
+        {
+            $this->db->where('crr_transmision', $transmision);
+        }
+        if ($combustible != 'TODOS')
+        {
+            $this->db->where('crr_combustible', $combustible);
+        }
+        if ($origen != 'TODOS')
+        {
+            $this->db->where('crr_origen', $origen);
+        }
+        if ($moneda != 'TODOS')
+        {
+            $this->db->where('crr_moneda_precio', $moneda);
+        }
+
+        if ($p_min != null)
+        {
+            $this->db->where('crr_precio >', $p_min);
+        }
+        if ($p_max != null)
+        {
+            $this->db->where('crr_precio <', $p_max);
+        }
+        $this->db->order_by('crr_modelo', 'DESC');
+        $this->db->order_by('crr_precio', 'ASC');
+
+        if ($a_min != null)
+        {
+            $this->db->where('crr_modelo  >=', $a_min);
+        }
+        if ($a_max != null)
+        {
+            $this->db->where('crr_modelo  <=', $a_max);
+        }/**/
+        $this->db->limit($limit, $start);
+
+        $query = $this->db->get('carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+
+    //Predio virtual
 	function get_predio_number_result($predio_id)
 	{
 		$this->db->where('id_predio_virtual', $predio_id);
