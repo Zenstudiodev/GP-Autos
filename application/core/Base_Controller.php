@@ -15,4 +15,5 @@ class Base_Controller extends CI_Controller
         $this->templates = new League\Plates\Engine(APPPATH."/views");
     }
 
+
 }

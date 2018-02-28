@@ -424,10 +424,12 @@ class Carros_model extends CI_Model
 		//$this->db->from('carro');
 		$this->db->where('crr_estatus', 'Alta');
 		$this->db->where('crr_estado', 'Usado');
+
 		$ubicacion     = urldecode($ubicacion);
 		$tipo_vehiculo = urldecode($tipo_vehiculo);
 		$marca         = urldecode($marca);
 		$linea         = urldecode($linea);
+
 		if ($ubicacion != 'TODOS')
 		{
 			$this->db->where('id_ubicacion', $ubicacion);

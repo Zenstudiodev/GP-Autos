@@ -296,6 +296,7 @@ i.small {
     left: 0;
     border-radius:0px 10px 10px 0px;
     padding: 5px;
+    z-index: 5000;
 }
 
 /*Pagination*/

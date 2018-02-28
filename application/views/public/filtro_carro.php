@@ -230,6 +230,17 @@ foreach ($ubicaciones->result() as $ubicacion)
                                 <div class="collapsible-header"><i class="material-icons">attach_money</i>Precio
                                 </div>
                                 <div class="collapsible-body">
+                                    <!--<div class="row">
+                                        <div class="col s12">
+                                            <label for="tipo_carro">Moneda</label>
+                                            <select name="ubicacion_carro" id="ubicacion_carro" class="browser-default"  required>
+                                                <option disabled selected value> -- Seleccione una opción -- </option>
+                                                <option value="TODOS">TODOS</option>
+                                                <option value="q">Q</option>
+                                                <option value="$">$</option>
+                                            </select>
+                                        </div>
+                                    </div>-->
                                     <div class="row">
 
                                         <p id="p_carro"></p>
@@ -592,7 +603,11 @@ foreach ($ubicaciones->result() as $ubicacion)
 
         //submit form
         $( "#filtro_form" ).submit(function( event ) {
+
+
+
             event.preventDefault();
+            //$('#filtro_form')[0].checkValidity();
             //alert( "Handler for .submit() called." );
 
             buscador_ubicacion = $("#ubicacion_carro").val();
