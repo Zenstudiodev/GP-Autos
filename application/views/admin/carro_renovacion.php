@@ -58,13 +58,18 @@
 
 
 
+                            <?php
+                            $fecha = new DateTime('2018-03-30');
+                            //$fecha->modify('+30 day');
+                            echo $fecha->format('Y-m-d');
+                            ?>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="tabla_carros" >
                                     <thead>
                                     <tr>
                                         <th>Acciones</th>
                                         <th>Codigo</th>
-                                        <th>Tipo</th>
+                                        <th>Telefono</th>
                                         <th>Marca</th>
                                         <th>Linea</th>
                                         <th>Modelo</th>
@@ -78,7 +83,7 @@
                                     <tr>
                                         <th>Acciones</th>
                                         <th>Codigo</th>
-                                        <th>Tipo</th>
+                                        <th>Telefono</th>
                                         <th>Marca</th>
                                         <th>Linea</th>
                                         <th>Modelo</th>
@@ -90,13 +95,18 @@
                                     <tbody>
 									<?php
 
+
 									foreach ($carros->result() as $carro)
 									{
-										?>
+
+                                        $fecha_vencimiento = new DateTime($carro->crr_vencimiento);
+                                        if($fecha > $fecha_vencimiento){?>
+
                                         <tr class="gradeX">
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="...">
                                                     <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/reactivar_carro/'. $carro->crr_codigo?>"><i class="icon-calendar"></i> Renovar</a>
+                                                    <a class="btn btn-danger btn-xs" href="<?php echo base_url().'index.php/admin/dar_de_baja_btn/'. $carro->crr_codigo?>"><i class="icon-remove"></i> Dar de baja</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -107,7 +117,7 @@
 
                                             <td>
 
-												<?php echo $carro->id_tipo_carro ?>
+												<?php echo $carro->crr_contacto_telefono ?>
 
                                             </td>
                                             <td><?php echo $carro->id_marca ?></td>
@@ -117,6 +127,7 @@
                                             <td> <?php echo $carro->crr_vencimiento ?></td>
 
                                         </tr>
+                                        <?php }// en if fecha mayor ?>
 									<?php } ?>
                                     </tbody>
                                 </table>

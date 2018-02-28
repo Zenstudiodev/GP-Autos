@@ -177,6 +177,14 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+	function listarCarro_individuales_admin(){
+        $this->db->where('crr_estatus', 'Alta');
+        $this->db->where('id_predio_virtual', '0');
+        $query = $this->db->get('carro');
+
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 	function ListarCarros_baja_admin()
 	{
 		$this->db->where('crr_estatus', 'Baja');
@@ -584,6 +592,9 @@ class Carros_model extends CI_Model
         }
         if ($moneda != 'TODOS')
         {
+            if($moneda == 'D'){
+                $moneda = '$';
+            }
             $this->db->where('crr_moneda_precio', $moneda);
         }
 
@@ -651,6 +662,9 @@ class Carros_model extends CI_Model
         }
         if ($moneda != 'TODOS')
         {
+            if($moneda == 'D'){
+                $moneda = '$';
+            }
             $this->db->where('crr_moneda_precio', $moneda);
         }
 

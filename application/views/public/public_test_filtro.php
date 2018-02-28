@@ -243,11 +243,7 @@ $CI =& get_instance();
                         <p>No hay ningun vehículo con los crirterios de su busqueda</p>
                     </blockquote>
                 <?php } ?>
-
-
             </div>
-
-
 
             <?php echo $links; ?>
 
@@ -371,8 +367,6 @@ $CI =& get_instance();
             $("#p_carro_max").val(buscador_precio_max);
             $("#a_carro_min").val(buscador_a_min);
             $("#a_carro_max").val(buscador_a_max);
-
-
         });
         //realizamos accines luego de que termina el ajax
         $(document).ajaxComplete(function () {
@@ -383,9 +377,6 @@ $CI =& get_instance();
 
         //submit form
         $( "#filtro_form" ).submit(function( event ) {
-
-
-
             event.preventDefault();
             //$('#filtro_form')[0].checkValidity();
             //alert( "Handler for .submit() called." );
@@ -431,7 +422,6 @@ $CI =& get_instance();
                 }
             });
         });
-
         //Actualizar lineas
         $("#marca_carro").change(function (e) {
             $('#linea_carro option').remove();
@@ -451,7 +441,6 @@ $CI =& get_instance();
                 }
             });
         });
-
 
     </script>
 <?php $this->stop() ?>

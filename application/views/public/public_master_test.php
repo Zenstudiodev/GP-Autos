@@ -13,11 +13,10 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
 
 $s_ubicacion = $datos_buscador['ubicacion'];
 
-$s_tipo = $datos_buscador['tipo'];
+$s_tipo = urldecode($datos_buscador['tipo']);
 $s_marca = $datos_buscador['marca'];
-
-
 $s_linea = $datos_buscador['linea'];
+$s_moneda = $datos_buscador['moneda'];
 
 //constuccion de campos de buscador
 
@@ -138,7 +137,7 @@ $moneda_carro_select = array(
 $moneda_carro_select_options = array(
     'TODOS' => 'TODOS',
     'Q' => 'Q',
-    '$' => '$',
+    'D' => '$',
 );
 
 //UBICACIONES
@@ -357,10 +356,10 @@ foreach ($ubicaciones->result() as $ubicacion) {
                 </form>
                 <form id="filtro_form">
                     <ul class="collapsible" data-collapsible="expandable">
-                        <li>
-                            <div class="collapsible-header active"><i class="material-icons">directions_car</i>Vehículo
+                        <li id="filtros_vehiculo">
+                            <div class="collapsible-header active" id="filtros_vehiculo_h"><i class="material-icons">directions_car</i>Vehículo
                             </div>
-                            <div class="collapsible-body">
+                            <div class="collapsible-body" id="filtros_vehiculo_b">
                                 <div class="row">
                                     <div class=" s12">
                                         <label for="tipo_carro">Predio </label>
@@ -426,7 +425,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                                 <div class="row">
                                     <div class="col s12">
                                         <label for="tipo_carro">Moneda</label>
-                                        <?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options) ?>
+                                        <?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options, $s_moneda) ?>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -664,7 +663,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             menuWidth: 310, // Default is 300
             edge: 'right', // Choose the horizontal origin
             closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            draggable: true, // Choose whether you can drag to open on touch screens,
+            draggable: false, // Choose whether you can drag to open on touch screens,
             onOpen: function (el) {
             }, // A function to be called when sideNav is opened
             onClose: function (el) {
@@ -674,7 +673,8 @@ foreach ($ubicaciones->result() as $ubicacion) {
         $('.collapsible').collapsible({
             accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
             onOpen: function (el) {
-                console.log(el);
+                console.log($(this).attr('id'));
+
             }, // Callback for Collapsible open
             onClose: function (el) {
                 console.log('Closed');
@@ -721,6 +721,8 @@ foreach ($ubicaciones->result() as $ubicacion) {
 
 
         console.log('cargado de session ' + filtro_predio + ' - ' + filtro_transmision + ' - ' + filtro_combustible + ' - ' + filtro_origen + ' - ' + filtro_moneda);
+
+
 
     });
     //submit form

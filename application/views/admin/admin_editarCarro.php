@@ -22,13 +22,24 @@ $carro = $carro->row();
 $fecha_d = New DateTime();
 
 //fecha
+
+$fecha_creacion ='';
+
+if($carro->crr_vencimiento =='0000-00-00'){
+$d = new DateTime();
+	$fecha_creacion = $d->format('Y-m-d');
+}else{
+	$fecha_creacion = $carro->crr_fecha;
+}
+
+
 $fecha = array(
 	'type'        => 'text',
 	'name'        => 'fecha',
 	'id'          => 'fecha',
 	'class'       => 'span11 form-control',
 	'placeholder' => 'Fecha',
-	'value'       => $fecha_d->format('Y-m-d'),
+	'value'       => $fecha_creacion,
 	'readonly'    => 'readonly',
 	'required'    => 'required'
 );
@@ -41,7 +52,7 @@ $vencimiento = array(
 	'data-date-format' => 'yyyy-mm-dd',
 	'class'            => 'form-control',
 	'placeholder'      => 'Vencimiento',
-	'value'            => $fecha_d->format('Y-m-d'),
+	'value'            => $carro->crr_vencimiento,
 	'required'         => 'required',
     'readonly'    => 'readonly',
 );

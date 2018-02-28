@@ -38,6 +38,7 @@
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class=""><a href="<?php echo base_url()?>/admin"><i class="icon-ok"></i> Carros activos</a></li>
                                 <li role="presentation" class="active"><a href="<?php echo base_url()?>/admin/carros_de_baja"><i class="icon-remove"></i> Carros Inactivos</a></li>
+                                <li role="presentation" class="active"><a href="<?php echo base_url()?>/admin/renovaciones_carros"><i class="icon-remove"></i> Renovaciones</a></li>
                             </ul>
                         </div>
                         <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>

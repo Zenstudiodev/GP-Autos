@@ -41,6 +41,15 @@ class Admin extends Base_Controller
 		}
 		echo $this->templates->render('admin/carro_baja', $data);
 	}
+	public function renovaciones_carros(){
+        $data           = compobarSesion();
+        $data['carros'] = $this->Carros_model->listarCarro_individuales_admin();
+        if ($this->session->flashdata('mensaje'))
+        {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        echo $this->templates->render('admin/carro_renovacion', $data);
+    }
 
 	public function editarCarro()
 	{
