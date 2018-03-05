@@ -14,19 +14,13 @@ class Home extends Base_Controller
         parent::__construct();
         $this->load->model('Carros_model');
         $this->load->model('Banners_model');
-        $this->load->helper('text');
         $this->load->library("pagination");
     }
 
     public function index()
     {
-        header("Cache-Control: no-cache, must-revalidate");
-        $data['carros'] = $this->Carros_model->get_carros_frontPage();
-        $data['tipos'] = $this->Carros_model->tipos_vehiculo();
-        $data['marca'] = $this->Carros_model->marca_vehiculo();
-        $data['transmisiones'] = $this->Carros_model->get_transmision();
-        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
-        $data['ubicaciones'] = $this->Carros_model->ubicaciones_vehiculo();
+        $data = cargar_componentes_buscador();
+        $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
 
 
@@ -36,53 +30,11 @@ class Home extends Base_Controller
 
     public function test()
     {
-        header("Cache-Control: no-cache, must-revalidate");
-
-        ////////
-
-        $data['s_ubicacion'] = '';
-        $data['s_tipo'] = '';
-        $data['s_marca'] = '';
-        $data['s_linea'] = '';
-        $data['s_transmision'] = '';
-        $data['s_combustible'] = '';
-        $data['s_origen'] = '';
-        $data['s_precio'] = '';
-        $data['s_modelo'] = '';
-
-        /*$data['datos_buscador'] = array(
-            $data['predios'] => $this->Carros_model->predios(),
-            $data['tipos'] => $this->Carros_model->tipos_vehiculo(),
-            $data['marca'] => $this->Carros_model->tipos_vehiculo(),
-            $data['linea'] => $this->Carros_model->lineas_vehiculo($data['s_tipo'], $data['s_marca']),
-            $data['combustibles'] => $this->Carros_model->combustible_vehiculo(),
-            $data['ubicaciones'] => $this->Carros_model->ubicaciones_vehiculo(),
-            $data['transmisiones'] => $this->Carros_model->get_transmision(),
-        );*/
-
-        $data['predios'] = $this->Carros_model->predios();
-        $data['tipos'] = $this->Carros_model->tipos_vehiculo();
-        $data['ubicaciones'] = $this->Carros_model->ubicaciones_vehiculo();
-        $data['marca'] = $this->Carros_model->marcas_vehiculo($data['s_tipo']);
-        $data['linea'] = $this->Carros_model->lineas_vehiculo($data['s_tipo'], $data['s_marca']);
-        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
-        $data['transmisiones'] = $this->Carros_model->get_transmision();
-
-
-        $ubicacion = $data['s_ubicacion'];
-        $tipo_vehiculo = $data['s_tipo'];
-        $marca = $data['s_marca'];
-        $linea = $data['s_linea'];
-        $transmision = $data['s_transmision'];
-        $combustible = $data['s_combustible'];
-
-
-        $data['carros'] = $this->Carros_model->get_carros_frontPage();
+        $data = cargar_componentes_buscador();
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
 
         echo $this->templates->render('public/test', $data);
-
     }
 
     public function test_filtro()

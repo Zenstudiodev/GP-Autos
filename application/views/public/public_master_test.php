@@ -11,6 +11,26 @@ $CI =& get_instance();
 
 $datos_buscador = $CI->session->userdata('filtros_buscador');
 
+//echo 'data buscador session'.$datos_buscador;
+
+if ($datos_buscador ==''){
+    $datos_buscador = array(
+        'predio'       => 'TODOS',
+        'ubicacion' => 'GUATEMALA',
+        'tipo'   => 'AUTOMOVIL',
+        'marca'      => 'TODOS',
+        'linea'      => 'TODOS',
+        'transmision'      => 'TODOS',
+        'combustible'      => 'TODOS',
+        'origen'      => 'TODOS',
+        'moneda'    => 'TODOS',
+        'precio'      => '0-300000',
+        'modelo'      => '1952-2018',
+    );
+}else{
+    //echo 'datos sesion con datos';
+}
+
 $s_ubicacion = $datos_buscador['ubicacion'];
 
 $s_tipo = urldecode($datos_buscador['tipo']);
@@ -360,12 +380,13 @@ foreach ($ubicaciones->result() as $ubicacion) {
                             <div class="collapsible-header active" id="filtros_vehiculo_h"><i class="material-icons">directions_car</i>Vehículo
                             </div>
                             <div class="collapsible-body" id="filtros_vehiculo_b">
-                                <div class="row">
+                                <!--<div class="row">
                                     <div class=" s12">
                                         <label for="tipo_carro">Predio </label>
-                                        <?php echo form_dropdown($predio_carro_select, $predio_carro_select_options) ?>
+                                        <?php /*echo form_dropdown($predio_carro_select, $predio_carro_select_options) */?>
                                     </div>
-                                </div>
+                                </div>-->
+                                <input type="hidden" value="TODOS" name="predio_carro" id="predio_carro">
                                 <div class="row">
                                     <div class=" s12">
                                         <label for="tipo_carro">Ubicacion </label>

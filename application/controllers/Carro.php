@@ -25,6 +25,7 @@ class Carro extends Base_Controller
 	}
 	public function ver()
 	{
+        $data = cargar_componentes_buscador();
 		//obtenemos el id del carro desde el segmento de url
 		$data['segmento'] = $this->uri->segment(3);
 		if (!$data['segmento'])

@@ -6,7 +6,14 @@
  * Time: 12:45 PM
  */
 $this->layout('public/public_master', [
-	'header_banners'    => $header_banners,
+    'header_banners' => $header_banners,
+    'predios' => $predios,
+    'tipos' => $tipos,
+    'ubicaciones' => $ubicaciones,
+    'marca' => $marca,
+    'linea' => $linea,
+    'transmisiones' => $transmisiones,
+    'combustibles' => $combustibles,
 ]);
 ?>
 <?php $this->start('css_p') ?>
@@ -297,11 +304,5 @@ $this->layout('public/public_master', [
         $('select').material_select();
         $('.modal').modal();
 
-        //BANNER
-        jQuery('#seguros_banners').camera({
-            thumbnails: false,
-            height: '42%',
-            pagination: false
-        });
     </script>
 <?php $this->stop() ?>

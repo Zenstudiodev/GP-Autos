@@ -14,7 +14,10 @@
     'linea' => $linea,
     'transmisiones' => $transmisiones,
     'combustibles' => $combustibles,
-]); ?>
+]);
+
+$CI =& get_instance();
+?>
 
 <?php $this->start('css_p') ?>
 <?php $this->stop() ?>
@@ -31,7 +34,6 @@
 
     <section id="homeCarros">
         <div class="container">
-
             <!--row para incluir buscador-->
             <div class="row">
                 <div class="col m12 s12">

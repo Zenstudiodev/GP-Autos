@@ -6,7 +6,7 @@
  * Time: 12:45 PM
  */
 ?>
-<?php $this->layout('public/public_master_test', [
+<?php $this->layout('public/public_master', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
@@ -151,10 +151,6 @@ $CI =& get_instance();
         <div class="col m12 s12">
             <div class="row">
                 <h1 class="texto_naranja">Resultado de la Busqueda</h1>
-                <pre>
-
-                <?php print_r($CI->session->userdata())?>
-                </pre>
                 <div class="container">
                     <div class="row">
                         <?php echo $links; ?>
@@ -422,25 +418,7 @@ $CI =& get_instance();
                 }
             });
         });
-        //Actualizar lineas
-        $("#marca_carro").change(function (e) {
-            $('#linea_carro option').remove();
-            marca = $(this).val();
-            tipo = $("#tipo_carro").val();
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
-                success: function (data) {
-                    $('#linea_carro').append('<option value="TODOS">TODOS</option>');
-                    $.each(data, function (key, value) {
-                        $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
-                    });
-                    $('select').material_select();
-                    $("#linea_carro").val(buscador_linea);
-                }
-            });
-        });
+
 
     </script>
 <?php $this->stop() ?>

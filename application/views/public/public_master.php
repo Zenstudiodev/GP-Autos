@@ -5,7 +5,173 @@
  * Date: 1/06/2017
  * Time: 6:58 PM
  */ ?>
+<?php
+$CI =& get_instance();
 
+$datos_buscador = $CI->session->userdata('filtros_buscador');
+
+//echo 'data buscador session'.$datos_buscador;
+
+if ($datos_buscador ==''){
+$datos_buscador = array(
+'predio'       => 'TODOS',
+'ubicacion' => 'GUATEMALA',
+'tipo'   => 'AUTOMOVIL',
+'marca'      => 'TODOS',
+'linea'      => 'TODOS',
+'transmision'      => 'TODOS',
+'combustible'      => 'TODOS',
+'origen'      => 'TODOS',
+'moneda'    => 'TODOS',
+'precio'      => '0-300000',
+'modelo'      => '1952-2018',
+);
+}else{
+//echo 'datos sesion con datos';
+}
+
+$s_ubicacion = $datos_buscador['ubicacion'];
+
+$s_tipo = urldecode($datos_buscador['tipo']);
+$s_marca = $datos_buscador['marca'];
+$s_linea = $datos_buscador['linea'];
+$s_moneda = $datos_buscador['moneda'];
+
+//constuccion de campos de buscador
+
+//PREDIO
+$predio_carro_select = array(
+'name' => 'predio_carro',
+'id' => 'predio_carro',
+'class' => 'browser-default',
+);
+$predio_carro_select_options = array(
+'TODOS' => 'TODOS',
+);
+foreach ($predios->result() as $predio) {
+$predio_carro_select_options[$predio->id_predio_virtual] = $predio->prv_nombre;
+}
+
+//UBICACION
+$ubicacion_carro_select = array(
+'name' => 'ubicacion_carro',
+'id' => 'ubicacion_carro',
+'class' => 'browser-default',
+);
+
+$ubicacion_carro_select_options = array(
+'TODOS' => 'TODOS',
+);
+foreach ($ubicaciones->result() as $ubicacion) {
+$ubicacion_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubicacion;
+}
+
+//TIPO
+$tipo_carro_select = array(
+'name' => 'tipo_carro',
+'id' => 'tipo_carro',
+'class' => 'browser-default',
+);
+$tipo_carro_select_options = array();
+foreach ($tipos->result() as $tipo_carro) {
+$tipo_carro_select_options[$tipo_carro->id_tipo_carro] = $tipo_carro->id_tipo_carro;
+}
+
+
+//MARCA
+$marca_carro_select = array(
+'name' => 'marca_carro',
+'id' => 'marca_carro',
+'class' => 'browser-default',
+);
+$marca_carro_select_options = array(
+'TODOS' => 'TODOS',
+);
+if ($marca) {
+foreach ($marca->result() as $marca_carro) {
+$marca_carro_select_options[$marca_carro->id_marca] = $marca_carro->id_marca;
+}
+}
+
+//LINEA
+$linea_carro_select = array(
+'name' => 'linea_carro',
+'id' => 'linea_carro',
+'class' => 'browser-default'
+);
+$linea_carro_select_options = array(
+'TODOS' => 'TODOS',
+);
+if ($linea) {
+foreach ($linea->result() as $linea_carro) {
+$linea_carro_select_options[$linea_carro->id_linea] = $linea_carro->id_linea;
+}
+}
+
+//TRANSMISION
+$transmision_carro_select = array(
+'name' => 'transmision_carro',
+'id' => 'transmision_carro',
+'class' => 'browser-default',
+);
+$transmision_carro_select_options = array(
+'TODOS' => 'TODOS',
+);
+
+foreach ($transmisiones->result() as $transmision) {
+$transmision_carro_select_options[$transmision->crr_transmision] = $transmision->crr_transmision;
+}
+
+//COMBUSTIBLE
+$combustible_carro_select = array(
+'name' => 'combustible_carro',
+'id' => 'combustible_carro',
+'class' => 'browser-default',
+);
+$combustible_carro_select_options = array(
+'TODOS' => 'TODOS'
+);
+foreach ($combustibles->result() as $combustible) {
+$combustible_carro_select_options[$combustible->nombre] = $combustible->nombre;
+}
+
+//ORIGEN
+$origen_carro_select = array(
+'name' => 'origen_carro',
+'id' => 'origen_carro',
+'class' => 'browser-default',
+);
+$origen_carro_select_options = array(
+'TODOS' => 'TODOS',
+'AGENCIA' => 'AGENCIA',
+'RODADO' => 'RODADO',
+);
+
+//MONEDA.
+$moneda_carro_select = array(
+'name' => 'moneda_carro',
+'id' => 'moneda_carro',
+'class' => 'browser-default',
+);
+$moneda_carro_select_options = array(
+'TODOS' => 'TODOS',
+'Q' => 'Q',
+'D' => '$',
+);
+
+//UBICACIONES
+$ubicaciones_carro_select = array(
+'name' => 'ubicacion',
+'id' => 'ubicacion',
+);
+$ubicaciones_carro_select_options = array(
+'TODOS' => 'TODOS'
+);
+foreach ($ubicaciones->result() as $ubicacion) {
+$ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubicacion;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
@@ -15,8 +181,7 @@
     <meta name="google-site-verification" content="0q-W5K9CGQetDQs6wGTW2416dOQQ5byj4oGA4q11BQU"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>GP - Autos</title>
-	<?php echo $this->section('meta'); ?>
-
+    <?php echo $this->section('meta'); ?>
 
     <!-- Materialize -->
     <!--Import Google Icon Font-->
@@ -34,7 +199,7 @@
     <!--Cameja JS css-->
     <link rel='stylesheet' id='camera-css' href='<?php echo base_url(); ?>/ui/public/css/camera.css' type='text/css'
           media='all'>
-	<?php echo $this->section('css_p'); ?>
+    <?php echo $this->section('css_p'); ?>
     <link href="<?php echo base_url() ?>ui/public/css/style.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>ui/public/css/responsive.css" rel="stylesheet">
 
@@ -111,7 +276,7 @@
             <div class="col s12 m8">
                 <section id="banner">
 
-					<?php if (isset($header_banners)) { ?>
+                    <?php if (isset($header_banners)) { ?>
                         <div id="header_banners" class="carousel slide" data-ride="carousel">
                             <!-- Indicators
 							<ol class="carousel-indicators">
@@ -123,25 +288,24 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
 
-								<?php
-								$start_banner = 0;
-								foreach ($header_banners->result() as $banner)
-								{ ?>
+                                <?php
+                                $start_banner = 0;
+                                foreach ($header_banners->result() as $banner) { ?>
 
 
                                     <div class="item <?php if ($start_banner < 1) {
-										echo 'active';
-									} ?> ">
+                                        echo 'active';
+                                    } ?> ">
                                         <a href="<?php echo $banner->link_bh ?>" target="_blank"
                                            banner_id="<?php echo $banner->id_bh; ?>">
                                             <img src="<?php echo base_url() . $banner->imagen_bh ?>">
                                         </a>
                                     </div>
 
-									<?php $start_banner++ ?>
+                                    <?php $start_banner++ ?>
 
 
-								<?php } ?>
+                                <?php } ?>
                             </div>
 
                             <!-- Controls -->
@@ -158,28 +322,196 @@
                         </div>
 
 
-					<?php } ?>
+                    <?php } ?>
 
 
-					<?php //echo $this->section('banner'); ?>
+                    <?php //echo $this->section('banner'); ?>
                 </section>
             </div>
         </div>
     </div>
 </section>
 
-<?php if ($this->section('home_banner'))
-{
-	echo $this->section('home_banner');
+<?php if ($this->section('home_banner')) {
+    echo $this->section('home_banner');
 } ?>
+
 <div id="inner_top" class="orange darken-1">
 
 </div>
 
+<div id="buscado_global">
+    <div id="floating_menu" class="orange darken-3">
+        <a href="#" data-activates="slide-out" class="button-collapse white-text ">Buscar <i
+                    class="material-icons dp48">search</i></a>
 
+    </div>
+    <ul id="slide-out" class="side-nav">
+        <li>
+            <div id="homeSearchBox">
+                <h4 class="texto_naranja">Buscar</h4>
+                <form method="post" action="<?php echo base_url(); ?>index.php/carro/por_codigo">
+                    <ul class="collapsible" data-collapsible="expandable">
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">directions_car</i>Código
+                            </div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="input_codigo" name="input_codigo" type="text"
+                                               class="validate">
+                                        <label for="input_codigo">Buscar codigo</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <button type="button"
+                                                class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light"
+                                                id="btn_codigo">Buscar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+                <form id="filtro_form">
+                    <ul class="collapsible" data-collapsible="expandable">
+                        <li id="filtros_vehiculo">
+                            <div class="collapsible-header active" id="filtros_vehiculo_h"><i class="material-icons">directions_car</i>Vehículo
+                            </div>
+                            <div class="collapsible-body" id="filtros_vehiculo_b">
+                                <!--<div class="row">
+                                    <div class=" s12">
+                                        <label for="tipo_carro">Predio </label>
+                                        <?php /*echo form_dropdown($predio_carro_select, $predio_carro_select_options) */?>
+                                    </div>
+                                </div>-->
+                                <input type="hidden" value="TODOS" name="predio_carro" id="predio_carro">
+                                <div class="row">
+                                    <div class=" s12">
+                                        <label for="tipo_carro">Ubicacion </label>
+                                        <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options) ?>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class=" s12">
+                                        <label for="tipo_carro">Tipo de Vehiculo</label>
+                                        <?php echo form_dropdown($tipo_carro_select, $tipo_carro_select_options, $s_tipo) ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col s12">
+                                        <label for="tipo_carro">Marca</label>
+                                        <?php echo form_dropdown($marca_carro_select, $marca_carro_select_options) ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col s12">
+                                        <label for="tipo_carro">Linea</label>
+                                        <?php echo form_dropdown($linea_carro_select, $linea_carro_select_options, $s_linea) ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">network_check</i>Caracteristicas
+                            </div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="tipo_carro">Transmision</label>
+                                        <?php echo form_dropdown($transmision_carro_select, $transmision_carro_select_options) ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="tipo_carro">Combustible</label>
+                                        <?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options) ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="tipo_carro">Origen</label>
+                                        <?php echo form_dropdown($origen_carro_select, $origen_carro_select_options) ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">attach_money</i>Precio
+                            </div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="tipo_carro">Moneda</label>
+                                        <?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options, $s_moneda) ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <p id="p_carro"></p>
+                                    <!-- <input id="p_carro" type="number"/>-->
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="p_carro_min" name="p_carro_min" type="number"
+                                               min="0" max="300000" step="1000"
+                                               placeholder="Precio min:"/>
+                                        <label for="icon_prefix">Precio min:</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="p_carro_max" name="p_carro_max" type="number"
+                                               min="0" max="300000" step="1000"
+                                               placeholder="Precio max:"/>
+                                        <label for="icon_prefix">Precio max:</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">date_range</i>Año
+                            </div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <p id="a_carro"></p>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="a_carro_min" name="a_carro_min" type="number"
+                                               min="1952" max="2018"
+                                               placeholder="Del año:"/>
+                                        <label for="icon_prefix">Del año:</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="a_carro_max" name="a_carro_max" type="number"
+                                               min="1952" max="2018"
+                                               placeholder="Al año:"/>
+                                        <label for="icon_prefix">Al año:</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="card ">
+                        <div class="card-action">
+                            <button type="submit"
+                                    class="btn btn-success text-center orange darken-4 waves-effect waves-light">
+                                Buscar
+                            </button>
+                        </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<?php if ($this->section('buscador')) {
+    echo $this->section('buscador');
+} ?>
 <!-- page content -->
 <?php echo $this->section('page_content') ?>
-
 
 <!-- footer content -->
 <footer class="page-footer orange darken-1">
@@ -211,13 +543,10 @@
     <div class="footer-copyright">
         <div class="container">
             © 2017 GP Autos
-
             <div class="right">
                 <a class="grey-text text-lighten-4 " href="#!">Acerca de nosotros</a> |
                 <a class="grey-text text-lighten-4 " href="#!">Contacto</a>
-
             </div>
-
         </div>
     </div>
 </footer>
@@ -243,37 +572,287 @@
 <?php echo $this->section('js_p') ?>
 <!-- JS personalizado -->
 <script>
-    $('.dropdown-button').dropdown({
-            inDuration: 300,
-            outDuration: 225,
-            constrainWidth: false, // Does not change width of dropdown to that of the activator
-            hover: true, // Activate on hover
-            gutter: 0, // Spacing from edge
-            belowOrigin: false, // Displays dropdown below the button
-            alignment: 'left', // Displays dropdown with edge aligned to the left of button
-            stopPropagation: false // Stops event propagation
+    var filtro_predio;
+    var filtro_ubicacion;
+    var filtro_marca;
+    var filtro_tipo;
+    var filtro_linea;
+    var filtro_transmision;
+    var filtro_combustible;
+    var filtro_origen;
+    var filtro_moneda;
+    var filtro_precio;
+    var filtro_modelo;
+
+    //precio carro
+    var precioCarroSlider;
+    var precio_carro;
+    var precio_carro_max;
+    var precio_carro_min;
+
+    //Año carro
+    var aCarroSlider;
+    var a_carro;
+    var a_carro_min;
+    var a_carro_max;
+
+
+    //cambiar valor de inpusts precio y año
+    function setSliderCarroPrecio(i, value) {
+        var r = [null, null];
+        r[i] = value;
+        precioCarroSlider.noUiSlider.set(r);
+    }
+
+    //Precio carro
+    precioCarroSlider = document.getElementById('p_carro');
+    noUiSlider.create(precioCarroSlider, {
+        start: [0, 300000],
+        range: {
+            'min': [0],
+            'max': [300000]
+        },
+        step: 1000,
+        format: wNumb({
+            decimals: 0
+        })
+    });
+    precio_carro_max = document.getElementById('p_carro_min');
+    precio_carro_min = document.getElementById('p_carro_max');
+    precio_carro = [precio_carro_max, precio_carro_min];
+    precioCarroSlider.noUiSlider.on('update', function (values, handle) {
+        precio_carro[handle].value = values[handle];
+    });
+    // Listen to keydown events on the input field.
+    precio_carro.forEach(function (input, handle) {
+        input.addEventListener('change', function () {
+            setSliderCarroPrecio(handle, this.value);
+        });
+    });
+
+    //cambiar valor de inpusts precio y año
+    function setSliderCarroA(i, value) {
+        var r = [null, null];
+        r[i] = value;
+        aCarroSlider.noUiSlider.set(r);
+    }
+
+
+    //Año de carro
+    aCarroSlider = document.getElementById('a_carro');
+    noUiSlider.create(aCarroSlider, {
+        start: [1952, 2018],
+        range: {
+            'min': [1952],
+            'max': [2018]
+        },
+        step: 1,
+        format: wNumb({
+            decimals: 0
+        })
+    });
+    a_carro_max = document.getElementById('a_carro_min');
+    a_carro_min = document.getElementById('a_carro_max');
+    a_carro = [a_carro_max, a_carro_min];
+    aCarroSlider.noUiSlider.on('update', function (values, handle) {
+        a_carro[handle].value = values[handle];
+    });
+    // Listen to keydown events on the input field.
+    a_carro.forEach(function (input, handle) {
+        input.addEventListener('change', function () {
+            setSliderCarroA(handle, this.value);
+        });
+    });
+
+
+    $("#btn_codigo").click(function () {
+        var codigo_carro_a_buscar = $("#input_codigo").val();
+        if (codigo_carro_a_buscar == '') {
+            console.log('codigo vacio ');
+        } else {
+            window.location.href = "<?php echo base_url();?>index.php/Carro/ver/" + codigo_carro_a_buscar;
         }
-    );
+    });
+
+    $(document).ready(function () {
 
 
+
+        // Initialize side buscador
+        $('.button-collapse').sideNav({
+            menuWidth: 310, // Default is 300
+            edge: 'right', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: false, // Choose whether you can drag to open on touch screens,
+            onOpen: function (el) {
+            }, // A function to be called when sideNav is opened
+            onClose: function (el) {
+            }, // A function to be called when sideNav is closed
+        });
+
+        $('.collapsible').collapsible({
+            accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            onOpen: function (el) {
+                //console.log($(this).attr('id'));
+
+            }, // Callback for Collapsible open
+            onClose: function (el) {
+                console.log('Closed');
+            } // Callback for Collapsible close
+        });
+
+
+        filtro_marca = '<?php echo $datos_buscador['marca']; ?>';
+        filtro_tipo = $("#tipo_carro").val();
+
+        //Actualizar marcas
+        //$('#marca_carro option').remove();
+        //filtro_marca = $(this).val();
+        filtro_tipo = $("#tipo_carro").val();
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Carro/marcas?filtro_tipo=' + filtro_tipo,
+            success: function (data) {
+                $('#marca_carro').append('<option value="TODOS">TODOS</option>');
+                $.each(data, function (key, value) {
+                    $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
+                });
+                $('select').material_select();
+            }
+        });
+
+        //cargamos las lineas al cargar el documento
+
+            $('#linea_carro option').remove();
+            marca = filtro_marca;
+            tipo = $("#tipo_carro").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+                success: function (data) {
+                    $('#linea_carro').append('<option value="TODOS">TODOS</option>');
+                    $.each(data, function (key, value) {
+                        $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
+                    });
+                    $('select').material_select();
+                    if(filtro_linea == undefined){
+                        filtro_linea = 'TODOS';
+                    }
+                    $("#linea_carro").val(filtro_linea);
+                    $('select').material_select();
+
+
+                }
+            });
+
+
+        filtro_predio = '<?php echo $datos_buscador['predio']; ?>';
+
+        filtro_ubicacion = '<?php echo $datos_buscador['ubicacion']; ?>';
+        filtro_transmision = '<?php echo $datos_buscador['transmision']; ?>';
+        filtro_combustible = '<?php echo $datos_buscador['combustible']; ?>';
+        filtro_origen = '<?php echo $datos_buscador['origen']; ?>';
+        filtro_moneda = '<?php echo $datos_buscador['moneda']; ?>';
+
+        //filtro_precio = '<?php echo $datos_buscador['precio']; ?>';
+        //filtro_modelo = '<?php echo $datos_buscador['modelo']; ?>';
+
+        //asignar valores de session a formulario de buscador
+        $("#predio_carro").val(filtro_predio);
+        $("#ubicacion_carro").val(filtro_ubicacion);
+        console.log('marca' + filtro_marca);
+        $("#marca_carro").val(filtro_marca);
+
+
+        console.log('cargado de session ' + filtro_predio + ' - ' + filtro_transmision + ' - ' + filtro_combustible + ' - ' + filtro_origen + ' - ' + filtro_moneda);
+
+
+
+    });
+    //submit form
+    $("#filtro_form").submit(function (event) {
+        event.preventDefault();
+        //alert( "Handler for .submit() called." );
+        filtro_predio = $("#predio_carro").val();
+        filtro_ubicacion = $("#ubicacion_carro").val();
+        buscador_tipo = $("#tipo_carro").val();
+        buscador_marca = $('#marca_carro').val();
+        filtro_linea = $('#linea_carro').val();
+        buscador_transmision = $('#transmision_carro').val();
+        buscador_combustible = $("#combustible_carro").val();
+        buscador_origen = $("#origen_carro").val();
+        buscador_moneda = $("#moneda_carro").val();
+        buscador_precio_min = $("#p_carro_min").val();
+        buscador_precio_max = $("#p_carro_max").val();
+        buscador_a_min = $("#a_carro_min").val();
+        buscador_a_max = $("#a_carro_max").val();
+        var filtros;
+        filtros = '<?php echo base_url()?>' + 'index.php/home/test_filtro/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
+        window.location.assign(filtros);
+    });
+    //Actualizar marcas
+    $("#tipo_carro").change(function (e) {
+        console.log('cambio de marcas')
+        $('#marca_carro option').remove();
+        filtro_marca = $(this).val();
+        filtro_tipo = $("#tipo_carro").val();
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Carro/marcas?filtro_tipo=' + filtro_tipo,
+            success: function (data) {
+                $('#marca_carro').append('<option value="TODOS">TODOS</option>');
+                $.each(data, function (key, value) {
+                    $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
+                });
+                $('select').material_select();
+            }
+        });
+    });
+
+    //Actualizar lineas
+    $("#marca_carro").change(function (e) {
+        $('#linea_carro option').remove();
+        marca = $(this).val();
+        tipo = $("#tipo_carro").val();
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+            success: function (data) {
+                $('#linea_carro').append('<option value="TODOS">TODOS</option>');
+                $.each(data, function (key, value) {
+                    $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
+                });
+                $('select').material_select();
+                if(filtro_linea == undefined){
+                    filtro_linea = 'TODOS';
+                }
+                $("#linea_carro").val(filtro_linea);
+                $('select').material_select();
+
+
+            }
+        });
+    });
 </script>
 
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
         a = s.createElement(o),
             m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
     ga('create', 'UA-103355785-4', 'auto');
     ga('send', 'pageview');
-
 </script>
 
 <!-- BEGIN JIVOSITE CODE {literal} -->
@@ -303,9 +882,7 @@
         }
     })();</script>
 <!-- {/literal} END JIVOSITE CODE -->
-
-
-
 </body>
 </html>
+
 

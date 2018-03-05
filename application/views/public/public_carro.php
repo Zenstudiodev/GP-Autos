@@ -6,7 +6,14 @@
  * Time: 7:24 PM
  */
 $this->layout('public/public_master', [
-	'header_banners' => $header_banners,
+    'header_banners' => $header_banners,
+    'predios' => $predios,
+    'tipos' => $tipos,
+    'ubicaciones' => $ubicaciones,
+    'marca' => $marca,
+    'linea' => $linea,
+    'transmisiones' => $transmisiones,
+    'combustibles' => $combustibles,
 ]);
 if($carro){
 $data_carro = $carro->row();

@@ -19,14 +19,17 @@ class Productos extends Base_Controller
         echo $this->templates->render('public/public_seguros');
     }
     public function anunciate(){
+        $data = cargar_componentes_buscador();
 	    $data['header_banners'] = $this->Banners_model->header_banners_activos();
         echo $this->templates->render('public/public_anunciate', $data);
     }
     public function seguros(){
+        $data = cargar_componentes_buscador();
 	    $data['header_banners'] = $this->Banners_model->header_banners_activos();
         echo $this->templates->render('public/public_seguros', $data);
     }
 	public function  financiamiento(){
+        $data = cargar_componentes_buscador();
 		$data['header_banners'] = $this->Banners_model->header_banners_activos();
 		echo $this->templates->render('public/public_financiamiento', $data);
 	}

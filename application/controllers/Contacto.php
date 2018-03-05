@@ -16,6 +16,7 @@ class Contacto extends Base_Controller
 	    $this->load->model('Banners_model');
     }
     public function index(){
+        $data = cargar_componentes_buscador();
 	    $data['header_banners'] = $this->Banners_model->header_banners_activos();
         echo $this->templates->render('public/public_contacto', $data);
     }
