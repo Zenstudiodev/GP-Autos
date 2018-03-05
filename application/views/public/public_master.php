@@ -726,6 +726,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
 
             $('#linea_carro option').remove();
             marca = filtro_marca;
+            console.log('marca: '+ marca)
             tipo = $("#tipo_carro").val();
             $.ajax({
                 type: 'GET',
@@ -744,6 +745,10 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                     $('select').material_select();
 
 
+                },
+                error:function(data){
+                    console.log(data);
+                    $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                 }
             });
 
@@ -762,7 +767,6 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
         //asignar valores de session a formulario de buscador
         $("#predio_carro").val(filtro_predio);
         $("#ubicacion_carro").val(filtro_ubicacion);
-        console.log('marca' + filtro_marca);
         $("#marca_carro").val(filtro_marca);
 
 

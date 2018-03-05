@@ -303,6 +303,5 @@ $this->layout('public/public_master', [
         });
         $('select').material_select();
         $('.modal').modal();
-
     </script>
 <?php $this->stop() ?>

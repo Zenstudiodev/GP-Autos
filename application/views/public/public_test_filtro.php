@@ -297,7 +297,7 @@ $CI =& get_instance();
             $('select').material_select();
 
             //leemos las variables para el buscador
-            buscador_tipo = '<?php echo $s_tipo; ?>';
+            buscador_tipo = '<?php echo urldecode($s_tipo); ?>';
             buscador_marca = '<?php echo urldecode($s_marca);?>';
             buscador_linea = '<?php echo urldecode($s_linea);?>';
             buscador_combustible = '<?php echo urldecode($s_combustible);?>';
