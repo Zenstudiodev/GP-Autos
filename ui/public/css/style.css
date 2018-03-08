@@ -297,6 +297,7 @@ i.small {
     border-radius:0px 10px 10px 0px;
     padding: 5px;
     z-index: 5000;
+    font-size: 1.5rem;
 }
 
 /*Pagination*/

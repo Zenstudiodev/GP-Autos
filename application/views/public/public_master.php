@@ -401,6 +401,11 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                                 </div>
                                 <div class="row">
                                     <div class=" col s12">
+                                        <div id="loading_marca_filter">
+                                            <div class="progress">
+                                                <div class="indeterminate"></div>
+                                            </div>
+                                        </div>
                                         <label for="tipo_carro">Marca</label>
                                         <?php echo form_dropdown($marca_carro_select, $marca_carro_select_options) ?>
                                     </div>
@@ -675,8 +680,8 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
     });
 
     $(document).ready(function () {
-
-
+        //hide loaders
+        $("#loading_marca_filter").hide();
 
         // Initialize side buscador
         $('.button-collapse').sideNav({
@@ -701,9 +706,8 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
             } // Callback for Collapsible close
         });
 
-
-        filtro_marca = '<?php echo $datos_buscador['marca']; ?>';
         filtro_tipo = $("#tipo_carro").val();
+        filtro_marca = '<?php echo $datos_buscador['marca']; ?>';
 
         //Actualizar marcas
         //$('#marca_carro option').remove();
@@ -712,7 +716,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?filtro_tipo=' + filtro_tipo,
+            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
@@ -771,9 +775,6 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
 
 
         console.log('cargado de session ' + filtro_predio + ' - ' + filtro_transmision + ' - ' + filtro_combustible + ' - ' + filtro_origen + ' - ' + filtro_moneda);
-
-
-
     });
     //submit form
     $("#filtro_form").submit(function (event) {
@@ -798,19 +799,25 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
     });
     //Actualizar marcas
     $("#tipo_carro").change(function (e) {
-        console.log('cambio de marcas')
+        console.log('cambio de tipo');
+        $("#loading_marca_filter").show();
         $('#marca_carro option').remove();
-        filtro_marca = $(this).val();
+
+
         filtro_tipo = $("#tipo_carro").val();
+        console.log(filtro_tipo);
+        var options;
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?filtro_tipo=' + filtro_tipo,
+            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
-                    $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
+                    options +='<option value="' + value.id_marca + '">' + value.id_marca + '</option>';
                 });
+                $('#marca_carro').append(options);
+                $("#loading_marca_filter").hide();
                 $('select').material_select();
             }
         });
