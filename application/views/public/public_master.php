@@ -412,6 +412,11 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                                 </div>
                                 <div class="row">
                                     <div class=" col s12">
+                                        <div id="loading_linea_filter">
+                                            <div class="progress">
+                                                <div class="indeterminate"></div>
+                                            </div>
+                                        </div>
                                         <label for="tipo_carro">Linea</label>
                                         <?php echo form_dropdown($linea_carro_select, $linea_carro_select_options, $s_linea) ?>
                                     </div>
@@ -682,6 +687,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
     $(document).ready(function () {
         //hide loaders
         $("#loading_marca_filter").hide();
+        $("#loading_linea_filter").hide();
 
         // Initialize side buscador
         $('.button-collapse').sideNav({
@@ -818,6 +824,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                 });
                 $('#marca_carro').append(options);
                 $("#loading_marca_filter").hide();
+                $("#linea_carro").val('TODOS');
                 $('select').material_select();
             }
         });
@@ -825,6 +832,8 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
 
     //Actualizar lineas
     $("#marca_carro").change(function (e) {
+        var linea_options;
+        $("#loading_linea_filter").show();
         $('#linea_carro option').remove();
         marca = $(this).val();
         tipo = $("#tipo_carro").val();
@@ -835,16 +844,16 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
             success: function (data) {
                 $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
-                    $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
+                    linea_options +='<option value="' + value.id_linea + '">' + value.id_linea + '</option>';
                 });
+                $('#linea_carro').append(linea_options);
                 $('select').material_select();
                 if(filtro_linea == undefined){
                     filtro_linea = 'TODOS';
                 }
                 $("#linea_carro").val(filtro_linea);
                 $('select').material_select();
-
-
+                $("#loading_linea_filter").hide();
             }
         });
     });

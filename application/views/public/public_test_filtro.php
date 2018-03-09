@@ -371,53 +371,6 @@ $CI =& get_instance();
             $('select').material_select();
         });
 
-        //submit form
-        $( "#filtro_form" ).submit(function( event ) {
-            event.preventDefault();
-            //$('#filtro_form')[0].checkValidity();
-            //alert( "Handler for .submit() called." );
-
-            buscador_ubicacion = $("#ubicacion_carro").val();
-            buscador_tipo = $("#tipo_carro").val();
-            buscador_marca = $('#marca_carro').val();
-            buscador_linea = $('#linea_carro').val();
-            buscador_transmision = $('#transmision_carro').val();
-            buscador_combustible= $("#combustible_carro").val();
-            buscador_origen = $("#origen_carro").val();
-            buscador_precio_min = $("#p_carro_min").val();
-            buscador_precio_max = $("#p_carro_max").val();
-            buscador_a_min = $("#a_carro_min").val();
-            buscador_a_max = $("#a_carro_max").val();
-
-            var filtros;
-            filtros = '<?php echo base_url()?>'+'index.php/carro/filtro/'+buscador_ubicacion+'/'+buscador_tipo+'/'+buscador_marca+'/'+buscador_linea+'/'+buscador_transmision+'/'+buscador_combustible+'/'+buscador_origen+'/'+buscador_precio_min+'-'+buscador_precio_max+'/'+buscador_a_min+'-'+buscador_a_max;
-            window.location.assign(filtros);
-        });
-
-
-        //Actualizar marcas
-        $("#tipo_carro").change(function (e) {
-            $('#marca_carro option').remove();
-            marca = $(this).val();
-            tipo = $("#tipo_carro").val();
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
-                success: function (data) {
-                    $('#marca_carro').append('<option value="TODOS">TODOS</option>');
-                    $.each(data, function (key, value) {
-                        $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
-                    });
-                    $('#marca_carro').val('TODOS');
-                    $('#linea_carro').val('TODOS');
-                    $('#combustible_carro').val('TODOS');
-                    $('#origen_carro').val('TODOS');
-
-                    $('select').material_select();
-                }
-            });
-        });
 
 
     </script>
