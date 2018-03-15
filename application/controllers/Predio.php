@@ -32,6 +32,7 @@ class Predio extends Base_Controller
 
 	function ver()
 	{
+        $data = cargar_componentes_buscador();
 		//obtenemos el id del carro desde el segmento de url
 		$data['segmento'] = $this->uri->segment(3);
 		if (!$data['segmento'])
@@ -75,10 +76,6 @@ class Predio extends Base_Controller
 
 
 		$data['carros']       = $this->Carros_model->get_carros_for_predio($data['segmento'],$config["per_page"], $page);
-		$data['tipos']        = $this->Carros_model->tipos_vehiculo();
-		$data['marca']        = $this->Carros_model->marca_vehiculo();
-		$data['combustibles'] = $this->Carros_model->combustible_vehiculo();
-		$data['ubicaciones']  = $this->Carros_model->ubicaciones_vehiculo();
 		$data['predio']       = $this->Predio_model->get_predio_data($data['segmento']);
 		$data['header_banners'] = $this->Banners_model->header_banners_activos();
 		echo $this->templates->render('public/public_predio', $data);

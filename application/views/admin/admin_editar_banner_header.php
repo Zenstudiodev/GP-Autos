@@ -16,7 +16,21 @@ if ($banner_data)
 	'user_id'  => $user_id,
 	'username' => $username,
 	'rol'      => $rol,
-]); ?>
+]);
+
+
+//estado
+$estado_banner         = array(
+    'name'  => 'estado',
+    'id'    => 'estado',
+);
+
+$estado_banner_options = array(
+    'activo' => 'activo',
+    'inactivo' => 'inactivo',
+);
+
+?>
 <?php $this->start('css_p') ?>
 <!--cargamos css personalizado-->
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/select2.css"/>
@@ -115,10 +129,7 @@ if ($banner_data)
                                 <div class="control-group">
                                     <label class="control-label">Estado</label>
                                     <div class="controls">
-                                        <select id="estado" name="estado">
-                                            <option value="activo">Activo</option>
-                                            <option value="inactivo">inactivo</option>
-                                        </select>
+                                        <?php echo form_dropdown($estado_banner, $estado_banner_options, $banner->estado_bh)?>
                                     </div>
                                 </div>
 
@@ -142,7 +153,6 @@ if ($banner_data)
 <script src="<?php echo base_url() ?>ui/admin/js/select2.min.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/bootstrap-colorpicker.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/bootstrap-datepicker.js"></script>
-<script src="<?php echo base_url() ?>ui/admin/js/jquery.toggle.buttons.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/masked.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.form_common.js"></script>

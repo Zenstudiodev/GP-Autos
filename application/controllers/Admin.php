@@ -398,23 +398,30 @@ class Admin extends Base_Controller
 		$data['banner_data'] = $this->Banners_model->banner_header_data($data['id_banner']);
 		echo $this->templates->render('admin/admin_editar_banner_header', $data);
 	}
+	public function actualizar_banner_header(){
+       /* echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
+	    exit();*/
+	    $post_data = array(
+            'id'          => $this->input->post('id'),
+            'titulo'      => $this->input->post('titulo'),
+            'link'        => $this->input->post('link'),
+            'imagen'      => $this->input->post('imagen'),
+            'area'        => $this->input->post('area'),
+            'vencimiento' => $this->input->post('vencimiento'),
+            'estado'      => $this->input->post('estado'),
+        );
+        //print_r($post_data);
+
+        $this->Banners_model->actualizar_banners_header($post_data);
+        redirect(base_url() . 'index.php/admin/banners_header/');
+    }
 
 
 	public function actualizar_banner()
 	{
-		//print_r($_POST);
 
-		$data = array(
-			'nombre'           => $this->input->post('nombre'),
-			'dpi'              => $this->input->post('dpi'),
-			'nit'              => $this->input->post('nit'),
-			'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
-			'celular'          => $this->input->post('celular'),
-			'telefono'         => $this->input->post('telefono'),
-			'email'            => $this->input->post('email'),
-			'direccion'        => $this->input->post('direccion'),
-			'publicidad'       => $this->input->post('publicidad')
-		);
 
 		$post_data = array(
 			'id'          => $this->input->post('id'),

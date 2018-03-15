@@ -254,5 +254,13 @@ class Home extends Base_Controller
         echo $this->templates->render('public/public_test_filtro', $data);
     }
 
+    public function registro(){
+        $data = cargar_componentes_buscador();
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+
+        echo $this->templates->render('public/registro', $data);
+    }
+
 
 }
