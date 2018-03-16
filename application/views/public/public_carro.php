@@ -293,6 +293,64 @@ else
                         <a class="wts_btn" target="_blank" href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: '.$data_carro->id_carro.' Marca: '.$data_carro->id_marca.' Linea: '.$data_carro->id_linea.' Modelo: '.$data_carro->crr_modelo ) ?>">Chat directo <img src="<?php echo  base_url(); ?>ui/public/images/ws_icon.png"></a>
                     </div>
                     <div class="section"></div>
+                    <div class="section">
+                        <!--TODO BOTONES PARA ACCIONES -->
+
+                        <div class="row hide-on-small-only">
+                            <div class="col s12 m3">
+                                <a class="waves-effect waves-light btn orange darken-3 z-depth-3" href="#informacion_carro_modal"><i
+                                            class="fa fa-info left"></i> Pedir información</a>
+                            </div>
+                            <!--<div class="col s12 m3">
+                                <a class="waves-effect waves-light btn orange darken-3 z-depth-3"><i
+                                            class="fa fa-calendar left"></i> Solicitar cita</a>
+                            </div>
+                            <div class="col s12 m3">
+                                <a class="waves-effect waves-light btn orange darken-3 z-depth-3"><i class="fa fa-share left"></i>
+                                    Compartir</a>
+                            </div>
+                            <div class="col s12 m3">
+                                <a class="waves-effect waves-light btn orange darken-3 z-depth-3"><i class="fa fa-filter left"></i>
+                                    Comparar</a>
+                            </div>-->
+                        </div>
+                        <div class="hide-on-med-and-up">
+                            <ul class="collection">
+                                <li class="collection-item">
+                                    <div>
+                                        <a href="#informacion_carro_modal" class="">
+                                            Pedir información
+                                        </a>
+                                        <a href="#informacion_carro_modal" class="secondary-content">
+                                            <i class="fa fa-info left"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <!--<li class="collection-item">
+                                    <div>Solicitar cita
+                                        <a href="#!" class="secondary-content">
+                                            <i class="fa fa-calendar left"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Compartir
+                                        <a href="#!" class="secondary-content">
+                                            <i class="fa fa-share left"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Comparar
+                                        <a href="#!" class="secondary-content">
+                                            <i class="fa fa-filter left"></i>
+                                        </a>
+                                    </div>
+                                </li>-->
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="col s12 m7">
                     <ul id="tabs-swipe-demo" class="tabs">
@@ -644,64 +702,7 @@ else
     </div>
     <div class="divider"></div>
 
-    <div class="section">
-        <!--TODO BOTONES PARA ACCIONES -->
 
-        <div class="row hide-on-small-only">
-            <div class="col s12 m3">
-                <a class="waves-effect waves-light btn orange darken-3 z-depth-3" href="#informacion_carro_modal"><i
-                            class="fa fa-info left"></i> Pedir información</a>
-            </div>
-            <!--<div class="col s12 m3">
-				<a class="waves-effect waves-light btn orange darken-3 z-depth-3"><i
-							class="fa fa-calendar left"></i> Solicitar cita</a>
-			</div>
-			<div class="col s12 m3">
-				<a class="waves-effect waves-light btn orange darken-3 z-depth-3"><i class="fa fa-share left"></i>
-					Compartir</a>
-			</div>
-			<div class="col s12 m3">
-				<a class="waves-effect waves-light btn orange darken-3 z-depth-3"><i class="fa fa-filter left"></i>
-					Comparar</a>
-			</div>-->
-        </div>
-        <div class="hide-on-med-and-up">
-            <ul class="collection">
-                <li class="collection-item">
-                    <div>
-                        <a href="#informacion_carro_modal" class="">
-                            Pedir información
-                        </a>
-                        <a href="#informacion_carro_modal" class="secondary-content">
-                            <i class="fa fa-info left"></i>
-                        </a>
-                    </div>
-                </li>
-                <!--<li class="collection-item">
-					<div>Solicitar cita
-						<a href="#!" class="secondary-content">
-							<i class="fa fa-calendar left"></i>
-						</a>
-					</div>
-				</li>
-				<li class="collection-item">
-					<div>Compartir
-						<a href="#!" class="secondary-content">
-							<i class="fa fa-share left"></i>
-						</a>
-					</div>
-				</li>
-				<li class="collection-item">
-					<div>Comparar
-						<a href="#!" class="secondary-content">
-							<i class="fa fa-filter left"></i>
-						</a>
-					</div>
-				</li>-->
-            </ul>
-        </div>
-
-    </div>
     <div class="divider"></div>
     <div class="section">
         <div class="row">

@@ -5,6 +5,7 @@
  * Date: 1/06/2017
  * Time: 4:09 PM
  */
+
 if ($banner_data)
 {
 	$banner = $banner_data->row();
@@ -71,8 +72,6 @@ $estado_banner_options = array(
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <form action="<?php echo base_url().'index.php/admin/actualizar_banner_header'?>" method="post" class="form-horizontal">
                                 <div class="control-group">
