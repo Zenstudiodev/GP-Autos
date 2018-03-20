@@ -509,6 +509,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                                     class="btn btn-success text-center orange darken-4 waves-effect waves-light">
                                 Buscar
                             </button>
+                            <!--<a class="btn btn-success text-center orange darken-4 waves-effect waves-light">Limpiar Buscador</a>-->
                         </div>
                 </form>
             </div>
@@ -836,26 +837,31 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
         $("#loading_linea_filter").show();
         $('#linea_carro option').remove();
         marca = $(this).val();
-        tipo = $("#tipo_carro").val();
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
-            success: function (data) {
-                $('#linea_carro').append('<option value="TODOS">TODOS</option>');
-                $.each(data, function (key, value) {
-                    linea_options +='<option value="' + value.id_linea + '">' + value.id_linea + '</option>';
-                });
-                $('#linea_carro').append(linea_options);
-                $('select').material_select();
-                if(filtro_linea == undefined){
-                    filtro_linea = 'TODOS';
+        if(marca =='TODOS'){
+            $('#linea_carro').append('<option value="TODOS" selected>TODOS</option>');
+            $("#loading_linea_filter").hide();
+        }else{
+            tipo = $("#tipo_carro").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+                success: function (data) {
+                    $('#linea_carro').append('<option value="TODOS">TODOS</option>');
+                    $.each(data, function (key, value) {
+                        linea_options +='<option value="' + value.id_linea + '">' + value.id_linea + '</option>';
+                    });
+                    $('#linea_carro').append(linea_options);
+                    $('select').material_select();
+                    if(filtro_linea == undefined){
+                        filtro_linea = 'TODOS';
+                    }
+                    $("#linea_carro").val(filtro_linea);
+                    $('select').material_select();
+                    $("#loading_linea_filter").hide();
                 }
-                $("#linea_carro").val(filtro_linea);
-                $('select').material_select();
-                $("#loading_linea_filter").hide();
-            }
-        });
+            });
+        }
     });
 </script>
 

@@ -15,32 +15,31 @@ $this->layout('public/public_master', [
     'transmisiones' => $transmisiones,
     'combustibles' => $combustibles,
 ]);
-if($carro){
-$data_carro = $carro->row();
+if ($carro) {
+    $data_carro = $carro->row();
 }
-$link       = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
 <?php $this->start('meta') ?>
     <!--Meta description Tags-->
     <title><?php
-        if($carro){
-        echo $data_carro->id_marca . ' ' . $data_carro->id_linea;
-        }else{echo 'carro no disponible'; }?> - GP Autos </title>
+        if ($carro) {
+            echo $data_carro->id_marca . ' ' . $data_carro->id_linea;
+        } else {
+            echo 'carro no disponible';
+        } ?> - GP Autos </title>
 <?php
-if($carro)
-{
-	$meta_description = $data_carro->id_tipo_carro;
-	$meta_description .= ' - ';
-	$meta_description .= $data_carro->id_marca . ' ';
-	$meta_description .= $data_carro->id_linea;
-	$meta_description .= ', Modelo: ' . $data_carro->crr_modelo;
-	if ($data_carro->crr_motor != '')
-	{
-		$meta_description .= ', Motor: ' . $data_carro->crr_motor;
-	}
-}
-else{
-    $meta_description='';
+if ($carro) {
+    $meta_description = $data_carro->id_tipo_carro;
+    $meta_description .= ' - ';
+    $meta_description .= $data_carro->id_marca . ' ';
+    $meta_description .= $data_carro->id_linea;
+    $meta_description .= ', Modelo: ' . $data_carro->crr_modelo;
+    if ($data_carro->crr_motor != '') {
+        $meta_description .= ', Motor: ' . $data_carro->crr_motor;
+    }
+} else {
+    $meta_description = '';
 }
 
 
@@ -48,7 +47,7 @@ else{
 
     <!--Open grhap meta-->
     <meta name="description" content="<?php echo $meta_description; ?>"/>
-    <?php if($carro){?>
+<?php if ($carro) { ?>
     <meta property="fb:app_id" content="302184056577324"/>
     <meta property="og:type" content="product"/>
     <meta property="og:url" content="<?php echo $link; ?>"/>
@@ -56,23 +55,20 @@ else{
     <meta property="og:description" content="<?php echo $data_carro->id_linea . ' - ' . $data_carro->crr_modelo; ?>"/>
     <meta property="product:price:amount" content="<?php echo $data_carro->crr_precio; ?>"/>
 
-<?php
+    <?php
 
-$monedaOG = '';
-if ($data_carro->crr_moneda_precio == '$')
-{
-	$monedaOG = 'USD';
-}
-else
-{
-	$monedaOG = 'GTQ';
-}
-?>
+    $monedaOG = '';
+    if ($data_carro->crr_moneda_precio == '$') {
+        $monedaOG = 'USD';
+    } else {
+        $monedaOG = 'GTQ';
+    }
+    ?>
     <meta property="product:price:currency" content="<?php echo $monedaOG; ?>"/>
     <meta property="og:image"
           content="<?php echo htmlspecialchars('http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . '%20(1).jpg'); ?>"/>
-<?php }?>
-    <?php $this->stop() ?>
+<?php } ?>
+<?php $this->stop() ?>
 
 <?php $this->start('banner') ?>
     <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
@@ -96,13 +92,13 @@ else
 <?php $this->start('page_content') ?>
     <div class="divider"></div>
     <div class="container">
-		<?php
-		if ($carro){ ?>
+        <?php
+        if ($carro){ ?>
         <div class="section">
             <div class="row">
                 <div class="col s12 m7">
                     <h1><?php echo $data_carro->id_marca . ' - ' . $data_carro->id_linea; ?></h1>
-					<?php if ($data_carro->id_predio_virtual != '') { ?><p>
+                    <?php if ($data_carro->id_predio_virtual != '') { ?><p>
                         <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
                            href="<?php echo base_url() . 'index.php/predio/ver/' . $data_carro->id_predio_virtual; ?>"><i
                                     class="fa fa-car left"></i>
@@ -111,18 +107,18 @@ else
                     <div id="datos_contacto">
                         <div class="chip">
                             <i class="material-icons">account_circle</i>
-							<?php echo $data_carro->crr_contacto_nombre ?>
+                            <?php echo $data_carro->crr_contacto_nombre ?>
                         </div>
 
                         <div class="chip">
                             <i class="material-icons">contact_phone</i>
-							<?php echo $data_carro->crr_contacto_telefono ?>
+                            <?php echo $data_carro->crr_contacto_telefono ?>
                         </div>
                     </div>
                 </div>
                 <div class="col s12 m5">
                     <h2 class="texto_naranja" id="precio_carro">
-						<?php mostrar_precio_carro($data_carro->crr_precio, $data_carro->crr_moneda_precio); ?>
+                        <?php mostrar_precio_carro($data_carro->crr_precio, $data_carro->crr_moneda_precio); ?>
                     </h2>
                     <!--<a class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light"
                        id="precio_carro_btn">Ver precio</a>-->
@@ -139,135 +135,105 @@ else
                     <div id="carousel-carro" class="carousel slide" data-ride="carousel">
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (1).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (1).jpg')) { ?>
                                 <div class="item active">
                                     <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (1).jpg' ?>"
                                          class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (2).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (2).jpg')) { ?>
                                 <div class="item">
                                     <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (2).jpg' ?>"
                                          class="img-responsive" width="600">
 
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (3).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (3).jpg')) { ?>
                                 <div class="item">
-                                        <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (3).jpg' ?>"
-                                             class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (3).jpg' ?>"
+                                         class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (4).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (4).jpg')) { ?>
                                 <div class="item">
-                                        <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (4).jpg' ?>"
-                                             class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (4).jpg' ?>"
+                                         class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (5).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (5).jpg')) { ?>
                                 <div class="item">
-                                        <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (5).jpg' ?>"
-                                             class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (5).jpg' ?>"
+                                         class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (6).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (6).jpg')) { ?>
                                 <div class="item">
-                                        <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (6).jpg' ?>"
-                                             class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (6).jpg' ?>"
+                                         class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (7).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (7).jpg')) { ?>
                                 <div class="item">
-                                        <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (7).jpg' ?>"
-                                             class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (7).jpg' ?>"
+                                         class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (8).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (8).jpg')) { ?>
                                 <div class="item">
-                                        <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (8).jpg' ?>"
-                                             class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (8).jpg' ?>"
+                                         class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (9).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (9).jpg')) { ?>
                                 <div class="item">
-                                        <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (9).jpg' ?>"
-                                             class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (9).jpg' ?>"
+                                         class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
 
-							<?php
-							if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (10).jpg'))
-							{ ?>
+                            <?php
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (10).jpg')) { ?>
                                 <div class="item">
-                                        <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (10).jpg' ?>"
-                                             class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (10).jpg' ?>"
+                                         class="img-responsive" width="600">
                                 </div>
-							<?php }
-							else
-							{
-							} ?>
+                            <?php } else {
+                            } ?>
 
                         </div>
 
@@ -282,15 +248,16 @@ else
                         </a>
                     </div>
 
-					<?php
+                    <?php
 
-					if ($data_carro->crr_certiauto == 'S')
-					{ ?>
+                    if ($data_carro->crr_certiauto == 'S') { ?>
                         <img src="<?php echo base_url() ?>/ui/public/images/logo_certiauto.png">
-					<?php } ?>
+                    <?php } ?>
                     <div class="section"></div>
                     <div class="dr_chat">
-                        <a class="wts_btn" target="_blank" href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: '.$data_carro->id_carro.' Marca: '.$data_carro->id_marca.' Linea: '.$data_carro->id_linea.' Modelo: '.$data_carro->crr_modelo ) ?>">Chat directo <img src="<?php echo  base_url(); ?>ui/public/images/ws_icon.png"></a>
+                        <a class="wts_btn" target="_blank"
+                           href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">Chat
+                            directo <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
                     </div>
                     <div class="section"></div>
                     <div class="section">
@@ -298,7 +265,8 @@ else
 
                         <div class="row hide-on-small-only">
                             <div class="col s12 m3">
-                                <a class="waves-effect waves-light btn orange darken-3 z-depth-3" href="#informacion_carro_modal"><i
+                                <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
+                                   href="#informacion_carro_modal"><i
                                             class="fa fa-info left"></i> Pedir información</a>
                             </div>
                             <!--<div class="col s12 m3">
@@ -358,10 +326,10 @@ else
                                         class="material-icons">info</i>Datos del vehiculo</a></li>
                         <li class="tab col m4 s12"><a href="#financiamiento"> <i class="material-icons">attach_money</i>Financiamiento</a>
                         </li>
-						<?php if ($data_carro->crr_otros != '') { ?>
+                        <?php if ($data_carro->crr_otros != '') { ?>
                             <li class="tab col m4 s12"><a href="#comentario"> <i class="material-icons">attach_money</i>Comentario</a>
                             </li>
-						<?php } ?>
+                        <?php } ?>
                     </ul>
                     <div id="datos_vehiculo" class="col s12 grey lighten-1">
                         <!--Panel-->
@@ -371,163 +339,163 @@ else
                                 <div class="row">
                                     <div class="col s12 m6">
                                         <ul class="collection">
-											<?php if ($data_carro->id_tipo_carro != '') { ?>
+                                            <?php if ($data_carro->id_tipo_carro != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Tipo</span>
-													<?php echo $data_carro->id_tipo_carro ?>
+                                                    <?php echo $data_carro->id_tipo_carro ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->id_marca != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->id_marca != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text white-text">Marca</span>
-													<?php echo $data_carro->id_marca ?>
+                                                    <?php echo $data_carro->id_marca ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->id_linea != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->id_linea != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Línea</span>
-													<?php echo $data_carro->id_linea ?>
+                                                    <?php echo $data_carro->id_linea ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_modelo != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_modelo != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Modelo</span>
-													<?php echo $data_carro->crr_modelo ?>
+                                                    <?php echo $data_carro->crr_modelo ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_origen != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_origen != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Origen</span>
-													<?php echo $data_carro->crr_origen ?>
+                                                    <?php echo $data_carro->crr_origen ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_motor != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_motor != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Motor</span>
-													<?php echo $data_carro->crr_motor ?>
+                                                    <?php echo $data_carro->crr_motor ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_transmision != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_transmision != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Transmisión</span>
-													<?php echo $data_carro->crr_transmision ?>
+                                                    <?php echo $data_carro->crr_transmision ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_cilindros != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_cilindros != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">No. Cilindros</span>
-													<?php echo $data_carro->crr_cilindros ?>
+                                                    <?php echo $data_carro->crr_cilindros ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_kilometraje != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_kilometraje != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Kilometraje</span>
-													<?php echo $data_carro->crr_kilometraje ?>
+                                                    <?php echo $data_carro->crr_kilometraje ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_combustible != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_combustible != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Combustible</span>
-													<?php echo $data_carro->crr_combustible ?>
+                                                    <?php echo $data_carro->crr_combustible ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_puertas != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_puertas != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Puertas</span>
-													<?php echo $data_carro->crr_puertas ?>
+                                                    <?php echo $data_carro->crr_puertas ?>
                                                 </li>
-											<?php } ?>
+                                            <?php } ?>
                                         </ul>
 
                                     </div>
                                     <div class="col s12 m6">
                                         <ul class="collection">
-											<?php if ($data_carro->crr_color != '') { ?>
+                                            <?php if ($data_carro->crr_color != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Color</span>
-													<?php echo $data_carro->crr_color ?>
+                                                    <?php echo $data_carro->crr_color ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_tapiceria != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_tapiceria != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Tapiceria</span>
-													<?php echo $data_carro->crr_tapiceria ?>
+                                                    <?php echo $data_carro->crr_tapiceria ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_ac != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_ac != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text white-text">A/C</span>
-													<?php echo $data_carro->crr_ac ?>
+                                                    <?php echo $data_carro->crr_ac ?>
                                                 </li>
-											<?php } ?>
+                                            <?php } ?>
 
-											<?php if ($data_carro->crr_alarma != '') { ?>
+                                            <?php if ($data_carro->crr_alarma != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Alarma</span>
-													<?php echo $data_carro->crr_alarma ?>
+                                                    <?php echo $data_carro->crr_alarma ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_aros_magnecio != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_aros_magnecio != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Aros de Magnesio</span>
-													<?php echo $data_carro->crr_aros_magnecio ?>
+                                                    <?php echo $data_carro->crr_aros_magnecio ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_bolsas_aire != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_bolsas_aire != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Bolsa de aire</span>
-													<?php echo $data_carro->crr_bolsas_aire ?>
+                                                    <?php echo $data_carro->crr_bolsas_aire ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_cerradura_central != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_cerradura_central != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Cerradura central</span>
-													<?php echo $data_carro->crr_cerradura_central ?>
+                                                    <?php echo $data_carro->crr_cerradura_central ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_espejos != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_espejos != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Espejos</span>
-													<?php echo $data_carro->crr_espejos ?>
+                                                    <?php echo $data_carro->crr_espejos ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_platos == 'si') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_platos == 'si') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Platos</span>
-													<?php echo $data_carro->crr_platos ?>
+                                                    <?php echo $data_carro->crr_platos ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_polarizado != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_polarizado != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Polarizado</span>
-													<?php echo $data_carro->crr_polarizado ?>
+                                                    <?php echo $data_carro->crr_polarizado ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_radio != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_radio != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Radio</span>
-													<?php echo $data_carro->crr_radio ?>
+                                                    <?php echo $data_carro->crr_radio ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_sunroof != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_sunroof != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Sunroof</span>
-													<?php echo $data_carro->crr_sunroof ?>
+                                                    <?php echo $data_carro->crr_sunroof ?>
                                                 </li>
-											<?php } ?>
+                                            <?php } ?>
 
-											<?php if ($data_carro->crr_timon_hidraulico != '') { ?>
+                                            <?php if ($data_carro->crr_timon_hidraulico != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Timon Hidrahulico</span>
-													<?php echo $data_carro->crr_timon_hidraulico ?>
+                                                    <?php echo $data_carro->crr_timon_hidraulico ?>
                                                 </li>
-											<?php } ?>
-											<?php if ($data_carro->crr_vidrios_electricos != '') { ?>
+                                            <?php } ?>
+                                            <?php if ($data_carro->crr_vidrios_electricos != '') { ?>
                                                 <li class="collection-item">
                                                     <span class="detalle_item_titulo badge orange darken-1 white-text">Vidrios eléctricos</span>
-													<?php echo $data_carro->crr_vidrios_electricos ?>
+                                                    <?php echo $data_carro->crr_vidrios_electricos ?>
                                                 </li>
-											<?php } ?>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -539,157 +507,156 @@ else
                         <!--Panel-->
                         <div class="card">
                             <div class="card-content">
-                                <div id="calculador_carro">
-                                    <span class="card-title">Estimador de financiamiento</span>
-                                    <div class="row" style="display: none">
-                                        <div class="input-field col m12">
+                                <div id="calculador_holder" style="<?php if($data_carro->crr_precio < '25000'){ echo 'display:none;'; } ?>">
+                                    <div id="calculador_carro">
+                                        <span class="card-title">Estimador de financiamiento</span>
+                                        <div class="row" style="display: none">
+                                            <div class="input-field col m12">
 
-                                            <label for="precio_carro">Precio del vehículo</label>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="display: none">
-                                        <div class="input-field col m8 s12">
-                                            <p id="p_carro_slider"></p>
-                                        </div>
-                                        <div class="input-field col m4 s12">
-                                            <input id="p_carro_input" name="p_carro_min" type="number"
-                                                   min="10000" max="200000" step="1000"
-                                                   value="<?php echo $data_carro->crr_precio; ?>"
-                                                   placeholder="Precio" disabled/>
-                                            <label for="icon_prefix">Precio carro:</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col m6 s12">
-                                            <span class="card-title">Incluir traspaso</span>
-                                        </div>
-                                        <div class="col m4 s12">
-                                            <!-- Switch -->
-                                            <div class="switch">
-                                                <label>
-                                                    No
-                                                    <input type="checkbox" id="traspaso_switch" name="traspaso_switch">
-                                                    <span class="lever"></span>
-                                                    Si
-                                                </label>
+                                                <label for="precio_carro">Precio del vehículo</label>
                                             </div>
-
-
                                         </div>
+                                        <div class="row" style="display: none">
+                                            <div class="input-field col m8 s12">
+                                                <p id="p_carro_slider"></p>
+                                            </div>
+                                            <div class="input-field col m4 s12">
+                                                <input id="p_carro_input" name="p_carro_min" type="number"
+                                                       min="10000" max="200000" step="1000"
+                                                       value="<?php echo $data_carro->crr_precio; ?>"
+                                                       placeholder="Precio" disabled/>
+                                                <label for="icon_prefix">Precio carro:</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col m6 s12">
+                                                <span class="card-title">Incluir traspaso</span>
+                                            </div>
+                                            <div class="col m4 s12">
+                                                <!-- Switch -->
+                                                <div class="switch">
+                                                    <label>
+                                                        No
+                                                        <input type="checkbox" id="traspaso_switch"
+                                                               name="traspaso_switch">
+                                                        <span class="lever"></span>
+                                                        Si
+                                                    </label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
                                     </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col s12 m4">
-                                        <div class="card">
-                                            <div class="card-content">
+                                    <div class="row">
+                                        <div class="col s12 m4">
+                                            <div class="card">
+                                                <div class="card-content">
                                             <span class="card-title">Enganche <i
                                                         class="small material-icons tooltipped" data-position="bottom"
                                                         data-delay="50"
                                                         data-tooltip="El enganche debe ser de 0% o minimo de 20% ">info</i></span>
-                                                <div class="row">
-                                                    <div class="input-field col m12 s12">
-                                                        <p id="enganche_carro_slider"></p>
-                                                    </div>
-                                                    <div class="input-field col m12 s12">
-                                                        <input id="enganche_carro_input" name="p_carro_min"
-                                                               type="number"
-                                                               min="10000" max="200000" step="1000"
-                                                               placeholder="Enganche:"/>
+                                                    <div class="row">
+                                                        <div class="input-field col m12 s12">
+                                                            <p id="enganche_carro_slider"></p>
+                                                        </div>
+                                                        <div class="input-field col m12 s12">
+                                                            <input id="enganche_carro_input" name="p_carro_min"
+                                                                   type="number"
+                                                                   min="10000" max="200000" step="1000"
+                                                                   placeholder="Enganche:"/>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col s12 m4">
-                                        <div class="card ">
-                                            <div class="card-content">
+                                        <div class="col s12 m4">
+                                            <div class="card ">
+                                                <div class="card-content">
                                             <span class="card-title">Plazo <i class="small material-icons tooltipped"
                                                                               data-position="bottom"
                                                                               data-delay="50"
                                                                               data-tooltip="El enganche debe ser de 0% o minimo de 20% ">info</i></span>
-                                                <div class="row">
-                                                    <div class="input-field col m12 s12">
-                                                        <p id="meses_carro_slider"></p>
+                                                    <div class="row">
+                                                        <div class="input-field col m12 s12">
+                                                            <p id="meses_carro_slider"></p>
+                                                        </div>
+                                                        <div class="input-field col m12 s12">
+                                                            <input id="meses_carro_input" name="p_carro_min"
+                                                                   type="number"
+                                                                   min="6" max="72" step="12"
+                                                                   placeholder="Plazo:"/>
+                                                        </div>
                                                     </div>
-                                                    <div class="input-field col m12 s12">
-                                                        <input id="meses_carro_input" name="p_carro_min" type="number"
-                                                               min="6" max="72" step="12"
-                                                               placeholder="Plazo:"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m4">
+                                            <div class="card  grey " id="calculo_carro">
+                                                <div class="card-content white-text">
+                                                    <span class="card-title">Calculo</span>
+                                                    <ul class="collection">
+                                                        <a href="#!" class="collection-item"><span
+                                                                    class="badge white-text">Q.<?php echo $data_carro->crr_precio; ?></span>Precio
+                                                            carro:</a>
+                                                        <a href="#!" class="collection-item"><span
+                                                                    class="badge white-text">Q.1120</span>Comision venta
+                                                            de vehiculo:</a>
+                                                        <a href="#!" class="collection-item"><span id="traspaso_t"
+                                                                                                   class="badge white-text">0</span>traspaso:</a>
+                                                        <a href="#!" class="collection-item"><span id="total_t"
+                                                                                                   class="badge white-text">Q.<?php echo $data_carro->crr_precio; ?></span>Total:</a>
+                                                        <a href="#!" class="collection-item"><span id="pago_mensual_t"
+                                                                                                   class="badge white-text">0</span>Pago
+                                                            mensual: <i class="small material-icons tooltipped"
+                                                                        data-position="bottom"
+                                                                        data-delay="50"
+                                                                        data-tooltip="Cuota mensual puede varia segun seguro ">info</i></a>
+                                                    </ul>
+                                                    <div class="row" style="display: none">
+                                                        <div class="input-field col m12">
+                                                            <label for="precio_carro" class="white-text">Pago
+                                                                mensual <i class="small material-icons tooltipped"
+                                                                           data-position="bottom"
+                                                                           data-delay="50"
+                                                                           data-tooltip="Cuota mensual varia segun seguro ">info</i></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="display: none">
+                                                        <!--<div class="input-field col m12 s12">
+                                                            <p id="pago_carro_slider"></p>
+                                                        </div>-->
+                                                        <div class="input-field col m12 s12">
+                                                            <input id="pago_carro_input" class="white-text"
+                                                                   name="p_carro_min" type="number"
+                                                                   min="10000" max="200000" step="1000"
+                                                                   placeholder="Pago mensual:" disabled/>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col s12 m4">
-                                        <div class="card  grey " id="calculo_carro">
-                                            <div class="card-content white-text">
-                                                <span class="card-title">Calculo</span>
-                                                <ul class="collection">
-                                                    <a href="#!" class="collection-item"><span class="badge white-text">Q.<?php echo $data_carro->crr_precio; ?></span>Precio
-                                                        carro:</a>
-                                                    <a href="#!" class="collection-item"><span class="badge white-text">Q.1120</span>Comision venta de vehiculo:</a>
-                                                    <a href="#!" class="collection-item"><span id="traspaso_t"
-                                                                                               class="badge white-text">0</span>traspaso:</a>
-                                                    <a href="#!" class="collection-item"><span id="total_t"
-                                                                                               class="badge white-text">Q.<?php echo $data_carro->crr_precio; ?></span>Total:</a>
-                                                    <a href="#!" class="collection-item"><span id="pago_mensual_t"
-                                                                                               class="badge white-text">0</span>Pago
-                                                        mensual: <i class="small material-icons tooltipped"
-                                                                    data-position="bottom"
-                                                                    data-delay="50"
-                                                                    data-tooltip="Cuota mensual puede varia segun seguro ">info</i></a>
-                                                </ul>
-                                                <div class="row" style="display: none">
-                                                    <div class="input-field col m12">
-                                                        <label for="precio_carro" class="white-text">Pago
-                                                            mensual <i class="small material-icons tooltipped"
-                                                                       data-position="bottom"
-                                                                       data-delay="50"
-                                                                       data-tooltip="Cuota mensual varia segun seguro ">info</i></label>
-                                                    </div>
-                                                </div>
-                                                <div class="row" style="display: none">
-                                                    <!--<div class="input-field col m12 s12">
-														<p id="pago_carro_slider"></p>
-													</div>-->
-                                                    <div class="input-field col m12 s12">
-                                                        <input id="pago_carro_input" class="white-text"
-                                                               name="p_carro_min" type="number"
-                                                               min="10000" max="200000" step="1000"
-                                                               placeholder="Pago mensual:" disabled/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a class="waves-effect waves-light btn white orange-text darken-3 z-depth-3"
-                                       href="#credito_carro_modal"><i
-                                                class="fa fa-send left"></i> Solicitar crédito</a>
 
                                 </div>
 
                                 <div class="row">
-                                    <div class="col m12 s12">
-                                        <form id="calculador_carro">
-
-
-                                        </form>
-                                    </div>
-
+                                    <a class="waves-effect waves-light btn white orange-text darken-3 z-depth-3"
+                                       href="#credito_carro_modal"><i
+                                                class="fa fa-send left"></i> Solicitar crédito</a>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-					<?php if ($data_carro->crr_otros != '') { ?>
+                    <?php if ($data_carro->crr_otros != '') { ?>
                         <div id="comentario">
 
-							<?php echo $data_carro->crr_otros; ?>
+                            <?php echo $data_carro->crr_otros; ?>
                         </div>
-					<?php } ?>
+                    <?php } ?>
                     <!--/.Panel-->
                 </div>
 
@@ -706,36 +673,28 @@ else
     <div class="divider"></div>
     <div class="section">
         <div class="row">
-			<?php
-			$ref_volver = '';
-			$url_actual = rtrim(base_url(), "/") . $_SERVER['REQUEST_URI'];
+            <?php
+            $ref_volver = '';
+            $url_actual = rtrim(base_url(), "/") . $_SERVER['REQUEST_URI'];
 
 
-			$url_ref     = '';
-			$url_ref_set = false;
-			if (isset($_SERVER['HTTP_REFERER']))
-			{
-				$url_ref     = $_SERVER['HTTP_REFERER'];
-				$url_ref_set = true;
-			}
+            $url_ref = '';
+            $url_ref_set = false;
+            if (isset($_SERVER['HTTP_REFERER'])) {
+                $url_ref = $_SERVER['HTTP_REFERER'];
+                $url_ref_set = true;
+            }
 
-			if ($url_ref == base_url())
-			{
-				$ref_volver = base_url();
-			}
-            elseif ($url_ref == $url_actual)
-			{
-				$ref_volver = base_url();
+            if ($url_ref == base_url()) {
+                $ref_volver = base_url();
+            } elseif ($url_ref == $url_actual) {
+                $ref_volver = base_url();
 
-			}
-			else if ($url_ref_set)
-			{
-				$ref_volver = $_SERVER['HTTP_REFERER'] . '?card=' . $data_carro->crr_codigo . '_card#' . $data_carro->crr_codigo . '_card';
-			}
-			else
-			{
-				$ref_volver = base_url();
-			} ?>
+            } else if ($url_ref_set) {
+                $ref_volver = $_SERVER['HTTP_REFERER'] . '?card=' . $data_carro->crr_codigo . '_card#' . $data_carro->crr_codigo . '_card';
+            } else {
+                $ref_volver = base_url();
+            } ?>
             <a class="waves-effect waves-light btn orange darken-3 z-depth-3 btn-large"
                href="<?php echo $ref_volver ?>"> <i class="material-icons left">skip_previous</i> Volver </a>
             <!--TODO activar gp preios-->
@@ -763,20 +722,24 @@ else
                 <form class="col s12 m12" id="info_carro_form">
                     <div class="row">
                         <div class="col m6 s12">
-                            <input placeholder="Nombre:" id="nombre" type="text" class="validate browser-default" required>
+                            <input placeholder="Nombre:" id="nombre" type="text" class="validate browser-default"
+                                   required>
                         </div>
                         <div class="col m6 s12">
-                            <input id="apellido" type="text" placeholder="Apellido:" class="validate browser-default" required>
+                            <input id="apellido" type="text" placeholder="Apellido:" class="validate browser-default"
+                                   required>
                         </div>
                     </div>
                     <div class="row">
                         <div class=" col s12">
-                            <input id="email" type="email" class="validate browser-default" placeholder="Email:" required>
+                            <input id="email" type="email" class="validate browser-default" placeholder="Email:"
+                                   required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            <input id="telefono" type="tel" class="validate browser-default" placeholder="Teléfono:" required>
+                            <input id="telefono" type="tel" class="validate browser-default" placeholder="Teléfono:"
+                                   required>
                         </div>
                     </div>
                     <div class="row">
@@ -882,7 +845,7 @@ else
                             <label for="telefono">Telefono</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="<?php if($data_carro->crr_precio < '250000'){ echo 'display:none;'; } ?>">
                         <div class="collection ">
                             <a href="#!" class="collection-item "><span class="badge white-text"
                                                                         id="modal_precio"> </span>Valor
@@ -890,7 +853,8 @@ else
                             <a href="#!" class="collection-item "><span class="badge white-text"
                                                                         id="modal_traspaso"> </span>Traspaso</a>
                             <a href="#!" class="collection-item "><span class="badge white-text"
-                                                                        id="modal_cmision">Q.1120.00 </span>Comision venta de vehiculo:</a>
+                                                                        id="modal_cmision">Q.1120.00 </span>Comision
+                                venta de vehiculo:</a>
                             <a href="#!" class="collection-item "><span class="badge white-text"
                                                                         id="modal_total"> </span>Total</a>
                             <a href="#!" class="collection-item "><span class="badge white-text"
@@ -911,10 +875,11 @@ else
             <a class="btn btn-flat waves-green" id="solicitar_credito">Enviar</a>
         </div>
     </div>
-<?php }else{?>
+<?php } else {
+    ?>
 
-            <div class="section">
-            <div class="row">
+    <div class="section">
+        <div class="row">
             <div class="col s12 m12">
                 <div class="card-panel teal">
           <span class="white-text">
@@ -923,8 +888,8 @@ else
                 </div>
 
             </div>
-            </div>
-            </div>
+        </div>
+    </div>
 
 <?php } ?>
 
@@ -1016,15 +981,15 @@ else
         });
         //pago slider init
         /* noUiSlider.create(pago_carro_slider, {
-             start: [0],
-             step: 1000,
-             range: {
-                 'min': [0],
-                 'max': [40000]
-             },
-             format: wNumb({
-                 decimals: 0
-             })
+         start: [0],
+         step: 1000,
+         range: {
+         'min': [0],
+         'max': [40000]
+         },
+         format: wNumb({
+         decimals: 0
+         })
          });*/
         //meses slider init
         noUiSlider.create(meses_carro_slider, {
@@ -1059,11 +1024,11 @@ else
         //pago carro
         //pago slider listener
         /* pago_carro_slider.noUiSlider.on('update', function (values, handle) {
-             pago_carro_input.value = values[handle];
+         pago_carro_input.value = values[handle];
          });
          //pago input listener
          pago_carro_input.addEventListener('change', function () {
-             pago_carro_slider.noUiSlider.set(this.value);
+         pago_carro_slider.noUiSlider.set(this.value);
          });*/
         //meses carro
         //meses slider listener
@@ -1083,7 +1048,7 @@ else
             calcularInteres();
         });
         /* pago_carro_slider.noUiSlider.on('change', function (values, handle) {
-             calcularInteres();
+         calcularInteres();
          });*/
         meses_carro_slider.noUiSlider.on('change', function (values, handle) {
             calcularInteres();
@@ -1103,6 +1068,7 @@ else
             //variable locales
             var tasadeInteres;
             var enganche_carro = encanghe_carro_slider.noUiSlider.get();
+            var enganche_carro = encanghe_carro_slider.noUiSlider.get();
             var gastos_administrativos;
             var porcentage_administrativo = 0.04;
             var precio_traspaso;
@@ -1110,16 +1076,17 @@ else
             traspaso = $("#traspaso_switch").prop('checked');
 
             //obtenemos el valor del carro desde slider
-            precio_carro = parseInt(precio_carro_sliders.noUiSlider.get());
+            // precio_carro = parseInt(precio_carro_sliders.noUiSlider.get());
+            precio_carro = parseInt('<?php echo $data_carro->crr_precio; ?>');
 
             console.log(traspaso);
             console.log(precio_carro + '\n');
             traspaso
             if (traspaso) {
-                if ('<?php echo $data_carro->crr_modelo ?>' < 2012) {
+                if ('<?php echo $data_carro->crr_modelo ?>' < 2014) {
                     precio_traspaso = 1350;
 
-                } else if ('<?php echo $data_carro->crr_modelo ?>' > 2013) {
+                } else if ('<?php echo $data_carro->crr_modelo ?>' > 2015) {
                     precio_traspaso = 1750;
                 }
                 Materialize.toast('agregar traspaso al calculo', 1000);
@@ -1130,6 +1097,7 @@ else
                 $("#total_t").html('Q.' + precio_carro);
                 $("#modal_total").html('Q.' + precio_carro);
             } else {
+                precio_carro = precio_carro + comision_gp;
                 $("#traspaso_t").html(0);
                 $("#modal_traspaso").html(0);
                 $("#total_t").html('Q.' + precio_carro);
@@ -1151,13 +1119,13 @@ else
                 //Materialize.toast('Enganche 0', 4000);
             } else {
                 if (enganche_carro < enganche_minimo) {
-                    encanghe_carro_slider.noUiSlider.set(enganche_minimo);
+                    //  encanghe_carro_slider.noUiSlider.set(enganche_minimo);
                     $('#enganche_carro_input').val(enganche_minimo);
                     //encanghe_carro_input.value = enganche_minimo;
                     if (precio_carro > 100000) {
-                        Materialize.toast('Para enganche 0 el precio del carro debe ser menor a Q.100,000.00', 4000);
+                        //   Materialize.toast('Para enganche 0 el precio del carro debe ser menor a Q.100,000.00', 4000);
                     }
-                    Materialize.toast('El enganche debe ser mayor al 20% del valor del vehiculo o 0', 4000);
+                    // Materialize.toast('El enganche debe ser mayor al 20% del valor del vehiculo o 0', 4000);
                 } else {
                     enganche_minimo = encanghe_carro_slider.noUiSlider.get();
                 }
@@ -1165,9 +1133,10 @@ else
 
             tasadeInteres = parseFloat(tasadeInteres);
 
-            if (enganche_carro == '0') {
+            // if (enganche_carro == '0') {
+            if (false) {
                 tasadeInteres = 17;
-                updatePlazpSlider(12, 48);
+                updatePlazpSlider(12, 60);
                 console.log('interes de ' + tasadeInteres + '%');
             } else {
                 updatePlazpSlider(12, 60);
@@ -1175,50 +1144,52 @@ else
                 console.log(enganche_carro);
                 precio_carro = precio_carro - enganche_carro;
                 //calcular gasto administrativo
-                if (precio_carro > 8000 && precio_carro < 49999) {
+                if (precio_carro > 8000 && precio_carro < 39999) {
                     porcentage_administrativo = 0.04;
                     console.log('gasto administrativo 4 %');
                 }
-                if (precio_carro > 50000 && precio_carro < 99999) {
+                if (precio_carro > 40000 && precio_carro < 199999) {
                     porcentage_administrativo = 0.03;
                     console.log('gasto administrativo 3 %');
                 }
-                if (precio_carro > 100000) {
-                    porcentage_administrativo = 0.02;
-                    console.log('gasto administrativo 2 %');
-                }
+                /*if (precio_carro > 100000) {
+                 porcentage_administrativo = 0.02;
+                 console.log('gasto administrativo 2 %');
+                 }*/
 
                 gastos_administrativos = precio_carro * porcentage_administrativo;
-                console.log(gastos_administrativos);
+                console.log('gastos administrativos' + gastos_administrativos);
                 precio_carro = precio_carro + gastos_administrativos;
 
 
                 console.log(precio_carro);
 
-                if (precio_carro > 8000 && precio_carro < 14999) {
-                    tasadeInteres = 27;
+                if (precio_carro > 25000 && precio_carro < 39999) {
+                    tasadeInteres = 25;
                     console.log('interes de ' + tasadeInteres + '%');
                 }
-                else if (precio_carro > 15000 && precio_carro < 30999) {
-                    tasadeInteres = 19;
+                else if (precio_carro > 40000 && precio_carro < 200000) {
+                    tasadeInteres = 17;
                     console.log('interes de ' + tasadeInteres + '%');
                 }
-                else if (precio_carro > 31000 && precio_carro < 49999) {
-                    tasadeInteres = 13.99;
-                    console.log('interes de ' + tasadeInteres + '%');
-                }
-                else if (precio_carro > 50000 && precio_carro < 99999) {
-                    tasadeInteres = 12.99;
-                    console.log('interes de ' + tasadeInteres + '%');
-                }
-                else if (precio_carro > 100000 && precio_carro < 149999) {
-                    tasadeInteres = 12.25;
-                    console.log('interes de ' + tasadeInteres + '%');
-                }
-                else if (precio_carro > 1500000 && precio_carro < 199999) {
-                    tasadeInteres = 11.99;
-                    console.log('interes de ' + tasadeInteres + '%');
-                }
+                /*
+                 else if (precio_carro > 31000 && precio_carro < 49999) {
+                 tasadeInteres = 13.99;
+                 console.log('interes de ' + tasadeInteres + '%');
+                 }
+                 else if (precio_carro > 50000 && precio_carro < 99999) {
+                 tasadeInteres = 12.99;
+                 console.log('interes de ' + tasadeInteres + '%');
+                 }
+                 else if (precio_carro > 100000 && precio_carro < 149999) {
+                 tasadeInteres = 12.25;
+                 console.log('interes de ' + tasadeInteres + '%');
+                 }
+                 else if (precio_carro > 1500000 && precio_carro < 199999) {
+                 tasadeInteres = 11.99;
+                 console.log('interes de ' + tasadeInteres + '%');
+                 }
+                 */
             }
 
             plazo = parseInt(meses_carro_slider.noUiSlider.get());
@@ -1392,6 +1363,7 @@ else
         "color":"<?php echo $data_carro->crr_color; ?>",
         "itemCondition":"Usado"
         }
+
 
 
 
