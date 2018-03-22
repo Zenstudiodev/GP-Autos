@@ -191,6 +191,7 @@ class Carro extends Base_Controller
 	}
 	public function lineas()
 	{
+        header("Access-Control-Allow-Origin: *");
 		//OBTENEMOS VARIABLES DE LA URL
 		$tipo  = $_GET['tipo'];
 		$marca = $_GET['marca'];
@@ -200,6 +201,7 @@ class Carro extends Base_Controller
 		echo json_encode($lineas->result_array());
 	}
 	public function marcas(){
+        header("Access-Control-Allow-Origin: *");
 		//OBTENEMOS VARIABLES DE LA URL
 		$tipo  = $_GET['tipo'];
 		//pasamos variablea al modelo
