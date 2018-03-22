@@ -23,7 +23,7 @@ class Login_model extends CI_Model
 		if ($query->num_rows() == 0) {
 
 // Query to insert data in database
-			$this->db->insert('users', $data);
+			$this->db->insert('users_b', $data);
 			if ($this->db->affected_rows() > 0) {
 				return true;
 			}
@@ -38,7 +38,7 @@ class Login_model extends CI_Model
 
 		$condition = "username =" . "'" . $data['username'] . "' AND " . "password =" . "'" . $data['password'] . "'";
 		$this->db->select('*');
-		$this->db->from('users');
+		$this->db->from('users_b');
 		$this->db->where($condition);
 		$this->db->limit(1);
 		$query = $this->db->get();
@@ -56,7 +56,7 @@ class Login_model extends CI_Model
 
 		$condition = "username =" . "'" . $username . "'";
 		$this->db->select('*');
-		$this->db->from('users');
+		$this->db->from('users_b');
 		$this->db->where($condition);
 		$this->db->limit(1);
 		$query = $this->db->get();
