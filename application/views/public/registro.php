@@ -42,50 +42,93 @@ $CI =& get_instance();
                 <div class="col m4 s12">
                     <div id="login-page" class="row">
                         <div class="col s12 z-depth-4 card-panel">
-                            <form class="login-form">
-                                <div class="row">
-                                    <div class="input-field col s12 center">
-                                        <h4>Registro</h4>
-                                        <p class="center">Registrate ahora</p>
-                                    </div>
+                            <?php
+                            echo  $CI->ion_auth->get_user_id();?> */
+
+                            <div class="row">
+                                <div class="input-field col s12 center">
+                                    <h4>Registro</h4>
+                                    <p class="center">Registrate ahora</p>
                                 </div>
-                                <div class="row margin">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix pt-5">person_outline</i>
-                                        <input id="username" type="text">
-                                        <label for="username" class="center-align">Nombre de usuario</label>
-                                    </div>
+                            </div>
+
+
+                            <div id="infoMessage"><?php echo $message;?></div>
+
+                            <?php echo form_open("cliente/registro");?>
+
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">person_outline</i>
+                                    <?php echo form_input($first_name);?>
+                                    <?php echo lang('create_user_fname_label', 'first_name');?>
                                 </div>
-                                <div class="row margin">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix pt-5">email</i>
-                                        <input id="email" type="email">
-                                        <label for="email" class="center-align">Correo electrónico</label>
-                                    </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">person_outline</i>
+                                    <?php echo form_input($last_name);?>
+                                    <?php echo lang('create_user_lname_label', 'last_name');?>
                                 </div>
-                                <div class="row margin">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix pt-5">lock_outline</i>
-                                        <input id="password" type="password">
-                                        <label for="password" class="">clave</label>
-                                    </div>
+                            </div>
+
+                            <?php
+                            if($identity_column!=='email') {
+                                echo '<p>';
+                                echo lang('create_user_identity_label', 'identity');
+                                echo '<br />';
+                                echo form_error('identity');
+                                echo form_input($identity);
+                                echo '</p>';
+                            }
+                            ?>
+
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">account_balance</i>
+                                    <?php echo form_input($company);?>
+                                    <?php echo lang('create_user_company_label', 'company');?>
                                 </div>
-                                <div class="row margin">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix pt-5">lock_outline</i>
-                                        <input id="password-again" type="password">
-                                        <label for="password-again" class="">Password again</label>
-                                    </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">email</i>
+                                    <?php echo form_input($email);?>
+                                    <?php echo lang('create_user_email_label', 'email');?>
                                 </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <a href="index.html" class="btn waves-effect waves-light col s12">Registro</a>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <p class="margin center medium-small sign-up">¿Ya tiene una cuenta? <a href="page-login.html">inicie session</a></p>
-                                    </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">smartphone</i>
+                                    <?php echo form_input($phone);?>
+                                    <?php echo lang('create_user_phone_label', 'phone');?>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">lock_outline</i>
+                                    <?php echo form_input($password);?>
+                                    <?php echo lang('create_user_password_label', 'password');?>
+                                </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">lock_outline</i>
+                                    <?php echo form_input($password_confirm);?>
+                                    <?php echo lang('create_user_password_confirm_label', 'password_confirm');?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <a href="index.html" class="btn waves-effect waves-light col s12">Registro</a>
+                                    <?php echo form_submit('submit', lang('create_user_submit_btn'),'','');?>
+                                </div>
+                                <div class="input-field col s12">
+                                    <p class="margin center medium-small sign-up">¿Ya tiene una cuenta? <a href="page-login.html">inicie session</a></p>
+                                </div>
+                            </div>
+
+                            <?php echo form_close();?>
                         </div>
                     </div>
                 </div>

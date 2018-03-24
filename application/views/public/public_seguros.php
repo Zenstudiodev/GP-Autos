@@ -16,6 +16,10 @@ $this->layout('public/public_master', [
     'combustibles' => $combustibles,
 ]);
 ?>
+<?php $this->start('title') ?>
+    <title>Seguros</title>
+<?php $this->stop() ?>
+
 <?php $this->start('css_p') ?>
 <?php $this->stop() ?>
 

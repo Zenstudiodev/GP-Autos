@@ -180,7 +180,11 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
     <!--Let browser know website is optimized for mobile-->
     <meta name="google-site-verification" content="0q-W5K9CGQetDQs6wGTW2416dOQQ5byj4oGA4q11BQU"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>GP - Autos</title>
+
+    <?php if ($this->section('title')) {
+        echo $this->section('title');
+    } ?>
+
     <?php echo $this->section('meta'); ?>
 
     <!-- Materialize -->
@@ -801,7 +805,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
         buscador_a_min = $("#a_carro_min").val();
         buscador_a_max = $("#a_carro_max").val();
         var filtros;
-        filtros = '<?php echo base_url()?>' + 'index.php/home/test_filtro/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
+        filtros = '<?php echo base_url()?>' + 'index.php/Carro/filtro/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
         window.location.assign(filtros);
     });
     //Actualizar marcas

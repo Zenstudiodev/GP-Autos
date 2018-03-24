@@ -666,6 +666,8 @@ $predio_id = array(
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget-box">
+                    <a class="btn btn-success btn-mini"
+                       href="<?php echo base_url() ?>index.php/admin/crearCarro"><i class="icon-plus-sign"></i> Nuevo</a>
                     <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
                         <h5>Información del carro</h5>
                     </div>

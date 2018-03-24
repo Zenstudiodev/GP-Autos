@@ -17,7 +17,9 @@ $this->layout('public/public_master', [
     'transmisiones' => $transmisiones,
     'combustibles' => $combustibles,
 ]); ?>
-
+<?php $this->start('title') ?>
+    <title>Anuncia tu carro</title>
+<?php $this->stop() ?>
 <?php $this->start('css_p') ?>
 <?php $this->stop() ?>
 

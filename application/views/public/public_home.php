@@ -17,6 +17,9 @@
 ]);
 $CI =& get_instance();
 ?>
+<?php $this->start('title') ?>
+<title>GP-Autos | Predio virtual</title>
+<?php $this->stop() ?>
 
 <?php $this->start('css_p') ?>
 <?php $this->stop() ?>
