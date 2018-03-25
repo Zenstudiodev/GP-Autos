@@ -312,8 +312,11 @@ i.small {
 a.wts_btn {
     background-color: #25D366;
     color: #fff;
-    padding: 15px;
-    margin: 30px;
+    padding: 3px;
+    margin: 0;
+    width: 100%;
+    display: block;
+    text-align: center;
 }
 
 div#homeSearchBox {

@@ -1,22 +1,23 @@
 /*/ Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 575.99px) {
+@media (max-width: 599px) {
     .imageContainer {
         height: 188px;
+    }
+    a.wts_btn {
+
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
     }
 }
 
 /* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) and (max-width: 767.99px) {
-
-}
-
-/*/ Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) and (max-width: 991.99px) {
-
+@media (min-width: 600px) and (max-width: 992px) {
+body{font-size: 0.9rem}
 }
 
 /*/ Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) and (max-width: 1199.99px) {
+@media (min-width: 992px) and (max-width: 1199px) {
 
 }
 

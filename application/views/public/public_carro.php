@@ -130,7 +130,7 @@ if ($carro) {
         <div class="divider"></div>
         <div class="section">
             <div class="row">
-                <div class="col s12 m5">
+                <div class="col s12 m12 l5">
                     <!-- banner carro-->
                     <div id="carousel-carro" class="carousel slide" data-ride="carousel">
                         <!-- Wrapper for slides -->
@@ -253,18 +253,19 @@ if ($carro) {
                     if ($data_carro->crr_certiauto == 'S') { ?>
                         <img src="<?php echo base_url() ?>/ui/public/images/logo_certiauto.png">
                     <?php } ?>
-                    <div class="section"></div>
-                    <div class="dr_chat">
-                        <a class="wts_btn" target="_blank"
-                           href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">Chat
-                            directo <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
-                    </div>
-                    <div class="section"></div>
                     <div class="section">
                         <!--TODO BOTONES PARA ACCIONES -->
 
                         <div class="row hide-on-small-only">
-                            <div class="col s12 m3">
+                            <div class="col s12 m6">
+                                <div class="dr_chat">
+                                    <a class="wts_btn waves-effect waves-light btn  z-depth-3" target="_blank"
+                                       href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">Chat
+                                        directo <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
+                                </div>
+                            </div>
+
+                            <div class="col s12 m6">
                                 <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
                                    href="#informacion_carro_modal"><i
                                             class="fa fa-info left"></i> Pedir información</a>
@@ -285,13 +286,18 @@ if ($carro) {
                         <div class="hide-on-med-and-up">
                             <ul class="collection">
                                 <li class="collection-item">
+                                    <div class="dr_chat">
+                                        <a class="wts_btn waves-effect waves-light btn  z-depth-3" target="_blank"
+                                           href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">Chat
+                                            directo <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
                                     <div>
-                                        <a href="#informacion_carro_modal" class="">
-                                            Pedir información
-                                        </a>
-                                        <a href="#informacion_carro_modal" class="secondary-content">
-                                            <i class="fa fa-info left"></i>
-                                        </a>
+                                        <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
+                                           href="#informacion_carro_modal"><i
+                                                    class="fa fa-info left"></i> Pedir información</a>
+
                                     </div>
                                 </li>
                                 <!--<li class="collection-item">
@@ -320,7 +326,7 @@ if ($carro) {
 
                     </div>
                 </div>
-                <div class="col s12 m7">
+                <div class="col s12 m12 l7">
                     <ul id="tabs-swipe-demo" class="tabs">
                         <li class="tab col m4 s12"><a class="active" href="#datos_vehiculo"> <i
                                         class="material-icons">info</i>Datos del vehiculo</a></li>
@@ -337,7 +343,7 @@ if ($carro) {
                             <div class="card-content">
                                 <span class="card-title">Datos del vehiculo: Código <?php echo $data_carro->crr_codigo ?></span>
                                 <div class="row">
-                                    <div class="col s12 m6">
+                                    <div class="col s12 m12 l6">
                                         <ul class="collection">
                                             <?php if ($data_carro->id_tipo_carro != '') { ?>
                                                 <li class="collection-item">
@@ -408,7 +414,7 @@ if ($carro) {
                                         </ul>
 
                                     </div>
-                                    <div class="col s12 m6">
+                                    <div class="col s12 m12 l6">
                                         <ul class="collection">
                                             <?php if ($data_carro->crr_color != '') { ?>
                                                 <li class="collection-item">

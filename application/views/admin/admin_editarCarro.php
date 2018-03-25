@@ -66,7 +66,8 @@ $codigo = array(
 	'placeholder' => 'Código',
 	'value'       => $carro->crr_codigo,
 	'readonly'    => 'readonly',
-	'required'    => 'required'
+	'required'    => 'required',
+    'autofocus' =>'autofocus'
 	//'disabled'    => 'disabled'
 );
 //Placa
