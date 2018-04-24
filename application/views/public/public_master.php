@@ -15,7 +15,7 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
 if ($datos_buscador ==''){
 $datos_buscador = array(
 'predio'       => 'TODOS',
-'ubicacion' => 'GUATEMALA',
+'ubicacion' => 'TODOS',
 'tipo'   => 'AUTOMOVIL',
 'marca'      => 'TODOS',
 'linea'      => 'TODOS',
@@ -23,7 +23,7 @@ $datos_buscador = array(
 'combustible'      => 'TODOS',
 'origen'      => 'TODOS',
 'moneda'    => 'TODOS',
-'precio'      => '0-300000',
+'precio'      => '0-600000',
 'modelo'      => '1952-2018',
 );
 }else{
@@ -242,7 +242,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
         </div>
 
         <div class="row">
-            <div class="col s12 m4">
+            <div class="col s12 m4 col-md-4">
                 <a href="<?php echo base_url(); ?>">
                     <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
                 </a>
@@ -470,13 +470,13 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <input id="p_carro_min" name="p_carro_min" type="number"
-                                               min="0" max="300000" step="1000"
+                                               min="0" max="600000" step="1000"
                                                placeholder="Precio min:"/>
                                         <label for="icon_prefix">Precio min:</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="p_carro_max" name="p_carro_max" type="number"
-                                               min="0" max="300000" step="1000"
+                                               min="0" max="600000" step="1000"
                                                placeholder="Precio max:"/>
                                         <label for="icon_prefix">Precio max:</label>
                                     </div>
@@ -622,10 +622,10 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
     //Precio carro
     precioCarroSlider = document.getElementById('p_carro');
     noUiSlider.create(precioCarroSlider, {
-        start: [0, 300000],
+        start: [0, 600000],
         range: {
             'min': [0],
-            'max': [300000]
+            'max': [600000]
         },
         step: 1000,
         format: wNumb({
@@ -741,7 +741,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
 
             $('#linea_carro option').remove();
             marca = filtro_marca;
-            console.log('marca: '+ marca)
+           // console.log('marca: '+ marca)
             tipo = $("#tipo_carro").val();
             $.ajax({
                 type: 'GET',
@@ -810,13 +810,13 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
     });
     //Actualizar marcas
     $("#tipo_carro").change(function (e) {
-        console.log('cambio de tipo');
+        //console.log('cambio de tipo');
         $("#loading_marca_filter").show();
         $('#marca_carro option').remove();
 
 
         filtro_tipo = $("#tipo_carro").val();
-        console.log(filtro_tipo);
+       // console.log(filtro_tipo);
         var options;
         $.ajax({
             type: 'GET',

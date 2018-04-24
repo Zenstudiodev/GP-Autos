@@ -193,13 +193,9 @@ foreach ($ubicaciones->result() as $ubicacion) {
     <!--Import boostrap.css-->
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/ui/public/css/bootstrap.min.css"/>
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>ui/public/css/materialize.min.css"
-          media="screen,projection"/>
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>ui/public/css/nouislider.css"/>
-    <!--Cameja JS css-->
-    <link rel='stylesheet' id='camera-css' href='<?php echo base_url(); ?>/ui/public/css/camera.css' type='text/css'
-          media='all'>
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>ui/public/css/materialize.min.css"/>
+
+
     <?php echo $this->section('css_p'); ?>
     <link href="<?php echo base_url() ?>ui/public/css/style.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>ui/public/css/responsive.css" rel="stylesheet">
@@ -239,7 +235,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         </div>
 
         <div class="row">
-            <div class="col s12 m4">
+            <div class="col s12 m4 col-md-4">
                 <a href="<?php echo base_url(); ?>">
                     <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
                 </a>
@@ -694,7 +690,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         $('.collapsible').collapsible({
             accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
             onOpen: function (el) {
-                console.log($(this).attr('id'));
+               // console.log($(this).attr('id'));
 
             }, // Callback for Collapsible open
             onClose: function (el) {

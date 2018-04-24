@@ -23,7 +23,7 @@ div#logo_menu_container {
 }
 
 img#logo_img {
-    height: 100%;
+    width: 230px;
 }
 
 /*
@@ -294,7 +294,7 @@ i.small {
     position: fixed;
     background: #fff;
     left: 0;
-    border-radius:0px 10px 10px 0px;
+    border-radius: 0px 10px 10px 0px;
     padding: 5px;
     z-index: 5000;
     font-size: 1.5rem;
@@ -341,6 +341,33 @@ div#homeSearchBox {
     h1 {
         font-size: 3.2rem;
     }
+}
+
+/*Subir imagenenes*/
+.upl_card label:hover {
+    cursor: pointer;
+}
+
+.upl_card label {
+    padding: 0;
+}
+
+.upl_card .card-content {
+    padding: 0;
+
+}
+
+.upl_card .card-action {
+    padding: 0;
+    text-align: center;
+}
+
+
+#subir_imagenes .modal{
+    width: 90%;
+    height: 90%;
+    max-height: 90%;
+;
 }
 
 @media only screen and (min-width: 993px) {

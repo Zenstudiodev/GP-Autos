@@ -287,6 +287,15 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+    function get_datos_carro_cliente($codigo_carro)
+    {
+        $this->db->where('crr_codigo', $codigo_carro);
+        $query = $this->db->get('carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+
 
 	function get_tapicerias()
 	{

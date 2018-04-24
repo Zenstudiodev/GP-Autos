@@ -50,7 +50,6 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/carro_renovacion', $data);
     }
-
 	public function editarCarro()
 	{
 		$data           = compobarSesion();
@@ -77,7 +76,6 @@ class Admin extends Base_Controller
 		echo $this->templates->render('admin/admin_editarCarro', $data);
 
 	}
-
 	public function actualizar_carro()
 	{
 		/*echo '<pre>';
@@ -156,7 +154,6 @@ class Admin extends Base_Controller
 
 
 	}
-
 	public function crearCarro()
 	{
 		$data           = compobarSesion();
@@ -183,7 +180,6 @@ class Admin extends Base_Controller
 		echo $this->templates->render('admin/admin_crearCarro', $data);
 
 	}
-
 	public function guardar_carro()
 	{
 		$data = compobarSesion();
@@ -277,7 +273,6 @@ class Admin extends Base_Controller
 		$this->session->set_flashdata('mensaje', 'Carro creado correctamente');
 		redirect(base_url() . 'index.php/admin/editarCarro/' . $datos['id_carro'], 'refresh');
 	}
-
 	public function renovar_carro(){
 		$data           = compobarSesion();
 		$data['titulo'] = 'Renovar carro';
@@ -317,8 +312,7 @@ class Admin extends Base_Controller
 		$this->session->set_flashdata('mensaje', 'Carro COD:'.$datos_carro['id_carro'].' renovado correctamente correctamente');
 		redirect(base_url() . 'index.php/admin/' , 'refresh');
 	}
-
-	public function  reactivar_carro(){
+	public function reactivar_carro(){
 		$data           = compobarSesion();
 		$data['titulo'] = 'Renovar carro';
 		//id carro
@@ -333,7 +327,7 @@ class Admin extends Base_Controller
 
 		echo $this->templates->render('admin/reactivar_carro', $data);
 	}
-	public function  reactivar_carro_p(){
+	public function reactivar_carro_p(){
 		$data   = compobarSesion();
 
 		$datos_carro =array(
@@ -357,14 +351,12 @@ class Admin extends Base_Controller
 		$this->session->set_flashdata('mensaje', 'Carro COD:'.$datos_carro['id_carro'].' Reactivado correctamente correctamente');
 		redirect(base_url() . 'index.php/admin/' , 'refresh');
 	}
-
 	public function banners()
 	{
 		$data            = compobarSesion();
 		$data['banners'] = $this->Banners_model->banners();
 		echo $this->templates->render('admin/admin_banners', $data);
 	}
-
 	public function editar_banner()
 	{
 		//id banner
@@ -372,7 +364,6 @@ class Admin extends Base_Controller
 		$data['banner_data'] = $this->Banners_model->banner_data($data['id_banner']);
 		echo $this->templates->render('admin/admin_editar_banner', $data);
 	}
-
 	public function crear_banner_header(){
 		$data           = compobarSesion();
 		$data['titulo'] = 'Crear Banner Header';
@@ -417,8 +408,6 @@ class Admin extends Base_Controller
         $this->Banners_model->actualizar_banners_header($post_data);
         redirect(base_url() . 'index.php/admin/banners_header/');
     }
-
-
 	public function actualizar_banner()
 	{
 
@@ -438,7 +427,6 @@ class Admin extends Base_Controller
 		redirect(base_url() . 'index.php/admin/banners/');
 
 	}
-
 	public function dar_de_baja_btn(){
 		//id carro
 		$data['id_carro'] = $this->uri->segment(3);
@@ -447,7 +435,6 @@ class Admin extends Base_Controller
 		redirect(base_url() . 'index.php/admin');
 
 	}
-
 	public function actualizar_estados_carros()
 	{
 		$carros_con_vencimiento = $this->Carros_model->carros_con_fecha_de_vencimiento();
@@ -511,7 +498,6 @@ class Admin extends Base_Controller
 		//print_r($carros_con_vencimiento->result());
 		echo '</pre>';
 	}
-
 	public function trasancciones()
 	{
 		$data           = compobarSesion();

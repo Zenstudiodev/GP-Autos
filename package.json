@@ -1,0 +1,22 @@
+{
+  "name": "gp-autos",
+  "version": "1.0.0",
+  "description": "Front ui package manager",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zenstudiodev/GP-Autos.git"
+  },
+  "author": "Carlos Samayoa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zenstudiodev/GP-Autos/issues"
+  },
+  "homepage": "https://github.com/Zenstudiodev/GP-Autos#readme",
+  "dependencies": {
+    "jquery-validation": "^1.17.0"
+  }
+}
