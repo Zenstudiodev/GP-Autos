@@ -46,7 +46,7 @@ $fecha_vencimiento_sugerida->modify('+ 30 days');
                     <div class="widget-content nopadding">
                         <div class="container">
 
-                            <form action="<?php echo base_url() . 'index.php/admin/actualizar_banner_header' ?>"
+                            <form action="<?php echo base_url() . 'index.php/admin/guardar_banner_header' ?>"
                                   method="post" class="form-horizontal">
 
                                 <div class="form-group">

@@ -31,109 +31,20 @@
     <div class="container-fluid">
         <hr>
         <div class="row-fluid">
-            <div class="span12">
-				<?php if ($carros) { ?>
-                    <div class="widget-box">
-                        <div>
-                            <ul class="nav nav-tabs">
-                                <li role="presentation" class=""><a href="<?php echo base_url()?>/admin"><i class="icon-ok"></i> Carros activos</a></li>
-                                <li role="presentation" class="active"><a href="<?php echo base_url()?>/admin/carros_de_baja"><i class="icon-remove"></i> Carros Inactivos</a></li>
-                                <li role="presentation" class="active"><a href="<?php echo base_url()?>/admin/renovaciones_carros"><i class="icon-remove"></i> Renovaciones</a></li>
+            <div class="widget-box">
+                <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
+                    <h5>Panel de inicio</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <ul class="site-stats">
+                                <li class="bg_lh"><i class="icon-user"></i> <strong><?php echo $numero_de_carros; ?></strong> <small>numero de carros</small></li>
                             </ul>
                         </div>
-                        <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
-                            <h5>Listado de carros activos</h5>
-                        </div>
-                        <div class="widget-content nopadding">
-	                        <?php if (isset($mensaje)) { ?>
-                                <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
-                                                                                href="#">×</a>
-                                    <h4 class="alert-heading">Acción exitosa!</h4>
-			                        <?php echo $mensaje; ?>
-                                </div>
-	                        <?php } ?>
-
-                            <a class="btn btn-success btn-mini"
-                               href="<?php echo base_url() ?>index.php/admin/crearCarro"><i class="icon-plus-sign"></i> Nuevo</a>
-
-
-
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="tabla_carros" >
-                                    <thead>
-                                    <tr>
-                                        <th>Acciones</th>
-                                        <th>Codigo</th>
-                                        <th>Tipo</th>
-                                        <th>Marca</th>
-                                        <th>Linea</th>
-                                        <th>Modelo</th>
-                                        <th>Inicio</th>
-                                        <th>Vencimiento</th>
-
-                                    </tr>
-                                    </thead>
-
-                                    <tfoot>
-                                    <tr>
-                                        <th>Acciones</th>
-                                        <th>Codigo</th>
-                                        <th>Tipo</th>
-                                        <th>Marca</th>
-                                        <th>Linea</th>
-                                        <th>Modelo</th>
-                                        <th>Inicio</th>
-                                        <th>Vencimiento</th>
-
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-									<?php
-
-									foreach ($carros->result() as $carro)
-									{
-										?>
-                                        <tr class="gradeX">
-                                            <td>
-		                                        <?php
-		                                        if($carro->crr_estatus == 'Alta'){?>
-                                                    <div class="btn-group" role="group" aria-label="...">
-                                                        <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/renovar_carro/'. $carro->crr_codigo?>"><i class="icon-calendar"></i> Renovar</a>
-                                                        <a class="btn btn-danger btn-xs" href="<?php echo base_url().'index.php/admin/dar_de_baja_btn/'. $carro->crr_codigo?>"><i class="icon-remove"></i> Dar de baja</a>
-                                                    </div>
-
-
-                                                <?php } ?></td>
-                                            <td>
-                                                <a href="<?php echo base_url() . 'index.php/admin/editarCarro/' . $carro->id_carro ?>">
-													<?php echo $carro->crr_codigo ?>
-                                                </a>
-                                            </td>
-
-                                            <td>
-
-												<?php echo $carro->id_tipo_carro ?>
-
-                                            </td>
-                                            <td><?php echo $carro->id_marca ?></td>
-                                            <td><?php echo $carro->id_linea ?></td>
-                                            <td><?php echo $carro->crr_modelo ?></td>
-                                            <td> <?php echo $carro->crr_fecha ?></td>
-                                            <td> <?php echo $carro->crr_vencimiento ?></td>
-
-                                        </tr>
-									<?php } ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
-					<?php
-				}
-				else
-				{
-					echo 'Aun no hay prospectos';
-				} ?>
+                </div>
+
             </div>
         </div>
     </div>

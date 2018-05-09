@@ -2,6 +2,9 @@
 .texto_naranja {
     color: #fb8c00;
 }
+.texto_centrado{
+    text-align: center;
+}
 
 /*section#top {
     position: absolute;
@@ -129,6 +132,12 @@ img.camera_thumb {
 div#camera_wrap_1 {
     height: 50vh;
 }
+
+/*FOrmulario*
+.input-field label {
+    top: 1.8rem;
+}*/
+
 
 /*Vista de carro*/
 span.detalle_item_titulo {

@@ -156,7 +156,6 @@ class Carros_model extends CI_Model
 		);
 		$this->db->insert('carro', $datos);
 		$insert_id = $this->db->insert_id();
-
 		return $insert_id;
 	}
 
@@ -172,6 +171,14 @@ class Carros_model extends CI_Model
 	function ListarCarros_admin()
 	{
 		$this->db->where('crr_estatus', 'Alta');
+		$query = $this->db->get('carro');
+
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+	function ListarCarros_pendientes()
+	{
+		$this->db->where('crr_estatus', 'Pendiente');
 		$query = $this->db->get('carro');
 
 		if ($query->num_rows() > 0) return $query;

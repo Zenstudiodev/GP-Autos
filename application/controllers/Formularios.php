@@ -321,4 +321,112 @@ class Formularios  extends Base_Controller
 		echo'send';
 	}
 
+    public function pre_calificacion(){
+        //comprobamos que exista post
+        if($this->input->post('correo')){
+            //leemos datos desde post
+            $nombre = $this->input->post('nombre');
+            $direccion_domicilio = $this->input->post('direccion_domicilio');
+            $numero_dpi = $this->input->post('numero_dpi');
+            $emitido_dpi= $this->input->post('emitido_dpi');
+            $nit= $this->input->post('nit');
+            $fecha_nacimiento= $this->input->post('fecha_nacimiento');
+            $numero_celular= $this->input->post('numero_celular');
+            $estado_civil= $this->input->post('estado_civil');
+            $correo= $this->input->post('correo');
+            $nombre_empresa= $this->input->post('nombre_empresa');
+            $direccion_empresa= $this->input->post('direccion_empresa');
+            $puesto= $this->input->post('puesto');
+            $telefono_empresa= $this->input->post('telefono_empresa');
+            $salario= $this->input->post('salario');
+            $fecha_ingreso= $this->input->post('fecha_ingreso');
+            $monto_vehiculo= $this->input->post('monto_vehiculo');
+            $terminos= $this->input->post('acepto_terminos');
+
+            //configuracion de correo
+            $config['mailtype'] = 'html';
+
+            $configGmail = array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.gmail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'creditos@gpautos.net',
+                'smtp_pass' => 'GpCreditos18',
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'newline' => "\r\n"
+            );
+            $this->email->initialize($configGmail);
+
+            $this->email->from('creditos@gpautos.net', 'GP AUTOS - Precalificación');
+            $this->email->to('creditos@gpautos.net');
+            $this->email->bcc('csamayoa@zenstudiogt.com');
+            $this->email->subject('Cliente interesado en precalificación:');
+
+            //mensaje
+            $message = '<html><body>';
+            $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+            $message .= '';
+            $message .= "<tr style='background: #eee;'><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
+            $message .= "<tr style='background: #eee;'><td><strong>Dirección de domicilio:</strong> </td><td>" .strip_tags($direccion_domicilio) ."</td></tr>";
+            $message .= "<tr><td><strong>Numero DPI:</strong> </td><td>" . strip_tags($numero_dpi) . "</td></tr>";
+            $message .= "<tr><td><strong>DPI Emitido en:</strong> </td><td>" . strip_tags($emitido_dpi) . "</td></tr>";
+            $message .= "<tr><td><strong>NIT:</strong> </td><td>" . strip_tags($nit) . "</td></tr>";
+            $message .= "<tr><td><strong>Fecha de nacimiento:</strong> </td><td>" . strip_tags($fecha_nacimiento) . "</td></tr>";
+            $message .= "<tr><td><strong>Telefono:</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
+            $message .= "<tr><td><strong>Estado civil:</strong> </td><td>" . strip_tags($estado_civil) . "</td></tr>";
+            $message .= "<tr><td><strong>Email:</strong> </td><td>" . strip_tags($correo) . "</td></tr>";
+            $message .= "<tr><td><strong>Nombre empresa:</strong> </td><td>" . strip_tags($nombre_empresa) . "</td></tr>";
+            $message .= "<tr><td><strong>Dirección empresa:</strong> </td><td>" . strip_tags($direccion_empresa) . "</td></tr>";
+            $message .= "<tr><td><strong>Puesto:</strong> </td><td>" . strip_tags($puesto) . "</td></tr>";
+            $message .= "<tr><td><strong>Teléfono empresa:</strong> </td><td>" . strip_tags($telefono_empresa) . "</td></tr>";
+            $message .= "<tr><td><strong>Salario:</strong> </td><td>" . strip_tags($salario) . "</td></tr>";
+            $message .= "<tr><td><strong>Fecha ingreso:</strong> </td><td>" . strip_tags($fecha_ingreso) . "</td></tr>";
+            $message .= "<tr><td><strong>Monto vehículo:</strong> </td><td>" . strip_tags($monto_vehiculo) . "</td></tr>";
+            $message .= "<tr><td><strong>Terminos:</strong> </td><td>" . strip_tags($terminos) . "</td></tr>";
+            $message .= "";
+            $message .= "</body></html>";
+
+
+            $this->email->message($message);
+
+            //enviar correo
+            $this->email->send();
+
+            echo'send';
+
+            $this->email->from('creditos@gpautos.net', 'GP AUTOS - Precalificación');
+            $this->email->to($correo);
+            //$this->email->bcc('csamayoa@zenstudiogt.com');
+            $this->email->subject('Gracias por precalificarte por medio de GPautos');
+
+            //mensaje
+            $message = '<html><body>';
+            $message .= '<h1>Gracias por precalificarte por medio de GPautos</h1>';
+            $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+            $message .= "<h2>En breve te enviaremos la respuesta de tu precalificación</h2>";
+            $message .= "<h3>NOTA:</h3>";
+            $message .= "<p>Te recomendamos que encaso  tu precalificación sea positiva tienes 10 dias habiles para ingresar tu papeleria fisica en oficinas de gpautos:</p>";
+            $message .= "<p>Atentamente:<br>";
+            $message .= "<p>Creditos Gpautos: <br>";
+            $message .= "creditos@gpautos.net <br>";
+            $message .= "2 av 20-29 Zona 10<br>";
+            $message .= "PBX:2294-5656</p>";
+            $message .= "</body></html>";
+
+
+            $this->email->message($message);
+
+            //enviar correo
+            $this->email->send();
+            echo'send';
+        }else{
+            //redirigir al home
+            redirect(base_url());
+        }
+
+    }
+
+
+
 }

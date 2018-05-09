@@ -80,6 +80,17 @@ class Banners_model extends CI_Model
         $this->db->where('id_bh', $post_data['id']);
         $query = $this->db->update('banners_header',$datos);
     }
+    function crear_banners_header($post_data){
+        $datos = array(
+            'titulo_bh'=> $post_data['titulo'],
+            'link_bh'=> $post_data['link'],
+            'imagen_bh'=> $post_data['imagen'],
+            'area_bh'=> $post_data['area'],
+            'vencimiento_bh'=> $post_data['vencimiento'],
+            'estado_bh'=> $post_data['estado']
+        );
+        $this->db->insert('banners_header', $datos);
+    }
 
 	/*BANNER BUSQUEDA*/
 	function guardar_click_banner_busqueda($banner_id){

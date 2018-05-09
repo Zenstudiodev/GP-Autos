@@ -260,38 +260,11 @@ $carro = $carro->row();
                                     </div>
                                 </div>
                             </div>
-
-                            <!--<div class="row">
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class="label" data-toggle="tooltip" title="Change your avatar">
-                                                <img class="rounded" id="avatar"
-                                                     src="https://avatars0.githubusercontent.com/u/3456749?s=160" alt="avatar">
-                                                <input type="file" class="sr-only" id="input" name="image" accept="image/*">
-                                            </label>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert"></div>
-                                        </div>
-                                        <div class="card-content">
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>-->
-
-
+                            <div class="row">
+                                <a class=" btn orange darken-1" href="<?php echo base_url() . 'cliente/pago_anuncio/' . $carro->id_carro ?>"><i class="material-icons ">payment</i>Pago</a>
+                            </div>
 
                             <!--Materialize modal-->
-                            <!-- Modal Trigger -->
-                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1" >Modal</a>
-
                             <!-- Modal Structure -->
 
                             <div id="modal1" class="modal modal-fixed-footer">
@@ -305,35 +278,14 @@ $carro = $carro->row();
 
                                        <a class="waves-effect waves-light btn" id="zoom_in_btn"><i class="material-icons ">ic_zoom_in</i>Acercar</a>
                                         <a class="waves-effect waves-light btn" id="zoom_off_btn"><i class="material-icons ">ic_zoom_out</i>Alejar</a>
+                                        <a class="waves-effect waves-light btn" id="rotate_btn"><i class="material-icons">crop_rotate</i>Girar</a>
                                         <a  href="#!" class="modal-action modal-close waves-effect waves-light btn" id="crop">Cortar</a>
 
                                 </div>
                             </div>
 
 
-                            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalLabel">Crop the image</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="img-container">
-                                                <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
-                                            </button>
-                                            <button type="button" class="btn btn-primary" >Crop</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
 
                     </div>
@@ -364,8 +316,19 @@ $carro = $carro->row();
     function open_modal(){
 
     }
+    function detectBrowser(){
+        var N= navigator.appName;
+        var UA= navigator.userAgent;
+        var temp;
+        var browserVersion= UA.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+        if(browserVersion && (temp= UA.match(/version\/([\.\d]+)/i))!= null)
+            browserVersion[2]= temp[1];
+        browserVersion= browserVersion? [browserVersion[1], browserVersion[2]]: [N, navigator.appVersion,'-?']; return browserVersion;
+    };
+
 
     $(document).ready(function () {
+        detectBrowser();
         $(".progress").hide();
         $(".alert").hide();
     });
@@ -446,12 +409,13 @@ $carro = $carro->row();
 
         //herramientas zoom
         $("#zoom_in_btn").click(function () {
-            //alert('do zoom');
             cropper.zoom(0.1);
         });
         $("#zoom_off_btn").click(function () {
-            //alert('do zoom');
             cropper.zoom(-0.1);
+        });
+        $("#rotate_btn").click(function () {
+            cropper.rotate(90);
         });
 
 
@@ -479,7 +443,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -531,7 +494,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -582,7 +544,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -633,7 +594,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -684,7 +644,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -735,7 +694,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -786,7 +744,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -837,7 +794,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -888,7 +844,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -939,7 +894,6 @@ $carro = $carro->row();
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                         // alert("Ready");
                         //console.log(modal, trigger);
-                        console.log(img_1);
                         cropper = new Cropper(image, {
                             aspectRatio: '1.7777777777777777',
                             viewMode: 1,
@@ -970,64 +924,7 @@ $carro = $carro->row();
             }
         });
 
-
-
-
-       /* input.addEventListener('change', function (e) {
-            var files = e.target.files;
-            var done = function (url) {
-                input.value = '';
-                image.src = url;
-                $alert.hide();
-                console.log(input.id);
-                $('#modal1').modal('open',{
-                    dismissible: true, // Modal can be dismissed by clicking outside of the modal
-                    opacity: .5, // Opacity of modal background
-                    inDuration: 300, // Transition in duration
-                    outDuration: 200, // Transition out duration
-                    startingTop: '0%', // Starting top style attribute
-                    endingTop: '0%', // Ending top style attribute
-                    ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-                       // alert("Ready");
-                        console.log(modal, trigger);
-                        cropper = new Cropper(image, {
-                            aspectRatio: '1.7777777777777777',
-                            viewMode: 1,
-                            dragMode: 'move',
-                        });
-                    },
-                    complete: function() {
-                        //    alert('Closed');
-                        cropper.destroy();
-                        cropper = null;
-                    } // Callback for Modal close
-                });
-            };
-            var reader;
-            var file;
-            var url;
-            if (files && files.length > 0) {
-                file = files[0];
-                if (URL) {
-                    done(URL.createObjectURL(file));
-                } else if (FileReader) {
-                    reader = new FileReader();
-                    reader.onload = function (e) {
-                        done(reader.result);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-        });*/
-       /* $modal.on('shown.bs.modal', function () {
-            cropper = new Cropper(image, {
-                aspectRatio: '3:4',
-                viewMode: 3,
-            });
-        }).on('hidden.bs.modal', function () {
-            cropper.destroy();
-            cropper = null;
-        });*/
+        //crop and upload
         document.getElementById('crop').addEventListener('click', function () {
             var initialAvatarURL;
             var canvas;

@@ -9,7 +9,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <title>GP Autos Admin</title>
     <meta charset="UTF-8" />
@@ -73,7 +73,12 @@
 
         <!--<li><a href="<?php /*echo base_url()*/?>index.php/admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
 
-        <li><a href="<?php echo base_url()?>index.php/admin"><i class="icon icon-signal"></i> <span>Carros</span></a> </li>
+        <li><a href="<?php echo base_url()?>index.php/admin"><i class="icon icon-signal"></i> <span>Inicio</span></a> </li>
+        <li><a href="<?php echo base_url()?>index.php/admin/vehiculos"><i class="icon icon-signal"></i> <span>vehiculos</span></a> </li>
+        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
+            <li><a href="<?php echo base_url()?>index.php/admin/predios"><i class="icon icon-file"></i> <span>Predios</span></a> </li>
+            <li><a href="<?php echo base_url()?>index.php/admin/pendientes"><i class="icon icon-file"></i> <span>vahiculos pendientes</span></a> </li>
+        <?php }?>
 	    <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
         <li><a href="<?php echo base_url()?>index.php/admin/banners"><i class="icon icon-file"></i> <span>Banners</span></a> </li>
         <?php }?>

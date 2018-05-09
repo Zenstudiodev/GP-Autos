@@ -81,4 +81,8 @@ class Predio extends Base_Controller
 		echo $this->templates->render('public/public_predio', $data);
 	}
 
+	function predios_amin(){
+
+    }
+
 }

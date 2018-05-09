@@ -65,7 +65,7 @@ class Cliente extends Base_Controller
             // check to see if we are creating the user
             // redirect them back to the admin page
             $this->session->set_flashdata('message', $this->ion_auth->messages());
-            redirect("auth", 'refresh');
+            redirect("cliente/login", 'refresh');
         } else {
             // display the create user form
             // set the flash data error message if there is one
@@ -315,17 +315,43 @@ class Cliente extends Base_Controller
 
     public function procesar_foto()
     {
-        echo '<pre>';
+       /* echo '<pre>';
         print_r($_FILES);
         echo '</pre>';
         echo '<pre>';
         print_r($_POST);
-        echo '</pre>';
+        echo '</pre>';*/
         $image = file_get_contents($_FILES['imagen']['tmp_name']);
         $id_carro = $_POST['id_carro'];
         $numero_foto =$_POST['img_number'];
 
         file_put_contents('/home2/gpautos/public_html/upload/'.$id_carro.' ('.$numero_foto.').jpg', $image);
+    }
+    public function pago_anuncio(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+
+        $data = cargar_componentes_buscador();
+        //carro
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+
+        echo $this->templates->render('public/pago_anuncio', $data);
+    }
+    public function pago_tarjeta(){
+
+    }
+    public  function pago_en_linea(){
+
+    }
+    public function pago_efectivo_depósito(){
+
     }
 
 }
