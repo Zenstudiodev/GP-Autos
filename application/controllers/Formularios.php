@@ -15,6 +15,7 @@ class Formularios  extends Base_Controller
 		$this->load->model('Carros_model');
 		$this->load->model('Formularios_model');
 		$this->load->helper('carros');
+        $this->load->model('Banners_model');
 	}
 
 	public function index(){
@@ -366,9 +367,9 @@ class Formularios  extends Base_Controller
             //mensaje
             $message = '<html><body>';
             $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
-            $message .= '';
-            $message .= "<tr style='background: #eee;'><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
-            $message .= "<tr style='background: #eee;'><td><strong>Dirección de domicilio:</strong> </td><td>" .strip_tags($direccion_domicilio) ."</td></tr>";
+            $message .= '<table>';
+            $message .= "<tr><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
+            $message .= "<tr><td><strong>Dirección de domicilio:</strong> </td><td>" .strip_tags($direccion_domicilio) ."</td></tr>";
             $message .= "<tr><td><strong>Numero DPI:</strong> </td><td>" . strip_tags($numero_dpi) . "</td></tr>";
             $message .= "<tr><td><strong>DPI Emitido en:</strong> </td><td>" . strip_tags($emitido_dpi) . "</td></tr>";
             $message .= "<tr><td><strong>NIT:</strong> </td><td>" . strip_tags($nit) . "</td></tr>";
@@ -384,7 +385,7 @@ class Formularios  extends Base_Controller
             $message .= "<tr><td><strong>Fecha ingreso:</strong> </td><td>" . strip_tags($fecha_ingreso) . "</td></tr>";
             $message .= "<tr><td><strong>Monto vehículo:</strong> </td><td>" . strip_tags($monto_vehiculo) . "</td></tr>";
             $message .= "<tr><td><strong>Terminos:</strong> </td><td>" . strip_tags($terminos) . "</td></tr>";
-            $message .= "";
+            $message .= "</table>";
             $message .= "</body></html>";
 
 
@@ -393,7 +394,7 @@ class Formularios  extends Base_Controller
             //enviar correo
             $this->email->send();
 
-            echo'send';
+           // echo'send';
 
             $this->email->from('creditos@gpautos.net', 'GP AUTOS - Precalificación');
             $this->email->to($correo);
@@ -419,12 +420,18 @@ class Formularios  extends Base_Controller
 
             //enviar correo
             $this->email->send();
-            echo'send';
+           // echo'send';
+            redirect(base_url().'formularios/gracias_precalificacion');
         }else{
             //redirigir al home
             redirect(base_url());
         }
 
+    }
+    public function gracias_precalificacion(){
+        $data = cargar_componentes_buscador();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        echo $this->templates->render('public/public_financiamiento_gracias', $data);
     }
 
 

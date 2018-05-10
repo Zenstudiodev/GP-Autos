@@ -65,8 +65,9 @@ $fecha_nacimiento = array(
     'type' => 'text',
     'name' => 'fecha_nacimiento',
     'id' => 'fecha_nacimiento',
-    'class' => ' validate datepicker',
-    'required' => 'required'
+    'class' => 'validate',
+    'required' => 'required',
+    'placeholder' => 'dd/mm/yyyy',
 );
 $numero_celular = array(
     'type' => 'number',
@@ -128,8 +129,9 @@ $fecha_ingreso = array(
     'type' => 'text',
     'name' => 'fecha_ingreso',
     'id' => 'fecha_ingreso',
-    'class' => ' validate datepicker',
-    'required' => 'required'
+    'class' => ' validate',
+    'required' => 'required',
+    'placeholder' => 'dd/mm/yyyy',
 );
 $monto_vehiculo = array(
     'type' => 'number',
@@ -203,89 +205,89 @@ $monto_vehiculo = array(
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($nombre); ?>
-                                        <label for="first_name">Nombre Completo</label>
+                                        <label for="nombre">Nombre Completo</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($direccion_domicilio); ?>
-                                        <label for="disabled">Direcciòn de domicilio</label>
+                                        <label for="direccion_domicilio">Direcciòn de domicilio</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <?php echo form_input($numero_dpi); ?>
-                                        <label for="password">Nùmero DPI</label>
+                                        <label for="numero_dpi">Nùmero DPI</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <?php echo form_input($emitido_dpi); ?>
-                                        <label for="password">Donde fue emitido el DPI</label>
+                                        <label for="emitido_dpi">Donde fue emitido el DPI</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <?php echo form_input($nit); ?>
-                                        <label for="email">NIT</label>
+                                        <label for="nit">NIT</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <?php echo form_input($correo); ?>
-                                        <label for="email">Correo electrónico</label>
+                                        <label for="correo">Correo electrónico</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s4">
+                                        <label for="fecha_nacimiento">Fecha de nacimiento</label>
                                         <?php echo form_input($fecha_nacimiento); ?>
-                                        <label for="email">Fecha de nacimiento</label>
                                     </div>
                                     <div class="input-field col s4">
                                         <?php echo form_input($numero_celular); ?>
-                                        <label for="email">Nùmero de celular</label>
+                                        <label for="numero_celular">Nùmero de celular</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <?php echo form_input($nit); ?>
-                                        <label for="email">Estado civil</label>
+                                        <?php echo form_input($estado_civil); ?>
+                                        <label for="estado_civil">Estado civil</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($nombre_empresa); ?>
-                                        <label for="email">Nombre de la empresa donde labora</label>
+                                        <label for="nombre_empresa">Nombre de la empresa donde labora</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($direccion_empresa); ?>
-                                        <label for="email">Dirección de la empresa donde labora</label>
+                                        <label for="direccion_empresa">Dirección de la empresa donde labora</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($puesto); ?>
-                                        <label for="email">Puesto que ocupa</label>
+                                        <label for="puesto">Puesto que ocupa</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($telefono_empresa); ?>
-                                        <label for="email">Número de teléfono de la empresa donde labora</label>
+                                        <label for="telefono_empresa">Número de teléfono de la empresa donde labora</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <?php echo form_input($telefono_empresa); ?>
-                                        <label for="email">Salario (Que se refleje en los estados de cuenta)</label>
+                                        <?php echo form_input($salario); ?>
+                                        <label for="salario">Salario (Que se refleje en los estados de cuenta)</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($fecha_ingreso); ?>
-                                        <label for="email">Fecha de ingreso a laborar en dicha empresa</label>
+                                        <label for="fecha_ingreso">Fecha de ingreso a laborar en dicha empresa</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($monto_vehiculo); ?>
-                                        <label for="email">Monto del vehículo que quisiera comprar</label>
+                                        <label for="monto_vehiculo">Monto del vehículo que quisiera comprar</label>
                                     </div>
                                 </div>
                                 <div class="row">
