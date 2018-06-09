@@ -19,6 +19,12 @@ class Cliente_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function get_carros_cliente($cliente_id){
+        $this->db->where('user_id', $cliente_id);
+        $query = $this->db->get('carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
 
 }

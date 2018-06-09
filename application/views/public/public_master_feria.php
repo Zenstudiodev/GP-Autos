@@ -190,6 +190,8 @@ foreach ($ubicaciones->result() as $ubicacion) {
     <!-- Materialize -->
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--font count down-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
     <!--Fonnt Awsome-->
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>ui/public/css/font-awesome.min.css"
           media="screen,projection"/>
@@ -215,6 +217,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         js.src = 'https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.11&appId=126815027415674';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
+<div id="feria">
 <section id="top">
     <div class="container-fluid">
         <div class="show-on-small hide-on-med-and-up">
@@ -230,7 +233,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             </div>
         </div>
 
-        <div id="top_contac_info" class="hide-on-small-only">
+        <div id="top_contac_info" class="hide-on-small-only grey darken-2">
             <div class="row">
                 <div class="col m6">
 
@@ -262,21 +265,20 @@ foreach ($ubicaciones->result() as $ubicacion) {
                     <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
                 </a>
 
-
-                <div class="collection">
-                    <a href="<?php echo base_url() ?>index.php/Productos/anunciate" class="collection-item black-text">
-                        Anunciate <i class="material-icons  secondary-content orange-text darken-3">note_add</i>
+                <div class="collection ">
+                    <a href="<?php echo base_url() ?>index.php/Productos/anunciate" class="collection-item white-text orange darken-3">
+                        Anunciate <i class="material-icons  secondary-content white-text darken-3">note_add</i>
                     </a>
-                    <a href="<?php echo base_url(); ?>" class="collection-item black-text">
-                        Vehiculos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
+                    <a href="<?php echo base_url(); ?>" class="collection-item white-text orange darken-3">
+                        Vehiculos <i class="material-icons  secondary-content white-text darken-3">directions_car</i>
                     </a>
                     <a href="<?php echo base_url() ?>index.php/Productos/financiamiento"
-                       class="collection-item black-text">
+                       class="collection-item white-text orange darken-3">
                         Financiamiento <i
-                                class="material-icons  secondary-content orange-text darken-3">aattach_money</i>
+                                class="material-icons  secondary-content white-text darken-3">aattach_money</i>
                     </a>
-                    <a href="<?php echo base_url() ?>index.php/Productos/seguros" class="collection-item black-text">
-                        Seguros <i class="material-icons  secondary-content orange-text darken-3">assignment</i>
+                    <a href="<?php echo base_url() ?>index.php/Productos/seguros" class="collection-item white-text orange darken-3">
+                        Seguros <i class="material-icons  secondary-content white-text darken-3">assignment</i>
                     </a>
                     <!--<a href="" class="collection-item black-text">
                         Traspasos <i class="material-icons  secondary-content orange-text darken-3" >transform</i>
@@ -284,12 +286,19 @@ foreach ($ubicaciones->result() as $ubicacion) {
                     <a href="" class="collection-item black-text">
                         Franquicia <i class="material-icons  secondary-content orange-text darken-3" >account_balance</i>
                     </a>-->
-                    <a href="<?php echo base_url() ?>index.php/Contacto" class="collection-item black-text">
-                        Contacto <i class="material-icons  secondary-content orange-text darken-3">email</i>
+                    <a href="<?php echo base_url() ?>index.php/Contacto" class="collection-item white-text orange darken-3">
+                        Contacto <i class="material-icons  secondary-content white-text darken-3">email</i>
                     </a>
 
 
                 </div>
+                <div id="feria_countDown">
+                    <div id="feria_cd_tittle">
+                        La gran feria virtual comienza en
+                    </div>
+                    <div id="getting-started"></div>
+                </div>
+
 
             </div>
             <div class="col s12 m8">
@@ -541,12 +550,12 @@ foreach ($ubicaciones->result() as $ubicacion) {
     echo $this->section('buscador');
 } ?>
 
-contador
+
 <!-- page content -->
 <?php echo $this->section('page_content') ?>
-
+</div>
 <!-- footer content -->
-<footer class="page-footer orange darken-1">
+<footer class="page-footer black darken-1">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
@@ -603,6 +612,14 @@ contador
 <!-- JS personalizado -->
 <?php echo $this->section('js_p') ?>
 <!-- JS personalizado -->
+<script type="text/javascript">
+    $("#getting-started")
+        .countdown("2018/06/15", function(event) {
+            $(this).text(
+                event.strftime('%D días %H:%M:%S')
+            );
+        });
+</script>
 <script>
     var filtro_predio;
     var filtro_ubicacion;

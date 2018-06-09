@@ -5,7 +5,7 @@
  * Date: 1/06/2017
  * Time: 6:58 PM
  */ ?>
-<?php $this->layout('public/public_master_test', [
+<?php $this->layout('public/public_master_feria', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
@@ -39,7 +39,7 @@ $CI =& get_instance();
             <!--row para incluir buscador-->
             <div class="row">
                 <div class="col m12 s12">
-                    <h1 class="texto_naranja">Vehículos Destacados</h1>
+                    <h1 class="texto_naranja">Feria Virtual</h1>
                     <div class="row">
                         <?php
                         $cardCount = 0;
@@ -51,9 +51,13 @@ $CI =& get_instance();
                             <div class="col s12 m3">
 
                                 <div class="card">
+                                    <img class="ribbon" src="<?php echo base_url()?>/ui/public/images/feria/ribbon.png">
                                     <div class="card-image waves-effect waves-block waves-light">
+
                                         <div class="imageContainer">
+
                                             <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->crr_codigo ?>">
+
                                                 <img class="activator"
                                                      src="<?php echo 'http://www.gpautos.net//web/images_cont/' . $carro->crr_codigo . ' (1).jpg' ?>">
                                             </a>

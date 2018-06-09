@@ -53,4 +53,53 @@ class Predio_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function get_carros_predio_usuario($user_id){
+        $this->db->where_in('predio_user_id', $user_id);
+        $this->db->where('crr_estatus', 'Alta');
+        $query = $this->db->get('carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function guardar_predio($predio){
+        //fecha
+        $fecha = New DateTime();
+
+        $datos = array(
+            'prv_nombre'=> $predio['nombre'],
+            'prv_direccion'=> $predio['diercción'],
+            'prv_telefono'=> $predio['telefono'],
+            'prv_descripcion'=> $predio['descripcion'],
+            'prv_img'=> $predio['imagen'],
+            'prv_estatus'=> $predio['estado'],
+            'prv_fecha'=> $fecha->format('Y-m-d'),
+            'carros_activos'=> $predio['carros_activos'],
+            'carros_permitidos'=> $predio['carros_permitidos']
+        );
+        $this->db->insert('predio_virtual', $datos);
+    }
+    function actualizar_predio($predio){
+        $datos = array(
+            'prv_nombre'=> $predio['nombre'],
+            'prv_direccion'=> $predio['diercción'],
+            'prv_telefono'=> $predio['telefono'],
+            'prv_descripcion'=> $predio['descripcion'],
+            'prv_img'=> $predio['imagen'],
+            'prv_estatus'=> $predio['estado'],
+            'carros_activos'=> $predio['carros_activos'],
+            'carros_permitidos'=> $predio['carros_permitidos']
+        );
+        $this->db->where('id_predio_virtual', $predio['id']);
+        $query = $this->db->update('predio_virtual',$datos);
+
+    }
+    function predios_asignados($id){
+        $this->db->where('user_id', $id);
+        $query = $this->db->get('predio_user');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+
+
+    }
+
+
 }

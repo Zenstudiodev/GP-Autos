@@ -9,6 +9,16 @@
         margin: 0px;
         width: 100%;
     }
+    h3 {
+        font-size: 2.5rem;
+    }
+    .img-container {
+        height: 200px;
+    }
+
+    #floating_menu {
+        bottom: 100px;
+    }
 }
 
 /* Small devices (landscape phones, 576px and up)*/

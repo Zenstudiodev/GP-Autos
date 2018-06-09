@@ -5,7 +5,6 @@
  * Date: 1/06/2017
  * Time: 4:09 PM
  */
-    $predio_data = $predio->row();
 ?>
 <?php $this->layout('admin/admin_master', [
     'title' => $title,
@@ -14,6 +13,7 @@
     'username' => $username,
     'rol' => $rol,
 ]); ?>
+
 <?php $this->start('css_p') ?>
 <!--cargamos css personalizado-->
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/select2.css"/>
@@ -29,7 +29,11 @@
         <div id="breadcrumb"></div>
     </div>
     <div class="container-fluid">
-        <?php if ($predio) { ?>
+
+
+
+
+
             <hr>
             <div class="row-fluid">
                 <div class="span12">
@@ -38,50 +42,42 @@
                             <h5>Datos del predio</h5>
                         </div>
                         <div class="widget-content nopadding">
-                            <form action="<?php echo base_url() . 'index.php/admin/actualizar_predio' ?>" method="post"
+                            <form action="<?php echo base_url() . 'index.php/admin/guardar_predio' ?>" method="post"
                                   class="form-horizontal">
-                                <div class="control-group">
-                                    <label class="control-label">ID :</label>
-                                    <div class="controls">
-                                        <input type="text" class="span11"
-                                               value="<?php echo $predio_data->id_predio_virtual ?>"
-                                               id="id" name="id" readonly/>
-                                    </div>
-                                </div>
+
                                 <div class="control-group">
                                     <label class="control-label">Nombre</label>
                                     <div class="controls">
                                         <input type="text" class="span11" placeholder="Nombre"
-                                               value="<?php echo $predio_data->prv_nombre ?>" id="nombre" name="nombre"/>
+                                               value="" id="nombre" name="nombre"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">Dirección</label>
                                     <div class="controls">
                                         <input type="text" class="span11" placeholder="Dirección"
-                                               value="<?php echo $predio_data->prv_direccion ?>" id="direccion" name="direccion"/>
+                                               value="" id="direccion" name="direccion"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">Teléfono</label>
                                     <div class="controls">
                                         <input type="text" class="span11" placeholder="Teléfono"
-                                               value="<?php echo $predio_data->prv_telefono ?>" id="telefono" name="telefono"/>
+                                               value="" id="telefono" name="telefono"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">Descripción</label>
                                     <div class="controls">
                                         <input type="text" class="span11" placeholder="Descripción"
-                                               value="<?php echo $predio_data->prv_descripcion ?>" id="descripcion" name="descripcion"/>
+                                               value="" id="descripcion" name="descripcion"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">imagen</label>
                                     <div class="controls">
                                         <input type="text" class="span11" placeholder="Imagen"
-                                               value="<?php echo $predio_data->prv_img ?>" id="imagen" name="imagen"/>
-                                        <img src="<?php echo base_url().'ui/public/images/predio/'. $predio_data->prv_img?>" class="img-responsive">
+                                               value="" id="imagen" name="imagen"/>
                                     </div>
 
                                 </div>
@@ -101,14 +97,14 @@
                                     );
                                     ?>
                                     <div class="controls">
-                                        <?php echo form_dropdown($estado_select, $estado_select_options, $predio_data->prv_estatus) ?>
+                                        <?php echo form_dropdown($estado_select, $estado_select_options) ?>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">Carros activos</label>
                                     <div class="controls">
                                         <input type="number" class="span11"
-                                               value="<?php echo $predio_data->carros_activos ?>"
+                                               value=""
                                                id="carros_activos" name="carros_activos" readonly/>
                                     </div>
                                 </div>
@@ -116,7 +112,7 @@
                                     <label class="control-label">Carros permitidos</label>
                                     <div class="controls">
                                         <input type="number" class="span11"
-                                               value="<?php echo $predio_data->carros_permitidos ?>"
+                                               value=""
                                                id="carros_permitidos" name="carros_permitidos" />
                                     </div>
                                 </div>
@@ -131,7 +127,6 @@
                 </div>
 
             </div>
-        <?php } ?>
     </div>
 </div>
 </div>

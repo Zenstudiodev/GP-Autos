@@ -24,45 +24,6 @@ $this->layout('public/public_master', [
 <?php $this->stop() ?>
 
 <?php $this->start('banner') ?>
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <!-- Indicators
-		<ol class="carousel-indicators">
-			<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-			<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-			<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-		</ol>-->
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <a href="http://www.gruponorthatlantic.com" target="_blank">
-                    <img src="<?php echo base_url() ?>ui/public/images/banner/embarque.jpg" alt="...">
-                </a>
-            </div>
-            <div class="item ">
-                <img src="<?php echo base_url() ?>ui/public/images/banner/traslado.jpg" alt="...">
-            </div>
-            <div class="item">
-                <img src="<?php echo base_url() ?>/ui/public/images/banner/anuncia-tu-carro.jpg" alt="...">
-            </div>
-            <div class="item">
-                <img src="<?php echo base_url() ?>/ui/public/images/banner/creditos.jpg" alt="...">
-            </div>
-            <div class="item">
-                <img src="<?php echo base_url() ?>ui/public/images/banner/banner1.jpg" alt="...">
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
 <?php $this->stop() ?>
 
 <?php $this->start('page_content') ?>
@@ -76,9 +37,12 @@ $this->layout('public/public_master', [
                             <img src="<?php echo base_url()?>/ui/public/images/anunciate/template.jpg" class="img-responsive">
                         </div>
                         <div class="card-action">
-                            <a href="#anunciate_modal"
-                               class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn modal-triggert" id="btn_individual">Publica
+                            <a href="<?echo base_url()?>cliente/login"
+                               class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn" >Publica
                                 tu auto</a>
+                            <!--<a href="#anunciate_modal"
+                               class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn modal-triggert" id="btn_individual">Publica
+                                tu auto</a>-->
                         </div>
                     </div>
                 </div>

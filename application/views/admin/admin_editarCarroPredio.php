@@ -14,19 +14,32 @@
 	'rol'      => $rol,
 ]);
 
+$carro = $carro->row();
+
 
 //campos
 
 $fecha_d = New DateTime();
 
 //fecha
+
+$fecha_creacion ='';
+
+if($carro->crr_vencimiento =='0000-00-00'){
+$d = new DateTime();
+	$fecha_creacion = $d->format('Y-m-d');
+}else{
+	$fecha_creacion = $carro->crr_fecha;
+}
+
+
 $fecha = array(
 	'type'        => 'text',
 	'name'        => 'fecha',
 	'id'          => 'fecha',
-	'class'       => 'form-control',
+	'class'       => 'span11 form-control',
 	'placeholder' => 'Fecha',
-	'value'       => $fecha_d->format('Y-m-d'),
+	'value'       => $fecha_creacion,
 	'readonly'    => 'readonly',
 	'required'    => 'required'
 );
@@ -37,25 +50,26 @@ $vencimiento = array(
 	'id'               => 'vencimiento',
 	'data-date'        => $fecha_d->format('Y-m-d'),
 	'data-date-format' => 'yyyy-mm-dd',
-	'class'            => 'datepicker span11 form-control',
+	'class'            => 'form-control',
 	'placeholder'      => 'Vencimiento',
-	'value'            => $fecha_d->format('Y-m-d'),
-	'required'         => 'required'
+	'value'            => $carro->crr_vencimiento,
+	'required'         => 'required',
+    'readonly'    => 'readonly',
 );
 
 //Codigo
-/*$codigo = array(
+$codigo = array(
 	'type'        => 'text',
 	'name'        => 'codigo',
 	'id'          => 'codigo',
 	'class'       => ' form-control',
 	'placeholder' => 'Código',
-	//'value'       => $carro->crr_codigo,
-	//'readonly'    => 'readonly',
+	'value'       => $carro->crr_codigo,
+	'readonly'    => 'readonly',
 	'required'    => 'required',
     'autofocus' =>'autofocus'
 	//'disabled'    => 'disabled'
-);*/
+);
 //Placa
 $placa = array(
 	'type'        => 'text',
@@ -63,7 +77,7 @@ $placa = array(
 	'id'          => 'placa',
 	'class'       => ' form-control',
 	'placeholder' => 'Placa',
-	//'value'       => $carro->crr_placa,
+	'value'       => $carro->crr_placa,
 	'required'    => 'required'
 );
 //Estado
@@ -141,7 +155,6 @@ $ubicacion_carro_select_options = array(
 $linea_carro_select         = array(
 	'name'     => 'linea_carro',
 	'id'       => 'linea_carro',
-	'class'    => 'form-control',
 	'required' => 'required'
 );
 $linea_carro_select_options = array();
@@ -170,9 +183,9 @@ $precio = array(
 	'type'        => 'text',
 	'name'        => 'precio',
 	'id'          => 'precio',
-	'class'       => ' form-control',
+	'class'       => 'span11 form-control',
 	'placeholder' => 'Precio',
-	//'value'       => $carro->crr_precio,
+	'value'       => $carro->crr_precio,
 	'required'    => 'required'
 );
 
@@ -182,9 +195,9 @@ $otros = array(
 	'type'      => 'text',
 	'name'      => 'otros',
 	'id'        => 'otros',
-	'class'     => ' form-control',
+	'class'     => 'span11 form-control ',
 	'maxlength' => '140',
-	//'value'     => $carro->crr_otros,
+	'value'     => $carro->crr_otros,
 	'required'  => 'required'
 );
 
@@ -194,7 +207,7 @@ $modelo = array(
 	'id'          => 'modelo',
 	'class'       => ' form-control',
 	'placeholder' => 'Modelo',
-	//'value'       => $carro->crr_modelo,
+	'value'       => $carro->crr_modelo,
 	'required'    => 'required'
 );
 
@@ -227,9 +240,9 @@ $cilindros = array(
 	'type'        => 'text',
 	'name'        => 'cilindros',
 	'id'          => 'cilindros',
-	'class'       => 'span11 form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Cilindros',
-	//'value'       => $carro->crr_cilindros,
+	'value'       => $carro->crr_cilindros,
 	'required'    => 'required'
 );
 //Color
@@ -247,42 +260,42 @@ $ac_s = array(
 	'name'     => 'ac',
 	'id'       => 'ac_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_ac),
 	'required' => 'required'
 );
 $ac_n = array(
 	'name'    => 'ac',
 	'id'      => 'ac_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_ac),
 );
 
 $alarma_s = array(
 	'name'     => 'alarma',
 	'id'       => 'alarma_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_alarma),
 	'required' => 'required'
 );
 $alarma_n = array(
 	'name'    => 'alarma',
 	'id'      => 'alarma_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_alarma),
 );
 
 $aros_m_s = array(
 	'name'     => 'aros_m',
 	'id'       => 'aros_m_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_aros_magnecio),
 	'required' => 'required'
 );
 $aros_m_n = array(
 	'name'    => 'aros_m',
 	'id'      => 'aros_m_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_aros_magnecio),
 );
 
 
@@ -290,97 +303,97 @@ $cerradura_c_s = array(
 	'name'     => 'cerradura_c',
 	'id'       => 'cerradura_c_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_cerradura_central),
 	'required' => 'required'
 );
 $cerradura_c_n = array(
 	'name'    => 'cerradura_c',
 	'id'      => 'cerradura_c_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_cerradura_central),
 );
 
 $bolsa_aire_s = array(
 	'name'     => 'bolsa_aire',
 	'id'       => 'bolsa_aire_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_bolsas_aire),
 	'required' => 'required'
 );
 $bolsa_aire_n = array(
 	'name'    => 'bolsa_aire',
 	'id'      => 'bolsa_aire_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_bolsas_aire),
 );
 
 $platos_s = array(
 	'name'     => 'platos',
 	'id'       => 'platos_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_platos),
 	'required' => 'required'
 );
 $platos_n = array(
 	'name'    => 'platos',
 	'id'      => 'platos_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_platos),
 );
 
 $polarizado_s = array(
 	'name'     => 'polarizado',
 	'id'       => 'polarizado_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_polarizado),
 	'required' => 'required'
 );
 $polarizado_n = array(
 	'name'    => 'polarizado',
 	'id'      => 'polarizado_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_polarizado),
 );
 
 $sun_roof_s = array(
 	'name'     => 'sun_roof',
 	'id'       => 'sun_roof_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_sunroof),
 	'required' => 'required'
 );
 $sun_roof_n = array(
 	'name'    => 'sun_roof',
 	'id'      => 'sun_roof_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_sunroof),
 );
 
 $radio_s     = array(
 	'name'     => 'radio',
 	'id'       => 'radio_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_radio),
 	'required' => 'required'
 );
 $radio_n     = array(
 	'name'    => 'radio',
 	'id'      => 'radio_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_radio),
 );
 $espejos_e_s = array(
 	'name'     => 'espejos_e',
 	'id'       => 'espejos_e_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_vidrios_electricos),
 	'required' => 'required'
 );
 $espejos_e_n = array(
 	'name'    => 'espejos_e',
 	'id'      => 'espejos_e_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_vidrios_electricos),
 );
 
 //4x4
@@ -388,14 +401,14 @@ $t4x4_s = array(
 	'name'     => 't4x4',
 	'id'       => 't4x4_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_4x4),
 	'required' => 'required'
 );
 $t4x4_n = array(
 	'name'    => 't4x4',
 	'id'      => 't4x4_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_4x4),
 );
 
 //Premium
@@ -403,34 +416,35 @@ $premium_s = array(
 	'name'     => 'premium',
 	'id'       => 'premium_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_premium),
 	'required' => 'required'
 );
 $premium_n = array(
 	'name'    => 'premium',
 	'id'      => 'premium_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_premium),
 );
 //CERTIAUTO
 $certiauto_s = array(
 	'name'     => 'certiauto',
 	'id'       => 'certiauto_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_certiauto),
 	'required' => 'required'
 );
 $certiauto_n = array(
 	'name'    => 'certiauto',
 	'id'      => 'certiauto_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_certiauto),
 );
 //TAPICERIA
 $tapiceria_carro_select         = array(
 	'name'     => 'tapiceria_carro',
 	'id'       => 'tapiceria_carro',
-	'required' => 'required'
+	'required' => 'required',
+	'class'    => 'form-control'
 );
 $tapiceria_carro_select_options = array(
 	'TELA'      => 'TELA',
@@ -484,10 +498,8 @@ $puertas_carro_select   = array(
 	'id'       => 'puertas_carro',
 	'required' => 'required',
 	'class'    => 'form-control'
-
 );
 $puertas_select_options = array(
-	"0" => "0",
 	"2" => "2",
 	"3" => "3",
 	"4" => "4",
@@ -499,14 +511,14 @@ $vidrios_e_s = array(
 	'name'     => 'vidrios_e',
 	'id'       => 'vidrios_e_s',
 	'value'    => 'Sí',
-	'checked'  => false,
+	'checked'  => radio_helper('Sí', $carro->crr_vidrios_electricos),
 	'required' => 'required'
 );
 $vidrios_e_n = array(
 	'name'    => 'vidrios_e',
 	'id'      => 'espejos_e_n',
 	'value'   => 'no',
-	'checked' => false,
+	'checked' => radio_helper('no', $carro->crr_vidrios_electricos),
 );
 //freno_delantero
 $freno_d_carro_select   = array(
@@ -523,7 +535,8 @@ $freno_d_select_options = array(
 $freno_t_carro_select   = array(
 	'name'     => 'freno_trasero',
 	'id'       => 'freno_trasero',
-	'required' => 'required'
+	'required' => 'required',
+	'class'    => 'requiered'
 );
 $freno_t_select_options = array(
 	"DISCO"  => "DISCO",
@@ -536,9 +549,9 @@ $blindaje = array(
 	'type'        => 'text',
 	'name'        => 'blindaje',
 	'id'          => 'blindaje',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Blindaje',
-	//'value'       => $carro->crr_blindaje,
+	'value'       => $carro->crr_blindaje,
 	'required'    => 'required'
 );
 
@@ -547,9 +560,9 @@ $nombre_contacto = array(
 	'type'        => 'text',
 	'name'        => 'nombre_contacto',
 	'id'          => 'nombre_contacto',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Nombre contacto',
-	//'value'       => $carro->crr_contacto_nombre,
+	'value'       => $carro->crr_contacto_nombre,
 	'required'    => 'required'
 );
 //TELEFONO   CONTACTO
@@ -557,9 +570,9 @@ $telefono_contacto = array(
 	'type'        => 'text',
 	'name'        => 'telefono_contacto',
 	'id'          => 'telefono_contacto',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Telefono contacto',
-	//'value'       => $carro->crr_contacto_telefono,
+	'value'       => $carro->crr_contacto_telefono,
 	'required'    => 'required'
 );
 
@@ -568,9 +581,9 @@ $nombre_cliente = array(
 	'type'        => 'text',
 	'name'        => 'nombre_cliente',
 	'id'          => 'nombre_cliente',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Nombre cliente',
-	//'value'       => $carro->crr_nombre_propietario,
+	'value'       => $carro->crr_nombre_propietario,
 	'required'    => 'required'
 );
 //TELEFONO CLIENTE
@@ -578,9 +591,9 @@ $telefono_cliente = array(
 	'type'        => 'text',
 	'name'        => 'telefono_cliente',
 	'id'          => 'telefono_cliente',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Telefono cliente',
-	//'value'       => $carro->crr_telefono_propietario,
+	'value'       => $carro->crr_telefono_propietario,
 	'required'    => 'required'
 );
 //EMAIL
@@ -588,9 +601,9 @@ $email = array(
 	'type'        => 'text',
 	'name'        => 'email',
 	'id'          => 'email',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Email',
-	//'value'       => $carro->crr_contacto_email,
+	'value'       => $carro->crr_contacto_email,
 	'required'    => 'required'
 );
 
@@ -599,9 +612,9 @@ $kilometraje = array(
 	'type'        => 'text',
 	'name'        => 'kilometraje',
 	'id'          => 'kilometraje',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'kilometraje',
-	//'value'       => $carro->crr_kilometraje,
+	'value'       => $carro->crr_kilometraje,
 	'required'    => 'required'
 );
 
@@ -611,9 +624,9 @@ $motor = array(
 	'type'        => 'text',
 	'name'        => 'motor',
 	'id'          => 'motor',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Motor CC',
-	//'value'       => $carro->crr_motor,
+	'value'       => $carro->crr_motor,
 	'required'    => 'required'
 );
 
@@ -622,33 +635,11 @@ $predio_id = array(
 	'type'        => 'text',
 	'name'        => 'predio_id',
 	'id'          => 'predio_id',
-	'class'       => 'form-control',
+	'class'       => ' form-control',
 	'placeholder' => 'Predio ID',
-	//'value'       => $carro->id_predio_virtual,
+	'value'       => $carro->id_predio_virtual,
 	'required'    => 'required'
 );
-
-//Boleta
-$boleta= array(
-	'type'        => 'text',
-	'name'        => 'boleta',
-	'id'          => 'boleta',
-	'class'       => ' form-control',
-	'placeholder' => 'Boleta',
-	//'value'       => $carro->crr_precio,
-	'required'    => 'required'
-);
-//Banco
-$banco = array(
-	'type'        => 'text',
-	'name'        => 'banco',
-	'id'          => 'banco',
-	'class'       => ' form-control',
-	'placeholder' => 'Banco',
-	//'value'       => $carro->crr_precio,
-	'required'    => 'required'
-);
-
 
 ?>
 <?php $this->start('css_p') ?>
@@ -676,23 +667,22 @@ $banco = array(
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget-box">
+                    <a class="btn btn-success btn-mini"
+                       href="<?php echo base_url() ?>index.php/admin/crearCarro"><i class="icon-plus-sign"></i> Nuevo</a>
                     <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
                         <h5>Información del carro</h5>
                     </div>
-                    <pre>
-                        <?php
-                        // print_r($carro); ?>
-                    </pre>
 					<?php if (isset($mensaje)) { ?>
                         <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
                                                                         href="#">×</a>
-                            <h4 class="alert-heading">Carro actualizado!</h4>
-                            Carro actualizado correctamente
+                            <h4 class="alert-heading">Acción exitosa!</h4>
+							<?php echo $mensaje; ?>
                         </div>
 					<?php } ?>
                     <div class="widget-content ">
-                        <form action="<?php echo base_url() ?>index.php/admin/guardar_carro" method="post"
+                        <form action="<?php echo base_url() ?>index.php/admin/actualizar_carro" method="post"
                               class="">
+							<?php echo form_hidden('carro_id', $carro->id_carro); ?>
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -705,11 +695,11 @@ $banco = array(
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <!--MARCA-->
+                                        <!--ESTADO-->
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
                                             <div class="controls">
-												<?php echo form_dropdown($estado_carro_select, $estado_select_options, 'Alta') ?>
+												<?php echo form_dropdown($estado_carro_select, $estado_select_options, $carro->crr_estatus) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -731,7 +721,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">Tipo</label>
                                             <div class="controls">
-												<?php echo form_dropdown($tipo_carro_select, $tipo_carro_select_options) ?>
+												<?php echo form_dropdown($tipo_carro_select, $tipo_carro_select_options, $carro->id_tipo_carro) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -740,7 +730,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">MARCA</label>
                                             <div class="controls">
-												<?php echo form_dropdown($marca_carro_select, $marca_carro_select_options) ?>
+												<?php echo form_dropdown($marca_carro_select, $marca_carro_select_options, $carro->id_marca) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -749,7 +739,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">LINEA</label>
                                             <div class="controls">
-												<?php echo form_dropdown($linea_carro_select, $linea_carro_select_options) ?>
+												<?php echo form_dropdown($linea_carro_select, $linea_carro_select_options, $carro->id_linea) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -760,7 +750,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">UBICACIÓN</label>
                                             <div class="controls">
-												<?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, 'GUATEMALA'); ?>
+												<?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, $carro->id_ubicacion) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -769,7 +759,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">MONEDA</label>
                                             <div class="controls">
-												<?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options, 'Q') ?>
+												<?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options, $carro->crr_moneda_precio) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -798,7 +788,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">ORIGEN</label>
                                             <div class="controls">
-												<?php echo form_dropdown($origen_carro_select, $origen_carro_select_options) ?>
+												<?php echo form_dropdown($origen_carro_select, $origen_carro_select_options, $carro->crr_origen) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -909,7 +899,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">COMBUSTIBLE</label>
                                             <div class="controls">
-												<?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options) ?>
+												<?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options, $carro->crr_combustible) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -988,7 +978,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label for="checkboxes" class="control-label">PUERTAS</label>
                                             <div class="controls">
-												<?php echo form_dropdown($puertas_carro_select, $puertas_select_options) ?>
+												<?php echo form_dropdown($puertas_carro_select, $puertas_select_options, strtoupper($carro->crr_puertas)) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -1031,7 +1021,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">TAPICERIA</label>
                                             <div class="controls">
-												<?php echo form_dropdown($tapiceria_carro_select, $tapiceria_carro_select_options) ?>
+												<?php echo form_dropdown($tapiceria_carro_select, $tapiceria_carro_select_options, strtoupper($carro->crr_tapiceria)) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -1056,7 +1046,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">TRANSMISIÓN</label>
                                             <div class="controls">
-												<?php echo form_dropdown($transmision_carro_select, $transmision_select_options) ?>
+												<?php echo form_dropdown($transmision_carro_select, $transmision_select_options, strtoupper($carro->crr_transmision)) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -1118,11 +1108,11 @@ $banco = array(
                                             <label for="checkboxes" class="control-label">4X4</label>
                                             <div class="controls">
                                                 <label>
-													<?php echo form_radio($t4x4_s); ?>
+						                            <?php echo form_radio($t4x4_s); ?>
                                                     Si
                                                 </label>
                                                 <label>
-													<?php echo form_radio($t4x4_n); ?>
+						                            <?php echo form_radio($t4x4_n); ?>
                                                     No
                                                 </label>
                                             </div>
@@ -1139,7 +1129,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label for="checkboxes" class="control-label">FRENO DELANTERO</label>
                                             <div class="controls">
-												<?php echo form_dropdown($freno_d_carro_select, $freno_d_select_options) ?>
+												<?php echo form_dropdown($freno_d_carro_select, $freno_d_select_options, strtoupper($carro->crr_freno_delantero)) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -1148,7 +1138,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label for="checkboxes" class="control-label">FRENO TRASERO</label>
                                             <div class="controls">
-												<?php echo form_dropdown($freno_t_carro_select, $freno_t_select_options) ?>
+												<?php echo form_dropdown($freno_t_carro_select, $freno_t_select_options, strtoupper($carro->crr_freno_trasero)) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -1163,95 +1153,67 @@ $banco = array(
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <!--OTROS-->
-                                        <div class="form-group">
-                                            <label>OTROS:</label>
-                                            <div class="controls">
-			                                    <?php echo form_textarea($otros); ?>
-                                            </div>
-                                        </div>
-                                        <!--NOMBRE CONTACTO-->
-                                        <div class="form-group">
-                                            <label>NOMBRE CONTACTO:</label>
-                                            <div class="controls">
-			                                    <?php echo form_input($nombre_contacto); ?>
-                                            </div>
-                                        </div>
-                                        <!--TELEFONO CONTACTO-->
-                                        <div class="form-group">
-                                            <label>TELEFONO CONTACTO:</label>
-                                            <div class="controls">
-			                                    <?php echo form_input($telefono_contacto); ?>
-                                            </div>
-                                        </div>
-                                        <!--NOMBRE CLIENTE-->
-                                        <div class="form-group">
-                                            <label>NOMBRE CLIENTE:</label>
-                                            <div class="controls">
-			                                    <?php echo form_input($nombre_cliente); ?>
-                                            </div>
-                                        </div>
-                                        <!--TELEFONO CLIENTE-->
-                                        <div class="form-group">
-                                            <label>TELEFONO CLIENTE:</label>
-                                            <div class="controls">
-			                                    <?php echo form_input($telefono_cliente); ?>
-                                            </div>
-                                        </div>
-                                        <!--COREO-->
-                                        <div class="form-group">
-                                            <label>CORREO:</label>
-                                            <div class="controls">
-			                                    <?php echo form_input($email); ?>
-                                            </div>
-                                        </div>
 
-                                        <!--COD PREDIO-->
-                                        <div class="form-group">
-                                            <label>COD. PREDIO</label>
-                                            <div class="controls">
-			                                    <?php echo form_input($predio_id); ?>
-                                            </div>
-                                        </div>
-                                        <!--VENCIMIENTO-->
-                                        <div class="form-group">
-                                            <label>VENCIMIENTO</label>
-                                            <div class="controls">
-			                                    <?php echo form_input($vencimiento); ?>
-                                            </div>
-                                        </div>
+                                <!--OTROS-->
+                                <div class="form-group">
+                                    <label>OTROS:</label>
+                                    <div class="controls">
+										<?php echo form_textarea($otros); ?>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <!--BOLETA-->
-                                        <div class="form-group">
-                                            <label for="checkboxes" class="control-label">BOLETA</label>
-                                            <div class="controls">
-					                            <?php echo form_input($boleta);  ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <!--BANCO-->
-                                        <div class="form-group">
-                                            <label for="checkboxes" class="control-label">BANCO</label>
-                                            <div class="controls">
-					                            <?php echo form_input($banco) ?>
-                                            </div>
-                                        </div>
+                                <!--NOMBRE CONTACTO-->
+                                <div class="form-group">
+                                    <label>NOMBRE CONTACTO:</label>
+                                    <div class="controls">
+										<?php echo form_input($nombre_contacto); ?>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="hidden" name="tipo" id="tipo" value="ingreso">
-                                            <input type="hidden" name="user_predio" id="user_predio" value="<?php echo $user_id?>">
-                                                <button type="submit" class="btn btn-success">Guardar</button>
-                                        </div>
+                                <!--TELEFONO CONTACTO-->
+                                <div class="form-group">
+                                    <label>TELEFONO CONTACTO:</label>
+                                    <div class="controls">
+										<?php echo form_input($telefono_contacto); ?>
+                                    </div>
+                                </div>
+                                <!--NOMBRE CLIENTE-->
+                                <div class="form-group">
+                                    <label>NOMBRE CLIENTE:</label>
+                                    <div class="controls">
+										<?php echo form_input($nombre_cliente); ?>
+                                    </div>
+                                </div>
+                                <!--TELEFONO CLIENTE-->
+                                <div class="form-group">
+                                    <label>TELEFONO CLIENTE:</label>
+                                    <div class="controls">
+										<?php echo form_input($telefono_cliente); ?>
+                                    </div>
+                                </div>
+                                <!--COREO-->
+                                <div class="form-group">
+                                    <label>CORREO:</label>
+                                    <div class="controls">
+										<?php echo form_input($email); ?>
+                                    </div>
+                                </div>
+
+                                <!--COD PREDIO-->
+                                <div class="form-group">
+                                    <label>COD. PREDIO</label>
+                                    <div class="controls">
+										<?php echo form_input($predio_id); ?>
+                                    </div>
+                                </div>
+                                <!--VENCIMIENTO-->
+                                <div class="form-group">
+                                    <label>VENCIMIENTO</label>
+                                    <div class="controls">
+										<?php echo form_input($vencimiento); ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-success">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -1269,6 +1231,7 @@ $banco = array(
 <script src="<?php echo base_url() ?>ui/admin/js/bootstrap-datepicker.js"></script>
 <!--<script src="<?php echo base_url() ?>ui/admin/js/jquery.toggle.buttons.js"></script>-->
 <script src="<?php echo base_url() ?>ui/admin/js/masked.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <!--<script src="<?php echo base_url() ?>ui/admin/js/select2.min.js"></script>-->
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>

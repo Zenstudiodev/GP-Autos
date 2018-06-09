@@ -12,21 +12,21 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
 
 //echo 'data buscador session'.$datos_buscador;
 
-if ($datos_buscador ==''){
-$datos_buscador = array(
-'predio'       => 'TODOS',
-'ubicacion' => 'TODOS',
-'tipo'   => 'AUTOMOVIL',
-'marca'      => 'TODOS',
-'linea'      => 'TODOS',
-'transmision'      => 'TODOS',
-'combustible'      => 'TODOS',
-'origen'      => 'TODOS',
-'moneda'    => 'TODOS',
-'precio'      => '0-600000',
-'modelo'      => '1952-2018',
-);
-}else{
+if ($datos_buscador == '') {
+    $datos_buscador = array(
+        'predio' => 'TODOS',
+        'ubicacion' => 'TODOS',
+        'tipo' => 'AUTOMOVIL',
+        'marca' => 'TODOS',
+        'linea' => 'TODOS',
+        'transmision' => 'TODOS',
+        'combustible' => 'TODOS',
+        'origen' => 'TODOS',
+        'moneda' => 'TODOS',
+        'precio' => '0-600000',
+        'modelo' => '1952-2018',
+    );
+} else {
 //echo 'datos sesion con datos';
 }
 
@@ -41,134 +41,134 @@ $s_moneda = $datos_buscador['moneda'];
 
 //PREDIO
 $predio_carro_select = array(
-'name' => 'predio_carro',
-'id' => 'predio_carro',
-'class' => 'browser-default',
+    'name' => 'predio_carro',
+    'id' => 'predio_carro',
+    'class' => 'browser-default',
 );
 $predio_carro_select_options = array(
-'TODOS' => 'TODOS',
+    'TODOS' => 'TODOS',
 );
 foreach ($predios->result() as $predio) {
-$predio_carro_select_options[$predio->id_predio_virtual] = $predio->prv_nombre;
+    $predio_carro_select_options[$predio->id_predio_virtual] = $predio->prv_nombre;
 }
 
 //UBICACION
 $ubicacion_carro_select = array(
-'name' => 'ubicacion_carro',
-'id' => 'ubicacion_carro',
-'class' => 'browser-default',
+    'name' => 'ubicacion_carro',
+    'id' => 'ubicacion_carro',
+    'class' => 'browser-default',
 );
 
 $ubicacion_carro_select_options = array(
-'TODOS' => 'TODOS',
+    'TODOS' => 'TODOS',
 );
 foreach ($ubicaciones->result() as $ubicacion) {
-$ubicacion_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubicacion;
+    $ubicacion_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubicacion;
 }
 
 //TIPO
 $tipo_carro_select = array(
-'name' => 'tipo_carro',
-'id' => 'tipo_carro',
-'class' => 'browser-default',
+    'name' => 'tipo_carro',
+    'id' => 'tipo_carro',
+    'class' => 'browser-default',
 );
 $tipo_carro_select_options = array();
 foreach ($tipos->result() as $tipo_carro) {
-$tipo_carro_select_options[$tipo_carro->id_tipo_carro] = $tipo_carro->id_tipo_carro;
+    $tipo_carro_select_options[$tipo_carro->id_tipo_carro] = $tipo_carro->id_tipo_carro;
 }
 
 
 //MARCA
 $marca_carro_select = array(
-'name' => 'marca_carro',
-'id' => 'marca_carro',
-'class' => 'browser-default',
+    'name' => 'marca_carro',
+    'id' => 'marca_carro',
+    'class' => 'browser-default',
 );
 $marca_carro_select_options = array(
-'TODOS' => 'TODOS',
+    'TODOS' => 'TODOS',
 );
 if ($marca) {
-foreach ($marca->result() as $marca_carro) {
-$marca_carro_select_options[$marca_carro->id_marca] = $marca_carro->id_marca;
-}
+    foreach ($marca->result() as $marca_carro) {
+        $marca_carro_select_options[$marca_carro->id_marca] = $marca_carro->id_marca;
+    }
 }
 
 //LINEA
 $linea_carro_select = array(
-'name' => 'linea_carro',
-'id' => 'linea_carro',
-'class' => 'browser-default'
+    'name' => 'linea_carro',
+    'id' => 'linea_carro',
+    'class' => 'browser-default'
 );
 $linea_carro_select_options = array(
-'TODOS' => 'TODOS',
+    'TODOS' => 'TODOS',
 );
 if ($linea) {
-foreach ($linea->result() as $linea_carro) {
-$linea_carro_select_options[$linea_carro->id_linea] = $linea_carro->id_linea;
-}
+    foreach ($linea->result() as $linea_carro) {
+        $linea_carro_select_options[$linea_carro->id_linea] = $linea_carro->id_linea;
+    }
 }
 
 //TRANSMISION
 $transmision_carro_select = array(
-'name' => 'transmision_carro',
-'id' => 'transmision_carro',
-'class' => 'browser-default',
+    'name' => 'transmision_carro',
+    'id' => 'transmision_carro',
+    'class' => 'browser-default',
 );
 $transmision_carro_select_options = array(
-'TODOS' => 'TODOS',
+    'TODOS' => 'TODOS',
 );
 
 foreach ($transmisiones->result() as $transmision) {
-$transmision_carro_select_options[$transmision->crr_transmision] = $transmision->crr_transmision;
+    $transmision_carro_select_options[$transmision->crr_transmision] = $transmision->crr_transmision;
 }
 
 //COMBUSTIBLE
 $combustible_carro_select = array(
-'name' => 'combustible_carro',
-'id' => 'combustible_carro',
-'class' => 'browser-default',
+    'name' => 'combustible_carro',
+    'id' => 'combustible_carro',
+    'class' => 'browser-default',
 );
 $combustible_carro_select_options = array(
-'TODOS' => 'TODOS'
+    'TODOS' => 'TODOS'
 );
 foreach ($combustibles->result() as $combustible) {
-$combustible_carro_select_options[$combustible->nombre] = $combustible->nombre;
+    $combustible_carro_select_options[$combustible->nombre] = $combustible->nombre;
 }
 
 //ORIGEN
 $origen_carro_select = array(
-'name' => 'origen_carro',
-'id' => 'origen_carro',
-'class' => 'browser-default',
+    'name' => 'origen_carro',
+    'id' => 'origen_carro',
+    'class' => 'browser-default',
 );
 $origen_carro_select_options = array(
-'TODOS' => 'TODOS',
-'AGENCIA' => 'AGENCIA',
-'RODADO' => 'RODADO',
+    'TODOS' => 'TODOS',
+    'AGENCIA' => 'AGENCIA',
+    'RODADO' => 'RODADO',
 );
 
 //MONEDA.
 $moneda_carro_select = array(
-'name' => 'moneda_carro',
-'id' => 'moneda_carro',
-'class' => 'browser-default',
+    'name' => 'moneda_carro',
+    'id' => 'moneda_carro',
+    'class' => 'browser-default',
 );
 $moneda_carro_select_options = array(
-'TODOS' => 'TODOS',
-'Q' => 'Q',
-'D' => '$',
+    'TODOS' => 'TODOS',
+    'Q' => 'Q',
+    'D' => '$',
 );
 
 //UBICACIONES
 $ubicaciones_carro_select = array(
-'name' => 'ubicacion',
-'id' => 'ubicacion',
+    'name' => 'ubicacion',
+    'id' => 'ubicacion',
 );
 $ubicaciones_carro_select_options = array(
-'TODOS' => 'TODOS'
+    'TODOS' => 'TODOS'
 );
 foreach ($ubicaciones->result() as $ubicacion) {
-$ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubicacion;
+    $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubicacion;
 }
 
 ?>
@@ -200,9 +200,6 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
           media="screen,projection"/>
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>ui/public/css/nouislider.css"/>
-    <!--Cameja JS css-->
-    <link rel='stylesheet' id='camera-css' href='<?php echo base_url(); ?>/ui/public/css/camera.css' type='text/css'
-          media='all'>
     <?php echo $this->section('css_p'); ?>
     <link href="<?php echo base_url() ?>ui/public/css/style.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>ui/public/css/responsive.css" rel="stylesheet">
@@ -220,9 +217,22 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
     }(document, 'script', 'facebook-jssdk'));</script>
 <section id="top">
     <div class="container-fluid">
+        <div class="show-on-small hide-on-med-and-up">
+            <div class="row">
+
+                <div class="col s6">
+                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Entrar</a>
+                </div>
+                <div class="col s6">
+                    <a class="waves-effect waves-light btn"
+                       href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                </div>
+            </div>
+        </div>
+
         <div id="top_contac_info" class="hide-on-small-only">
             <div class="row">
-                <div class="col m9">
+                <div class="col m6">
 
                     <p>
                         <i class="fa fa-envelope-o" aria-hidden="true"></i>
@@ -230,6 +240,11 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                         Lunes a Viernes 09:00 AM - 06:00 PM Sábado 09:00 AM a 01:00 PM
                     </p>
+                </div>
+                <div class="col m3">
+                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Entrar</a>
+                    <a class="waves-effect waves-light btn"
+                       href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
                 </div>
                 <div class="col m3">
                     <p class="text-right"><i class="fa fa-phone"></i>
@@ -274,6 +289,12 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                     </a>
 
 
+                </div>
+                <div id="feria_countDown">
+                    <div id="feria_cd_tittle">
+                        La gran feria virtual comienza en
+                    </div>
+                    <div id="getting-started"></div>
                 </div>
 
             </div>
@@ -386,7 +407,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                                 <!--<div class="row">
                                     <div class=" s12">
                                         <label for="tipo_carro">Predio </label>
-                                        <?php /*echo form_dropdown($predio_carro_select, $predio_carro_select_options) */?>
+                                        <?php /*echo form_dropdown($predio_carro_select, $predio_carro_select_options) */ ?>
                                     </div>
                                 </div>-->
                                 <input type="hidden" value="TODOS" name="predio_carro" id="predio_carro">
@@ -583,8 +604,17 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
 
 <!--Banners-->
 <script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/banners_cont.js"></script>
+<script src="/bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
 <!-- JS personalizado -->
 <?php echo $this->section('js_p') ?>
+<script type="text/javascript">
+    $("#getting-started")
+        .countdown("2018/06/15", function(event) {
+            $(this).text(
+                event.strftime('%D días %H:%M:%S')
+            );
+        });
+</script>
 <!-- JS personalizado -->
 <script>
     var filtro_predio;
@@ -739,33 +769,33 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
 
         //cargamos las lineas al cargar el documento
 
-            $('#linea_carro option').remove();
-            marca = filtro_marca;
-           // console.log('marca: '+ marca)
-            tipo = $("#tipo_carro").val();
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
-                success: function (data) {
-                    $('#linea_carro').append('<option value="TODOS">TODOS</option>');
-                    $.each(data, function (key, value) {
-                        $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
-                    });
-                    $('select').material_select();
-                    if(filtro_linea == undefined){
-                        filtro_linea = 'TODOS';
-                    }
-                    $("#linea_carro").val(filtro_linea);
-                    $('select').material_select();
-
-
-                },
-                error:function(data){
-                    console.log(data);
-                    $('#linea_carro').append('<option value="TODOS">TODOS</option>');
+        $('#linea_carro option').remove();
+        marca = filtro_marca;
+        // console.log('marca: '+ marca)
+        tipo = $("#tipo_carro").val();
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+            success: function (data) {
+                $('#linea_carro').append('<option value="TODOS">TODOS</option>');
+                $.each(data, function (key, value) {
+                    $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
+                });
+                $('select').material_select();
+                if (filtro_linea == undefined) {
+                    filtro_linea = 'TODOS';
                 }
-            });
+                $("#linea_carro").val(filtro_linea);
+                $('select').material_select();
+
+
+            },
+            error: function (data) {
+                console.log(data);
+                $('#linea_carro').append('<option value="TODOS">TODOS</option>');
+            }
+        });
 
 
         filtro_predio = '<?php echo $datos_buscador['predio']; ?>';
@@ -816,7 +846,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
 
 
         filtro_tipo = $("#tipo_carro").val();
-       // console.log(filtro_tipo);
+        // console.log(filtro_tipo);
         var options;
         $.ajax({
             type: 'GET',
@@ -825,7 +855,7 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
             success: function (data) {
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
-                    options +='<option value="' + value.id_marca + '">' + value.id_marca + '</option>';
+                    options += '<option value="' + value.id_marca + '">' + value.id_marca + '</option>';
                 });
                 $('#marca_carro').append(options);
                 $("#loading_marca_filter").hide();
@@ -841,10 +871,10 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
         $("#loading_linea_filter").show();
         $('#linea_carro option').remove();
         marca = $(this).val();
-        if(marca =='TODOS'){
+        if (marca == 'TODOS') {
             $('#linea_carro').append('<option value="TODOS" selected>TODOS</option>');
             $("#loading_linea_filter").hide();
-        }else{
+        } else {
             tipo = $("#tipo_carro").val();
             $.ajax({
                 type: 'GET',
@@ -853,11 +883,11 @@ $ubicaciones_carro_select_options[$ubicacion->id_ubicacion] = $ubicacion->id_ubi
                 success: function (data) {
                     $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                     $.each(data, function (key, value) {
-                        linea_options +='<option value="' + value.id_linea + '">' + value.id_linea + '</option>';
+                        linea_options += '<option value="' + value.id_linea + '">' + value.id_linea + '</option>';
                     });
                     $('#linea_carro').append(linea_options);
                     $('select').material_select();
-                    if(filtro_linea == undefined){
+                    if (filtro_linea == undefined) {
                         filtro_linea = 'TODOS';
                     }
                     $("#linea_carro").val(filtro_linea);

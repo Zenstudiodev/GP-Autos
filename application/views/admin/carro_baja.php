@@ -32,18 +32,21 @@
         <hr>
         <div class="row-fluid">
             <div class="span12">
-				<?php if ($carros) { ?>
+
                     <div class="widget-box">
                         <div>
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class=""><a href="<?php echo base_url()?>admin/vehiculos"><i class="icon-ok"></i> Carros activos</a></li>
                                 <li role="presentation" class="active"><a href="<?php echo base_url()?>/admin/carros_de_baja"><i class="icon-remove"></i> Carros Inactivos</a></li>
+                                <?php if($rol != 'predio'){?>
                                 <li role="presentation" class="active"><a href="<?php echo base_url()?>/admin/renovaciones_carros"><i class="icon-remove"></i> Renovaciones</a></li>
+                                <?php }?>
                             </ul>
                         </div>
                         <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
                             <h5>Listado de carros activos</h5>
                         </div>
+                        <?php if ($carros) { ?>
                         <div class="widget-content nopadding">
 	                        <?php if (isset($mensaje)) { ?>
                                 <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
@@ -96,12 +99,12 @@
                                         <tr class="gradeX">
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="...">
-                                                    <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/reactivar_carro/'. $carro->crr_codigo?>"><i class="icon-calendar"></i> Renovar</a>
+                                                    <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/reactivar_carro_predio_p/'. $carro->id_carro?>"><i class="icon-calendar"></i> Renovar</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <a href="<?php echo base_url() . 'index.php/admin/editarCarro/' . $carro->id_carro ?>">
-													<?php echo $carro->crr_codigo ?>
+													<?php echo $carro->id_carro ?>
                                                 </a>
                                             </td>
 

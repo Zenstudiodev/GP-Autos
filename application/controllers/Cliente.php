@@ -12,9 +12,11 @@ class Cliente extends Base_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('email');
         $this->load->model('Carros_model');
         $this->load->model('Banners_model');
         $this->load->model('Cliente_model');
+        $this->load->model('Pagos_model');
         $this->load->library(array('ion_auth', 'form_validation'));
         $this->load->helper(array('url', 'language'));
 
@@ -22,7 +24,6 @@ class Cliente extends Base_Controller
 
         $this->lang->load('auth');
     }
-
     public function registro()
     {
         $data = cargar_componentes_buscador();
@@ -126,7 +127,6 @@ class Cliente extends Base_Controller
 
 
     }
-
     public function login()
     {
         $data = cargar_componentes_buscador();
@@ -174,7 +174,6 @@ class Cliente extends Base_Controller
 
 
     }
-
     public function perfil()
     {
         $data = cargar_componentes_buscador();
@@ -182,10 +181,16 @@ class Cliente extends Base_Controller
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $this->Cliente_model->get_cliente_data($user_id);
+        if($this->Cliente_model->get_carros_cliente($user_id)){
+            $data['carros']=$this->Cliente_model->get_carros_cliente($user_id);
+        }else{
+            $data['carros']=false;
+        }
+        //$data['carros']=
 
         echo $this->templates->render('public/perfil', $data);
     }
-
     public function publicar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -210,7 +215,6 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/publicar_carro', $data);
 
     }
-
     public function guardar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -222,8 +226,7 @@ class Cliente extends Base_Controller
         $usuario = $data['datos_usuario']->row();
 
         $datos = array(
-            'id_carro' => '1000001',
-            'crr_codigo' => '1000001',
+
             'crr_fecha' => $this->input->post('fecha'),
             'crr_placa' => $this->input->post('placa'),
             'id_tipo_carro' => $this->input->post('tipo_carro_uf'),
@@ -284,16 +287,16 @@ class Cliente extends Base_Controller
             'crr_nombre_propietario' => $usuario->first_name,
             'crr_telefono_propietario' => $usuario->phone,
             'crr_vencimiento' => $usuario->email,
+            'user_id' => $user_id,
         );
         /* echo '<pre>';
          print_r($datos);
          echo '</pre>';*/
-        $carro_id = $this->Carros_model->crear_carro($datos);
+        $carro_id = $this->Carros_model->crear_carro_public($datos);
         redirect('cliente/subir_fotos/' . $carro_id);
 
 
     }
-
     public function subir_fotos()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -312,7 +315,6 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/subir_fotos', $data);
     }
-
     public function procesar_foto()
     {
        /* echo '<pre>';
@@ -325,7 +327,7 @@ class Cliente extends Base_Controller
         $id_carro = $_POST['id_carro'];
         $numero_foto =$_POST['img_number'];
 
-        file_put_contents('/home2/gpautos/public_html/upload/'.$id_carro.' ('.$numero_foto.').jpg', $image);
+        file_put_contents('/home2/gpautos/public_html/web/images_cont/'.$id_carro.' ('.$numero_foto.').jpg', $image);
     }
     public function pago_anuncio(){
         if (!$this->ion_auth->logged_in()) {
@@ -347,10 +349,150 @@ class Cliente extends Base_Controller
     public function pago_tarjeta(){
 
     }
-    public  function pago_en_linea(){
+    public function pago_en_linea(){
 
     }
-    public function pago_efectivo_depósito(){
+    public function pago_deposito(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        //carro
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        echo $this->templates->render('public/pago_deposito', $data);
+    }
+    public function pago_efectivo(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        //carro
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        echo $this->templates->render('public/pago_efectivo', $data);
+    }
+    public function guarda_pago_efectivo(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+
+        $datos_pago_efectivo = array(
+            'user_id'    => $user_id,
+            'direccion'    => $this->input->post('direccion'),
+            'telefono'    => $this->input->post('telefono'),
+            'monto'    => 140,
+            'carro_id'    => $this->input->post('carro_id'),
+        );
+        $data['banners'] = $this->Pagos_model->guardar_pago_efectivo($datos_pago_efectivo);
+        //redirigimos a visanet
+        redirect(base_url() . 'Cliente/revisar_anuncio/'.$this->input->post('carro_id'));
+
+    }
+    public function guarda_pago_deposito(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+
+        $datos_pago_efectivo = array(
+            'user_id'    => $user_id,
+            'banco'    => $this->input->post('banco'),
+            'metodo'    => 'deposito',
+            'monto'    => 125,
+            'carro_id'    => $this->input->post('carro_id'),
+        );
+        $data['banners'] = $this->Pagos_model->guardar_pago_deposito($datos_pago_efectivo);
+        //redirigimos a visanet
+        redirect(base_url() . 'Cliente/revisar_anuncio/'.$this->input->post('carro_id'));
+
+    }
+    public function revisar_anuncio(){
+
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+
+        $data = cargar_componentes_buscador();
+        //carro
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        $data['pagos_carro'] = $this->Pagos_model->get_pagos_carro_public($data['carro_id']);
+        echo $this->templates->render('public/revisar_anuncio', $data);
+    }
+
+    function correo_publicacion(){
+
+        //configuracion de correo
+        $config['mailtype'] = 'html';
+
+        $configGmail = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'info@gpautos.net',
+            'smtp_pass' => 'JdGg2005gp',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        );
+        $this->email->initialize($configGmail);
+
+
+        $this->email->from('info@gpautos.net', 'GP AUTOS');
+        //$this->email->to('gppredio@gpautos.net');
+        //$this->email->bcc('csamayoa@zenstudiogt.com');
+        $this->email->to('csamayoa@zenstudiogt.com');
+
+        $this->email->subject('Vehiculo publicado:');
+
+        //mensaje
+        $message = '<html><body>';
+        $message .= '<table style="border: #e79637 1px solid;padding: 20px;width: 600px; font-family:  Helvetica, Arial, sans-serif;">';
+        $message .= ' <tr><td>&nbsp;</td></tr>';
+        $message .= '<tr><td colspan="3"><h1 style="text-align: center">FELICITACIONES</h1></td></tr>';
+        $message .= '<tr><td></td>';
+        $message .= '<td><img src="http://gpautos.net/ui/public/images/bienvenida_logo.JPG" style="width: 400px;display: block;margin: 0 auto;"></td>';
+        $message .= '<td></td></tr>';
+        $message .= '<tr><td></td>';
+        $message .= '<td><p style="color: #fff; background: #e79637; padding: 20px;">EN BREVE TU ANUNCIO ESTARA ACTIVO</p></td>';
+        $message .= '<td><p>Recuerda que si deseas modificar tu anuncio lo puedes hacer desde tu perfil en <a href="http://gpautos.net">gpautos.net.</a></p></td>';
+        $message .= '<td><p>La duración de tu anuncio es de 30 dias</p></td>';
+        $message .= '<td><p>Al finalizar el timpo podras renovar tu anuncio con un solo click</p></td>';
+        $message .= '<td></td></tr>';
+        $message .= '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+        $message .= '<tr><td colspan="3">Atentamente.</td></tr>';
+        $message .= '<tr><td colspan="3"><p>';
+        $message .= 'Equipo de GPAUTOS.NET<br>';
+        $message .= '<a href="mailto:info@gpautos.net">info@gpautos.net</a><br>';
+        $message .= '<a href="http://gpautos.net" style="color: #e79637; font-weight: bold">www.gpautos.net</a>';
+        $message .= '</p></td></tr>';
+        $message .= "</body></html>";
+
+        $this->email->message($message);
+        //enviar correo
+        $this->email->send();
+
+
+        echo'send';
 
     }
 

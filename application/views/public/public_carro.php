@@ -66,7 +66,7 @@ if ($carro) {
     ?>
     <meta property="product:price:currency" content="<?php echo $monedaOG; ?>"/>
     <meta property="og:image"
-          content="<?php echo htmlspecialchars('http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . '%20(1).jpg'); ?>"/>
+          content="<?php echo htmlspecialchars('http://gpautos.net/web/images_cont/' . $data_carro->id_carro . '%20(1).jpg'); ?>"/>
 <?php } ?>
 <?php $this->stop() ?>
 
@@ -98,7 +98,7 @@ if ($carro) {
             <div class="row">
                 <div class="col s12 m7">
                     <h1><?php echo $data_carro->id_marca . ' - ' . $data_carro->id_linea; ?></h1>
-                    <?php if ($data_carro->id_predio_virtual != '') { ?><p>
+                    <?php if ( $data_carro->id_predio_virtual != 0) { ?><p>
                         <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
                            href="<?php echo base_url() . 'index.php/predio/ver/' . $data_carro->id_predio_virtual; ?>"><i
                                     class="fa fa-car left"></i>
@@ -120,36 +120,41 @@ if ($carro) {
                     <h2 class="texto_naranja" id="precio_carro">
                         <?php mostrar_precio_carro($data_carro->crr_precio, $data_carro->crr_moneda_precio); ?>
                     </h2>
-                    <!--<a class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light"
-                       id="precio_carro_btn">Ver precio</a>-->
-                    <a class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light"
-                       id="contacto_carro_btn">Ver datos de contacto</a>
+                        <?php
+                        if(false){
+                            echo '<h4>Precio de oferta </h4>';
+                            echo'<h2 class="texto_naranja">';
+                            mostrar_precio_carro($data_carro->crr_precio_descuento, $data_carro->crr_moneda_precio);
+                            echo'</h2>';
+                        }
+                        ?>
+
                 </div>
             </div>
         </div>
         <div class="divider"></div>
         <div class="section">
             <div class="row">
-                <div class="col s12 m12 l5">
+                <div class="col s12 m12 l6">
                     <!-- banner carro-->
                     <div id="carousel-carro" class="carousel slide" data-ride="carousel">
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (1).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (1).jpg')) { ?>
                                 <div class="item active">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (1).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (1).jpg' ?>"
+                                         class="img-responsive" >
                                 </div>
                             <?php } else {
                             } ?>
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (2).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (2).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (2).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (2).jpg' ?>"
+                                         class="img-responsive">
 
                                 </div>
                             <?php } else {
@@ -157,80 +162,80 @@ if ($carro) {
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (3).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (3).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (3).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (3).jpg' ?>"
+                                         class="img-responsive" >
                                 </div>
                             <?php } else {
                             } ?>
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (4).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (4).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (4).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (4).jpg' ?>"
+                                         class="img-responsive" >
                                 </div>
                             <?php } else {
                             } ?>
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (5).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (5).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (5).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (5).jpg' ?>"
+                                         class="img-responsive" >
                                 </div>
                             <?php } else {
                             } ?>
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (6).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (6).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (6).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (6).jpg' ?>"
+                                         class="img-responsive">
                                 </div>
                             <?php } else {
                             } ?>
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (7).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (7).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (7).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (7).jpg' ?>"
+                                         class="img-responsive" >
                                 </div>
                             <?php } else {
                             } ?>
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (8).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (8).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (8).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (8).jpg' ?>"
+                                         class="img-responsive" >
                                 </div>
                             <?php } else {
                             } ?>
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (9).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (9).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (9).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (9).jpg' ?>"
+                                         class="img-responsive" >
                                 </div>
                             <?php } else {
                             } ?>
 
 
                             <?php
-                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->crr_codigo . ' (10).jpg')) { ?>
+                            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (10).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (10).jpg' ?>"
-                                         class="img-responsive" width="600">
+                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (10).jpg' ?>"
+                                         class="img-responsive" >
                                 </div>
                             <?php } else {
                             } ?>
@@ -251,7 +256,12 @@ if ($carro) {
                     <?php
 
                     if ($data_carro->crr_certiauto == 'S') { ?>
-                        <img src="<?php echo base_url() ?>/ui/public/images/logo_certiauto.png">
+                    <p>&nbsp;</p>
+                        <div class="row">
+                            <div class="col s6"><!--<img src="<?php /*echo base_url() */?>/ui/public/images/logo_certiauto.png" class="responsive-img">--></div>
+                            <div class="col s6"><img src="<?php echo base_url() ?>/ui/public/images/sello.jpg" class="responsive-img"></div>
+                        </div>
+
                     <?php } ?>
                     <div class="section">
                         <!--TODO BOTONES PARA ACCIONES -->
@@ -326,7 +336,7 @@ if ($carro) {
 
                     </div>
                 </div>
-                <div class="col s12 m12 l7">
+                <div class="col s12 m12 l6">
                     <ul id="tabs-swipe-demo" class="tabs">
                         <li class="tab col m4 s12"><a class="active" href="#datos_vehiculo"> <i
                                         class="material-icons">info</i>Datos del vehiculo</a></li>
@@ -341,7 +351,7 @@ if ($carro) {
                         <!--Panel-->
                         <div class="card">
                             <div class="card-content">
-                                <span class="card-title">Datos del vehiculo: Código <?php echo $data_carro->crr_codigo ?></span>
+                                <span class="card-title">Datos del vehiculo: Código <?php echo $data_carro->id_carro ?></span>
                                 <div class="row">
                                     <div class="col s12 m12 l6">
                                         <ul class="collection">
@@ -697,7 +707,7 @@ if ($carro) {
                 $ref_volver = base_url();
 
             } else if ($url_ref_set) {
-                $ref_volver = $_SERVER['HTTP_REFERER'] . '?card=' . $data_carro->crr_codigo . '_card#' . $data_carro->crr_codigo . '_card';
+                $ref_volver = $_SERVER['HTTP_REFERER'] . '?card=' . $data_carro->id_carro . '_card#' . $data_carro->id_carro . '_card';
             } else {
                 $ref_volver = base_url();
             } ?>
@@ -717,7 +727,7 @@ if ($carro) {
     <!-- Modal Structure -->
     <div id="informacion_carro_modal" class="modal  ">
         <div class="modal-content">
-            <h4><span class="badge orange darken-1 white-text">COD: <?php echo $data_carro->crr_codigo; ?></span> Pedir
+            <h4><span class="badge orange darken-1 white-text">COD: <?php echo $data_carro->id_carro; ?></span> Pedir
                 información sobre el vehículo </h4>
             <div class="row">
                 <div class="card-panel  red darken-1 white-text" id="form_contacto_alert">
@@ -767,7 +777,7 @@ if ($carro) {
     <!-- Modal Solicitar credito -->
     <div id="credito_carro_modal" class="modal  ">
         <div class="modal-content">
-            <h4><span class="badge orange darken-1 white-text">COD: <?php echo $data_carro->crr_codigo; ?></span>
+            <h4><span class="badge orange darken-1 white-text">COD: <?php echo $data_carro->id_carro; ?></span>
                 Solicitar credito para el vehículo </h4>
             <div class="row">
                 <div class="card-panel  red darken-1 white-text" id="form_credito_alert">
@@ -1228,7 +1238,6 @@ if ($carro) {
             $('.modal').modal();
             $('ul.tabs').tabs();
             //$('#precio_carro').hide();
-            $('#datos_contacto').hide();
             $("#form_contacto_alert").hide();
             $("#form_credito_alert").hide();
             $("#loader_credito").hide();
@@ -1248,7 +1257,7 @@ if ($carro) {
             apellido_credito = $("#apellido_credito").val();
             correo_credito = $("#email_credito").val();
             telefono_credito = $("#telefono_credito").val();
-            carro_codigo_credito = '<?php  echo $data_carro->crr_codigo; ?>';
+            carro_codigo_credito = '<?php  echo $data_carro->id_carro; ?>';
             precio_carro_credito = $("#modal_precio").text();
             enganche_credito = $("#modal_enganche").text();
             plazo_credito = $("#modal_plazo").text();
@@ -1304,7 +1313,7 @@ if ($carro) {
             correo = $("#email").val();
             telefono = $("#telefono").val();
             comentario = $("#comentario").val();
-            carro_codigo = '<?php  echo $data_carro->crr_codigo; ?>';
+            carro_codigo = '<?php  echo $data_carro->id_carro; ?>';
 
 
             formulario_informacion_data = {
@@ -1356,8 +1365,8 @@ if ($carro) {
         {
         "@context": "http://schema.org","@type": "Vehicle",
         "name": "<?php echo $data_carro->id_marca . ' - ' . $data_carro->id_linea . ' | ' . $data_carro->crr_modelo; ?>",
-        "url" : "<?php echo base_url() . 'index.php/Carro/ver/' . $data_carro->crr_codigo; ?>",
-        "image" : "<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->crr_codigo . ' (1).jpg'; ?>",
+        "url" : "<?php echo base_url() . 'index.php/Carro/ver/' . $data_carro->id_carro; ?>",
+        "image" : "<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (1).jpg'; ?>",
         "brand": "<?php echo $data_carro->id_marca; ?>",
         "fuelType":"<?php echo $data_carro->crr_combustible; ?>",
         "mileageFromOdometer":"<?php echo $data_carro->crr_kilometraje; ?>",

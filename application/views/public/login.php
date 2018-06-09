@@ -81,6 +81,9 @@ $CI =& get_instance();
 
 
                             <p><?php echo form_submit('submit', lang('login_submit_btn'),'class="btn waves-effect waves-light col s12"');?></p>
+                            <p>&nbsp;</p>
+                            <p><a class="btn waves-effect waves-light col s12"
+                                   href="<?php echo base_url() ?>/cliente/registro">registrarse</a></p>
 
                             <?php echo form_close();?>
 

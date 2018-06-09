@@ -31,21 +31,20 @@
             <hr>
             <div class="row-fluid">
                 <div class="span12">
-                    <?php if ($predios){ ?>
+                    <?php if ($usuarios){ ?>
 
                         <div class="widget-box">
                             <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                                <h5>Listado de predios</h5>
+                                <h5>Listado de usuarios</h5>
                             </div>
                             <div class="widget-content nopadding">
-                                <a class="btn btn-success" href="<?php echo base_url()?>/admin/nuevo_predio">Nuevo</a>
+                                <a class="btn btn-success" href="<?php echo base_url()?>/admin/crear_usuario">Nuevo</a>
                                 <table class="table table-bordered data-table">
                                     <thead>
                                     <tr>
                                         <th>id</th>
                                         <th>Nombre</th>
-                                        <th width="150px">Banner</th>
-                                        <th>estado</th>
+                                        <th>username</th>
                                         <th>Carros activos</th>
                                         <th>carros permitidos</th>
 
@@ -54,15 +53,14 @@
                                     <tbody>
                                     <?php
 
-                                    foreach ($predios->result() as $predio) {
+                                    foreach ($usuarios->result() as $usuario) {
                                         ?>
                                         <tr class="gradeX">
-                                            <td><?php echo  $predio->id_predio_virtual?></td>
-                                            <td><a href="<?php echo base_url().'index.php/admin/editrar_predio/'.$predio->id_predio_virtual;?>"> <?php echo  $predio->prv_nombre?></a></td>
-                                            <td><img src="<?php echo base_url().'ui/public/images/predio/'. $predio->prv_img?>" class="img-responsive"></td>
-                                            <td><?php echo  $predio->prv_estatus?></td>
-                                            <td><?php echo  $predio->carros_activos?></td>
-                                            <td><?php echo  $predio->carros_permitidos?></td>
+                                            <td><?php echo  $usuario->id?></td>
+                                            <td><a href="<?php echo base_url().'index.php/admin/editar_usuario/'.$usuario->id;?>"> <?php echo  $usuario->nombre?></a></td>
+                                            <td><?php echo  $usuario->username?></td>
+                                            <td><?php echo  $usuario->carros_activos?></td>
+                                            <td><?php echo  $usuario->carros_permitidos?></td>
                                         </tr>
                                     <?php } ?>
                                     </tbody>

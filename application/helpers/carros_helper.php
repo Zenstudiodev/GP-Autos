@@ -40,4 +40,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
     }
+    function estados_a_colores($estado){
+        $color_clase_estado='';
+
+        switch ($estado) {
+            case 'Alta':
+                $color_clase_estado ='green';
+                break;
+            case 'Baja':
+                $color_clase_estado ='red';
+                break;
+            case 'Pendiente':
+                $color_clase_estado ='yellow accent-2';
+                break;
+        }
+
+        echo $color_clase_estado;
+    }
 ?>

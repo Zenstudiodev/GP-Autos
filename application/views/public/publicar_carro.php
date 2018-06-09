@@ -169,11 +169,12 @@ $moneda_carro_select_options = array(
 
 //Precio
 $precio = array(
-    'type' => 'text',
+    'type' => 'number',
     'name' => 'precio',
     'id' => 'precio',
     'class' => 'validate',
     'placeholder' => 'Precio',
+    'min' => '10000',
     //'value'       => $carro->crr_precio,
     'required' => 'required'
 );

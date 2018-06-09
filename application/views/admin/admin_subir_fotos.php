@@ -2,267 +2,292 @@
 /**
  * Created by PhpStorm.
  * User: Carlos
- * Date: 4/04/2018
- * Time: 11:40 AM
+ * Date: 1/06/2017
+ * Time: 4:09 PM
  */
 ?>
-<?php $this->layout('public/public_master_test', [
-    'header_banners' => $header_banners,
-    'predios' => $predios,
-    'tipos' => $tipos,
-    'ubicaciones' => $ubicaciones,
-    'marca' => $marca,
-    'linea' => $linea,
-    'transmisiones' => $transmisiones,
-    'combustibles' => $combustibles,
+<?php $this->layout('admin/admin_master', [
+	'title'    => $title,
+	'nombre'   => $nombre,
+	'user_id'  => $user_id,
+	'username' => $username,
+	'rol'      => $rol,
 ]);
+
+
+//campos
+
+$fecha_d = New DateTime();
 
 $carro = $carro->row();
 
 
 ?>
-
-
 <?php $this->start('css_p') ?>
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">-->
+<!--cargamos css personalizado-->
+
+<link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/colorpicker.css"/>
+<link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/datepicker.css"/>
+<!--<link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/select2.css"/>-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"/>
+<link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-style.css"/>
+<link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-media.css"/>
+<link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/bootstrap-wysihtml5.css"/>
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>ui/public/css/materialize.min.css"
+      media="screen,projection"/>
+<link rel="stylesheet" href="<?php echo base_url() ?>/ui/admin/css/style.css"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>/ui/vendor/cropperjs/cropper.min.css"/>
 <?php $this->stop() ?>
 
-<?php $this->start('banner') ?>
 
 
-<?php $this->stop() ?>
 
 <?php $this->start('page_content') ?>
-<div class="divider"></div>
-<pre>
-<?php // print_r($datos_usuario->row()); ?>
-</pre>
-<?php if (true) { ?>
-    <section id="subir_imagenes">
-        <div class="container">
-            <div id="profile-page-content" class="row">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <h5>Imágenes del vehículo</h5>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_1">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/1.jpg" id="img_1_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_1" name="input_img_1" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_1">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_1" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert" id="alert_img_1"></div>
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
+<div id="content">
+    <div id="content-header">
+        <div id="breadcrumb"></div>
+    </div>
+    <div class="container-fluid">
+        <hr>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>Información del carro</h5>
+                    </div>
+                    <pre>
+                        <?php
+                        // print_r($carro); ?>
+                    </pre>
+					<?php if (isset($mensaje)) { ?>
+                        <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
+                                                                        href="#">×</a>
+                            <h4 class="alert-heading">Carro actualizado!</h4>
+                            Carro actualizado correctamente
+                        </div>
+					<?php } ?>
+                    <div class="widget-content ">
+                        <section id="subir_imagenes">
+                            <h5>Imágenes del vehículo</h5>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_1">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/1.jpg" id="img_1_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_1" name="input_img_1" accept="image/*">
+                                        </label>
                                     </div>
-                                </div>
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_2">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/2.jpg" id="img_2_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_2" name="input_img_2" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_2">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_2" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_1">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_1" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
                                             </div>
-                                            <div class="alert" role="alert" id="alert_img_2"></div>
                                         </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_1"></div>
                                     </div>
-                                </div>
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_3">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/3.jpg" id="img_3_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_3" name="input_img_3" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_3">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_3" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert" id="alert_img_3"></div>
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_4">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/4.jpg" id="img_4_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_4" name="input_img_4" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_4">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_4" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert" id="alert_img_4"></div>
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
+                                    <div class="card-action">
+                                        subir imagen
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_5">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/5.jpg" id="img_5_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_5" name="input_img_5" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_5">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_5" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert" id="alert_img_5"></div>
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_2">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/2.jpg" id="img_2_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_2" name="input_img_2" accept="image/*">
+                                        </label>
                                     </div>
-                                </div>
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_6">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/6.jpg" id="img_6_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_6" name="input_img_6" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_6">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_6" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_2">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_2" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
                                             </div>
-                                            <div class="alert" role="alert" id="alert_img_6"></div>
                                         </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_2"></div>
                                     </div>
-                                </div>
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_7">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/7.jpg" id="img_7_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_7" name="input_img_7" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_7">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_7" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert" id="alert_img_7"></div>
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_8">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/8.jpg" id="img_8_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_8" name="input_img_8" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_8">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_8" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert" id="alert_img_8"></div>
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_9">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/9.jpg" id="img_9_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_9" name="input_img_9" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_9">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_9" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert" id="alert_img_9"></div>
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 m3">
-                                    <div class="card upl_card">
-                                        <div class="card-image">
-                                            <label class=""  title="img_10">
-                                                <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/10.jpg" id="img_10_placeholder">
-                                                <input type="file" class="sr-only" id="input_img_10" name="input_img_10" accept="image/*">
-                                            </label>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="progress" id="progress_img_10">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_10" role="progressbar"
-                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                                </div>
-                                            </div>
-                                            <div class="alert" role="alert" id="alert_img_10"></div>
-                                        </div>
-                                        <div class="card-action">
-                                            subir imagen
-                                        </div>
+                                    <div class="card-action">
+                                        subir imagen
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <a class=" btn orange darken-1" href="<?php echo base_url() . 'cliente/pago_anuncio/' . $carro->id_carro ?>"><i class="material-icons ">payment</i>Pago</a>
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_3">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/3.jpg" id="img_3_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_3" name="input_img_3" accept="image/*">
+                                        </label>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_3">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_3" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                            </div>
+                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_3"></div>
+                                    </div>
+                                    <div class="card-action">
+                                        subir imagen
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_4">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/4.jpg" id="img_4_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_4" name="input_img_4" accept="image/*">
+                                        </label>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_4">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_4" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                            </div>
+                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_4"></div>
+                                    </div>
+                                    <div class="card-action">
+                                        subir imagen
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_5">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/5.jpg" id="img_5_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_5" name="input_img_5" accept="image/*">
+                                        </label>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_5">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_5" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                            </div>
+                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_5"></div>
+                                    </div>
+                                    <div class="card-action">
+                                        subir imagen
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_6">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/6.jpg" id="img_6_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_6" name="input_img_6" accept="image/*">
+                                        </label>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_6">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_6" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                            </div>
+                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_6"></div>
+                                    </div>
+                                    <div class="card-action">
+                                        subir imagen
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_7">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/7.jpg" id="img_7_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_7" name="input_img_7" accept="image/*">
+                                        </label>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_7">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_7" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                            </div>
+                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_7"></div>
+                                    </div>
+                                    <div class="card-action">
+                                        subir imagen
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_8">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/8.jpg" id="img_8_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_8" name="input_img_8" accept="image/*">
+                                        </label>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_8">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_8" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                            </div>
+                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_8"></div>
+                                    </div>
+                                    <div class="card-action">
+                                        subir imagen
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_9">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/9.jpg" id="img_9_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_9" name="input_img_9" accept="image/*">
+                                        </label>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_9">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_9" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                            </div>
+                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_9"></div>
+                                    </div>
+                                    <div class="card-action">
+                                        subir imagen
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card upl_card">
+                                    <div class="card-image">
+                                        <label class=""  title="img_10">
+                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/10.jpg" id="img_10_placeholder">
+                                            <input type="file" class="sr-only" id="input_img_10" name="input_img_10" accept="image/*">
+                                        </label>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="progress" id="progress_img_10">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_10" role="progressbar"
+                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                            </div>
+                                        </div>
+                                        <div class="alert" role="alert" id="alert_img_10"></div>
+                                    </div>
+                                    <div class="card-action">
+                                        subir imagen
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a class=" btn orange darken-1" href="<?php echo base_url() . 'admin/vehiculos/' . $carro->id_carro ?>">Terminar</a>
+                        </div>
 
                             <!--Materialize modal-->
                             <!-- Modal Structure -->
@@ -276,32 +301,48 @@ $carro = $carro->row();
                                 </div>
                                 <div class="modal-footer">
 
-                                       <a class="waves-effect waves-light btn" id="zoom_in_btn"><i class="material-icons ">ic_zoom_in</i>Acercar</a>
-                                        <a class="waves-effect waves-light btn" id="zoom_off_btn"><i class="material-icons ">ic_zoom_out</i>Alejar</a>
-                                        <a class="waves-effect waves-light btn" id="rotate_btn"><i class="material-icons">crop_rotate</i>Girar</a>
-                                        <a  href="#!" class="modal-action modal-close waves-effect waves-light btn" id="crop">Cortar</a>
+                                    <a class="waves-effect waves-light btn" id="zoom_in_btn">Acercar</a>
+                                    <a class="waves-effect waves-light btn" id="zoom_off_btn">Alejar</a>
+                                    <a class="waves-effect waves-light btn" id="rotate_btn">Girar</a>
+                                    <a  href="#!" class="modal-action modal-close waves-effect waves-light btn" id="crop">Cortar</a>
 
                                 </div>
                             </div>
 
 
+                        </section>
 
-                        </div>
+                                <div id="profile-page-content" class="row">
+
+                                </div>
 
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <?php
-} else {
-    echo 'Aun no hay prospectos';
-} ?>
+    </div>
+</div>
 <?php $this->stop() ?>
-<!-- JS personalizado -->
+
 <?php $this->start('js_p') ?>
+<script src="<?php echo base_url() ?>ui/admin/js/bootstrap-colorpicker.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/bootstrap-datepicker.js"></script>
+<!--<script src="<?php echo base_url() ?>ui/admin/js/jquery.toggle.buttons.js"></script>-->
+<script src="<?php echo base_url() ?>ui/admin/js/masked.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<!--<script src="<?php echo base_url() ?>ui/admin/js/select2.min.js"></script>-->
+<script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/matrix.form_common.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/wysihtml5-0.3.0.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/jquery.peity.min.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/bootstrap-wysihtml5.js"></script>
+<!-- jQuery  -->
+<script type="text/javascript" src="<?php echo base_url(); ?>ui/public/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>/ui/public/js/bootstrap.min.js"></script>
+<!-- Materialize js -->
+<script type="text/javascript" src="<?php echo base_url(); ?>ui/public/js/materialize.min.js"></script>
 <script src="<?php echo base_url() ?>/ui/vendor/cropperjs/cropper.min.js"></script>
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>-->
+
 
 <script>
 
@@ -996,5 +1037,5 @@ $carro = $carro->row();
         });
     });
 </script>
+</script>
 <?php $this->stop() ?>
-

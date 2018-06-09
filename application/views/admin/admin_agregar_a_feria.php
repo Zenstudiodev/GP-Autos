@@ -16,36 +16,6 @@
 
 $carro = $carro->row();
 
-
-//campos
-
-$fecha_d = New DateTime();
-
-//fecha
-$fecha = array(
-	'type'        => 'text',
-	'name'        => 'fecha',
-	'id'          => 'fecha',
-	'class'       => 'span11 form-control',
-	'placeholder' => 'Fecha',
-	'value'       => $fecha_d->format('Y-m-d'),
-	'readonly'    => 'readonly',
-	'required'    => 'required'
-);
-
-//vencimiento
-$vencimiento = array(
-	'type'             => 'text',
-	'name'             => 'vencimiento',
-	'id'               => 'vencimiento',
-	'data-date'        => $fecha_d->format('Y-m-d'),
-	'data-date-format' => 'yyyy-mm-dd',
-	'class'            => 'datepicker  form-control',
-	'placeholder'      => 'Vencimiento',
-	'value'            => $fecha_d->format('Y-m-d'),
-	'required'         => 'required'
-);
-
 //Codigo
 $codigo = array(
 	'type'        => 'text',
@@ -58,35 +28,15 @@ $codigo = array(
 	'required'    => 'required'
 	//'disabled'    => 'disabled'
 );
-//Placa
-$placa = array(
-	'type'        => 'text',
-	'name'        => 'placa',
-	'id'          => 'placa',
+//Precio de feria
+$precio_feria = array(
+	'type'        => 'number',
+	'name'        => 'precio_feria',
+	'id'          => 'precio_feria',
 	'class'       => ' form-control',
-	'placeholder' => 'Placa',
-	'value'       => $carro->crr_placa,
-	'required'    => 'required'
-);
-
-//Boleta
-$boleta= array(
-	'type'        => 'text',
-	'name'        => 'boleta',
-	'id'          => 'boleta',
-	'class'       => ' form-control',
-	'placeholder' => 'Boleta',
-	//'value'       => $carro->crr_precio,
-	'required'    => 'required'
-);
-//Banco
-$banco = array(
-	'type'        => 'text',
-	'name'        => 'banco',
-	'id'          => 'banco',
-	'class'       => ' form-control',
-	'placeholder' => 'Banco',
-	//'value'       => $carro->crr_precio,
+	'placeholder' => 'Precio de feria',
+	'value'       => $carro->crr_precio,
+	'max'       => $carro->crr_precio,
 	'required'    => 'required'
 );
 
@@ -117,12 +67,9 @@ $banco = array(
             <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
-                        <h5>Información del carro</h5>
+                        <h5>Agregar a feria virtual</h5>
                     </div>
-                    <pre>
-                        <?php
-                        // print_r($carro); ?>
-                    </pre>
+
 					<?php if (isset($mensaje)) { ?>
                         <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
                                                                         href="#">×</a>
@@ -131,20 +78,11 @@ $banco = array(
                         </div>
 					<?php } ?>
                     <div class="widget-content ">
-                        <form action="<?php echo base_url() ?>index.php/admin/reactivar_carro_p" method="post"
+                        <form action="<?php echo base_url() ?>index.php/admin/guardar_precio_feria" method="post"
                               class="">
 							<?php echo form_hidden('carro_id', $carro->id_carro); ?>
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <!--CÓDIGO-->
-                                        <div class="form-group">
-                                            <label class="control-label">FECHA:</label>
-                                            <div class="controls">
-												<?php echo form_input($fecha); ?>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-md-4">
                                         <!--CÓDIGO-->
                                         <div class="form-group">
@@ -154,48 +92,23 @@ $banco = array(
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-
-
-
-
-
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <!--VENCIMIENTO-->
-                                        <div class="form-group">
-                                            <label>VENCIMIENTO</label>
-                                            <div class="controls">
-			                                    <?php echo form_input($vencimiento); ?>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <!--BOLETA-->
-                                        <div class="form-group">
-                                            <label for="checkboxes" class="control-label">BOLETA</label>
-                                            <div class="controls">
-					                            <?php echo form_input($boleta);  ?>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-md-4">
                                         <!--BANCO-->
                                         <div class="form-group">
-                                            <label for="checkboxes" class="control-label">BANCO</label>
+                                            <label for="checkboxes" class="control-label">Precio de feria</label>
                                             <div class="controls">
-					                            <?php echo form_input($banco) ?>
+                                                <?php echo form_input($precio_feria) ?>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+
                                 </div>
 
                                 <div class="form-group">
                                     <div class="form-actions">
-                                        <input type="hidden" name="tipo" id="tipo" value="reactivacion">
+                                        <input type="hidden" name="tipo" id="tipo" value="renovacion">
                                         <button type="submit" class="btn btn-success">Guardar</button>
                                     </div>
                                 </div>

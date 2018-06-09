@@ -23,7 +23,6 @@ class Home extends Base_Controller
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
 
-
         echo $this->templates->render('public/public_home', $data);
 
     }
@@ -31,18 +30,7 @@ class Home extends Base_Controller
     public function test()
     {
         $data = cargar_componentes_buscador();
-        //obtenemos el id del carro desde el segmento de url
-        $data['segmento'] = $this->uri->segment(3);
-        if (!$data['segmento'])
-        {
-            //TODO  redirigir a vista de listao de carros
-            //redirect('prospectos/prospectosList', 'refresh');
-        }
-        else
-        {
-
-            $data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
-        }
+        $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         echo $this->templates->render('public/test', $data);
     }

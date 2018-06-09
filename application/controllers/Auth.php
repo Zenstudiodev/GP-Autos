@@ -116,7 +116,7 @@ class Auth extends Base_Controller
 
 		// redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('auth/login', 'refresh');
+		redirect('cliente/login', 'refresh');
 	}
 
 	/**
@@ -379,7 +379,7 @@ class Auth extends Base_Controller
 		{
 			// redirect them to the auth page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			redirect("cliente/login", 'refresh');
 		}
 		else
 		{

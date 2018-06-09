@@ -6,6 +6,12 @@
     text-align: center;
 }
 
+.borde_blanco {
+    border: #fff solid 2px;
+    margin: 0;
+    padding: 25px;
+}
+
 /*section#top {
     position: absolute;
     z-index: 2;
@@ -305,7 +311,7 @@ i.small {
     left: 0;
     border-radius: 0px 10px 10px 0px;
     padding: 5px;
-    z-index: 5000;
+    z-index: 1002;
     font-size: 1.5rem;
 }
 
@@ -379,6 +385,49 @@ div#homeSearchBox {
 ;
 }
 
+.img-container {
+    height: 410px;
+}
+
+div#jivo-iframe-container:not(.jivo-c-mobile){
+    z-index: 200 !important;
+}
+.label_39 {
+    z-index: 201 !important;
+}
+
+
+/*Feria*/
+div#feria {
+    background: url(/ui/public/images/feria/feria_bg.jpg);
+    background-size: cover;
+}
+
+.ribbon{
+    position: absolute !important;
+    width: 103px !important;
+    left: 189px !important;
+    top: -9px !important;
+    z-index: 2 !important;
+}
+div#getting-started {
+    color: #459201;
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Source Code Pro', monospace;
+    text-transform: uppercase;
+}
+#feria_countDown {
+    color: #459201;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Source Code Pro', monospace;
+    text-transform: uppercase;
+    background: black;
+    text-align: center;
+    border-radius: 21px;
+    padding: 9px;
+}
 @media only screen and (min-width: 993px) {
     .container {
         width: 90%;

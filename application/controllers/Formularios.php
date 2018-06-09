@@ -105,6 +105,14 @@ class Formularios  extends Base_Controller
 				'fecha' => $fecha->format('Y-m-d H:i:s')
 			);
 
+
+			$datos_carro = $this->Carros_model->get_datos_carro($carro_codigo);
+            $datos_carro = $datos_carro->row();
+            $email_contacto = $datos_carro->crr_contacto_email;
+            if ($email_contacto == '' or $email_contacto== null){
+                $email_contacto = 'gppredio@gpautos.net';
+            }
+
 			//configuracion de correo
 			$config['mailtype'] = 'html';
 
@@ -122,7 +130,7 @@ class Formularios  extends Base_Controller
 
 
 			$this->email->from('info@gpautos.net', 'GP AUTOS');
-			$this->email->to('gppredio@gpautos.net');
+			$this->email->to($email_contacto);
 			$this->email->bcc('csamayoa@zenstudiogt.com');
 
 			$this->email->subject('Información sobre carro COD:'.$carro_codigo);

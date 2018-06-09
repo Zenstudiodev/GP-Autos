@@ -48,9 +48,8 @@ $carro = $carro->row();
                         <div class="col s12 m12">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="/upload/1000001 (1).jpg">
-                                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                                class="material-icons">add</i></a>
+                                    <img src="web/images_cont/<?php echo $carro->id_carro?> (1).jpg">
+
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title"><?php echo $carro->id_marca . ' - ' . $carro->id_linea . ' - ' . $carro->crr_modelo ?></span>
@@ -80,9 +79,17 @@ $carro = $carro->row();
                             </a>
                         </li>
                         <li class="collection-item avatar">
-                            <a href="<?php echo base_url() . 'cliente/pago_efectivo_depósito/' . $carro->id_carro ?>">
+                            <a href="<?php echo base_url() . 'cliente/pago_deposito/' . $carro->id_carro ?>">
                                 <i class="material-icons circle green">attach_money</i>
-                                <span class="title">Efectivo o depósito</span>
+                                <span class="title">Depósito</span>
+                                <p>Efectivo o depósito </p>
+                                <span class="secondary-content"><i class="material-icons">send</i></span>
+                            </a>
+                        </li>
+                        <li class="collection-item avatar">
+                            <a href="<?php echo base_url() . 'cliente/pago_efectivo/' . $carro->id_carro ?>">
+                                <i class="material-icons circle green">attach_money</i>
+                                <span class="title">Efectivo</span>
                                 <p>Efectivo o depósito </p>
                                 <span class="secondary-content"><i class="material-icons">send</i></span>
                             </a>
