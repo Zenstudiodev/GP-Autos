@@ -12,7 +12,11 @@
     'user_id'  => $user_id,
     'username' => $username,
     'rol'      => $rol,
-]);?>
+]);
+
+$CI =& get_instance();
+
+ ?>
 <?php $this->start('css_p') ?>
     <!--cargamos css personalizado-->
     <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/css/select2.css" />
@@ -59,7 +63,10 @@
                                             <td><?php echo  $usuario->id?></td>
                                             <td><a href="<?php echo base_url().'index.php/admin/editar_usuario/'.$usuario->id;?>"> <?php echo  $usuario->nombre?></a></td>
                                             <td><?php echo  $usuario->username?></td>
-                                            <td><?php echo  $usuario->carros_activos?></td>
+                                            <td><?php
+
+                                               $carros_activos = $CI->Carros_model->get_carros_activos_by_user_id($usuario->id);
+                                                echo  $carros_activos?></td>
                                             <td><?php echo  $usuario->carros_permitidos?></td>
                                         </tr>
                                     <?php } ?>

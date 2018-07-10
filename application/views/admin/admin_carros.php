@@ -50,7 +50,7 @@
 	                        <?php if (isset($mensaje)) { ?>
                                 <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
                                                                                 href="#">×</a>
-                                    <h4 class="alert-heading">Acción exitosa!</h4>
+                                    <h4 class="alert-heading"></h4>
 			                        <?php echo $mensaje; ?>
                                 </div>
 	                        <?php } ?>

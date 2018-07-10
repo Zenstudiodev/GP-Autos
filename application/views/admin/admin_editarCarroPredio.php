@@ -1119,6 +1119,8 @@ $predio_id = array(
                                         </div>
                                     </div>
                                     <div class="col-md-4">
+                                        <!--GARANTIA gp-->
+                                        <input type="hidden" name="garantia_gp" value="1">
                                     </div>
                                     <div class="col-md-4">
                                     </div>

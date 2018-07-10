@@ -19,6 +19,10 @@
     #floating_menu {
         bottom: 100px;
     }
+    div#feria {
+        background-size: initial;
+    }
+
 }
 
 /* Small devices (landscape phones, 576px and up)*/

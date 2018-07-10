@@ -30,6 +30,8 @@ class Productos extends Base_Controller
     }
 	public function  financiamiento(){
         $data = cargar_componentes_buscador();
+        //Predio
+        $data['carro_id'] = $this->uri->segment(3);
 		$data['header_banners'] = $this->Banners_model->header_banners_activos();
 		echo $this->templates->render('public/public_financiamiento', $data);
 	}

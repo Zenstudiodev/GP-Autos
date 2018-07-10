@@ -554,6 +554,21 @@ $blindaje = array(
 	'value'       => $carro->crr_blindaje,
 	'required'    => 'required'
 );
+//Garantia
+$garantia_gp_s = array(
+    'name'     => 'garantia_gp',
+    'id'       => 'garantia_gp_s',
+    'value'    => '1',
+    'checked'  => radio_helper10('1', $carro->sello_garantia_gp),
+    'required' => 'required'
+);
+$garantia_gp_n = array(
+    'name'    => 'garantia_gp',
+    'id'      => 'garantia_gp_n',
+    'value'   => '0',
+    'checked' => radio_helper10('0', $carro->sello_garantia_gp),
+);
+
 
 //NOMBRE CONTACTO
 $nombre_contacto = array(
@@ -1132,6 +1147,20 @@ $predio_id = array(
                                         </div>
                                     </div>
                                     <div class="col-md-4">
+                                        <!--Garantia GP-->
+                                        <div class="form-group">
+                                            <label for="checkboxes" class="control-label">GARANTIA GP</label>
+                                            <div class="controls">
+                                                <label>
+                                                    <?php echo form_radio($garantia_gp_s); ?>
+                                                    Si
+                                                </label>
+                                                <label>
+                                                    <?php echo form_radio($garantia_gp_n); ?>
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                     </div>

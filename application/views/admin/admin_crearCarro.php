@@ -542,6 +542,23 @@ $blindaje = array(
 	'required'    => 'required'
 );
 
+//Garantia
+$garantia_gp_s = array(
+    'name'     => 'garantia_gp',
+    'id'       => 'garantia_gp_s',
+    'value'    => '1',
+    'checked'  => false,
+    'required' => 'required'
+);
+$garantia_gp_n = array(
+    'name'    => 'garantia_gp',
+    'id'      => 'garantia_gp_n',
+    'value'   => '0',
+    'checked' => false,
+);
+
+
+
 //NOMBRE CONTACTO
 $nombre_contacto = array(
 	'type'        => 'text',
@@ -1129,6 +1146,20 @@ $banco = array(
                                         </div>
                                     </div>
                                     <div class="col-md-4">
+                                        <!--Garantia GP-->
+                                        <div class="form-group">
+                                            <label for="checkboxes" class="control-label">GARANTIA GP</label>
+                                            <div class="controls">
+                                                <label>
+                                                    <?php echo form_radio($garantia_gp_s); ?>
+                                                    Si
+                                                </label>
+                                                <label>
+                                                    <?php echo form_radio($garantia_gp_n); ?>
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                     </div>

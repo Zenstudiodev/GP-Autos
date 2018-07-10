@@ -167,7 +167,7 @@ $otros = array(
     'name' => 'otros',
     'id' => 'otros',
     'class' => ' form-control',
-    'maxlength' => '140',
+    'maxlength' => '380',
     //'value'     => $carro->crr_otros,
 );
 
@@ -1054,6 +1054,10 @@ $banco = array(
                                                 </label>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!--GARANTIA gp-->
+                                        <input type="hidden" name="garantia_gp" value="1">
                                     </div>
 
 

@@ -109,7 +109,7 @@ class Formularios  extends Base_Controller
 			$datos_carro = $this->Carros_model->get_datos_carro($carro_codigo);
             $datos_carro = $datos_carro->row();
             $email_contacto = $datos_carro->crr_contacto_email;
-            if ($email_contacto == '' or $email_contacto== null){
+            if ($email_contacto == '' or $email_contacto== null or $email_contacto =="0" or $datos_carro->id_predio_virtual == '9'){
                 $email_contacto = 'gppredio@gpautos.net';
             }
 
@@ -334,6 +334,7 @@ class Formularios  extends Base_Controller
         //comprobamos que exista post
         if($this->input->post('correo')){
             //leemos datos desde post
+            $carro_id = $this->input->post('carro_id');
             $nombre = $this->input->post('nombre');
             $direccion_domicilio = $this->input->post('direccion_domicilio');
             $numero_dpi = $this->input->post('numero_dpi');
@@ -376,6 +377,7 @@ class Formularios  extends Base_Controller
             $message = '<html><body>';
             $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
             $message .= '<table>';
+            $message .= "<tr><td><strong>Codigo carro:</strong> </td><td>" .strip_tags($carro_id) ."</td></tr>";
             $message .= "<tr><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
             $message .= "<tr><td><strong>Dirección de domicilio:</strong> </td><td>" .strip_tags($direccion_domicilio) ."</td></tr>";
             $message .= "<tr><td><strong>Numero DPI:</strong> </td><td>" . strip_tags($numero_dpi) . "</td></tr>";

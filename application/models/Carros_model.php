@@ -75,6 +75,7 @@ class Carros_model extends CI_Model
 			'crr_contacto_email'       => $data['crr_contacto_email'],
 			'crr_estatus'              => $data['crr_estatus'],
 			'id_predio_virtual'        => $data['id_predio_virtual'],
+            'sello_garantia_gp'          => $data['garantia_gp'],
 			//'crr_date'                 => $data['crr_date'],
 			'crr_premium'              => $data['crr_premium'],
 			'crr_certiauto'            => $data['crr_certiauto'],
@@ -153,6 +154,7 @@ class Carros_model extends CI_Model
 			'crr_vencimiento'          => $data['crr_vencimiento'],
 			'user_id'          => '0',
 			'predio_user_id'          => $data['user_predio'],
+			'sello_garantia_gp'          => $data['garantia_gp'],
 		);
 		$this->db->insert('carro', $datos);
 		$insert_id = $this->db->insert_id();
@@ -410,6 +412,19 @@ class Carros_model extends CI_Model
 	}
 
 	//Feria
+    function get_carros_frontPage_feria()
+    {
+
+        $this->db->where('crr_estatus', 'Alta');
+        $this->db->where('crr_estado', 'Usado');
+        $this->db->where('feria', '1');
+        $this->db->order_by('', 'RANDOM');
+        $this->db->limit(32);
+        $query = $this->db->get('carro');
+
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
     function guardar_precio_feria($carro){
         $datos = array(
             'crr_precio_descuento'=> $carro['precio_feria'],
@@ -418,7 +433,154 @@ class Carros_model extends CI_Model
         $this->db->where('id_carro', $carro['id_carro']);
         $query = $this->db->update('carro',$datos);
     }
-	//para el buscador
+    function numero_registros_busqueda_paginacion_feria($predio,$ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $moneda, $p_min, $p_max, $a_min, $a_max)
+    {
+        //$this->db->from('carro');
+        $this->db->where('crr_estatus', 'Alta');
+        $this->db->where('crr_estado', 'Usado');
+        $this->db->where('feria', '1');
+
+        $ubicacion     = urldecode($ubicacion);
+        $tipo_vehiculo = urldecode($tipo_vehiculo);
+        $marca         = urldecode($marca);
+        $linea         = urldecode($linea);
+
+        if ($predio != 'TODOS')
+        {
+            $this->db->where('id_predio_virtual', $predio);
+        }
+        if ($ubicacion != 'TODOS')
+        {
+            $this->db->where('id_ubicacion', $ubicacion);
+        }
+        $this->db->where('id_tipo_carro', $tipo_vehiculo);
+
+        if ($marca != 'TODOS')
+        {
+            $this->db->where('id_marca', $marca);
+        }
+        if ($linea != 'TODOS')
+        {
+            $this->db->where('id_linea', $linea);
+        }
+        if ($transmision != 'TODOS')
+        {
+            $this->db->where('crr_transmision', $transmision);
+        }
+        if ($combustible != 'TODOS')
+        {
+            $this->db->where('crr_combustible', $combustible);
+        }
+        if ($origen != 'TODOS')
+        {
+            $this->db->where('crr_origen', $origen);
+        }
+        if ($moneda != 'TODOS')
+        {
+            if($moneda == 'D'){
+                $moneda = '$';
+            }
+            $this->db->where('crr_moneda_precio', $moneda);
+        }
+
+        if ($p_min != null)
+        {
+            $this->db->where('crr_precio >', $p_min);
+        }
+        if ($p_max != null)
+        {
+            $this->db->where('crr_precio <', $p_max);
+        }
+        $this->db->order_by('crr_modelo', 'DESC');
+
+        if ($a_min != null)
+        {
+            $this->db->where('crr_modelo  >=', $a_min);
+        }
+        if ($a_max != null)
+        {
+            $this->db->where('crr_modelo  <=', $a_max);
+        }
+
+        return $this->db->count_all_results('carro');
+        /*$query = $this->db->get('carro');
+        return $query->num_rows();*/
+    }
+    function resultado_busqueda_paginacion_feria($predio,$ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $moneda, $p_min, $p_max, $a_min, $a_max, $limit, $start)
+    {
+        $this->db->where('crr_estatus', 'Alta');
+        $this->db->where('crr_estado', 'Usado');
+        $this->db->where('feria', '1');
+        $ubicacion     = urldecode($ubicacion);
+        $tipo_vehiculo = urldecode($tipo_vehiculo);
+        $marca         = urldecode($marca);
+        $linea         = urldecode($linea);
+
+        if ($predio != 'TODOS')
+        {
+            $this->db->where('id_predio_virtual', $predio);
+        }
+        if ($ubicacion != 'TODOS')
+        {
+            $this->db->where('id_ubicacion', $ubicacion);
+        }
+        $this->db->where('id_tipo_carro', $tipo_vehiculo);
+
+        if ($marca != 'TODOS')
+        {
+            $this->db->where('id_marca', $marca);
+        }
+        if ($linea != 'TODOS')
+        {
+            $this->db->where('id_linea', $linea);
+        }
+        if ($transmision != 'TODOS')
+        {
+            $this->db->where('crr_transmision', $transmision);
+        }
+        if ($combustible != 'TODOS')
+        {
+            $this->db->where('crr_combustible', $combustible);
+        }
+        if ($origen != 'TODOS')
+        {
+            $this->db->where('crr_origen', $origen);
+        }
+        if ($moneda != 'TODOS')
+        {
+            if($moneda == 'D'){
+                $moneda = '$';
+            }
+            $this->db->where('crr_moneda_precio', $moneda);
+        }
+
+        if ($p_min != null)
+        {
+            $this->db->where('crr_precio >', $p_min);
+        }
+        if ($p_max != null)
+        {
+            $this->db->where('crr_precio <', $p_max);
+        }
+        $this->db->order_by('crr_modelo', 'DESC');
+        $this->db->order_by('crr_precio', 'ASC');
+
+        if ($a_min != null)
+        {
+            $this->db->where('crr_modelo  >=', $a_min);
+        }
+        if ($a_max != null)
+        {
+            $this->db->where('crr_modelo  <=', $a_max);
+        }/**/
+        $this->db->limit($limit, $start);
+
+        $query = $this->db->get('carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+    //para el buscador
 	function predios()
 	{
 		$this->db->where('prv_estatus', 'Alta');
@@ -821,5 +983,14 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+	function get_carros_activos_by_user_id($user_id){
+
+        $this->db->where('predio_user_id', $user_id);
+        $this->db->where('crr_estatus', 'Alta');
+
+        $query = $this->db->get('carro');
+        if ($query->num_rows() > 0) return $query->num_rows();
+        else return 0;
+    }
 
 }

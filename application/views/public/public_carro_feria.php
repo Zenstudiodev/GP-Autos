@@ -5,7 +5,7 @@
  * Date: 8/06/2017
  * Time: 7:24 PM
  */
-$this->layout('public/public_master', [
+$this->layout('public/public_master_feria', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
@@ -94,11 +94,13 @@ if ($carro) {
     <div class="container">
         <?php
         if ($carro){ ?>
-        <div class="section">
+        <div class="section z-depth-4" id="header_carrp_feria">
             <div class="row">
                 <div class="col s12 m7">
                     <h1><?php echo $data_carro->id_marca . ' - ' . $data_carro->id_linea; ?></h1>
-                    <?php if ( $data_carro->id_predio_virtual != 0) { ?><p>
+                    <?php if ( false) { ?>
+                    <?php// if ( $data_carro->id_predio_virtual != 0) { ?>
+                        <p>
                         <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
                            href="<?php echo base_url() . 'index.php/predio/ver/' . $data_carro->id_predio_virtual; ?>"><i
                                     class="fa fa-car left"></i>
@@ -121,9 +123,9 @@ if ($carro) {
                         <?php mostrar_precio_carro($data_carro->crr_precio, $data_carro->crr_moneda_precio); ?>
                     </h2>
                         <?php
-                        if(false){
+                        if($data_carro->feria == '1' && $data_carro->crr_precio_descuento < $data_carro->crr_precio){
                             echo '<h4>Precio de oferta </h4>';
-                            echo'<h2 class="texto_naranja">';
+                            echo'<h2 class="texto_naranja precio_oferta">';
                             mostrar_precio_carro($data_carro->crr_precio_descuento, $data_carro->crr_moneda_precio);
                             echo'</h2>';
                         }
@@ -673,16 +675,9 @@ if ($carro) {
                                 </div>
 
                             </div>-->
+                            </div>
                         </div>
                     </div>
-                    <?php if ($data_carro->crr_otros != '') { ?>
-                        <div id="comentario">
-
-                            <?php echo $data_carro->crr_otros; ?>
-                        </div>
-                    <?php } ?>
-                    <!--/.Panel-->
-                </div>
                     <?php if ($data_carro->crr_otros != '') { ?>
                         <div id="comentario">
 

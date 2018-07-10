@@ -24,6 +24,18 @@ class Banners_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+	function header_banners_feria_activos()
+	{
+		$where = "estado_bh='activo'";
+		$where = "area_bh='feria'";
+
+		$this->db->where($where);
+		$this->db->order_by('id_bh', 'RANDOM');
+		$query = $this->db->get('banners_header');
+
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
 	function banneers_activos()
 	{
 		$where = "estado='activo'";

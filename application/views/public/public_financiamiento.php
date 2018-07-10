@@ -161,6 +161,7 @@ $monto_vehiculo = array(
             <div class="card">
                 <div class="card-content">
                     <div class="orange darken-2">
+
                         <h1 class="white-text text-center">PRE CALIFICATE</h1>
                         <span class="card-title white-text text-center">ESTAS A POCOS PASOS DE PODER COMPRAR TU CARRO</span>
                         <p class="text-center">
@@ -202,6 +203,7 @@ $monto_vehiculo = array(
                 <div class="card-content">
                         <div class="row">
                             <form class="col s12" action="<?php echo base_url()?>/formularios/pre_calificacion" method="post">
+                                <input type="hidden" name="carro_id" value="<?php echo $carro_id; ?>" >
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <?php echo form_input($nombre); ?>

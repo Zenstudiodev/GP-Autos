@@ -51,26 +51,30 @@ $CI =& get_instance();
                             <div class="col s12 m3">
 
                                 <div class="card">
-                                    <img class="ribbon" src="<?php echo base_url()?>/ui/public/images/feria/ribbon.png">
+                                    <?php
+                                    if($carro->feria == '1' && $carro->crr_precio_descuento < $carro->crr_precio){
+                                        ?>
+                                        <img class="ribbon" src="<?php echo base_url()?>/ui/public/images/feria/ribbon.png">
+                                    <?php }?>
                                     <div class="card-image waves-effect waves-block waves-light">
 
                                         <div class="imageContainer">
 
-                                            <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->crr_codigo ?>">
+                                            <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>">
 
                                                 <img class="activator"
-                                                     src="<?php echo 'http://www.gpautos.net//web/images_cont/' . $carro->crr_codigo . ' (1).jpg' ?>">
+                                                     src="<?php echo 'http://www.gpautos.net//web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="card-content">
-                                        <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->crr_codigo ?>">
+                                        <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>">
                                             <span class="card-title  grey-text text-darken-4"><?php echo substr($carro->id_marca, 0, 9); ?></span>
                                         </a>
                                         <p>
                                             <?php echo substr($carro->id_linea, 0, 12); ?>
                                             - <?php echo $carro->crr_modelo ?><br>
-                                            <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->crr_codigo ?>"
+                                            <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>"
                                                class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">ver</a>
                                         </p>
                                     </div>
@@ -124,7 +128,7 @@ $CI =& get_instance();
 <?php $this->stop() ?>
 <!-- JS personalizado -->
 <?php $this->start('js_p') ?>
-<script src="/bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
+
 
 <script>
     $(document).ready(function () {

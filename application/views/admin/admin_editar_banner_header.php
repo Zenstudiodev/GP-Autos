@@ -113,7 +113,8 @@ $estado_banner_options = array(
                                     <label class="control-label">Area</label>
                                     <div class="controls">
                                         <select id="area" name="area">
-                                            <option>Todo</option>
+                                            <option value="todo">Todo</option>
+                                            <option value="feria"> feria</option>
                                         </select>
                                     </div>
                                 </div>

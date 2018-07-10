@@ -328,6 +328,9 @@ $carro = $carro->row();
 
 
     $(document).ready(function () {
+
+        $( ".iframe-container-bottom" ).remove();
+        console.log('removido');
         detectBrowser();
         $(".progress").hide();
         $(".alert").hide();

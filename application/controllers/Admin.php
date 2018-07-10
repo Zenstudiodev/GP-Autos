@@ -36,7 +36,7 @@ class Admin extends Base_Controller
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
             $data['carros_usuario_predio']= $this->Predio_model->get_carros_predio_usuario($data['user_id']);
-            if($data['carros_predio']){
+            if($data['carros_usuario_predio']){
                 $data['numero_de_carros'] = $data['carros_usuario_predio']->num_rows();
             }
 
@@ -313,6 +313,7 @@ class Admin extends Base_Controller
             'crr_nombre_propietario' => $this->input->post('nombre_cliente'),
             'crr_telefono_propietario' => $this->input->post('telefono_cliente'),
             'crr_vencimiento' => $this->input->post('vencimiento'),
+            'garantia_gp' => $this->input->post('garantia_gp'),
         );
 
         $this->Carros_model->actualizar_carro($datos);
@@ -357,6 +358,15 @@ class Admin extends Base_Controller
 
             $user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
             $user = $user->row();
+            $carros_permitidos = $user->carros_permitidos;
+            $carros_activos =  $this->Carros_model->get_carros_activos_by_user_id($user->id);
+
+            if($carros_activos < $carros_permitidos ){
+            }else{
+
+                $this->session->set_flashdata('mensaje', 'Ha llegado a su limite de carros permitidos');
+                redirect(base_url() . 'admin/vehiculos');
+            }
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
 
@@ -451,6 +461,7 @@ class Admin extends Base_Controller
             'crr_telefono_propietario' => $this->input->post('telefono_cliente'),
             'crr_vencimiento' => $this->input->post('vencimiento'),
             'user_predio' => $this->input->post('user_predio'),
+            'garantia_gp' => $this->input->post('garantia_gp'),
         );
         $id_carro= $this->Carros_model->crear_carro($datos);
         $datos_transaccion = array(
@@ -470,8 +481,6 @@ class Admin extends Base_Controller
         print_r($datos_transaccion);
         echo '</pre>';*/
 
-
-        $this->Carros_model->crear_carro($datos);
         $this->Carros_model->guardar_transaccion($datos_transaccion);
 
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
@@ -568,6 +577,7 @@ class Admin extends Base_Controller
             'crr_telefono_propietario' => $this->input->post('telefono_cliente'),
             'crr_vencimiento' => $this->input->post('vencimiento'),
             'user_predio' => $this->input->post('user_predio'),
+            'garantia_gp' => '1',
         );
 
         /*echo '<pre>';
@@ -621,6 +631,7 @@ class Admin extends Base_Controller
         $this->Carros_model->guardar_precio_feria($post_data);
         redirect(base_url() . 'admin/');
     }
+    //CARROS
     public function renovar_carro_p()
     {
         $data = compobarSesion();
@@ -938,6 +949,8 @@ class Admin extends Base_Controller
         $this->Predio_model->actualizar_predio($post_data);
         redirect(base_url() . 'admin/predios/');
     }
+
+    //usuarios de predios
     public function usuarios(){
         $data = compobarSesion();
         $data['usuarios'] = $this->Usuarios_model->get_usuarios();

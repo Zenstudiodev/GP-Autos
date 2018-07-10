@@ -180,6 +180,23 @@ foreach ($ubicaciones->result() as $ubicacion) {
     <!--Let browser know website is optimized for mobile-->
     <meta name="google-site-verification" content="0q-W5K9CGQetDQs6wGTW2416dOQQ5byj4oGA4q11BQU"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="/ui/public/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/ui/public/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/ui/public/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/ui/public/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/ui/public/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/ui/public/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/ui/public/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/ui/public/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ui/public/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/ui/public/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ui/public/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/ui/public/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ui/public/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="/ui/public/images/icons/manifest.json">
+    <meta name="msapplication-TileColor" content="#fb8c00">
+    <meta name="msapplication-TileImage" content="/ui/public/images/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#fb8c00">
 
     <?php if ($this->section('title')) {
         echo $this->section('title');
@@ -248,7 +265,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                 </div>
                 <div class="col m3">
                     <p class="text-right"><i class="fa fa-phone"></i>
-                        (+502) 2460-7261
+                        (+502) 2294-5656
                         <a href="https://www.facebook.com/gpautosprediovirtual/" target="_blank"><i
                                     class="fa fa-facebook-official fa-2x"></i></a>
                     </p>
@@ -292,7 +309,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                 </div>
                 <div id="feria_countDown">
                     <div id="feria_cd_tittle">
-                        La gran feria virtual comienza en
+                        La gran feria virtual termina en
                     </div>
                     <div id="getting-started"></div>
                 </div>
@@ -514,13 +531,13 @@ foreach ($ubicaciones->result() as $ubicacion) {
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <input id="a_carro_min" name="a_carro_min" type="number"
-                                               min="1952" max="2018"
+                                               min="1952" max="2019"
                                                placeholder="Del año:"/>
                                         <label for="icon_prefix">Del año:</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="a_carro_max" name="a_carro_max" type="number"
-                                               min="1952" max="2018"
+                                               min="1952" max="2019"
                                                placeholder="Al año:"/>
                                         <label for="icon_prefix">Al año:</label>
                                     </div>
@@ -556,7 +573,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             <div class="col l6 s12">
                 <h5 class="white-text">Gpautos</h5>
                 <p class="grey-text text-lighten-4">2da Avenida 20-29 Zona 10.<br>
-                    (+502) 2460-7261<br>
+                    (+502) 2294-5656<br>
                     info@gpautos.net</p>
                 <h5 class="white-text">Productos</h5>
                 <ul>
@@ -568,11 +585,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             </div>
             <div class="col l4 offset-l2 s12">
 
-                <div class="fb-page" data-href="https://www.facebook.com/gpautosprediovirtual/" data-small-header="true"
-                     data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                    <blockquote cite="https://www.facebook.com/gpautosprediovirtual/" class="fb-xfbml-parse-ignore"><a
-                                href="https://www.facebook.com/gpautosprediovirtual/">GP Autos</a></blockquote>
-                </div>
+                <div class="fb-page" data-href="https://www.facebook.com/gpautosprediovirtual/" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/gpautosprediovirtual/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/gpautosprediovirtual/">GP Autos</a></blockquote></div>
             </div>
         </div>
     </div>
@@ -609,7 +622,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
 <?php echo $this->section('js_p') ?>
 <script type="text/javascript">
     $("#getting-started")
-        .countdown("2018/06/15", function(event) {
+        .countdown("2018/07/30", function(event) {
             $(this).text(
                 event.strftime('%D días %H:%M:%S')
             );
@@ -686,10 +699,10 @@ foreach ($ubicaciones->result() as $ubicacion) {
     //Año de carro
     aCarroSlider = document.getElementById('a_carro');
     noUiSlider.create(aCarroSlider, {
-        start: [1952, 2018],
+        start: [1952, 2019],
         range: {
             'min': [1952],
-            'max': [2018]
+            'max': [2019]
         },
         step: 1,
         format: wNumb({

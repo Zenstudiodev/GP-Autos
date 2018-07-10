@@ -180,6 +180,26 @@ foreach ($ubicaciones->result() as $ubicacion) {
     <!--Let browser know website is optimized for mobile-->
     <meta name="google-site-verification" content="0q-W5K9CGQetDQs6wGTW2416dOQQ5byj4oGA4q11BQU"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="/ui/public/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/ui/public/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/ui/public/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/ui/public/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/ui/public/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/ui/public/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/ui/public/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/ui/public/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ui/public/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/ui/public/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ui/public/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/ui/public/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ui/public/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="/ui/public/images/icons/manifest.json">
+    <meta name="msapplication-TileColor" content="#fb8c00">
+    <meta name="msapplication-TileImage" content="/ui/public/images/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#fb8c00">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="google-site-verification" content="0q-W5K9CGQetDQs6wGTW2416dOQQ5byj4oGA4q11BQU"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <?php if ($this->section('title')) {
         echo $this->section('title');
@@ -218,350 +238,330 @@ foreach ($ubicaciones->result() as $ubicacion) {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 <div id="feria">
-<section id="top">
-    <div class="container-fluid">
-        <div class="show-on-small hide-on-med-and-up">
-            <div class="row">
+    <section id="top">
+        <div class="container-fluid">
+            <div class="show-on-small hide-on-med-and-up">
+                <div class="row">
 
-                <div class="col s6">
-                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Entrar</a>
-                </div>
-                <div class="col s6">
-                    <a class="waves-effect waves-light btn"
-                       href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="top_contac_info" class="hide-on-small-only grey darken-2">
-            <div class="row">
-                <div class="col m6">
-
-                    <p>
-                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                        info@gpautos.net |
-                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                        Lunes a Viernes 09:00 AM - 06:00 PM Sábado 09:00 AM a 01:00 PM
-                    </p>
-                </div>
-                <div class="col m3">
-                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Entrar</a>
-                    <a class="waves-effect waves-light btn"
-                       href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
-                </div>
-                <div class="col m3">
-                    <p class="text-right"><i class="fa fa-phone"></i>
-                        (+502) 2460-7261
-                        <a href="https://www.facebook.com/gpautosprediovirtual/" target="_blank"><i
-                                    class="fa fa-facebook-official fa-2x"></i></a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col s12 m4 col-md-4">
-                <a href="<?php echo base_url(); ?>">
-                    <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
-                </a>
-
-                <div class="collection ">
-                    <a href="<?php echo base_url() ?>index.php/Productos/anunciate" class="collection-item white-text orange darken-3">
-                        Anunciate <i class="material-icons  secondary-content white-text darken-3">note_add</i>
-                    </a>
-                    <a href="<?php echo base_url(); ?>" class="collection-item white-text orange darken-3">
-                        Vehiculos <i class="material-icons  secondary-content white-text darken-3">directions_car</i>
-                    </a>
-                    <a href="<?php echo base_url() ?>index.php/Productos/financiamiento"
-                       class="collection-item white-text orange darken-3">
-                        Financiamiento <i
-                                class="material-icons  secondary-content white-text darken-3">aattach_money</i>
-                    </a>
-                    <a href="<?php echo base_url() ?>index.php/Productos/seguros" class="collection-item white-text orange darken-3">
-                        Seguros <i class="material-icons  secondary-content white-text darken-3">assignment</i>
-                    </a>
-                    <!--<a href="" class="collection-item black-text">
-                        Traspasos <i class="material-icons  secondary-content orange-text darken-3" >transform</i>
-                    </a>
-                    <a href="" class="collection-item black-text">
-                        Franquicia <i class="material-icons  secondary-content orange-text darken-3" >account_balance</i>
-                    </a>-->
-                    <a href="<?php echo base_url() ?>index.php/Contacto" class="collection-item white-text orange darken-3">
-                        Contacto <i class="material-icons  secondary-content white-text darken-3">email</i>
-                    </a>
-
-
-                </div>
-                <div id="feria_countDown">
-                    <div id="feria_cd_tittle">
-                        La gran feria virtual comienza en
+                    <div class="col s6">
+                        <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Entrar</a>
                     </div>
-                    <div id="getting-started"></div>
+                    <div class="col s6">
+                        <a class="waves-effect waves-light btn"
+                           href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                    </div>
                 </div>
-
-
             </div>
-            <div class="col s12 m8">
-                <section id="banner">
 
-                    <?php if (isset($header_banners)) { ?>
-                        <div id="header_banners" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators
-							<ol class="carousel-indicators">
-								<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-								<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-								<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-							</ol>-->
+            <div id="top_contac_info" class="hide-on-small-only grey darken-2">
+                <div class="row">
+                    <div class="col m6">
 
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox">
+                        <p>
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            info@gpautos.net |
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            Lunes a Viernes 09:00 AM - 06:00 PM Sábado 09:00 AM a 01:00 PM
+                        </p>
+                    </div>
+                    <div class="col m3">
+                        <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Entrar</a>
+                        <a class="waves-effect waves-light btn"
+                           href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                    </div>
+                    <div class="col m3">
+                        <p class="text-right"><i class="fa fa-phone"></i>
+                            (+502) 2294-5656
+                            <a href="https://www.facebook.com/gpautosprediovirtual/" target="_blank"><i
+                                        class="fa fa-facebook-official fa-2x"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m4 col-md-4">
+                    <a href="<?php echo base_url(); ?>">
+                        <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
+                    </a>
+                </div>
+                <div class="col s12 m4 col-md-4">
 
-                                <?php
-                                $start_banner = 0;
-                                foreach ($header_banners->result() as $banner) { ?>
+
+                    <div id="feria_countDown">
+                        <div id="feria_cd_tittle">
+                            La gran feria virtual Termina en
+                        </div>
+                        <div id="getting-started"></div>
+                    </div>
+                </div>
+                <div class="col s12 m4 col-md-4">
+                    <a class="waves-effect waves-light btn" href="http://gpautos.net/home">Salir de feria</a>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col s12 m12">
+                    <section id="banner">
+
+                        <?php if (isset($header_banners)) { ?>
+                            <div id="header_banners" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                </ol>-->
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+
+                                    <?php
+                                    $start_banner = 0;
+                                    foreach ($header_banners->result() as $banner) { ?>
 
 
-                                    <div class="item <?php if ($start_banner < 1) {
-                                        echo 'active';
-                                    } ?> ">
-                                        <a href="<?php echo $banner->link_bh ?>" target="_blank"
-                                           banner_id="<?php echo $banner->id_bh; ?>">
-                                            <img src="<?php echo base_url() . $banner->imagen_bh ?>">
-                                        </a>
-                                    </div>
+                                        <div class="item <?php if ($start_banner < 1) {
+                                            echo 'active';
+                                        } ?> ">
+                                            <a href="<?php echo $banner->link_bh ?>" target="_blank"
+                                               banner_id="<?php echo $banner->id_bh; ?>">
+                                                <img src="<?php echo base_url() . $banner->imagen_bh ?>">
+                                            </a>
+                                        </div>
 
-                                    <?php $start_banner++ ?>
+                                        <?php $start_banner++ ?>
 
 
-                                <?php } ?>
+                                    <?php } ?>
+                                </div>
+
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#header_banners" role="button"
+                                   data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#header_banners" role="button"
+                                   data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
 
-                            <!-- Controls -->
-                            <a class="left carousel-control" href="#header_banners" role="button"
-                               data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#header_banners" role="button"
-                               data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
+
+                        <?php } ?>
 
 
-                    <?php } ?>
-
-
-                    <?php //echo $this->section('banner'); ?>
-                </section>
+                        <?php //echo $this->section('banner'); ?>
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<?php if ($this->section('home_banner')) {
-    echo $this->section('home_banner');
-} ?>
+    <?php if ($this->section('home_banner')) {
+        echo $this->section('home_banner');
+    } ?>
 
-<div id="inner_top" class="orange darken-1">
-
-</div>
-
-<div id="buscado_global">
-    <div id="floating_menu" class="orange darken-3">
-        <a href="#" data-activates="slide-out" class="button-collapse white-text ">Buscar <i
-                    class="material-icons dp48">search</i></a>
+    <div id="inner_top" class="orange darken-1">
 
     </div>
-    <ul id="slide-out" class="side-nav">
-        <li>
-            <div id="homeSearchBox">
-                <h4 class="texto_naranja">Buscar</h4>
-                <form method="post" action="<?php echo base_url(); ?>index.php/carro/por_codigo">
-                    <ul class="collapsible" data-collapsible="expandable">
-                        <li>
-                            <div class="collapsible-header active"><i class="material-icons">directions_car</i>Código
-                            </div>
-                            <div class="collapsible-body">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="input_codigo" name="input_codigo" type="text"
-                                               class="validate">
-                                        <label for="input_codigo">Buscar codigo</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <button type="button"
-                                                class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light"
-                                                id="btn_codigo">Buscar
-                                        </button>
+
+    <div id="buscado_global">
+        <div id="floating_menu" class="orange darken-3">
+            <a href="#" data-activates="slide-out" class="button-collapse white-text ">Buscar en feria <i
+                        class="material-icons dp48">search</i></a>
+
+        </div>
+        <ul id="slide-out" class="side-nav">
+            <li>
+                <div id="homeSearchBox">
+                    <h4 class="texto_naranja">Buscar</h4>
+                    <form method="post" action="<?php echo base_url(); ?>index.php/carro/por_codigo_feria">
+                        <ul class="collapsible" data-collapsible="expandable">
+                            <li>
+                                <div class="collapsible-header active"><i class="material-icons">directions_car</i>Código
+                                </div>
+                                <div class="collapsible-body">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="input_codigo" name="input_codigo" type="text"
+                                                   class="validate">
+                                            <label for="input_codigo">Buscar codigo</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <button type="button"
+                                                    class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light"
+                                                    id="btn_codigo">Buscar
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                </form>
-                <form id="filtro_form">
-                    <ul class="collapsible" data-collapsible="expandable">
-                        <li id="filtros_vehiculo">
-                            <div class="collapsible-header active" id="filtros_vehiculo_h"><i class="material-icons">directions_car</i>Vehículo
-                            </div>
-                            <div class="collapsible-body" id="filtros_vehiculo_b">
-                                <!--<div class="row">
+                            </li>
+                        </ul>
+                    </form>
+                    <form id="filtro_form">
+                        <ul class="collapsible" data-collapsible="expandable">
+                            <li id="filtros_vehiculo">
+                                <div class="collapsible-header active" id="filtros_vehiculo_h"><i
+                                            class="material-icons">directions_car</i>Vehículo
+                                </div>
+                                <div class="collapsible-body" id="filtros_vehiculo_b">
+                                    <!--<div class="row">
                                     <div class=" s12">
                                         <label for="tipo_carro">Predio </label>
                                         <?php /*echo form_dropdown($predio_carro_select, $predio_carro_select_options) */ ?>
                                     </div>
                                 </div>-->
-                                <input type="hidden" value="TODOS" name="predio_carro" id="predio_carro">
-                                <div class="row">
-                                    <div class=" s12">
-                                        <label for="tipo_carro">Ubicacion </label>
-                                        <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options) ?>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class=" s12">
-                                        <label for="tipo_carro">Tipo de Vehiculo</label>
-                                        <?php echo form_dropdown($tipo_carro_select, $tipo_carro_select_options, $s_tipo) ?>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" col s12">
-                                        <div id="loading_marca_filter">
-                                            <div class="progress">
-                                                <div class="indeterminate"></div>
-                                            </div>
+                                    <input type="hidden" value="TODOS" name="predio_carro" id="predio_carro">
+                                    <div class="row">
+                                        <div class=" s12">
+                                            <label for="tipo_carro">Ubicacion </label>
+                                            <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options) ?>
                                         </div>
-                                        <label for="tipo_carro">Marca</label>
-                                        <?php echo form_dropdown($marca_carro_select, $marca_carro_select_options) ?>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" col s12">
-                                        <div id="loading_linea_filter">
-                                            <div class="progress">
-                                                <div class="indeterminate"></div>
-                                            </div>
+
+                                    <div class="row">
+                                        <div class=" s12">
+                                            <label for="tipo_carro">Tipo de Vehiculo</label>
+                                            <?php echo form_dropdown($tipo_carro_select, $tipo_carro_select_options, $s_tipo) ?>
                                         </div>
-                                        <label for="tipo_carro">Linea</label>
-                                        <?php echo form_dropdown($linea_carro_select, $linea_carro_select_options, $s_linea) ?>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class=" col s12">
+                                            <div id="loading_marca_filter">
+                                                <div class="progress">
+                                                    <div class="indeterminate"></div>
+                                                </div>
+                                            </div>
+                                            <label for="tipo_carro">Marca</label>
+                                            <?php echo form_dropdown($marca_carro_select, $marca_carro_select_options) ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col s12">
+                                            <div id="loading_linea_filter">
+                                                <div class="progress">
+                                                    <div class="indeterminate"></div>
+                                                </div>
+                                            </div>
+                                            <label for="tipo_carro">Linea</label>
+                                            <?php echo form_dropdown($linea_carro_select, $linea_carro_select_options, $s_linea) ?>
+                                        </div>
+                                    </div>
 
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">network_check</i>Caracteristicas
-                            </div>
-                            <div class="collapsible-body">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label for="tipo_carro">Transmision</label>
-                                        <?php echo form_dropdown($transmision_carro_select, $transmision_carro_select_options) ?>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">network_check</i>Caracteristicas
+                                </div>
+                                <div class="collapsible-body">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <label for="tipo_carro">Transmision</label>
+                                            <?php echo form_dropdown($transmision_carro_select, $transmision_carro_select_options) ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <label for="tipo_carro">Combustible</label>
+                                            <?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options) ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <label for="tipo_carro">Origen</label>
+                                            <?php echo form_dropdown($origen_carro_select, $origen_carro_select_options) ?>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label for="tipo_carro">Combustible</label>
-                                        <?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options) ?>
-                                    </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">attach_money</i>Precio
                                 </div>
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label for="tipo_carro">Origen</label>
-                                        <?php echo form_dropdown($origen_carro_select, $origen_carro_select_options) ?>
+                                <div class="collapsible-body">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <label for="tipo_carro">Moneda</label>
+                                            <?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options, $s_moneda) ?>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">attach_money</i>Precio
-                            </div>
-                            <div class="collapsible-body">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label for="tipo_carro">Moneda</label>
-                                        <?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options, $s_moneda) ?>
-                                    </div>
-                                </div>
-                                <div class="row">
+                                    <div class="row">
 
-                                    <p id="p_carro"></p>
-                                    <!-- <input id="p_carro" type="number"/>-->
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input id="p_carro_min" name="p_carro_min" type="number"
-                                               min="0" max="600000" step="1000"
-                                               placeholder="Precio min:"/>
-                                        <label for="icon_prefix">Precio min:</label>
+                                        <p id="p_carro"></p>
+                                        <!-- <input id="p_carro" type="number"/>-->
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="p_carro_max" name="p_carro_max" type="number"
-                                               min="0" max="600000" step="1000"
-                                               placeholder="Precio max:"/>
-                                        <label for="icon_prefix">Precio max:</label>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <input id="p_carro_min" name="p_carro_min" type="number"
+                                                   min="0" max="600000" step="1000"
+                                                   placeholder="Precio min:"/>
+                                            <label for="icon_prefix">Precio min:</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="p_carro_max" name="p_carro_max" type="number"
+                                                   min="0" max="600000" step="1000"
+                                                   placeholder="Precio max:"/>
+                                            <label for="icon_prefix">Precio max:</label>
+                                        </div>
                                     </div>
                                 </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">date_range</i>Año
+                                </div>
+                                <div class="collapsible-body">
+                                    <div class="row">
+                                        <p id="a_carro"></p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <input id="a_carro_min" name="a_carro_min" type="number"
+                                                   min="1952" max="2019"
+                                                   placeholder="Del año:"/>
+                                            <label for="icon_prefix">Del año:</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="a_carro_max" name="a_carro_max" type="number"
+                                                   min="1952" max="2019"
+                                                   placeholder="Al año:"/>
+                                            <label for="icon_prefix">Al año:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="card ">
+                            <div class="card-action">
+                                <button type="submit"
+                                        class="btn btn-success text-center orange darken-4 waves-effect waves-light">
+                                    Buscar
+                                </button>
+                                <!--<a class="btn btn-success text-center orange darken-4 waves-effect waves-light">Limpiar Buscador</a>-->
                             </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">date_range</i>Año
-                            </div>
-                            <div class="collapsible-body">
-                                <div class="row">
-                                    <p id="a_carro"></p>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input id="a_carro_min" name="a_carro_min" type="number"
-                                               min="1952" max="2018"
-                                               placeholder="Del año:"/>
-                                        <label for="icon_prefix">Del año:</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input id="a_carro_max" name="a_carro_max" type="number"
-                                               min="1952" max="2018"
-                                               placeholder="Al año:"/>
-                                        <label for="icon_prefix">Al año:</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="card ">
-                        <div class="card-action">
-                            <button type="submit"
-                                    class="btn btn-success text-center orange darken-4 waves-effect waves-light">
-                                Buscar
-                            </button>
-                            <!--<a class="btn btn-success text-center orange darken-4 waves-effect waves-light">Limpiar Buscador</a>-->
-                        </div>
-                </form>
-            </div>
-        </li>
-    </ul>
-</div>
-
-
-<?php if ($this->section('buscador')) {
-    echo $this->section('buscador');
-} ?>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
 
 
-<!-- page content -->
-<?php echo $this->section('page_content') ?>
+    <?php if ($this->section('buscador')) {
+        echo $this->section('buscador');
+    } ?>
+
+
+    <!-- page content -->
+    <?php echo $this->section('page_content') ?>
 </div>
 <!-- footer content -->
-<footer class="page-footer black darken-1">
+<footer class="page-footer grey darken-2">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">Gpautos</h5>
                 <p class="grey-text text-lighten-4">2da Avenida 20-29 Zona 10.<br>
-                    (+502) 2460-7261<br>
+                    (+502) 2294-5656<br>
                     info@gpautos.net</p>
                 <h5 class="white-text">Productos</h5>
                 <ul>
@@ -573,8 +573,9 @@ foreach ($ubicaciones->result() as $ubicacion) {
             </div>
             <div class="col l4 offset-l2 s12">
 
-                <div class="fb-page" data-href="https://www.facebook.com/gpautosprediovirtual/" data-small-header="true"
-                     data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                <div class="fb-page" data-href="https://www.facebook.com/gpautosprediovirtual/"
+                     data-small-header="false" data-adapt-container-width="false" data-hide-cover="false"
+                     data-show-facepile="false">
                     <blockquote cite="https://www.facebook.com/gpautosprediovirtual/" class="fb-xfbml-parse-ignore"><a
                                 href="https://www.facebook.com/gpautosprediovirtual/">GP Autos</a></blockquote>
                 </div>
@@ -606,6 +607,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
 <script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/camera.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/jquery.scrollTo.min.js"></script>
+<script src="/bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
 
 <!--Banners-->
 <script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/banners_cont.js"></script>
@@ -614,7 +616,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
 <!-- JS personalizado -->
 <script type="text/javascript">
     $("#getting-started")
-        .countdown("2018/06/15", function(event) {
+        .countdown("2018/07/30", function (event) {
             $(this).text(
                 event.strftime('%D días %H:%M:%S')
             );
@@ -690,10 +692,10 @@ foreach ($ubicaciones->result() as $ubicacion) {
     //Año de carro
     aCarroSlider = document.getElementById('a_carro');
     noUiSlider.create(aCarroSlider, {
-        start: [1952, 2018],
+        start: [1952, 2019],
         range: {
             'min': [1952],
-            'max': [2018]
+            'max': [2019]
         },
         step: 1,
         format: wNumb({
@@ -839,7 +841,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         buscador_a_min = $("#a_carro_min").val();
         buscador_a_max = $("#a_carro_max").val();
         var filtros;
-        filtros = '<?php echo base_url()?>' + 'index.php/Carro/filtro/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
+        filtros = '<?php echo base_url()?>' + 'index.php/Carro/filtro_feria/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
         window.location.assign(filtros);
     });
     //Actualizar marcas

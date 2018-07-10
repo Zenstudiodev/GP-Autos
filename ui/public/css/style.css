@@ -18,6 +18,11 @@
     width: 100%;
 }*/
 
+.imageContainer{
+    height: 155px;
+    overflow: hidden;
+}
+
 div#top_contac_info {
     color: #fff;
     width: 100%;
@@ -126,19 +131,9 @@ div#content_space {
 
 /*Boostrap override*/
 
-img.camera_thumb {
-    height: 70px;
+.carousel-inner > .item > a > img, .carousel-inner > .item > img {
+    width: 100%;
 }
-
-.imageContainer {
-    height: 150px;
-    overflow: hidden;
-}
-
-div#camera_wrap_1 {
-    height: 50vh;
-}
-
 /*FOrmulario*
 .input-field label {
     top: 1.8rem;
@@ -309,6 +304,7 @@ i.small {
     position: fixed;
     background: #fff;
     left: 0;
+    bottom: 20%;
     border-radius: 0px 10px 10px 0px;
     padding: 5px;
     z-index: 1002;
@@ -395,6 +391,11 @@ div#jivo-iframe-container:not(.jivo-c-mobile){
 .label_39 {
     z-index: 201 !important;
 }
+._show_1e.wrap_mW {
+    opacity: 1;
+    visibility: visible;
+    z-index: 199 !important;
+}
 
 
 /*Feria*/
@@ -403,10 +404,10 @@ div#feria {
     background-size: cover;
 }
 
-.ribbon{
+.ribbon {
     position: absolute !important;
-    width: 103px !important;
-    left: 189px !important;
+    width: 36%!important;
+    left: 68%!important;
     top: -9px !important;
     z-index: 2 !important;
 }
@@ -428,6 +429,27 @@ div#getting-started {
     border-radius: 21px;
     padding: 9px;
 }
+
+/*Vista de carro feria*/
+div#header_carrp_feria {
+    background: #fff;
+    padding: 20px;
+}
+
+div#header_carrp_feria h4{
+    margin: 1.14rem 0 -2.088rem 0;
+}
+
+h2.precio_oferta{
+    background: #fb8c00;
+    color: #fff;
+    border-radius: 30px;
+    width: 89%;
+    margin-top: 35px;
+    padding: 11px;
+    text-align: center;
+}
+
 @media only screen and (min-width: 993px) {
     .container {
         width: 90%;
