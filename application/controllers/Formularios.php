@@ -375,7 +375,7 @@ class Formularios  extends Base_Controller
 
             //mensaje
             $message = '<html><body>';
-            $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+            $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUT OS" />';
             $message .= '<table>';
             $message .= "<tr><td><strong>Codigo carro:</strong> </td><td>" .strip_tags($carro_id) ."</td></tr>";
             $message .= "<tr><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
