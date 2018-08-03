@@ -304,7 +304,7 @@ $carro = $carro->row();
                                     <a class="waves-effect waves-light btn" id="zoom_in_btn">Acercar</a>
                                     <a class="waves-effect waves-light btn" id="zoom_off_btn">Alejar</a>
                                     <a class="waves-effect waves-light btn" id="rotate_btn">Girar</a>
-                                    <a  href="#!" class="modal-action modal-close waves-effect waves-light btn" id="crop">Cortar</a>
+                                    <a  href="#!" class="modal-action modal-close waves-effect waves-light btn" id="crop">Subir imagenes</a>
 
                                 </div>
                             </div>

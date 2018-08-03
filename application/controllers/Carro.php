@@ -555,7 +555,9 @@ class Carro extends Base_Controller
 		//pasamos variablea al modelo
 		$lineas = $this->Carros_model->lineas_vehiculo($tipo, $marca);
 		//imprimimos en formato json el resultado
-		echo json_encode($lineas->result_array());
+        if($lineas) {
+            echo json_encode($lineas->result_array());
+        }
 	}
 	public function marcas(){
         header("Access-Control-Allow-Origin: *");
@@ -564,7 +566,9 @@ class Carro extends Base_Controller
 		//pasamos variablea al modelo
 		$marcas = $this->Carros_model->marcas_vehiculo($tipo);
 		//imprimimos en formato json el resultado
+        if($marcas) {
 		echo json_encode($marcas->result_array());
+        }
 	}
 	public function solicitar_informacion()
 	{

@@ -5,7 +5,7 @@
  * Date: 8/06/2017
  * Time: 7:24 PM
  */
-$this->layout('public/public_master_feria', [
+$this->layout('public/public_master', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,

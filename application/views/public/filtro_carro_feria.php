@@ -6,7 +6,7 @@
  * Time: 12:45 PM
  */
 ?>
-<?php $this->layout('public/public_master_feria', [
+<?php $this->layout('public/public_master', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,

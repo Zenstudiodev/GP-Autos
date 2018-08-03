@@ -5,7 +5,7 @@
  * Date: 1/06/2017
  * Time: 6:58 PM
  */ ?>
-<?php $this->layout('public/public_master_test', [
+<?php $this->layout('public/public_master', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
@@ -15,6 +15,21 @@
     'transmisiones' => $transmisiones,
     'combustibles' => $combustibles,
 ]);
+
+$username = array(
+    'name' => 'username',
+    'placeholder' => 'Username',
+    'type' => 'text',
+    'class' => 'form-control',
+    'required' => 'required'
+);
+$password_admin = array(
+    'name' => 'password',
+    'placeholder' => 'Password',
+    'type' => 'password',
+    'class' => 'form-control',
+    'required' => 'required'
+);
 
 $CI =& get_instance();
 ?>
@@ -36,8 +51,65 @@ $CI =& get_instance();
         <div class="container">
             <!--row para incluir buscador-->
             <div class="row">
-                <div class="col m4 s12">
+                <div class="col m1 s12">
 
+                </div>
+                <div class="col m4 s12">
+                    <div id="login-page" class="row">
+                        <div class="col s12 z-depth-4 card-panel">
+
+                            <?php
+                            //echo  $CI->ion_auth->get_user_id();?>
+
+                            <div class="row">
+                                <div class="input-field col s12 center">
+                                    <h4>Usuarios</h4>
+                                    <p class="center"><?php echo lang('login_subheading'); ?></p>
+                                </div>
+                            </div>
+                            <div id="infoMessage"><?php echo $message; ?></div>
+
+                            <?php echo form_open("cliente/login"); ?>
+
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">person_outline</i>
+                                    <?php echo form_input($identity); ?>
+                                    <?php echo lang('login_identity_label', 'identity'); ?>
+                                </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix pt-5">lock_outline</i>
+                                    <?php echo form_input($password); ?>
+                                    <?php echo lang('login_password_label', 'password'); ?>
+                                </div>
+                            </div>
+
+                            <!--<p>
+                                <label>
+                                    <input type="checkbox" checked="checked" />
+                                    <span>Yellow</span>
+                                </label>
+                                <?php /*echo lang('login_remember_label', 'remember');*/ ?>
+                                <?php /*echo form_checkbox('remember', '1', true, 'id="remember"');*/ ?>
+                            </p>-->
+
+
+                            <p><?php echo form_submit('submit', lang('login_submit_btn'), 'class="btn waves-effect waves-light col s12"'); ?></p>
+                            <p>&nbsp;</p>
+                            <p><a class="btn waves-effect waves-light col s12"
+                                  href="<?php echo base_url() ?>/cliente/registro">registrarse</a></p>
+
+                            <?php echo form_close(); ?>
+
+                            <p><a href="forgot_password"><?php echo lang('login_forgot_password'); ?></a></p>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col m2 s12">
                 </div>
                 <div class="col m4 s12">
                     <div id="login-page" class="row">
@@ -47,57 +119,39 @@ $CI =& get_instance();
 
                             <div class="row">
                                 <div class="input-field col s12 center">
-                                    <h4><?php echo lang('login_heading');?></h4>
-                                    <p class="center"><?php echo lang('login_subheading');?></p>
+                                    <h4>Predios</h4>
+                                    <p class="center"><?php echo lang('login_subheading'); ?></p>
                                 </div>
                             </div>
-                            <div id="infoMessage"><?php echo $message;?></div>
+                            <div id="infoMessage"><?php echo $message; ?></div>
 
-                            <?php echo form_open("cliente/login");?>
+                            <?php echo form_open("/login/user_login"); ?>
 
                             <div class="row margin">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-5">person_outline</i>
-                                    <?php echo form_input($identity);?>
-                                    <?php echo lang('login_identity_label', 'identity');?>
+                                    <?php echo form_input($username); ?>
                                 </div>
                             </div>
                             <div class="row margin">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-5">lock_outline</i>
-                                    <?php echo form_input($password);?>
-                                    <?php echo lang('login_password_label', 'password');?>
+                                    <?php echo form_input($password_admin); ?>
                                 </div>
                             </div>
-
-                            <!--<p>
-                                <label>
-                                    <input type="checkbox" checked="checked" />
-                                    <span>Yellow</span>
-                                </label>
-                                <?php /*echo lang('login_remember_label', 'remember');*/?>
-                                <?php /*echo form_checkbox('remember', '1', true, 'id="remember"');*/?>
-                            </p>-->
-
-
-                            <p><?php echo form_submit('submit', lang('login_submit_btn'),'class="btn waves-effect waves-light col s12"');?></p>
+                            <p>
+                                <button type="submit" class="btn waves-effect waves-light col s12"/>
+                                Login</button></p>
                             <p>&nbsp;</p>
-                            <p><a class="btn waves-effect waves-light col s12"
-                                   href="<?php echo base_url() ?>/cliente/registro">registrarse</a></p>
-
-                            <?php echo form_close();?>
-
-                            <p><a href="forgot_password"><?php echo lang('login_forgot_password');?></a></p>
-
-
-
+                            <p><a class="btn waves-effect waves-light col s12" href="#anunciate_modal">Afiliarse</a></p>
+                            <p>&nbsp;</p>
+                            <?php echo form_close(); ?>
                         </div>
                     </div>
                 </div>
-                <div class="col m4 s12">
+                <div class="col m1 s12">
                 </div>
             </div>
-
                 </div>
             </div>
         </div>
@@ -106,89 +160,117 @@ $CI =& get_instance();
 } else {
     echo 'Aun no hay prospectos';
 } ?>
+
+<!-- Modal Structure -->
+<div id="anunciate_modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Interesado en Afiliar predio</h4>
+        <form id="anunciate_form">
+            <input type="hidden" name="tipo" id="tipo_input">
+            <div class="card-panel  red darken-1 white-text" id="form_anunciate_alert">
+                    <span class="white-text">
+                        Por favor llene todos los campos del formulario
+                    </span>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="predio_contacto" name="predio_contacto" type="text" class="validate" required>
+                    <label for="predio_contacto">Contacto</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="predio_nombre" name="predio_nombre" type="text" class="validate" required>
+                    <label for="predio_nombre">Nombre del predio</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="predio_vehiculos" name="predio_vehiculos" type="number" class="validate" required>
+                    <label for="predio_vehiculos">Cantidad de vehículos</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="predio_correo" name="predio_correo" type="email" class="validate" required>
+                    <label for="predio_correo">Correo</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="predio_telefono" name="predio_telefono" type="tel" class="validate" required>
+                    <label for="predio_telefono">Teléfono</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="predio_direccion" name="predio_direccion" type="text" class="validate" required>
+                    <label for="predio_direccion">Dirección</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-flat waves-green" id="anunciate_enviar">Enviar</a>
+    </div>
+</div>
+
+
 <?php $this->stop() ?>
 <!-- JS personalizado -->
 <?php $this->start('js_p') ?>
 <script>
-    var marca;
-    var tipo;
 
-    //precio carro
-    var precioCarroSlider;
-    var precio_carro;
-    var precio_carro_max;
-    var precio_carro_min;
-
-    //Año carro
-    var aCarroSlider;
-    var a_carro;
-    var a_carro_min;
-    var a_carro_max;
     $(document).ready(function () {
-        // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-        //$('.collapsible').collapsible();
-
-        $('select').material_select();
-        marca = $("#marca_carro").val();
-        tipo = $("#tipo_carro").val();
-
-    });
-    //submit form
-    $("#filtro_form").submit(function (event) {
-        event.preventDefault();
-        //alert( "Handler for .submit() called." );
-        buscador_tipo = $("#tipo_carro").val();
-        buscador_marca = $('#marca_carro').val();
-        buscador_linea = $('#linea_carro').val();
-        buscador_combustible = $("#combustible_carro").val();
-        buscador_origen = $("#origen_carro").val();
-        buscador_precio_min = $("#p_carro_min").val();
-        buscador_precio_max = $("#p_carro_max").val();
-        buscador_a_min = $("#a_carro_min").val();
-        buscador_a_max = $("#a_carro_max").val();
-        var filtros;
-        filtros = '<?php echo base_url()?>' + 'index.php/carro/filtro/' + buscador_tipo + '/' + buscador_marca + '/' + buscador_linea + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
-        window.location.assign(filtros);
+        $('.modal').modal();
+        $("#form_anunciate_alert").hide();
     });
 
-    //Actualizar marcas
-    $("#tipo_carro").change(function (e) {
-        $('#marca_carro option').remove();
-        marca = $(this).val();
-        tipo = $("#tipo_carro").val();
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
-            success: function (data) {
-                $('#marca_carro').append('<option value="TODOS">TODOS</option>');
-                $.each(data, function (key, value) {
-                    $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
-                });
-                $('select').material_select();
-            }
-        });
+    //Formulario anunciate
+    $("#anunciate_enviar").click(function () {
+        //obtener datos
+
+        predio_contacto = $("#predio_contacto").val();
+        predio_nombre = $("#predio_nombre").val();
+        predio_vehiculos = $("#predio_vehiculos").val();
+        predio_correo = $("#predio_correo").val();
+        predio_telefono = $("#predio_telefono").val();
+        predio_direccion = $("#predio_direccion").val();
+
+
+
+        formulario_informacion_data = {
+            predio_contacto: predio_contacto,
+            predio_nombre: predio_nombre,
+            predio_vehiculos: predio_vehiculos,
+            predio_correo: predio_correo,
+            predio_telefono: predio_telefono,
+            predio_direccion: predio_direccion
+        };
+
+        if ($("#anunciate_form")[0].checkValidity()) {
+            console.log("form Submit");
+            $("#form_anunciate_alert").hide();
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url()?>index.php/Formularios/predio_interesado',
+                data: formulario_informacion_data,
+                success: function (data) {
+                    if (data == 'send') {
+                        $("#anunciate_modal").find('.modal-content').html('Correo enviado. pronto nos pondremos en contacto');
+                        $("#anunciate_modal").find('.modal-footer').html('');
+
+                    }
+                }
+            });
+        } else {
+            $("#form_anunciate_alert").fadeIn(1000);
+        }
+
+        /**/
     });
 
-    //Actualizar lineas
-    $("#marca_carro").change(function (e) {
-        $('#linea_carro option').remove();
-        marca = $(this).val();
-        tipo = $("#tipo_carro").val();
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
-            success: function (data) {
-                $('#linea_carro').append('<option value="TODOS">TODOS</option>');
-                $.each(data, function (key, value) {
-                    $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
-                });
-                $('select').material_select();
-                $("#linea_carro").val(buscador_linea);
-            }
-        });
-    });
 </script>
 <?php $this->stop() ?>
 

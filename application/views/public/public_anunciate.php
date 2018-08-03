@@ -167,7 +167,6 @@ $this->layout('public/public_master', [
             telefono = $("#anunciate_telefono").val();
             correo = $("#anunciate_correo").val();
 
-
             formulario_informacion_data = {
                 tipo: tipo,
                 nombre: nombre,

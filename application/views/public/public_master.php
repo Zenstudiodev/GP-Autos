@@ -48,10 +48,11 @@ $predio_carro_select = array(
 $predio_carro_select_options = array(
     'TODOS' => 'TODOS',
 );
-foreach ($predios->result() as $predio) {
-    $predio_carro_select_options[$predio->id_predio_virtual] = $predio->prv_nombre;
+if($predios) {
+    foreach ($predios->result() as $predio) {
+        $predio_carro_select_options[$predio->id_predio_virtual] = $predio->prv_nombre;
+    }
 }
-
 //UBICACION
 $ubicacion_carro_select = array(
     'name' => 'ubicacion_carro',
@@ -238,7 +239,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             <div class="row">
 
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Entrar</a>
+                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Ingresar</a>
                 </div>
                 <div class="col s6">
                     <a class="waves-effect waves-light btn"
@@ -258,12 +259,12 @@ foreach ($ubicaciones->result() as $ubicacion) {
                         Lunes a Viernes 09:00 AM - 06:00 PM Sábado 09:00 AM a 01:00 PM
                     </p>
                 </div>
-                <div class="col m3">
-                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Entrar</a>
+                <div class="col m4">
+                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Ingresar</a>
                     <a class="waves-effect waves-light btn"
                        href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
                 </div>
-                <div class="col m3">
+                <div class="col m2">
                     <p class="text-right"><i class="fa fa-phone"></i>
                         (+502) 2294-5656
                         <a href="https://www.facebook.com/gpautosprediovirtual/" target="_blank"><i
@@ -282,7 +283,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
 
                 <div class="collection">
                     <a href="<?php echo base_url() ?>index.php/Productos/anunciate" class="collection-item black-text">
-                        Anunciate <i class="material-icons  secondary-content orange-text darken-3">note_add</i>
+                        Anuncia tu vehiculo <i class="material-icons  secondary-content orange-text darken-3">note_add</i>
                     </a>
                     <a href="<?php echo base_url(); ?>" class="collection-item black-text">
                         Vehiculos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
@@ -307,12 +308,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
 
 
                 </div>
-                <div id="feria_countDown">
-                    <div id="feria_cd_tittle">
-                        La gran feria virtual termina en
-                    </div>
-                    <div id="getting-started"></div>
-                </div>
+
 
             </div>
             <div class="col s12 m8">
@@ -616,18 +612,11 @@ foreach ($ubicaciones->result() as $ubicacion) {
 <script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/jquery.scrollTo.min.js"></script>
 
 <!--Banners-->
-<script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/banners_cont.js"></script>
-<script src="/bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
+<!--<script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/banners_cont.js"></script>-->
+
 <!-- JS personalizado -->
 <?php echo $this->section('js_p') ?>
-<script type="text/javascript">
-    $("#getting-started")
-        .countdown("2018/07/30", function(event) {
-            $(this).text(
-                event.strftime('%D días %H:%M:%S')
-            );
-        });
-</script>
+
 <!-- JS personalizado -->
 <script>
     var filtro_predio;
@@ -772,6 +761,8 @@ foreach ($ubicaciones->result() as $ubicacion) {
             dataType: 'json',
             url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
+
+
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
                     $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
@@ -866,6 +857,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             dataType: 'json',
             url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
+                $('#marca_carro option').remove();
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
                     options += '<option value="' + value.id_marca + '">' + value.id_marca + '</option>';

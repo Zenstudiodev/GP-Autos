@@ -83,6 +83,61 @@ class Formularios  extends Base_Controller
 		}
 
 	}
+	public function predio_interesado(){
+        //comprobamos que exista post
+        if($this->input->post('predio_correo')){
+            //leemos datos desde post
+            $contacto = $this->input->post('predio_contacto');
+            $predio_nombre = $this->input->post('predio_nombre');
+            $predio_vehiculos = $this->input->post('predio_vehiculos');
+            $predio_correo= $this->input->post('predio_correo');
+            $predio_telefono= $this->input->post('predio_telefono');
+            $predio_direccion= $this->input->post('predio_direccion');
+            //configuracion de correo
+            $config['mailtype'] = 'html';
+
+            $configGmail = array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.gmail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'info@gpautos.net',
+                'smtp_pass' => 'JdGg2005gp',
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'newline' => "\r\n"
+            );
+            $this->email->initialize($configGmail);
+
+            $this->email->from('info@gpautos.net', 'GP AUTOS - anunciate');
+            $this->email->to('gerencia@gpautos.net');
+            $this->email->bcc('csamayoa@zenstudiogt.com');
+            $this->email->subject('Predio interesado : ');
+
+            //mensaje
+            $message = '<html><body>';
+            $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+            $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+            $message .= "<tr style='background: #eee;'><td><strong>Contacto:</strong> </td><td>" .strip_tags($contacto) ."</td></tr>";
+            $message .= "<tr><td><strong>Nombre:</strong> </td><td>" . strip_tags($predio_nombre) . "</td></tr>";
+            $message .= "<tr><td><strong>Vehiculos:</strong> </td><td>" . strip_tags($predio_vehiculos) . "</td></tr>";
+            $message .= "<tr><td><strong>Correo:</strong> </td><td>" . strip_tags($predio_correo) . "</td></tr>";
+            $message .= "<tr><td><strong>Teléfono:</strong> </td><td>" . strip_tags($predio_telefono) . "</td></tr>";
+            $message .= "<tr><td><strong>Dirección:</strong> </td><td>" . strip_tags($predio_direccion) . "</td></tr>";
+            $message .= "</table>";
+            $message .= "</body></html>";
+
+
+            $this->email->message($message);
+
+            //enviar correo
+            $this->email->send();
+
+            echo'send';
+        }else{
+            //redirigir al home
+            redirect(base_url());
+        }
+    }
 	public function info_carro(){
 		//comprobamos que exista post
 		if($this->input->post('correo')){

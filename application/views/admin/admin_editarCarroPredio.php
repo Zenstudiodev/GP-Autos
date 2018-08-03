@@ -638,7 +638,8 @@ $predio_id = array(
 	'class'       => ' form-control',
 	'placeholder' => 'Predio ID',
 	'value'       => $carro->id_predio_virtual,
-	'required'    => 'required'
+	'required'    => 'required',
+	'readonly'    => 'readonly'
 );
 
 ?>
@@ -1069,32 +1070,16 @@ $predio_id = array(
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <!--Premium-->
+                                        <!--4x4-->
                                         <div class="form-group">
-                                            <label for="checkboxes" class="control-label">PREMIUM</label>
+                                            <label for="checkboxes" class="control-label">4X4</label>
                                             <div class="controls">
                                                 <label>
-													<?php echo form_radio($premium_s); ?>
+                                                    <?php echo form_radio($t4x4_s); ?>
                                                     Si
                                                 </label>
                                                 <label>
-													<?php echo form_radio($premium_n); ?>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <!--CERTIAUTO-->
-                                        <div class="form-group">
-                                            <label for="checkboxes" class="control-label">CERTIAUTO</label>
-                                            <div class="controls">
-                                                <label>
-													<?php echo form_radio($certiauto_s); ?>
-                                                    Si
-                                                </label>
-                                                <label>
-													<?php echo form_radio($certiauto_n); ?>
+                                                    <?php echo form_radio($t4x4_n); ?>
                                                     No
                                                 </label>
                                             </div>
@@ -1102,22 +1087,7 @@ $predio_id = array(
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <!--4x4-->
-                                        <div class="form-group">
-                                            <label for="checkboxes" class="control-label">4X4</label>
-                                            <div class="controls">
-                                                <label>
-						                            <?php echo form_radio($t4x4_s); ?>
-                                                    Si
-                                                </label>
-                                                <label>
-						                            <?php echo form_radio($t4x4_n); ?>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="col-md-4">
                                         <!--GARANTIA gp-->
                                         <input type="hidden" name="garantia_gp" value="1">
@@ -1177,20 +1147,7 @@ $predio_id = array(
 										<?php echo form_input($telefono_contacto); ?>
                                     </div>
                                 </div>
-                                <!--NOMBRE CLIENTE-->
-                                <div class="form-group">
-                                    <label>NOMBRE CLIENTE:</label>
-                                    <div class="controls">
-										<?php echo form_input($nombre_cliente); ?>
-                                    </div>
-                                </div>
-                                <!--TELEFONO CLIENTE-->
-                                <div class="form-group">
-                                    <label>TELEFONO CLIENTE:</label>
-                                    <div class="controls">
-										<?php echo form_input($telefono_cliente); ?>
-                                    </div>
-                                </div>
+
                                 <!--COREO-->
                                 <div class="form-group">
                                     <label>CORREO:</label>

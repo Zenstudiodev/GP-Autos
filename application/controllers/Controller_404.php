@@ -16,6 +16,8 @@ class Controller_404 extends Base_Controller
         $this->load->helper('text');
     }
     public function index(){
+        redirect(base_url());
+        exit();
         header("Cache-Control: no-cache, must-revalidate");
 	    $data['carros'] = $this->Carros_model->get_carros_frontPage();
 	    $data['tipos'] = $this->Carros_model->tipos_vehiculo();

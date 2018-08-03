@@ -610,13 +610,13 @@ foreach ($ubicaciones->result() as $ubicacion) {
 <script src="/bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
 
 <!--Banners-->
-<script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/banners_cont.js"></script>
+<!--<script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/banners_cont.js"></script>-->
 <!-- JS personalizado -->
 <?php echo $this->section('js_p') ?>
 <!-- JS personalizado -->
 <script type="text/javascript">
     $("#getting-started")
-        .countdown("2018/07/30", function (event) {
+        .countdown("2018/07/31", function (event) {
             $(this).text(
                 event.strftime('%D días %H:%M:%S')
             );
