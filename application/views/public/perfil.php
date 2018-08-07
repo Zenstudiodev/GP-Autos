@@ -5,7 +5,7 @@
  * Date: 1/06/2017
  * Time: 6:58 PM
  */ ?>
-<?php $this->layout('public/public_master_test', [
+<?php $this->layout('public/public_master', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
@@ -80,71 +80,79 @@ $CI =& get_instance();
                         <div class="col m12 s12">
                             <div class="row">
                                 <?php
-                                if ($carros){
-                                $cardCount = 0;
+                                if ($carros) {
+                                    $cardCount = 0;
 
-                                foreach ($carros->result() as $carro) {
-                                    $cardCount++
-                                    ?>
-                                    <div class="col s12 m3">
+                                    foreach ($carros->result() as $carro) {
+                                        $cardCount++
+                                        ?>
+                                        <div class="col s12 m4">
 
-                                        <div class="card">
-                                            <div class="card-image waves-effect waves-block waves-light">
-                                                <div class="imageContainer">
+                                            <div class="card">
+                                                <div class="card-image waves-effect waves-block waves-light">
+                                                    <div class="imageContainer">
+                                                        <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>">
+                                                            <img class="activator"
+                                                                 src="<?php echo 'http://www.gpautos.net/web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="card-content">
                                                     <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>">
-                                                        <img class="activator"
-                                                             src="<?php echo 'http://www.gpautos.net/web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
+                                                        <span class="card-title  grey-text text-darken-4"><?php echo substr($carro->id_marca, 0, 9); ?></span>
                                                     </a>
+                                                    <p>
+                                                        <span class="badge  <?php estados_a_colores($carro->crr_estatus); ?>"><?php echo $carro->crr_estatus ?></span>Estado:
+                                                    </p>
+                                                    <p>
+                                                        <?php echo substr($carro->id_linea, 0, 12); ?>
+                                                        - <?php echo $carro->crr_modelo ?><br>
+                                                    </p>
+                                                </div>
+                                                <div class="card-tabs">
+                                                    <ul class="tabs tabs-fixed-width">
+                                                        <li class="tab"><a href="#test4">Ver</a></li>
+                                                        <li class="tab"><a class="active" href="#test5">Editar</a></li>
+                                                        <li class="tab"><a href="#test6">Fotos</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="card-content grey lighten-4">
+                                                    <div id="test4">
+                                                        <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>"
+                                                           class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">ver</a>
+                                                    </div>
+                                                    <div id="test5">
+                                                        <a href="<?php echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro ?>" class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">
+                                                            Editar precio
+                                                        </a>
+                                                        <a href="<?php echo base_url() . 'index.php/cliente/dar_de_baja/' . $carro->id_carro ?>" class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">
+                                                            Dar de baja
+                                                        </a>
+                                                    </div>
+                                                    <div id="test6">
+                                                        <div class="card-panel  lighten-2">
+                                                            <p>NOTA: Al modificar la imágenes del vehiculo pasará de nuevo por revisión</p>
+                                                        </div>
+
+                                                        <a href="<?php echo base_url() . 'index.php/cliente/subir_fotos/' . $carro->id_carro ?>"
+                                                           class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">Editar imágenes</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="card-content">
-                                                <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>">
-                                                    <span class="card-title  grey-text text-darken-4"><?php echo substr($carro->id_marca, 0, 9); ?></span>
-                                                </a>
-                                                <p><span class="badge  <?php estados_a_colores($carro->crr_estatus);?>"><?php echo $carro->crr_estatus?></span>Estado:</p>
-                                                <p>
-                                                    <?php echo substr($carro->id_linea, 0, 12); ?>
-                                                    - <?php echo $carro->crr_modelo ?><br>
 
-                                                    <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>"
-                                                       class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">ver</a>
-                                                </p>
-                                            </div>
-                                            <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">
-                                        <?php
-                                        $marca_str = character_limiter($carro->id_marca, 2);
-                                        echo $marca_carro ?>
-                                        <i class="material-icons right">close</i></span>
-                                                <p class="">
-                                                    <?php
-                                                    $linea_str = character_limiter($carro->id_linea, 6);
-                                                    echo $linea_str; ?>
-                                                    - <?php echo $carro->crr_modelo ?><br>
-                                                    <?php if ($carro->crr_moneda_precio == '$') {
-                                                        setlocale(LC_MONETARY, "en_US");
-                                                    } else {
-                                                        setlocale(LC_MONETARY, "es_GT");
-                                                    }
-                                                    ?>
-                                                    <span class="green-text"><?php echo mostrar_precio_carro($carro->crr_precio, $carro->crr_moneda_precio); ?></span>
 
-                                                </p>
-                                                <p>
-                                                </p>
-                                            </div>
                                         </div>
+                                        <?php if ($cardCount == 4) { ?>
+                                            <div class="row">
+                                        <?php } ?>
+                                        <?php if ($cardCount == 4 || $cardCount == 8) { ?>
+                                            </div>
 
-
-                                    </div>
-                                    <?php if ($cardCount == 4) { ?>
-                                        <div class="row">
-                                    <?php } ?>
-                                    <?php if ($cardCount == 4 || $cardCount == 8) { ?>
-                                        </div>
-
-                                    <?php } ?>
-                                <?php }}else{echo'aun no hay carros';} ?>
+                                        <?php } ?>
+                                    <?php }
+                                } else {
+                                    echo 'aun no hay carros';
+                                } ?>
                             </div>
                         </div>
                     </div>

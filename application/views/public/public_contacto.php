@@ -50,7 +50,7 @@ $this->layout('public/public_master', [
                 </div>
                 <div class="col s12 m5">
                     <h2 class="texto_naranja" id="precio_carro">
-                        PBX: 2376-0404
+                        PBX: 2294-5656
                     </h2>
                 </div>
             </div>
@@ -99,26 +99,26 @@ $this->layout('public/public_master', [
                              height="350" frameborder="0" style="border:0; width: 100%" allowfullscreen></iframe>
                 </div>
                 <div class="col m4">
-                    <ul class="collection with-header">
+                    <!--<ul class="collection with-header">
                         <li class="collection-header"><h4>GP Predio</h4></li>
                         <li class="collection-item">ALEJANDRO RAMIRES<span class=" badge white-text">EXT.404</span></li>
                         <li class="collection-item">ERNESTO MANCILLA<span class=" badge white-text">EXT.405</span></li>
                         <li class="collection-item">ASESOR<span class=" badge white-text">EXT.414</span></li>
-                    </ul>
+                    </ul>-->
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>CRÉDITOS</h4></li>
-                        <li class="collection-item">ZULY MORALES<span class=" badge white-text">EXT.411</span></li>
-                        <li class="collection-item">MISHEL GARCIA<span class=" badge white-text">EXT.415</span></li>
-                        <li class="collection-item">IVON AQUINO<span class=" badge white-text">EXT.417</span></li>
+                        <li class="collection-item">EXT.200</li>
                     </ul>
                     <ul class="collection with-header">
-                        <li class="collection-header"><h4>SEGUROS</h4></li>
-                        <li class="collection-item">SEGUROS EL ROBLE<span class=" badge white-text">EXT.416</span></li>
+                        <li class="collection-header"><h4>COMPRA TU CARRO</h4></li>
+                        <li class="collection-item">EXT.202</li>
+                        <li class="collection-item">EXT.209</li>
+                        <li class="collection-item">EXT.212</li>
                     </ul>
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>ANUNCIA TU CARRO</h4></li>
-                        <li class="collection-item">OLINDA CASTELLANOS<span class=" badge white-text">EXT.407</span></li>
-                        <li class="collection-item">BYRON MONROY<span class=" badge white-text">EXT.408</span></li>
+                        <li class="collection-item">EXT.204</li>
+                        <li class="collection-item">EXT.205</li>
                     </ul>
                 </div>
             </div>

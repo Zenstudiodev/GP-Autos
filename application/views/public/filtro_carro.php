@@ -299,82 +299,11 @@ $CI =& get_instance();
         <?php } ?>
 
 
-        $(document).ready(function () {
-            // activar los selects
-            $('select').material_select();
 
-            //leemos las variables para el buscador
-            buscador_tipo = '<?php echo urldecode($s_tipo); ?>';
-            buscador_marca = '<?php echo urldecode($s_marca);?>';
-            buscador_linea = '<?php echo urldecode($s_linea);?>';
-            buscador_combustible = '<?php echo urldecode($s_combustible);?>';
-            buscador_transmision = '<?php echo urldecode($s_transmision);?>';
-            buscador_origen = '<?php echo $s_origen;?>';
-            buscador_precio_min = '<?php echo $precio_min;?>';
-            buscador_precio_max = '<?php echo $precio_max;?>';
-            buscador_a_min = '<?php echo $a_min;?>';
-            buscador_a_max = '<?php echo $a_max;?>';
-
-            console.log(
-                buscador_tipo + ' - ' +
-                buscador_marca + ' - ' +
-                buscador_linea + ' - ' +
-                buscador_combustible + ' - ' +
-                buscador_transmision + ' - ' +
-                buscador_origen + ' - ' +
-                buscador_precio_min + ' - ' +
-                buscador_precio_max + ' - ' +
-                buscador_a_min + ' - ' +
-                buscador_a_max);
-
-            $("#tipo_carro").val(buscador_tipo);
-
-            marca = $(this).val();
-            tipo = $("#tipo_carro").val();
-            //$('#marca_carro option').remove();
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
-                success: function (data) {
-                    $('#marca_carro').append('<option value="TODOS">TODOS</option>');
-                    $.each(data, function (key, value) {
-                        $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
-                    });
-                    $('select').material_select();
-                }
-            });
-
-
-            tipo = $("#tipo_carro").val();
-            //actualizamos la lista de lineas segun marca al cargar el documento
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
-                success: function (data) {
-                    $('#linea_carro').append('<option value="TODOS">TODOS</option>');
-                    $.each(data, function (key, value) {
-                        $('#linea_carro').append('<option value="' + value.id_linea + '">' + value.id_linea + '</option>');
-                    });
-                    $('select').material_select();
-                    $("#linea_carro").val(buscador_linea);
-
-                }
-            });
-
-            $("#transmision_carro").val(buscador_transmision);
-            $("#combustible_carro").val(buscador_combustible);
-            $("#origen_carro").val(buscador_origen);
-            $("#p_carro_min").val(buscador_precio_min);
-            $("#p_carro_max").val(buscador_precio_max);
-            $("#a_carro_min").val(buscador_a_min);
-            $("#a_carro_max").val(buscador_a_max);
-        });
         //realizamos accines luego de que termina el ajax
         $(document).ajaxComplete(function () {
-            $("#marca_vehiculo").val(buscador_marca);
-            $("#linea_carro").val(buscador_linea);
+          //  $("#marca_vehiculo").val(buscador_marca);
+          //  $("#linea_carro").val(buscador_linea);
             $('select').material_select();
         });
 

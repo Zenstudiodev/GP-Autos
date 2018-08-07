@@ -229,6 +229,90 @@ class Carros_model extends CI_Model
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
+    function actualizar_carro_public($data)
+    {
+        $datos = array(
+            //'crr_fecha'                => $data['crr_fecha'],
+            //'crr_placa'                => $data['crr_placa'],
+            //'id_tipo_carro'            => $data['id_tipo_carro'],
+            //'id_marca'                 => $data['id_marca'],
+            //'id_linea'                 => $data['id_linea'],
+            //'id_ubicacion'             => $data['id_ubicacion'],
+            //'crr_moneda_precio'        => $data['crr_moneda_precio'],
+            'crr_precio'               => $data['crr_precio'],
+            //'crr_descripcion'          => $data['crr_descripcion'],
+            //'crr_img'                  => $data['crr_img'],
+            //'crr_img_ext'              => $data['crr_img_ext'],
+            //'crr_img_path'             => $data['crr_img_path'],
+            //'crr_modelo'               => $data['crr_modelo'],
+            //'crr_origen'               => $data['crr_origen'],
+            //'crr_ac'                   => $data['crr_ac'],
+            //'crr_alarma'               => $data['crr_alarma'],
+            //'crr_aros_magnecio'        => $data['crr_aros_magnecio'],
+            //'crr_bolsas_aire'          => $data['crr_bolsas_aire'],
+            //'crr_cerradura_central'    => $data['crr_cerradura_central'],
+            //'crr_cilindros'            => $data['crr_cilindros'],
+            //'crr_color'                => $data['crr_color'],
+            //'crr_combustible'          => $data['crr_combustible'],
+            //'crr_espejos'              => $data['crr_espejos'],
+            //'crr_kilometraje'          => $data['crr_kilometraje'],
+            //'crr_motor'                => $data['crr_motor'],
+            //'crr_platos'               => $data['crr_platos'],
+            //'crr_polarizado'           => $data['crr_polarizado'],
+            //'crr_puertas'              => $data['crr_puertas'],
+            //'crr_radio'                => $data['crr_radio'],
+            //'crr_sunroof'              => $data['crr_sunroof'],
+            //'crr_tapiceria'            => $data['crr_tapiceria'],
+            //'crr_timon_hidraulico'     => $data['crr_timon_hidraulico'],
+            //'crr_transmision'          => $data['crr_transmision'],
+            //'crr_4x4'                  => $data['crr_4x4'],
+            //'crr_vidrios_electricos'   => $data['crr_vidrios_electricos'],
+            //'crr_suspension_delantera' => $data['crr_suspension_delantera'],
+            //'crr_suspension_trasera'   => $data['crr_suspension_trasera'],
+            //'crr_freno_delantero'      => $data['crr_freno_delantero'],
+            //'crr_freno_trasero'        => $data['crr_freno_trasero'],
+            //'crr_blindaje'             => $data['crr_blindaje'],
+            //'crr_caja'                 => $data['crr_caja'],
+            //'crr_freno'                => $data['crr_freno'],
+            //'crr_suspension'           => $data['crr_suspension'],
+            //'crr_ejes'                 => $data['crr_ejes'],
+            //'crr_otros'                => $data['crr_otros'],
+            //'crr_estado'               => $data['crr_estado'],
+            //'crr_contacto'             => $data['crr_contacto'],
+            //'crr_contacto_nombre'      => $data['crr_contacto_nombre'],
+            //'crr_contacto_telefono'    => $data['crr_contacto_telefono'],
+            //'crr_contacto_email'       => $data['crr_contacto_email'],
+            'crr_estatus'              => $data['crr_estatus'],
+            //'id_predio_virtual'        => $data['id_predio_virtual'],
+            //'crr_date'                 => $data['crr_date'],
+            //'crr_premium'              => $data['crr_premium'],
+            //'crr_certiauto'            => $data['crr_certiauto'],
+            //'crr_cuotaseguro'          => $data['crr_cuotaseguro'],
+            //'crr_cuotafinanciamiento'  => $data['crr_cuotafinanciamiento'],
+            //'crr_nombre_propietario'   => $data['crr_nombre_propietario'],
+            //'crr_telefono_propietario' => $data['crr_telefono_propietario'],
+            //'crr_vencimiento'          => $data['crr_vencimiento'],
+            //'user_id'          => $data['user_id'],
+        );
+        $this->db->where('id_carro', $data['id_carro']);
+        $query = $this->db->update('carro', $datos);
+    }
+    function public_pasar_a_revision($id_carro)
+    {
+        $datos = array(
+            'crr_estatus'              => 'pendiente',
+        );
+        $this->db->where('id_carro', $id_carro);
+        $query = $this->db->update('carro', $datos);
+    }
+    function public_dar_de_baja($id_carro)
+    {
+        $datos = array(
+            'crr_estatus'              => 'Baja',
+        );
+        $this->db->where('id_carro', $id_carro);
+        $query = $this->db->update('carro', $datos);
+    }
 	function ListarCarros()
 	{
 		$where = "crr_estatus='Alta'";
