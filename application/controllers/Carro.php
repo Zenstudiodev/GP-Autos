@@ -14,6 +14,7 @@ class Carro extends Base_Controller
 		parent::__construct();
 		$this->load->model('Carros_model');
 		$this->load->model('Banners_model');
+		$this->load->model('Predio_model');
 		$this->load->helper('carros');
 		$this->load->library("pagination");
 	}
@@ -37,11 +38,28 @@ class Carro extends Base_Controller
 		{
 
 			$data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
+			if($data['carro']){
+			    $data_carro = $data['carro']->row();
+                $predio=$this->Predio_model->get_predio_data($data_carro->id_predio_virtual);
+                if($predio) {
+                    $predio = $predio->row();
+                    if ($predio->prv_estatus == 'Baja') {
+                        $data['carro'] = false;
+                    }
+                }
+
+            }
+
 		}
 		$data['header_banners'] = $this->Banners_model->header_banners_activos();
+		$this->Carros_model->registrar_visita($data['segmento']);
 		echo $this->templates->render('public/public_carro', $data);
 
 	}
+	public function registrar_whatsapp(){
+        $id_carro = $this->input->post('id_carro');
+        $this->Carros_model->registrar_whatsapp($id_carro);
+    }
 	public function ver_feria()
 	{
         $data = cargar_componentes_buscador();

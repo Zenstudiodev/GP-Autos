@@ -19,7 +19,7 @@
 
 $numero_banners = $banners->num_rows();
 $banners = $banners->result();
-
+$CI =& get_instance();
 ?>
 
 <?php $this->start('title') ?>
@@ -195,14 +195,27 @@ $CI =& get_instance();
                             </div>
 
                         <?php } ?>
+                        <?php
+                        $predio_baja = false;
+                        if($carro->id_predio_virtual !='0'){
+                            $predio=$CI->Predio_model->get_predio_data($carro->id_predio_virtual);
+                            if($predio){
+                                $predio = $predio->row();
+                                if($predio->prv_estatus =='Baja'){
+                                    $predio_baja = true;
+                                }
+                            }
 
+                        }
+                        if($predio_baja){}else{
+                        ?>
                         <div class="col s12 m3">
                             <div class="card" id="<?php echo $carro->crr_codigo . '_card' ?>">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <div class="imageContainer">
                                         <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>">
                                             <img class="activator"
-                                                 src="<?php echo 'http://www.gpautos.net//web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
+                                                 src="<?php echo base_url() . 'web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
                                         </a>
                                     </div>
                                 </div>
@@ -239,6 +252,7 @@ $CI =& get_instance();
                                 </div>
                             </div>
                         </div>
+                    <?php }?>
                     <?php } ?>
                 <?php } else { ?>
                     <blockquote class="blockquote bq-danger">

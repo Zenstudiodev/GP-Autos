@@ -15,7 +15,7 @@ class Predio_model extends CI_Model
 	}
 	function get_predio_data($id_predio){
 		$this->db->where('id_predio_virtual', $id_predio);
-		$this->db->where('prv_estatus', 'Alta');
+		//$this->db->where('prv_estatus', 'Alta');
 		$query = $this->db->get('predio_virtual');
 		if ($query->num_rows() > 0) return $query;
 		else return false;

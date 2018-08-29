@@ -93,7 +93,7 @@ $CI =& get_instance();
                                                     <div class="imageContainer">
                                                         <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>">
                                                             <img class="activator"
-                                                                 src="<?php echo 'http://www.gpautos.net/web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
+                                                                 src="<?php echo base_url().'web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -134,7 +134,7 @@ $CI =& get_instance();
                                                             <p>NOTA: Al modificar la imágenes del vehiculo pasará de nuevo por revisión</p>
                                                         </div>
 
-                                                        <a href="<?php echo base_url() . 'index.php/cliente/subir_fotos/' . $carro->id_carro ?>"
+                                                        <a href="<?php echo base_url() . 'index.php/cliente/subir_fotos/' . $carro->id_carro.'/1' ?>"
                                                            class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">Editar imágenes</a>
                                                     </div>
                                                 </div>

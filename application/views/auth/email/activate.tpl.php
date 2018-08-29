@@ -17,7 +17,7 @@
         <td></td>
         <td><p>Gracias por abrir tu cuenta para publicar vehículos en GPAUTOS.NET<br>
                 <span style="color: #e79637; font-weight: bold"><?php echo sprintf(lang('email_activate_subheading'), anchor('auth/activate/'. $id .'/'. $activation, lang('email_activate_link')));?></span> <strong>para confirmar que el correo es correcto.</strong>
-                y así habilitar tu cuenta, recibir promociones y veneficios que solo GPAUTOS.NET te puede dar.
+                y así habilitar tu cuenta, recibir promociones y beneficios que solo GPAUTOS.NET te puede dar.
             </p>
         </td>
         <td></td>

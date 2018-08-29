@@ -2,43 +2,18 @@
 @media (max-width: 599px) {
     #subir_imagenes .modal {
         width: 90%;
-        height: 70%;
-        max-height: 90%;
+        height: 80%;
     }
 
     .modal .modal-footer {
         height: 110px;
     }
 
-
-    .imageContainer {
-        height: 188px;
-    }
-    a.wts_btn {
-
-        padding: 0px;
-        margin: 0px;
-        width: 100%;
-    }
-    h3 {
-        font-size: 2.5rem;
-    }
-    .img-container {
-        height: 200px;
-    }
-
-    #floating_menu {
-        bottom: 100px;
-    }
-    div#feria {
-        background-size: initial;
-    }
-
 }
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 600px) and (max-width: 992px) {
-body{font-size: 0.9rem}
+    body{font-size: 0.9rem}
 }
 
 /*/ Large devices (desktops, 992px and up)*/

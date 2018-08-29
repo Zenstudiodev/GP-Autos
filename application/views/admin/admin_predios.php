@@ -12,7 +12,11 @@
     'user_id'  => $user_id,
     'username' => $username,
     'rol'      => $rol,
-]);?>
+]);
+
+$ci =& get_instance();
+
+ ?>
 <?php $this->start('css_p') ?>
     <!--cargamos css personalizado-->
     <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/css/select2.css" />
@@ -46,8 +50,9 @@
                                         <th>Nombre</th>
                                         <th width="150px">Banner</th>
                                         <th>estado</th>
-                                        <th>Carros activos</th>
                                         <th>carros permitidos</th>
+                                        <th>Carros activos</th>
+                                        <th>Carros inactivos</th>
 
                                     </tr>
                                     </thead>
@@ -61,8 +66,9 @@
                                             <td><a href="<?php echo base_url().'index.php/admin/editrar_predio/'.$predio->id_predio_virtual;?>"> <?php echo  $predio->prv_nombre?></a></td>
                                             <td><img src="<?php echo base_url().'ui/public/images/predio/'. $predio->prv_img?>" class="img-responsive"></td>
                                             <td><?php echo  $predio->prv_estatus?></td>
-                                            <td><?php echo  $predio->carros_activos?></td>
                                             <td><?php echo  $predio->carros_permitidos?></td>
+                                            <td><?php echo  $ci->Carros_model->get_carros_activos_del_predio($predio->id_predio_virtual);?></td>
+                                            <td><?php echo  $ci->Carros_model->get_carros_inactivos_del_predio($predio->id_predio_virtual);?></td>
                                         </tr>
                                     <?php } ?>
                                     </tbody>

@@ -291,7 +291,7 @@ $carro = $carro->row();
                                 </div>
                             </div>
                             <div class="card-action">
-                                <a class="waves-effect waves-light btn"><i class="material-icons left">account_circle</i>Ir a mi perfil</a>
+                                <a class="waves-effect waves-light btn" href="<?php echo base_url()?>cliente/perfil"><i class="material-icons left">account_circle</i>Ir a mi perfil</a>
 
                             </div>
                         </form>

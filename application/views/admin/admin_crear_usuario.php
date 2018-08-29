@@ -47,8 +47,6 @@ foreach ($predios->result() as $predio)
         <div id="breadcrumb"></div>
     </div>
     <div class="container-fluid">
-
-
         <hr>
         <div class="row-fluid">
             <div class="span12">
@@ -89,6 +87,7 @@ foreach ($predios->result() as $predio)
                                     <select class="form-control" id="rol" name="rol">
                                         <option value="predio">Predio</option>
                                         <option value="editor">Editor</option>
+                                        <option value="externo">Externo</option>
                                     </select>
                                 </div>
                             </div>

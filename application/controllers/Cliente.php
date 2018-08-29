@@ -387,7 +387,7 @@ class Cliente extends Base_Controller
             //'crr_contacto_nombre' => $usuario->first_name,
             //'crr_contacto_telefono' => $usuario->phone,
             //'crr_contacto_email' => $usuario->email,
-            'crr_estatus' => 'Pendiente',
+            'crr_estatus' => 'Alta',
             //'id_predio_virtual' => '0',
             //'crr_date'                 => $this->input->post('avaluo_comercial'),
             //'crr_premium' => 'no',
@@ -428,14 +428,15 @@ class Cliente extends Base_Controller
         $data = cargar_componentes_buscador();
         //carro
         $data['carro_id'] = $this->uri->segment(3);
-        $this->Carros_model->public_pasar_a_revision($data['carro_id']);
-
+        $data['cambio_foto'] = $this->uri->segment(4);
+        if($data['cambio_foto'] == '1'){
+            $this->Carros_model->public_pasar_a_revision_fotos($data['carro_id']);
+        }
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
-
         echo $this->templates->render('public/subir_fotos', $data);
     }
     public function procesar_foto()

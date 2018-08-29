@@ -297,10 +297,10 @@ class Carros_model extends CI_Model
         $this->db->where('id_carro', $data['id_carro']);
         $query = $this->db->update('carro', $datos);
     }
-    function public_pasar_a_revision($id_carro)
+    function public_pasar_a_revision_fotos($id_carro)
     {
         $datos = array(
-            'crr_estatus'              => 'pendiente',
+            'crr_estatus'              => 'Fotos',
         );
         $this->db->where('id_carro', $id_carro);
         $query = $this->db->update('carro', $datos);
@@ -332,12 +332,74 @@ class Carros_model extends CI_Model
 	}
 	function ListarCarros_pendientes()
 	{
+		$this->db->where('user_id !=', '0');
 		$this->db->where('crr_estatus', 'Pendiente');
 		$query = $this->db->get('carro');
 
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+	function ListarCarros_pendientes_predio()
+	{
+		$this->db->where('crr_estatus', 'Pendiente');
+		$this->db->where('predio_user_id !=', '0');
+		$query = $this->db->get('carro');
+
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+	function ListarCarros_pendientes_pv9()
+	{
+		$this->db->where('crr_estatus', 'Pendiente');
+		$this->db->where('id_predio_virtual', '9');
+		$query = $this->db->get('carro');
+
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+    function ListarCarros_pendientes_fotos()
+    {
+        $this->db->where('crr_estatus', 'Fotos');
+        $query = $this->db->get('carro');
+
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function numeroCarros_pendientes(){
+        $this->db->where('user_id !=', '0');
+        $this->db->where('crr_estatus', 'Pendiente');
+        $query = $this->db->get('carro');
+
+        if ($query->num_rows() > 0) return $query->num_rows();
+        else return 0;
+    }
+    function numeroCarros_pendientes_predio()
+    {
+        $this->db->where('crr_estatus', 'Pendiente');
+        $this->db->where('predio_user_id !=', '0');
+        $this->db->where('id_predio_virtual !=', '9');
+        $query = $this->db->get('carro');
+
+        if ($query->num_rows() > 0) return $query->num_rows();
+        else return 0;
+    }
+    function numeroCarros_pendientes_pv9()
+    {
+        $this->db->where('crr_estatus', 'Pendiente');
+        $this->db->where('id_predio_virtual', '9');
+        $query = $this->db->get('carro');
+
+        if ($query->num_rows() > 0) return $query->num_rows();
+        else return 0;
+    }
+    function numeroCarros_pendientes_fotos()
+    {
+        $this->db->where('crr_estatus', 'Fotos');
+        $query = $this->db->get('carro');
+
+        if ($query->num_rows() > 0) return $query->num_rows();
+        else return 0;
+    }
 	function listarCarro_individuales_admin(){
         $this->db->where('crr_estatus', 'Alta');
         $this->db->where('id_predio_virtual', '0');
@@ -355,7 +417,28 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
+    function get_tapicerias()
+    {
+        $this->db->distinct('crr_tapiceria');
+        $this->db->select('crr_tapiceria');
+        $this->db->from('carro');
+        $this->db->order_by('crr_tapiceria', 'ASC');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_transmision()
+    {
+        $this->db->distinct('crr_transmision');
+        $this->db->select('crr_transmision');
+        $this->db->from('carro');
+        $this->db->where('crr_transmision !=' , ' ');
+        $this->db->where('crr_estatus', 'Alta');
+        $this->db->order_by('crr_transmision', 'ASC');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 	function get_datos_carro_admin($codigo_carro)
 	{
 		$this->db->where('id_carro', $codigo_carro);
@@ -373,7 +456,10 @@ class Carros_model extends CI_Model
 	}
 	function dar_alta_carro_id($carro_id)
 	{
+	    $hoy = New DateTime();
+
 		$datos = array(
+			'fecha_aprobacion' => $hoy->format('Y-m-d'),
 			'crr_estatus' => 'Alta'
 		);
 		$this->db->where('id_carro', $carro_id);
@@ -437,6 +523,10 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+
+    /**
+     * carros public
+     */
 	function get_carros_frontPage()
 	{
 
@@ -472,28 +562,16 @@ class Carros_model extends CI_Model
         $this->db->where('pago_id', '');
         $query = $this->db->update('pago_anuncio', $datos);
     }
-	function get_tapicerias()
-	{
-		$this->db->distinct('crr_tapiceria');
-		$this->db->select('crr_tapiceria');
-		$this->db->from('carro');
-		$this->db->order_by('crr_tapiceria', 'ASC');
-		$query = $this->db->get();
-		if ($query->num_rows() > 0) return $query;
-		else return false;
-	}
-	function get_transmision()
-	{
-		$this->db->distinct('crr_transmision');
-		$this->db->select('crr_transmision');
-		$this->db->from('carro');
-		$this->db->where('crr_transmision !=' , ' ');
-		$this->db->where('crr_estatus', 'Alta');
-		$this->db->order_by('crr_transmision', 'ASC');
-		$query = $this->db->get();
-		if ($query->num_rows() > 0) return $query;
-		else return false;
-	}
+    function registrar_visita($carro_id){
+        $this->db->where('id_carro', $carro_id);
+        $this->db->set('vistas', 'vistas+1', FALSE);
+        $this->db->update('carro');
+    }
+    function registrar_whatsapp($carro_id){
+        $this->db->where('id_carro', $carro_id);
+        $this->db->set('whatsapp', 'whatsapp+1', FALSE);
+        $this->db->update('carro');
+    }
 
 	//Feria
     function get_carros_frontPage_feria()
@@ -672,21 +750,18 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function tipos_vehiculo()
 	{
 		$query = $this->db->get('tipo_carro');
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function marca_vehiculo()
 	{
 		$query = $this->db->get('marca');
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function lineas_vehiculo($tipo, $marca)
 	{
 		$this->db->distinct('id_linea');
@@ -700,7 +775,6 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function marcas_vehiculo($tipo)
 	{
 		$this->db->distinct('id_marca');
@@ -713,7 +787,6 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function ubicaciones_vehiculo()
 	{
 		$this->db->distinct('id_ubicacion');
@@ -724,14 +797,12 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function combustible_vehiculo()
 	{
 		$query = $this->db->get('combustible');
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function resultado_busqueda($tipo_vehiculo, $marca, $linea, $combustible, $origen, $p_min, $p_max, $a_min, $a_max)
 	{
 		$this->db->from('carro');
@@ -1054,7 +1125,6 @@ class Carros_model extends CI_Model
 		//$query = $this->db->get('carro');
 		return $this->db->count_all_results('carro');
 	}
-
 	function get_carros_for_predio($predio_id, $limit, $start)
 	{
 		$this->db->where('id_predio_virtual', $predio_id);
@@ -1075,6 +1145,25 @@ class Carros_model extends CI_Model
         $query = $this->db->get('carro');
         if ($query->num_rows() > 0) return $query->num_rows();
         else return 0;
+    }
+    //predio virtual admin
+    function get_carros_del_predio($predio_id){
+        $this->db->where('id_predio_virtual', $predio_id);
+       // $this->db->where('crr_estatus', 'Alta');
+        //$query = $this->db->get('carro');
+        return $this->db->count_all_results('carro');
+    }
+    function get_carros_activos_del_predio($predio_id){
+        $this->db->where('id_predio_virtual', $predio_id);
+        $this->db->where('crr_estatus', 'Alta');
+        //$query = $this->db->get('carro');
+        return $this->db->count_all_results('carro');
+    }
+    function get_carros_inactivos_del_predio($predio_id){
+        $this->db->where('id_predio_virtual', $predio_id);
+        $this->db->where('crr_estatus', 'Baja');
+        //$query = $this->db->get('carro');
+        return $this->db->count_all_results('carro');
     }
 
 }

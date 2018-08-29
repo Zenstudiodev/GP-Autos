@@ -33,11 +33,17 @@
         <hr>
         <div class="row-fluid">
             <div class="span12">
-                <?php if ($carros) { ?>
+
                     <div class="widget-box">
                         <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
                             <h5>Listado de carros Pendientes</h5>
                         </div>
+                        <ul class="nav nav-tabs">
+                            <li role="presentation" class="active"><a href="<?php echo base_url()?>admin/pendientes"><span class="badge badge-important"><?php echo $carros_pendientes; ?></span> Pendientes publico</a></li>
+                            <li role="presentation" class=""><a href="<?php echo base_url()?>admin/pendientes_predio"><span class="badge badge-important"><?php echo $carros_pendientes_predio; ?></span> Pendientes Predio</a></li>
+                            <li role="presentation" class=""><a href="<?php echo base_url()?>admin/pendientes_pv9"><span class="badge badge-important"><?php echo $carros_pendientes_predio_9; ?></span> Pendientes pv9</a></li>
+                            <li role="presentation" class=""><a href="<?php echo base_url()?>admin/pendientes_fotos"><span class="badge badge-important"><?php echo $carros_pendientes_fotos; ?></span> Cambio de fotos</a></li>
+                        </ul>
                         <div class="widget-content nopadding">
                             <?php if (isset($mensaje)) { ?>
                                 <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
@@ -46,6 +52,7 @@
                                     <?php echo $mensaje; ?>
                                 </div>
                             <?php } ?>
+                            <?php if ($carros) { ?>
 
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="tabla_carros" >
@@ -53,6 +60,7 @@
                                     <tr>
                                         <th>Acciones</th>
                                         <th>ID</th>
+                                        <th>APROBACIÓN</th>
                                         <th>Tipo</th>
                                         <th>Marca</th>
                                         <th>Linea</th>
@@ -67,6 +75,7 @@
                                     <tr>
                                         <th>Acciones</th>
                                         <th>ID</th>
+                                        <th>APROBACIÓN</th>
                                         <th>Tipo</th>
                                         <th>Marca</th>
                                         <th>Linea</th>
@@ -95,7 +104,7 @@
                                                     <?php echo $carro->id_carro ?>
                                                 </a>
                                             </td>
-
+                                            <td><?php echo $carro->fecha_aprobacion ?></td>
                                             <td>
 
                                                 <?php echo $carro->id_tipo_carro ?>
@@ -119,7 +128,7 @@
                 }
                 else
                 {
-                    echo 'Aun no hay prospectos';
+                    echo 'Aún no hay pendientes';
                 } ?>
             </div>
         </div>

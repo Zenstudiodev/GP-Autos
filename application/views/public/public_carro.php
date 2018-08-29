@@ -143,7 +143,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (1).jpg')) { ?>
                                 <div class="item active">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (1).jpg' ?>"
+                                    <img src="<?php echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (1).jpg' ?>"
                                          class="responsive-img" >
                                 </div>
                             <?php } else {
@@ -153,7 +153,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (2).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (2).jpg' ?>"
+                                    <img src="<?php echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (2).jpg' ?>"
                                          class="img-responsive">
 
                                 </div>
@@ -164,7 +164,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (3).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (3).jpg' ?>"
+                                    <img src="<?php echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (3).jpg' ?>"
                                          class="img-responsive" >
                                 </div>
                             <?php } else {
@@ -174,7 +174,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (4).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (4).jpg' ?>"
+                                    <img src="<?php echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (4).jpg' ?>"
                                          class="img-responsive" >
                                 </div>
                             <?php } else {
@@ -184,7 +184,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (5).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (5).jpg' ?>"
+                                    <img src="<?php echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (5).jpg' ?>"
                                          class="img-responsive" >
                                 </div>
                             <?php } else {
@@ -194,7 +194,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (6).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (6).jpg' ?>"
+                                    <img src="<?php  echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (6).jpg' ?>"
                                          class="img-responsive">
                                 </div>
                             <?php } else {
@@ -204,7 +204,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (7).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (7).jpg' ?>"
+                                    <img src="<?php  echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (7).jpg' ?>"
                                          class="img-responsive" >
                                 </div>
                             <?php } else {
@@ -214,7 +214,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (8).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (8).jpg' ?>"
+                                    <img src="<?php  echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (8).jpg' ?>"
                                          class="img-responsive" >
                                 </div>
                             <?php } else {
@@ -224,7 +224,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (9).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (9).jpg' ?>"
+                                    <img src="<?php  echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (9).jpg' ?>"
                                          class="img-responsive" >
                                 </div>
                             <?php } else {
@@ -234,7 +234,7 @@ if ($carro) {
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (10).jpg')) { ?>
                                 <div class="item">
-                                    <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (10).jpg' ?>"
+                                    <img src="<?php echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (10).jpg' ?>"
                                          class="img-responsive" >
                                 </div>
                             <?php } else {
@@ -275,7 +275,7 @@ if ($carro) {
                         <div class="row hide-on-small-only">
                             <div class="col s12 m6">
                                 <div class="dr_chat">
-                                    <a class="wts_btn waves-effect waves-light btn  z-depth-3" target="_blank"
+                                    <a class="wts_btn waves-effect waves-light btn  z-depth-3" id_carro="<?php echo $data_carro->id_carro ?>" target="_blank"
                                        href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">Chat
                                         directo <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
                                 </div>
@@ -477,7 +477,7 @@ if ($carro) {
                                             <?php } ?>
                                             <?php if ($data_carro->crr_espejos != '') { ?>
                                                 <li class="collection-item">
-                                                    <span class="detalle_item_titulo badge orange darken-1 white-text">Espejos</span>
+                                                    <span class="detalle_item_titulo badge orange darken-1 white-text">Espejos eléctricos</span>
                                                     <?php echo $data_carro->crr_espejos ?>
                                                 </li>
                                             <?php } ?>
@@ -685,16 +685,11 @@ if ($carro) {
                 </div>
                     <?php if ($data_carro->crr_otros != '') { ?>
                         <div id="comentario">
-
                             <?php echo $data_carro->crr_otros; ?>
                         </div>
                     <?php } ?>
                     <!--/.Panel-->
                 </div>
-
-                <div class="row">
-                </div>
-
 
             </div>
         </div>
@@ -932,6 +927,26 @@ if ($carro) {
 
 
     <script type="text/javascript">
+
+        $(".wts_btn ").click(function () {
+            console.log('click whatsapp');
+            id_carro = $(this).attr('id_carro');
+            console.log( "click en wspt " + id_carro );
+
+            Carro_data = {
+                id_carro: id_carro
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://gpautos.net/index.php/carro/registrar_whatsapp',
+                data: Carro_data,
+
+                success: function (data) {
+                    //console.log(data);
+                }
+            });
+        });
 
         $(document).ready(function () {
             // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered

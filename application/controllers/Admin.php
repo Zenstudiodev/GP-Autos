@@ -18,7 +18,6 @@ class Admin extends Base_Controller
         $this->load->model('Usuarios_model');
         $this->load->model('Cliente_model');
     }
-
     public function index()
     {
         $data = compobarSesion();
@@ -51,11 +50,56 @@ class Admin extends Base_Controller
     {
         $data = compobarSesion();
         $rol =  $data['rol'];
-        $data['numero_de_carros'] = 0;
+        $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
+        $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
+        $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
+        $data['carros_pendientes_fotos'] = $this->Carros_model->numeroCarros_pendientes_fotos();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
         $data['carros'] = $this->Carros_model->ListarCarros_pendientes();
+        echo $this->templates->render('admin/admin_pendientes', $data);
+    }
+    public function pendientes_predio()
+    {
+        $data = compobarSesion();
+        $rol =  $data['rol'];
+        $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
+        $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
+        $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
+        $data['carros_pendientes_fotos'] = $this->Carros_model->numeroCarros_pendientes_fotos();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        $data['carros'] = $this->Carros_model->ListarCarros_pendientes_predio();
+        echo $this->templates->render('admin/admin_pendientes', $data);
+    }
+    public function pendientes_pv9()
+    {
+        $data = compobarSesion();
+        $rol =  $data['rol'];
+        $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
+        $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
+        $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
+        $data['carros_pendientes_fotos'] = $this->Carros_model->numeroCarros_pendientes_fotos();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        $data['carros'] = $this->Carros_model->ListarCarros_pendientes_pv9();
+        echo $this->templates->render('admin/admin_pendientes', $data);
+    }
+    public function pendientes_fotos()
+    {
+        $data = compobarSesion();
+        $rol =  $data['rol'];
+        $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
+        $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
+        $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
+        $data['carros_pendientes_fotos'] = $this->Carros_model->numeroCarros_pendientes_fotos();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        $data['carros'] = $this->Carros_model->ListarCarros_pendientes_fotos();
         echo $this->templates->render('admin/admin_pendientes', $data);
     }
     public function vehiculos()
@@ -324,6 +368,7 @@ class Admin extends Base_Controller
 
 
     }
+    //crear carro
     public function crearCarro()
     {
         $data = compobarSesion();
@@ -391,6 +436,50 @@ class Admin extends Base_Controller
         //$data['linea'] = $this->Carros_model->lineas_vehiculo($carro_r->id_tipo_carro, $carro_r->id_marca);
 
         echo $this->templates->render('admin/admin_crearCarro_predio', $data);
+
+    }
+    public function crearCarro_externos()
+    {
+        $data = compobarSesion();
+        $data['titulo'] = 'Crear carro';
+
+        if ($data['rol'] == 'externo') {
+
+            $user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
+            $user = $user->row();
+            $carros_permitidos = $user->carros_permitidos;
+            $carros_activos =  $this->Carros_model->get_carros_activos_by_user_id($user->id);
+
+            if($carros_activos < $carros_permitidos ){
+            }else{
+
+                $this->session->set_flashdata('mensaje', 'Ha llegado a su limite de carros permitidos');
+                redirect(base_url() . 'admin/vehiculos');
+            }
+            //echo $predio;
+            $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
+
+            $data['carros'] =$data['carros_predio'];
+            $data['predio_id'] =$user->predio_id;
+        }
+
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+
+
+        $data['tipos'] = $this->Carros_model->tipos_vehiculo();
+        $data['marca'] = $this->Carros_model->marca_vehiculo();
+        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
+        $data['tapiceria'] = $this->Carros_model->get_tapicerias();
+        $data['transmision'] = $this->Carros_model->get_transmision();
+        //$data['carro']        = $this->Carros_model->get_datos_carro_admin($data['id_carro']);
+
+        //$carro_r = $data['carro']->row();
+
+        //$data['linea'] = $this->Carros_model->lineas_vehiculo($carro_r->id_tipo_carro, $carro_r->id_marca);
+
+        echo $this->templates->render('admin/admin_crearCarro_externo', $data);
 
     }
     public function guardar_carro()
@@ -588,6 +677,90 @@ class Admin extends Base_Controller
         echo '</pre>';*/
 
         $id_carro= $this->Carros_model->crear_carro($datos);
+
+        $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
+        redirect(base_url() . 'index.php/admin/subir_fotos/' . $id_carro, 'refresh');
+    }
+    public function guardar_carro_externo()
+    {
+        $data = compobarSesion();
+
+        $datos = array(
+            // 'id_carro' => $this->input->post('codigo'),
+            // 'crr_codigo' => $this->input->post('codigo'),
+            'crr_fecha' => $this->input->post('fecha'),
+            'crr_placa' => $this->input->post('placa'),
+            'id_tipo_carro' => $this->input->post('tipo_carro'),
+            'id_marca' => $this->input->post('marca_carro'),
+            'id_linea' => $this->input->post('linea_carro'),
+            'id_ubicacion' => $this->input->post('ubicacion_carro'),
+            'crr_moneda_precio' => $this->input->post('moneda_carro'),
+            'crr_precio' => $this->input->post('precio'),
+            //'crr_descripcion'          => $this->input->post('avaluo_comercial'),
+            'crr_img' => $this->input->post('codigo') . '.jpg',
+            //'crr_img_ext'              => $this->input->post('avaluo_comercial'),
+            //'crr_img_path'             => $this->input->post('avaluo_comercial'),
+            'crr_modelo' => $this->input->post('modelo'),
+            'crr_origen' => $this->input->post('origen_carro'),
+            'crr_ac' => $this->input->post('ac'),
+            'crr_alarma' => $this->input->post('alarma'),
+            'crr_aros_magnecio' => $this->input->post('aros_m'),
+            'crr_bolsas_aire' => $this->input->post('bolsa_aire'),
+            'crr_cerradura_central' => $this->input->post('cerradura_c'),
+            'crr_cilindros' => $this->input->post('cilindros'),
+            'crr_color' => $this->input->post('color'),
+            'crr_combustible' => $this->input->post('combustible_carro'),
+            'crr_espejos' => $this->input->post('espejos_e'),
+            'crr_kilometraje' => $this->input->post('kilometraje'),
+            'crr_motor' => $this->input->post('motor'),
+            'crr_platos' => $this->input->post('platos'),
+            'crr_polarizado' => $this->input->post('polarizado'),
+            'crr_puertas' => $this->input->post('puertas_carro'),
+            'crr_radio' => $this->input->post('radio'),
+            'crr_sunroof' => $this->input->post('sun_roof'),
+            'crr_tapiceria' => $this->input->post('tapiceria_carro'),
+            'crr_timon_hidraulico' => $this->input->post('timon_h'),
+            'crr_transmision' => $this->input->post('transmision_carro'),
+            'crr_4x4' => $this->input->post('t4x4'),
+            'crr_vidrios_electricos' => $this->input->post('vidrios_e'),
+            //'crr_suspension_delantera' => $this->input->post('avaluo_comercial'),
+            //'crr_suspension_trasera'   => $this->input->post('avaluo_comercial'),
+            'crr_freno_delantero' => $this->input->post('freno_delantero'),
+            'crr_freno_trasero' => $this->input->post('freno_trasero'),
+            'crr_blindaje' => $this->input->post('blindaje'),
+            //'crr_caja'                 => $this->input->post('avaluo_comercial'),
+            //'crr_freno'                => $this->input->post('avaluo_comercial'),
+            //'crr_suspension'           => $this->input->post('avaluo_comercial'),
+            //'crr_ejes'                 => $this->input->post('avaluo_comercial'),
+            'crr_otros' => $this->input->post('otros'),
+            'crr_estado' => 'Usado',
+            //'crr_contacto'             => $this->input->post('avaluo_comercial'),
+            'crr_contacto_nombre' => 'PROPIETARIO',
+            'crr_contacto_telefono' => 'x',
+            'crr_contacto_email' => 'x',
+            'crr_estatus' => 'Pendiente',
+            'id_predio_virtual' => '9',
+            //'crr_date'                 => $this->input->post('avaluo_comercial'),
+            'crr_premium' =>'no',
+            'crr_certiauto' => 'no',
+            //'crr_cuotaseguro'          => $this->input->post('avaluo_comercial'),
+            //'crr_cuotafinanciamiento'  => $this->input->post('avaluo_comercial'),
+            'crr_nombre_propietario' => $this->input->post('nombre_cliente'),
+            'crr_telefono_propietario' => $this->input->post('telefono_cliente'),
+            'crr_vencimiento' => $this->input->post('vencimiento'),
+            'user_predio' => $this->input->post('user_predio'),
+            'garantia_gp' => '1',
+        );
+
+        /*echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        echo '<pre>';
+        print_r($datos);
+        echo '</pre>';*/
+
+
+       $id_carro= $this->Carros_model->crear_carro($datos);
 
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
         redirect(base_url() . 'index.php/admin/subir_fotos/' . $id_carro, 'refresh');
@@ -898,6 +1071,8 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/carro_imagen', $data);
     }
+
+    //predios
     public function predios()
     {
         $data = compobarSesion();

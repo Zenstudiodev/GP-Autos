@@ -14,7 +14,9 @@
 
 
 /*BUSCADOR*/
-
+#ubicacion_carro{
+    border: solid 3px #fb8c00;
+}
 /*section#top {
     position: absolute;
     z-index: 2;
@@ -382,6 +384,13 @@ div#homeSearchBox {
     height: 90%;
     max-height: 90%;
 ;
+}
+
+#subir_imagenes .btn{
+    font-size: 12px;
+}
+#subir_imagenes i.material-icons{
+
 }
 
 .img-container {

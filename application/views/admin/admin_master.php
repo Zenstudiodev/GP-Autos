@@ -17,11 +17,12 @@
     <link rel="stylesheet" href="<?php echo base_url()?>/ui/admin/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo base_url()?>/ui/admin/css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/css/uniform.css" />
-    <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/font-awesome/css/font-awesome.css"  />
+    <!--Fonnt Awsome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <!-- Custom css for pages -->
     <?php echo $this->section('css_p') ?>
 
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+    <link href='https ://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
 

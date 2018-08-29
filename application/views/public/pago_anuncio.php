@@ -62,14 +62,14 @@ $carro = $carro->row();
                 <div class="col m9">
                     <h5>Metodos de pago</h5>
                     <ul class="collection">
-                        <li class="collection-item avatar">
-                            <a href="<?php echo base_url() . 'cliente/pago_tarjeta/' . $carro->id_carro ?>">
+                       <!-- <li class="collection-item avatar">
+                            <a href="<?php /*echo base_url() . 'cliente/pago_tarjeta/' . $carro->id_carro */?>">
                                 <i class="material-icons circle green">credit_card</i>
                                 <span class="title">Pago con tarjeta</span>
                                 <p>Pago con tarjeta de crédito o débito (Visa Master Card) </p>
                                 <span class="secondary-content"><i class="material-icons">send</i></span>
                             </a>
-                        </li>
+                        </li>   -->
                         <li class="collection-item avatar">
                             <a href="<?php echo base_url() . 'cliente/pago_en_linea/' . $carro->id_carro ?>">
                                 <i class="material-icons circle green">account_balance</i>

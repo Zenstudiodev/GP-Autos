@@ -74,9 +74,17 @@ class Predio extends Base_Controller
 		$data['banners'] = $this->Banners_model->banneers_activos();
 
 
+        $data['predio']       = $this->Predio_model->get_predio_data($data['segmento']);
+        $predio = $data['predio']->row();
+        if($predio->prv_estatus == 'Alta'){
+            $data['carros']       = $this->Carros_model->get_carros_for_predio($data['segmento'],$config["per_page"], $page);
+        }else{
+            $data['predio'] = false;
+            $data['carros'] = false;
+        }
 
-		$data['carros']       = $this->Carros_model->get_carros_for_predio($data['segmento'],$config["per_page"], $page);
-		$data['predio']       = $this->Predio_model->get_predio_data($data['segmento']);
+
+
 		$data['header_banners'] = $this->Banners_model->header_banners_activos();
 		echo $this->templates->render('public/public_predio', $data);
 	}

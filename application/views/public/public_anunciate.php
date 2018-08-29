@@ -31,14 +31,13 @@ $this->layout('public/public_master', [
         <div class="container">
             <div class="row">
                 <div class="col s12 m3">
-
                     <div class="card">
                         <div class="card-content  orange darken-3 white-text">
                             <img src="<?php echo base_url()?>/ui/public/images/anunciate/template.jpg" class="img-responsive">
                         </div>
                         <div class="card-action">
-                            <a href="<?echo base_url()?>cliente/login"
-                               class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn" >Publica
+                            <a href="#anunciate_modal"
+                               class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn" id="btn_vip">Publica
                                 tu auto</a>
                             <!--<a href="#anunciate_modal"
                                class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn modal-triggert" id="btn_individual">Publica
@@ -52,14 +51,13 @@ $this->layout('public/public_master', [
                             <img src="<?php echo base_url()?>/ui/public/images/anunciate/template1.jpg" class="img-responsive">
                         </div>
                         <div class="card-action">
-                            <a href="#anunciate_modal"
-                               class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn modal-triggert" id="btn_vip">Publica
+                            <a href="<?echo base_url()?>cliente/login"
+                               class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn modal-triggert" >Publica
                                 tu auto</a>
                         </div>
                     </div>
                 </div>
                 <div class="col s12 m3">
-
                     <div class="card">
                         <div class="card-content  orange darken-3 white-text">
                             <img src="<?php echo base_url()?>/ui/public/images/anunciate/template2.jpg" class="img-responsive">
@@ -72,7 +70,6 @@ $this->layout('public/public_master', [
                     </div>
                 </div>
                 <div class="col s12 m3">
-
                     <div class="card">
                         <div class="card-content  orange darken-3 white-text">
                             <img src="<?php echo base_url()?>/ui/public/images/anunciate/template3.jpg" class="img-responsive">
@@ -88,7 +85,6 @@ $this->layout('public/public_master', [
             </div>
         </div>
     </div>
-
     <!-- Modal Structure -->
     <div id="anunciate_modal" class="modal modal-fixed-footer">
         <div class="modal-content">
@@ -118,27 +114,21 @@ $this->layout('public/public_master', [
                         <label for="anunciate_nombre">Correo</label>
                     </div>
                 </div>
-
-
             </form>
         </div>
         <div class="modal-footer">
             <a class="btn btn-flat waves-green" id="anunciate_enviar">Enviar</a>
         </div>
     </div>
-
-
 <?php $this->stop() ?>
 <?php $this->start('js_p') ?>
     <script>
-
         $('select').material_select();
         $('.modal').modal();
         $(document).ready(function () {
             $('.parallax').parallax();
             $("#form_anunciate_alert").hide();
         });
-
         $(".modal-triggert").click(function () {
            id = $(this).attr('id');
            console.log(id);
@@ -158,7 +148,6 @@ $this->layout('public/public_master', [
             }
 
         });
-
         //Formulario anunciate
         $("#anunciate_enviar").click(function () {
             //obtener datos
@@ -173,7 +162,6 @@ $this->layout('public/public_master', [
                 correo: correo,
                 telefono: telefono
             };
-
             if ($("#anunciate_form")[0].checkValidity()) {
                 console.log("form Submit");
                 $("#form_anunciate_alert").hide();
@@ -193,7 +181,6 @@ $this->layout('public/public_master', [
             } else {
                 $("#form_anunciate_alert").fadeIn(1000);
             }
-
             /**/
         });
 

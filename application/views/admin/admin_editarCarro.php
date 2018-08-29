@@ -1284,6 +1284,27 @@ $predio_id = array(
 
 
 <script>
+    $(document).ready(function () {
+        $('#marca_carro option').remove();
+        tipo = $("#tipo_carro").val();
+        //alert('cargando marcas de carro '+ tipo );
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
+            console.log(data);
+            success: function (data) {
+                //$('#marca_carro').append('<option value="TODOS">TODOS</option>');
+                $.each(data, function (key, value) {
+                    $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
+                });
+                // $('select').material_select();
+            }
+        });
+        $('#marca_carro').val('<?php echo $carro->id_marca?>');
+    });
+
+
     //Actualizar marcas
     $("#tipo_carro").change(function (e) {
         $('#marca_carro option').remove();

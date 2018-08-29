@@ -37,6 +37,7 @@ $carro = $carro->row();
 <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>ui/public/css/materialize.min.css"
       media="screen,projection"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>/ui/admin/css/style.css"/>
+<link rel="stylesheet" href="<?php echo base_url() ?>/ui/admin/css/responsive.css"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>/ui/vendor/cropperjs/cropper.min.css"/>
 <?php $this->stop() ?>
 
@@ -71,223 +72,317 @@ $carro = $carro->row();
                         <section id="subir_imagenes">
                             <h5>Imágenes del vehículo</h5>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_1">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/1.jpg" id="img_1_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_1" name="input_img_1" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_1">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_1" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
+                            <div class="row">
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_1">
+
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (1).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>"
+                                                         id="img_1_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/1.jpg"
+                                                         id="img_1_placeholder">
+                                                <?php } ?>
+
+                                                <input type="file" class="sr-only" id="input_img_1" name="input_img_1"
+                                                       accept="image/*">
+                                            </label>
                                         </div>
-                                        <div class="alert" role="alert" id="alert_img_1"></div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_1">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_1" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_1"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
                                     </div>
-                                    <div class="card-action">
-                                        subir imagen
+                                </div>
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_2">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (2).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (2).jpg' ?>"
+                                                         id="img_2_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/2.jpg"
+                                                         id="img_2_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_2" name="input_img_2"
+                                                       accept="image/*">
+                                            </label>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_2">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_2" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_2"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_3">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (3).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (3).jpg' ?>"
+                                                         id="img_3_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/3.jpg"
+                                                         id="img_3_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_3" name="input_img_3"
+                                                       accept="image/*">
+                                            </label>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_3">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_3" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_3"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_4">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (4).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (4).jpg' ?>"
+                                                         id="img_4_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/4.jpg"
+                                                         id="img_4_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_4" name="input_img_4"
+                                                       accept="image/*">
+                                            </label>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_4">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_4" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_4"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_2">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/2.jpg" id="img_2_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_2" name="input_img_2" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_2">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_2" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
+                            <div class="row">
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_5">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (5).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (5).jpg' ?>"
+                                                         id="img_5_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/5.jpg"
+                                                         id="img_5_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_5" name="input_img_5"
+                                                       accept="image/*">
+                                            </label>
                                         </div>
-                                        <div class="alert" role="alert" id="alert_img_2"></div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_5">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_5" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_5"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
                                     </div>
-                                    <div class="card-action">
-                                        subir imagen
+                                </div>
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_6">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (6).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (6).jpg' ?>"
+                                                         id="img_6_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/6.jpg"
+                                                         id="img_6_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_6" name="input_img_6"
+                                                       accept="image/*">
+                                            </label>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_6">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_6" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_6"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_7">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (7).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (7).jpg' ?>"
+                                                         id="img_7_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/7.jpg"
+                                                         id="img_7_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_7" name="input_img_7"
+                                                       accept="image/*">
+                                            </label>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_7">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_7" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_7"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_8">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (8).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (8).jpg' ?>"
+                                                         id="img_8_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/8.jpg"
+                                                         id="img_8_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_8" name="input_img_8"
+                                                       accept="image/*">
+                                            </label>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_8">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_8" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_8"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_9">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (9).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (9).jpg' ?>"
+                                                         id="img_9_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/9.jpg"
+                                                         id="img_9_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_9" name="input_img_9"
+                                                       accept="image/*">
+                                            </label>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_9">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_9" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_9"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m3">
+                                    <div class="card upl_card">
+                                        <div class="card-image">
+                                            <label class="" title="img_10">
+                                                <?php
+                                                if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (10).jpg')) { ?>
+                                                    <img src="<?php  echo base_url().'web/images_cont/' . $carro->id_carro . ' (10).jpg' ?>"
+                                                         id="img_10_placeholder" >
+                                                <?php } else { ?>
+                                                    <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/10.jpg"
+                                                         id="img_10_placeholder">
+                                                <?php } ?>
+                                                <input type="file" class="sr-only" id="input_img_10" name="input_img_10"
+                                                       accept="image/*">
+                                            </label>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="progress" id="progress_img_10">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     id="progress_bar_img_10" role="progressbar"
+                                                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                                                </div>
+                                            </div>
+                                            <div class="alert" role="alert" id="alert_img_10"></div>
+                                        </div>
+                                        <div class="card-action">
+                                            subir imágen (toque la imágen)
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_3">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/3.jpg" id="img_3_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_3" name="input_img_3" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_3">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_3" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
-                                        </div>
-                                        <div class="alert" role="alert" id="alert_img_3"></div>
-                                    </div>
-                                    <div class="card-action">
-                                        subir imagen
-                                    </div>
-                                </div>
+                            <div class="row">
+                                <a class=" btn orange darken-1"
+                                   href="<?php echo base_url() . 'cliente/pago_anuncio/' . $carro->id_carro ?>"><i
+                                            class="material-icons ">payment</i>Pago</a>
                             </div>
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_4">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/4.jpg" id="img_4_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_4" name="input_img_4" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_4">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_4" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
-                                        </div>
-                                        <div class="alert" role="alert" id="alert_img_4"></div>
-                                    </div>
-                                    <div class="card-action">
-                                        subir imagen
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_5">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/5.jpg" id="img_5_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_5" name="input_img_5" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_5">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_5" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
-                                        </div>
-                                        <div class="alert" role="alert" id="alert_img_5"></div>
-                                    </div>
-                                    <div class="card-action">
-                                        subir imagen
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_6">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/6.jpg" id="img_6_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_6" name="input_img_6" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_6">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_6" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
-                                        </div>
-                                        <div class="alert" role="alert" id="alert_img_6"></div>
-                                    </div>
-                                    <div class="card-action">
-                                        subir imagen
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_7">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/7.jpg" id="img_7_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_7" name="input_img_7" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_7">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_7" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
-                                        </div>
-                                        <div class="alert" role="alert" id="alert_img_7"></div>
-                                    </div>
-                                    <div class="card-action">
-                                        subir imagen
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_8">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/8.jpg" id="img_8_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_8" name="input_img_8" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_8">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_8" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
-                                        </div>
-                                        <div class="alert" role="alert" id="alert_img_8"></div>
-                                    </div>
-                                    <div class="card-action">
-                                        subir imagen
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_9">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/9.jpg" id="img_9_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_9" name="input_img_9" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_9">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_9" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
-                                        </div>
-                                        <div class="alert" role="alert" id="alert_img_9"></div>
-                                    </div>
-                                    <div class="card-action">
-                                        subir imagen
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card upl_card">
-                                    <div class="card-image">
-                                        <label class=""  title="img_10">
-                                            <img src="<?php echo base_url(); ?>ui/public/images/upl_assets/10.jpg" id="img_10_placeholder">
-                                            <input type="file" class="sr-only" id="input_img_10" name="input_img_10" accept="image/*">
-                                        </label>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="progress" id="progress_img_10">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_img_10" role="progressbar"
-                                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
-                                            </div>
-                                        </div>
-                                        <div class="alert" role="alert" id="alert_img_10"></div>
-                                    </div>
-                                    <div class="card-action">
-                                        subir imagen
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <a class=" btn orange darken-1" href="<?php echo base_url() . 'admin/vehiculos/' . $carro->id_carro ?>">Terminar</a>
-                        </div>
 
                             <!--Materialize modal-->
                             <!-- Modal Structure -->
@@ -301,10 +396,18 @@ $carro = $carro->row();
                                 </div>
                                 <div class="modal-footer">
 
-                                    <a class="waves-effect waves-light btn" id="zoom_in_btn">Acercar</a>
-                                    <a class="waves-effect waves-light btn" id="zoom_off_btn">Alejar</a>
-                                    <a class="waves-effect waves-light btn" id="rotate_btn">Girar</a>
-                                    <a  href="#!" class="modal-action modal-close waves-effect waves-light btn" id="crop">Subir imagenes</a>
+                                    <a class="waves-effect waves-light btn" id="zoom_in_btn">
+                                        <i class="fas fa-search-plus"></i>Acercar
+                                    </a>
+                                    <a class="waves-effect waves-light btn" id="zoom_off_btn">
+                                        <i class="fas fa-search-minus"></i>Alejar
+                                    </a>
+                                    <a class="waves-effect waves-light btn" id="rotate_btn">
+                                        <i class="fas fa-sync-alt"></i>Girar
+                                    </a>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-light btn" id="crop">
+                                        Subir imagenes
+                                    </a>
 
                                 </div>
                             </div>

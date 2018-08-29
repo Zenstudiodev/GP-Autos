@@ -7,7 +7,7 @@
  */
 
 ?>
-<?php $this->layout('public/public_master_test', [
+<?php $this->layout('public/public_master', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
@@ -389,14 +389,14 @@ $espejos_e_n = array(
 //4x4
 $t4x4_s = array(
     'name' => 't4x4',
-    'id' => 't4x4_s',
+    'id' => '4x4_s',
     'value' => 'Sí',
     'checked' => false,
     'required' => 'required'
 );
 $t4x4_n = array(
     'name' => 't4x4',
-    'id' => 't4x4_n',
+    'id' => '4x4_n',
     'value' => 'no',
     'checked' => false,
 );
@@ -682,10 +682,7 @@ $CI =& get_instance();
                             <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
                                 <h5>Información del carro</h5>
                             </div>
-                            <pre>
-                        <?php
-                        // print_r($carro); ?>
-                    </pre>
+
                             <?php if (isset($mensaje)) { ?>
                                 <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
                                                                                 href="#">×</a>
@@ -976,10 +973,10 @@ $CI =& get_instance();
                                             </p>
                                             <p>
                                                 <?php echo form_radio($t4x4_s); ?>
-                                                <label for="t4x4_s">Si</label>
+                                                <label for="4x4_s">Si</label>
 
                                                 <?php echo form_radio($t4x4_n); ?>
-                                                <label for="t4x4_n" >No</label>
+                                                <label for="4x4_n" >No</label>
                                             </p>
                                         </div>
                                         <div class="input-field col s12 m4">
