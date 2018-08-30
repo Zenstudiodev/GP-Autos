@@ -274,7 +274,16 @@ $t4x4_n = array(
                     </p>
                 </div>
                 <div class="col m4">
-                    <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/login">Ingresar</a>
+
+                    <?php
+                    if ($CI->ion_auth->logged_in()) { ?>
+                        <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/cliente/perfil">
+                            Ir a
+                            perfil</a>
+                    <?php } else { ?>
+                        <a class="waves-effect waves-light btn"
+                           href="<?php echo base_url() ?>/cliente/login">Ingresar </a>
+                    <?php } ?>
                     <a class="waves-effect waves-light btn"
                        href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
                 </div>

@@ -7,7 +7,7 @@
  */
 
 ?>
-<?php $this->layout('public/public_master', [
+<?php $this->layout('public/public_master_cliente', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
