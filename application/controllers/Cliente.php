@@ -195,6 +195,19 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/perfil', $data);
     }
+    public function seleccion_anuncio(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $this->Cliente_model->get_cliente_data($user_id);
+        echo $this->templates->render('public/public_seleccion_anuncio', $data);
+    }
     public function publicar_carro()
     {
         if (!$this->ion_auth->logged_in()) {

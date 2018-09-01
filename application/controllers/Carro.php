@@ -588,10 +588,47 @@ class Carro extends Base_Controller
 		echo json_encode($marcas->result_array());
         }
 	}
+    public function data_carro_json()
+    {
+        header("Access-Control-Allow-Origin: *");
+        //OBTENEMOS VARIABLES DE LA URL
+        $codigo  = $_GET['codigo'];
+        //pasamos variablea al modelo
+        $datos_carro = $this->Carros_model->get_datos_carro($codigo);
+        //imprimimos en formato json el resultado
+        if($datos_carro) {
+            echo json_encode($datos_carro->row());
+        }
+    }
+    public function respuestas_carro_json()
+    {
+        header("Access-Control-Allow-Origin: *");
+        //OBTENEMOS VARIABLES DE LA URL
+        $codigo  = $_GET['codigo'];
+        //pasamos variablea al modelo
+        $datos_carro = $this->Carros_model->get_datos_registro_disponibilidad($codigo);
+        //imprimimos en formato json el resultado
+        if($datos_carro) {
+            echo json_encode($datos_carro->result());
+        }
+    }
 	public function solicitar_informacion()
 	{
 
 	}
+	public function guardar_disponibilidad(){
+        header("Access-Control-Allow-Origin: *");
+
+
+        $post_data = array(
+            'id_carro' => $this->input->post('id_carro'),
+            'asesor_id' => $this->input->post('asesor_id'),
+            'respuesta' => $this->input->post('respuesta'),
+        );
+        //pasamos post al modelo
+        $datos_carro = $this->Carros_model->guardar_registro_disponibilidad($post_data);
+        echo $datos_carro;
+    }
 
 
 

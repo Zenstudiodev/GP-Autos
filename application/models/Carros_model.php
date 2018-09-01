@@ -523,6 +523,28 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+    function guardar_registro_disponibilidad($data)
+    {
+        $fecha = new DateTime();
+
+        $datos = array(
+            'carro_id'          => $data['id_carro'],
+            'fecha'          => $fecha->format('Y-m-d'),
+            'asesor_id'          => $data['asesor_id'],
+            'respuesta'          => $data['respuesta'],
+        );
+        $this->db->insert('registro_disponibilidades', $datos);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+    }
+    function get_datos_registro_disponibilidad($codigo_carro)
+    {
+        $this->db->where('carro_id', $codigo_carro);
+        $query = $this->db->get('registro_disponibilidades');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
 
     /**
      * carros public

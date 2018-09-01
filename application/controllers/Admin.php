@@ -805,6 +805,13 @@ class Admin extends Base_Controller
         redirect(base_url() . 'admin/');
     }
     //CARROS
+    public function disponibilidad()
+    {
+        $data = compobarSesion();
+
+
+        echo $this->templates->render('admin/admin_disponibilidad', $data);
+    }
     public function renovar_carro_p()
     {
         $data = compobarSesion();

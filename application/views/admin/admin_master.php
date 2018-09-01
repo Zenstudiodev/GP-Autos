@@ -75,7 +75,15 @@
         <!--<li><a href="<?php /*echo base_url()*/?>index.php/admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
 
         <li><a href="<?php echo base_url()?>index.php/admin"><i class="icon icon-signal"></i> <span>Inicio</span></a> </li>
+
+
+        <?php if($rol !='asesor'){?>
         <li><a href="<?php echo base_url()?>index.php/admin/vehiculos"><i class="icon icon-signal"></i> <span>vehiculos</span></a> </li>
+        <?php }?>
+        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
+            <li><a href="<?php echo base_url()?>index.php/admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
+
+        <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
             <li><a href="<?php echo base_url()?>index.php/admin/predios"><i class="icon icon-file"></i> <span>Predios</span></a> </li>
             <li><a href="<?php echo base_url()?>index.php/admin/usuarios"><i class="icon icon-file"></i> <span>Usuarios</span></a> </li>

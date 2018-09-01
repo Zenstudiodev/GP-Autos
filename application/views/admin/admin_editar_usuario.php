@@ -97,6 +97,8 @@ foreach ($predios->result() as $predio)
                                         <select class="form-control" id="rol" name="rol">
                                             <option value="predio">Predio</option>
                                             <option value="editor">Editor</option>
+                                            <option value="externo">Externo</option>
+                                            <option value="asesor">Asesor</option>
                                         </select>
                                     </div>
                                 </div>
