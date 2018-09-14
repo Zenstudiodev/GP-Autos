@@ -1015,6 +1015,8 @@ $CI =& get_instance();
                                         </div>
                                     </div>-->
 
+                                    <p style="text-align: center"
+
 
 
 
@@ -1024,6 +1026,7 @@ $CI =& get_instance();
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <input type="hidden" name="id_carro" id="id_carro" value="<?php echo $carro->id_carro?>">
+                                                    <input type="hidden" name="estado" id="estado" value="<?php echo $carro->crr_estatus?>">
                                                     <button type="submit" class="btn btn-success">Guardar</button>
                                                 </div>
                                             </div>

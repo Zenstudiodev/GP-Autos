@@ -185,6 +185,8 @@ $respuesta = array(
                 //console.log(data);
             }
         });
+        $("#codigo").attr('readonly','readonly');
+        $("#respuestas_registros").html('');
 
         $.ajax({
             type: 'GET',
@@ -206,6 +208,7 @@ $respuesta = array(
 
     $("#guardar_registro_btn").on('click', function (e) {
         codigo = $("#codigo").val();
+        $("#codigo").removeAttr('readonly');
         respuesta = $("#respuesta").val();
         asesor_id = "<?php echo $user_id; ?>";
         var registro_data = {
@@ -220,6 +223,7 @@ $respuesta = array(
             url: '<?php echo base_url()?>index.php/Carro/guardar_disponibilidad',
             success: function (data) {
                 console.log(data);
+                $("#respuesta").val('');
             }
         });
     });

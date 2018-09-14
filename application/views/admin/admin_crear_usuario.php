@@ -89,6 +89,7 @@ foreach ($predios->result() as $predio)
                                         <option value="editor">Editor</option>
                                         <option value="externo">Externo</option>
                                         <option value="asesor">Asesor</option>
+                                        <option value="marketing">marketing</option>
                                     </select>
                                 </div>
                             </div>

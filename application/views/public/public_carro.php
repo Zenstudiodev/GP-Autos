@@ -303,7 +303,7 @@ if ($carro) {
                             <ul class="collection">
                                 <li class="collection-item">
                                     <div class="dr_chat">
-                                        <a class="wts_btn waves-effect waves-light btn  z-depth-3" target="_blank"
+                                        <a class="wts_btn waves-effect waves-light btn  z-depth-3" id_carro="<?php echo $data_carro->id_carro ?>" target="_blank"
                                            href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">Chat
                                             directo <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
                                     </div>

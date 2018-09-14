@@ -73,5 +73,10 @@ function estados_a_colores($estado)
 
     echo $color_clase_estado;
 }
+function print_contenido($var){
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
+}
 
 ?>

@@ -400,7 +400,7 @@ class Cliente extends Base_Controller
             //'crr_contacto_nombre' => $usuario->first_name,
             //'crr_contacto_telefono' => $usuario->phone,
             //'crr_contacto_email' => $usuario->email,
-            'crr_estatus' => 'Alta',
+            'crr_estatus' => $this->input->post('estado'),
             //'id_predio_virtual' => '0',
             //'crr_date'                 => $this->input->post('avaluo_comercial'),
             //'crr_premium' => 'no',

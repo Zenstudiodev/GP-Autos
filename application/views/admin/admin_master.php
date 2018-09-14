@@ -77,12 +77,15 @@
         <li><a href="<?php echo base_url()?>index.php/admin"><i class="icon icon-signal"></i> <span>Inicio</span></a> </li>
 
 
-        <?php if($rol !='asesor'){?>
+        <?php if($rol =='gerente' || $rol =='developer' || $rol =='editor' || $rol =='externo' || $rol =='predio' ){?>
         <li><a href="<?php echo base_url()?>index.php/admin/vehiculos"><i class="icon icon-signal"></i> <span>vehiculos</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
             <li><a href="<?php echo base_url()?>index.php/admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
 
+        <?php }?>
+        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
+            <li><a href="<?php echo base_url()?>index.php/marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
             <li><a href="<?php echo base_url()?>index.php/admin/predios"><i class="icon icon-file"></i> <span>Predios</span></a> </li>
@@ -95,8 +98,11 @@
 	    <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
         <li><a href="<?php echo base_url()?>index.php/admin/banners_header"><i class="icon icon-file"></i> <span>Banners Header</span></a> </li>
 	    <?php }?>
-	    <?php if($rol =='gerente' || $rol == 'developer' || $rol==''){?>
+	    <?php if($rol =='gerente' || $rol == 'developer' ){?>
         <li><a href="<?php echo base_url()?>index.php/admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a> </li>
+        <?php }?>
+        <?php if($rol =='gerente' || $rol == 'developer' ){?>
+            <li><a href="<?php echo base_url()?>index.php/admin/parametros"><i class="icon icon-file"></i> <span>Parametros</span></a> </li>
         <?php }?>
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
         <li ><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>

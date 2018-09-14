@@ -330,6 +330,16 @@ class Carros_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+    function ListarCarros_admin_baja()
+    {
+        $this->db->where('crr_estatus', 'Baja');
+        $this->db->order_by('id_carro', 'DESC');
+        $this->db->limit(10000);
+        $query = $this->db->get('carro');
+
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 	function ListarCarros_pendientes()
 	{
 		$this->db->where('user_id !=', '0');

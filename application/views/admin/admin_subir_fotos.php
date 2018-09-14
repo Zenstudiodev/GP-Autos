@@ -380,8 +380,7 @@ $carro = $carro->row();
                             </div>
                             <div class="row">
                                 <a class=" btn orange darken-1"
-                                   href="<?php echo base_url() . 'cliente/pago_anuncio/' . $carro->id_carro ?>"><i
-                                            class="material-icons ">payment</i>Pago</a>
+                                   href="<?php echo base_url() . 'admin/vehiculos/'?>">Publicar anuncio</a>
                             </div>
 
                             <!--Materialize modal-->

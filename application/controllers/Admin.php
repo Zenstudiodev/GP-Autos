@@ -17,6 +17,7 @@ class Admin extends Base_Controller
         $this->load->model('Pagos_model');
         $this->load->model('Usuarios_model');
         $this->load->model('Cliente_model');
+        $this->load->model('Admin_model');
     }
     public function index()
     {
@@ -45,6 +46,13 @@ class Admin extends Base_Controller
             $data['numero_de_carros'] = $data['carros']->num_rows();
         }
         echo $this->templates->render('admin/admin_home', $data);
+    }
+
+    //admin
+    public function parametros(){
+        $data = compobarSesion();
+        $data['parametro_numeros'] = $this->Admin_model->get_telefonos_bolsa();
+        echo $this->templates->render('admin/admin_parametros', $data);
     }
     public function pendientes()
     {
@@ -181,7 +189,7 @@ class Admin extends Base_Controller
             $data['carros'] =$data['carros_predio'];
         }
         if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor') {
-            $data['carros'] = $this->Carros_model->ListarCarros_admin();
+            $data['carros'] = $this->Carros_model->ListarCarros_admin_baja();
         }
 
         echo $this->templates->render('admin/carro_baja', $data);
@@ -808,8 +816,6 @@ class Admin extends Base_Controller
     public function disponibilidad()
     {
         $data = compobarSesion();
-
-
         echo $this->templates->render('admin/admin_disponibilidad', $data);
     }
     public function renovar_carro_p()
@@ -1199,5 +1205,8 @@ class Admin extends Base_Controller
         $this->Usuarios_model->actualizar_usuarios($post_data);
         redirect(base_url() . 'admin/usuarios/');
     }
+
+
+
 
 }
