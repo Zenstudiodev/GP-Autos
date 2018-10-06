@@ -530,7 +530,7 @@ class Cliente extends Base_Controller
             'user_id'    => $user_id,
             'direccion'    => $this->input->post('direccion'),
             'telefono'    => $this->input->post('telefono'),
-            'monto'    => 140,
+            'monto'    => 175,
             'carro_id'    => $this->input->post('carro_id'),
         );
         $data['banners'] = $this->Pagos_model->guardar_pago_efectivo($datos_pago_efectivo);

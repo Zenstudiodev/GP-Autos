@@ -38,9 +38,18 @@
                 <div class="widget-content">
                     <div class="row-fluid">
                         <div class="span6">
+                            <?php  if($rol =='marketing'){ ?>
+                                <ul class="site-stats">
+                                    <li class="bg_lg"><i class="icon-user"></i> <strong><?php echo $carros_individuales_publicados->num_rows; ?></strong> <small>numero de carros individuales publicados este mes</small></li>
+                                    <li class="bg_lg"><i class="icon-user"></i> <strong><?php echo $carros_pv9_publicados->num_rows; ?></strong> <small>numero de carros PV9 publicados este mes</small></li>
+                                </ul>
+                            <?php }
+                            else{ ?>
+
                             <ul class="site-stats">
                                 <li class="bg_lh"><i class="icon-user"></i> <strong><?php echo $numero_de_carros; ?></strong> <small>numero de carros</small></li>
                             </ul>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

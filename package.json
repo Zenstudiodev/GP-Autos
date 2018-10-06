@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Zenstudiodev/GP-Autos#readme",
   "dependencies": {
+    "fullcalendar": "^3.9.0",
     "jquery-validation": "^1.17.0"
   }
 }

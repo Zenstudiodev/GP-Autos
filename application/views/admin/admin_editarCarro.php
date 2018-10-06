@@ -666,7 +666,6 @@ $predio_id = array(
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-style.css"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-media.css"/>
-<link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/bootstrap-wysihtml5.css"/>
 <?php $this->stop() ?>
 
 
@@ -1292,16 +1291,17 @@ $predio_id = array(
             type: 'GET',
             dataType: 'json',
             url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
-            console.log(data);
             success: function (data) {
+                console.log(data);
                 //$('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
                     $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
                 });
                 // $('select').material_select();
+                $('#marca_carro').val('<?php echo $carro->id_marca?>');
             }
         });
-        $('#marca_carro').val('<?php echo $carro->id_marca?>');
+
     });
 
 

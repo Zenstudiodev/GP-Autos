@@ -76,6 +76,7 @@ $estado_carro_select   = array(
 $estado_select_options = array(
 	"Alta" => "Alta",
 	"Baja" => "Baja",
+	"Pendiente" => "Pendiente",
 );
 
 
@@ -653,7 +654,7 @@ $boleta= array(
 	'class'       => ' form-control',
 	'placeholder' => 'Boleta',
 	//'value'       => $carro->crr_precio,
-	'required'    => 'required'
+	//'required'    => 'required'
 );
 //Banco
 $banco = array(
@@ -663,10 +664,32 @@ $banco = array(
 	'class'       => ' form-control',
 	'placeholder' => 'Banco',
 	//'value'       => $carro->crr_precio,
-	'required'    => 'required'
+	//'required'    => 'required'
 );
 
-
+//Estado
+$metodo_pago_select   = array(
+    'name'     => 'metodo_pago',
+    'id'       => 'metodo_pago',
+    'class'    => ' browser-default form-control',
+    //'required' => 'required'
+);
+$metodo_pago_select_options = array(
+    "tarjeta" => "tarjeta",
+    "en_line" => "en_line",
+    "deposito" => "deposito",
+    "efectivo" => "efectivo",
+);
+//MONTO DE PAGO
+$monto_pago = array(
+    'type'        => 'text',
+    'name'        => 'monto_pago',
+    'id'          => 'monto_pago',
+    'class'       => 'form-control',
+    'placeholder' => 'Monto de pago',
+    //'value'       => $carro->crr_blindaje,
+    //'required'    => 'required'
+);
 ?>
 <?php $this->start('css_p') ?>
 <!--cargamos css personalizado-->
@@ -726,7 +749,7 @@ $banco = array(
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
                                             <div class="controls">
-												<?php echo form_dropdown($estado_carro_select, $estado_select_options, 'Alta') ?>
+												<?php echo form_dropdown($estado_carro_select, $estado_select_options, 'Pendiente') ?>
                                             </div>
                                         </div>
                                     </div>
@@ -1256,6 +1279,26 @@ $banco = array(
                                     </div>
                                 </div>
                                 <hr>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <!--Metodo pago-->
+                                        <div class="form-group">
+                                            <label for="checkboxes" class="control-label">Metodo de pago</label>
+                                            <div class="controls">
+                                                <?php echo form_dropdown($metodo_pago_select, $metodo_pago_select_options, 'efectivo') ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!--Metodo pago-->
+                                        <div class="form-group">
+                                            <label for="checkboxes" class="control-label">Monto de pago</label>
+                                            <div class="controls">
+                                                <?php echo form_input($monto_pago); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <!--BOLETA-->

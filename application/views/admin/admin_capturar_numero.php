@@ -242,6 +242,27 @@ $modelo = array(
                             </div>
 
                             </form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <td>Fecha</td>
+                                            <td>Telefono</td>
+                                            <td>Ubicacion</td>
+                                            <td>tipo</td>
+                                            <td>marca</td>
+                                            <td>linea</td>
+                                            <td>modelo</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="respuestas_registros">
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
 
                         </div>
                     </div>
@@ -268,6 +289,38 @@ $modelo = array(
 
 
 <script>
+    $("#telefono").on('change', function (e) {
+        //get datos carro
+        telefono = $(this).val();
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>marketing/registros_en_bolsa_by_id/?telefono=' + telefono,
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (key, value) {
+                    $("#respuestas_registros").append(
+                        '<tr>' +
+                        '<td>'+ value.bt_fecha_ingreso +'</td>' +
+                        '<td>'+ value.bt_telefono +'</td>' +
+                        '<td>'+ value.bt_ubicacion +'</td>' +
+                        '<td>'+ value.bt_tipo +'</td>' +
+                        '<td>'+ value.bt_marca +'</td>' +
+                        '<td>'+ value.bt_linea +'</td>' +
+                        '<td>'+ value.bt_modelo +'</td>' +
+                        '</tr>'
+                    );
+
+                    console.log(value);
+                });
+            }
+        });
+        $("#codigo").attr('readonly','readonly');
+        $("#respuestas_registros").html('');
+
+
+
+    });
 
 </script>
 <?php $this->stop() ?>

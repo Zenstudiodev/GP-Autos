@@ -13,6 +13,21 @@ class Pagos_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    function guardar_pago_admin($data){
+        //fecha
+        $fecha = New DateTime();
+        $datos_pago_efectivo= array(
+            'fecha'=>$fecha->format('Y-m-d'),
+            'user_id'=>$data['user_id'],
+            'carro_id'=>$data['carro_id'],
+            'metodo'=>'efectivo',
+            'direccion'=>$data['direccion'],
+            'telefono'=>$data['telefono'],
+            'monto'=>$data['monto'],
+
+        );
+        $this->db->insert('pago_anuncio', $datos_pago_efectivo);
+    }
     function guardar_pago_efectivo($data){
         //fecha
         $fecha = New DateTime();

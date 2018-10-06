@@ -1215,6 +1215,7 @@ $predio_id = array(
                     $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
                 });
                 // $('select').material_select();
+                $('#marca_carro').val('<?php echo $carro->id_marca?>');
             }
         });
     });

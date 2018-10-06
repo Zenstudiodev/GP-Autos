@@ -66,7 +66,7 @@
                             </a>
                         <?php } ?>
 
-                        <?php if ($rol == 'developer' || $rol == 'gerente' || $rol == 'editor') { ?>
+                        <?php if ($rol == 'developer' || $rol == 'gerente' || $rol == 'editor' || $rol == 'marketing') { ?>
                             <a class="btn btn-success btn-mini"
                                href="<?php echo base_url() ?>index.php/admin/crearCarro">
                                 <i class="icon-plus-sign"></i> Nuevo

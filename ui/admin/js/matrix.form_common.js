@@ -8,8 +8,6 @@ $(document).ready(function () {
             theme: "classic"
         }
     );
-    $('.colorpicker').colorpicker();
-    $('.datepicker').datepicker();
 });
 
 $(document).ready(function () {
@@ -83,27 +81,7 @@ $(document).ready(function () {
         numberFormat: "C"
     });*/
 
-    //------------- Colorpicker -------------//
-    if ($('div').hasClass('picker')) {
-        $('.picker').farbtastic('#color');
-    }
-    //------------- Datepicker -------------//
-    if ($('#datepicker').length) {
-        $("#datepicker").datepicker({
-            showOtherMonths: true
-        });
-    }
-    if ($('#datepicker-inline').length) {
-        $('#datepicker-inline').datepicker({
-            inline: true,
-            showOtherMonths: true
-        });
-    }
 
-    //------------- Combined picker -------------//
-    if ($('#combined-picker').length) {
-        $('#combined-picker').datetimepicker();
-    }
 
     //------------- Time entry (picker) -------------//
     /*$('#timepicker').timeEntry({

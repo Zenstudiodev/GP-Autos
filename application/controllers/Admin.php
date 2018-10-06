@@ -18,6 +18,7 @@ class Admin extends Base_Controller
         $this->load->model('Usuarios_model');
         $this->load->model('Cliente_model');
         $this->load->model('Admin_model');
+        $this->load->model('Marketing_model');
     }
     public function index()
     {
@@ -45,6 +46,8 @@ class Admin extends Base_Controller
             $data['carros'] = $this->Carros_model->ListarCarros_admin();
             $data['numero_de_carros'] = $data['carros']->num_rows();
         }
+        $data['carros_individuales_publicados']= $this->Marketing_model->get_carros_individuales_publicados_en_el_mes();
+        $data['carros_pv9_publicados']= $this->Marketing_model->get_carros_pv9_publicados_en_el_mes();
         echo $this->templates->render('admin/admin_home', $data);
     }
 
@@ -133,7 +136,7 @@ class Admin extends Base_Controller
             //$data['carros'] =$data['carros_predio'];
             $data['carros'] =$data['carros_usuario_predio'];
         }
-        if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor') {
+        if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') {
             $data['carros'] = $this->Carros_model->ListarCarros_admin();
         }
 
@@ -367,7 +370,6 @@ class Admin extends Base_Controller
             'crr_vencimiento' => $this->input->post('vencimiento'),
             'garantia_gp' => $this->input->post('garantia_gp'),
         );
-
         $this->Carros_model->actualizar_carro($datos);
 
         $this->session->set_flashdata('mensaje', 'Carro actualizado correctamente');
@@ -494,7 +496,7 @@ class Admin extends Base_Controller
     {
         $data = compobarSesion();
 
-        $datos = array(
+        $datos_carro = array(
             //'id_carro' => $this->input->post('codigo'),
             //'crr_codigo' => $this->input->post('codigo'),
             'crr_fecha' => $this->input->post('fecha'),
@@ -560,7 +562,7 @@ class Admin extends Base_Controller
             'user_predio' => $this->input->post('user_predio'),
             'garantia_gp' => $this->input->post('garantia_gp'),
         );
-        $id_carro= $this->Carros_model->crear_carro($datos);
+        $id_carro= $this->Carros_model->crear_carro($datos_carro);
         $datos_transaccion = array(
             'fecha' => $this->input->post('fecha'),
             'id_carro' => $id_carro,
@@ -568,7 +570,6 @@ class Admin extends Base_Controller
             'banco' => $this->input->post('banco'),
             'tipo' => $this->input->post('tipo'),
             'id_usuario' => $data['user_id'],
-
         );
 
         /*echo '<pre>';
@@ -580,6 +581,10 @@ class Admin extends Base_Controller
 
         $this->Carros_model->guardar_transaccion($datos_transaccion);
 
+        $datos_pago = array(
+            'crr_fecha' => $this->input->post('fecha'),
+        );
+        //$this->Pagos_model->guardar_pago_admin($datos_pago);
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
         redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
     }
