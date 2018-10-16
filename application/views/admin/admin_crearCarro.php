@@ -168,7 +168,7 @@ $moneda_carro_select_options = array(
 
 //Precio
 $precio = array(
-	'type'        => 'text',
+	'type'        => 'number',
 	'name'        => 'precio',
 	'id'          => 'precio',
 	'class'       => ' form-control',
@@ -190,7 +190,7 @@ $otros = array(
 );
 
 $modelo = array(
-	'type'        => 'text',
+	'type'        => 'number',
 	'name'        => 'modelo',
 	'id'          => 'modelo',
 	'class'       => ' form-control',
@@ -225,7 +225,7 @@ foreach ($combustibles->result() as $combustible)
 
 //cilindros
 $cilindros = array(
-	'type'        => 'text',
+	'type'        => 'number',
 	'name'        => 'cilindros',
 	'id'          => 'cilindros',
 	'class'       => 'span11 form-control',
@@ -626,7 +626,7 @@ $kilometraje = array(
 
 //motor
 $motor = array(
-	'type'        => 'text',
+	'type'        => 'number',
 	'name'        => 'motor',
 	'id'          => 'motor',
 	'class'       => 'form-control',
@@ -682,7 +682,7 @@ $metodo_pago_select_options = array(
 );
 //MONTO DE PAGO
 $monto_pago = array(
-    'type'        => 'text',
+    'type'        => 'number',
     'name'        => 'monto_pago',
     'id'          => 'monto_pago',
     'class'       => 'form-control',
@@ -949,7 +949,7 @@ $monto_pago = array(
                                         <div class="form-group">
                                             <label class="control-label">COMBUSTIBLE</label>
                                             <div class="controls">
-												<?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options) ?>
+												<?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options, 'GASOLINA') ?>
                                             </div>
                                         </div>
                                     </div>

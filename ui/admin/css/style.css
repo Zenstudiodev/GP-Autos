@@ -14,3 +14,12 @@
 .img-container {
     height: 410px;
 }
+
+.marketing{
+    height: 500px;
+}
+
+.marketing .modal-body{
+    height: 368px;
+    overflow: scroll;
+}

@@ -136,6 +136,17 @@ class Admin extends Base_Controller
             //$data['carros'] =$data['carros_predio'];
             $data['carros'] =$data['carros_usuario_predio'];
         }
+        if ($data['rol'] == 'externo') {
+
+            $user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
+            $user = $user->row();
+            //echo $predio;
+            $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
+            $data['carros_usuario_predio']= $this->Predio_model->get_carros_predio_usuario($data['user_id']);
+
+            //$data['carros'] =$data['carros_predio'];
+            $data['carros'] =$data['carros_usuario_predio'];
+        }
         if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') {
             $data['carros'] = $this->Carros_model->ListarCarros_admin();
         }
@@ -582,7 +593,12 @@ class Admin extends Base_Controller
         $this->Carros_model->guardar_transaccion($datos_transaccion);
 
         $datos_pago = array(
-            'crr_fecha' => $this->input->post('fecha'),
+            'user_predio_id' => $data['user_id'],
+            'carro_id' => $id_carro,
+            'metodo' => $this->input->post('metodo_pago'),
+            'monto_pago' => $this->input->post('monto_pago'),
+            'banco' => $this->input->post('banco'),
+            'boleta' => $this->input->post('boleta'),
         );
         //$this->Pagos_model->guardar_pago_admin($datos_pago);
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
@@ -1006,7 +1022,10 @@ class Admin extends Base_Controller
         $data['id_carro'] = $this->uri->segment(3);
 
         $this->Carros_model->dar_baja_carro_id($data['id_carro']);
-        redirect(base_url() . 'index.php/admin');
+        echo  "<script type='text/javascript'>";
+        echo "window.close();";
+        echo "</script>";
+        //redirect(base_url() . 'index.php/admin');
 
     }
     public function activar_carro_btn()
@@ -1015,7 +1034,7 @@ class Admin extends Base_Controller
         $data['id_carro'] = $this->uri->segment(3);
 
         $this->Carros_model->dar_alta_carro_id($data['id_carro']);
-        redirect(base_url() . 'index.php/admin');
+        redirect(base_url() . 'admin/pendientes');
 
     }
     public function actualizar_estados_carros()

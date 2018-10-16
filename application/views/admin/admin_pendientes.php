@@ -96,7 +96,7 @@
                                             <td>
                                                     <div class="btn-group" role="group" aria-label="...">
                                                         <a class="btn btn-success btn-xs" href="<?php echo base_url().'index.php/admin/revisar_carro/'. $carro->id_carro?>"><i class="icon-ok-sign"></i> Revisar</a>
-                                                        <a class="btn btn-danger btn-xs" href="<?php echo base_url().'index.php/admin/dar_de_baja_btn/'. $carro->id_carro?>"><i class="icon-remove"></i> Dar de baja</a>
+                                                        <a id="baja_btn" class="btn btn-danger btn-xs" href="<?php echo base_url().'index.php/admin/dar_de_baja_btn/'. $carro->id_carro?>" target="_blank"><i class="icon-remove"></i> Dar de baja</a>
                                                     </div>
                                             </td>
                                             <td>
@@ -145,6 +145,10 @@
 
 
 <script>
+    $("#baja_btn").click(function () {
+        location.reload();
+    });
+
     $(document).ready(function () {
         // Setup - add a text input to each footer cell
         $('#tabla_carros tfoot th').each(function () {

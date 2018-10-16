@@ -227,6 +227,9 @@ $respuesta = array(
             }
         });
     });
+    $("#baja_btn").click(function () {
+        location.reload();
+    });
 
 </script>
 <?php $this->stop() ?>

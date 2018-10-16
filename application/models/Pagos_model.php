@@ -16,17 +16,16 @@ class Pagos_model extends CI_Model
     function guardar_pago_admin($data){
         //fecha
         $fecha = New DateTime();
-        $datos_pago_efectivo= array(
+        $datos_pago= array(
             'fecha'=>$fecha->format('Y-m-d'),
-            'user_id'=>$data['user_id'],
+            'user_predio_id'=>$data['user_predio_id'],
             'carro_id'=>$data['carro_id'],
-            'metodo'=>'efectivo',
+            'metodo'=>$data['metodo'],
+            'monto'=>$data['monto_pago'],
             'direccion'=>$data['direccion'],
             'telefono'=>$data['telefono'],
-            'monto'=>$data['monto'],
-
         );
-        $this->db->insert('pago_anuncio', $datos_pago_efectivo);
+        $this->db->insert('pago_anuncio', $datos_pago);
     }
     function guardar_pago_efectivo($data){
         //fecha

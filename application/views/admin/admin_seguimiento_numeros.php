@@ -13,6 +13,16 @@
     'username' => $username,
     'rol' => $rol,
 ]);
+//buscar_numero
+$buscar_numero = array(
+    'type' => 'number',
+    'name' => 'buscar_numero',
+    'id' => 'buscar_numero',
+    'class' => ' form-control',
+    'placeholder' => 'Buscar numero',
+    'required' => 'required'
+    //'disabled'    => 'disabled'
+);
 
 $resultado = array(
     'name' => 'respuesta_pc',
@@ -91,11 +101,38 @@ $numero_a_atendar = $numero_a_atendar->row();
                     <?php } ?>
                     <div class="widget-content ">
                         <div class="container">
+                                <div class="row">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12"
+                                               for="name">Buscar Número
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <fieldset>
+                                                <div class="control-group">
+                                                    <div class="controls">
+                                                        <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i
+                                                                class="fa fa-file"></i></span>
+                                                            <?php echo form_input($buscar_numero); ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                         <div class="container-fluid">
+
                             <ul class="site-stats">
-                                <li class="bg_lg"><i class="icon-user"></i> <strong><?php echo $carros_individuales_publicados->num_rows; ?></strong> <small>numero de carros individuales publicados este mes</small></li>
-                                <li class="bg_lg"><i class="icon-user"></i> <strong><?php echo $carros_pv9_publicados->num_rows; ?></strong> <small>numero de carros PV9 publicados este mes</small></li>
+                                <li class="bg_lg"><i class="icon-user"></i>
+                                    <strong><?php echo $carros_individuales_publicados->num_rows; ?></strong>
+                                    <small>numero de carros individuales publicados este mes</small>
+                                </li>
+                                <li class="bg_lg"><i class="icon-user"></i>
+                                    <strong><?php echo $carros_pv9_publicados->num_rows; ?></strong>
+                                    <small>numero de carros PV9 publicados este mes</small>
+                                </li>
                             </ul>
 
                             <?php //print_contenido($seguimientos->result()) ?>
@@ -221,7 +258,24 @@ $numero_a_atendar = $numero_a_atendar->row();
     </div>
 </div>
 
-
+<div class="modal fade marketing" id="registros_by_number" tabindex="-1" role="dialog"
+     aria-labelledby="agendar_seguimiento_label">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="agendar_seguimiento_label">Listado de seguimientos</h4>
+            </div>
+            <div class="modal-body" id="registros_by_number_container">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
+                <button type="button" class="btn btn-primary" id="guardar_seguimiento_modal">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?php $this->stop() ?>
 
 <?php $this->start('js_p') ?>
@@ -232,7 +286,6 @@ $numero_a_atendar = $numero_a_atendar->row();
 <!--<script src="<?php echo base_url() ?>ui/admin/js/select2.min.js"></script>-->
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.form_common.js"></script>
-<script src="<?php echo base_url() ?>ui/admin/js/wysihtml5-0.3.0.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/jquery.peity.min.js"></script>
 <script src='<?php echo base_url() ?>node_modules/moment/min/moment.min.js'></script>
 <script src='<?php echo base_url() ?>node_modules/fullcalendar/dist/fullcalendar.js'></script>
@@ -246,6 +299,24 @@ $numero_a_atendar = $numero_a_atendar->row();
     var accion;
     var seguimiento_id;
     var bt_id;
+
+    $("#buscar_numero").on('change', function (e) {
+        //get datos carro
+        telefono = $(this).val();
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'html',
+            url: '<?php echo base_url()?>index.php/marketing/seguimientos_by_registro?telefono=' + telefono,
+            success: function (data) {
+                console.log(data);
+
+                $("#registros_by_number_container").html(data);
+
+                $('#registros_by_number').modal('show');
+            }
+        });
+    });
 
     /* DATERANGEPICKER */
     function init_daterangepicker_reservation() {
@@ -306,9 +377,6 @@ $numero_a_atendar = $numero_a_atendar->row();
         });
 
     }
-
-
-
     function actualizar_estado_seguimiento(id) {
         console.log('seguimiento desde la funcion ' + id);
 
@@ -326,11 +394,9 @@ $numero_a_atendar = $numero_a_atendar->row();
         });
     }
 
-
-
-
-    $("#guardar_seguimiento_btn").click(function(){
+    $("#guardar_seguimiento_btn").click(function () {
         console.log(seguimiento_id);
+        console.log(bt_id);
         var seguimiento_form = document.getElementById("formulario_seguimiento");
         console.log(seguimiento_form.checkValidity());
         // refenciamos los elementos del formulario
@@ -363,13 +429,12 @@ $numero_a_atendar = $numero_a_atendar->row();
         }
 
 
-
     });
 
     $("#guardar_seguimiento_modal").click(function () {
         console.log(comentario.val());
         console.log(accion.val());
-        bt_id = $("#bt_id").text();
+        console.log(bt_id);
 
         fecha_seguimiento = $("#reservation-time");
         console.log(fecha_seguimiento.val());
@@ -397,8 +462,6 @@ $numero_a_atendar = $numero_a_atendar->row();
     });
 
     $(document).ready(function () {
-
-
         $('#calendar').fullCalendar({
             // put your options and callbacks here
             header: {
@@ -411,7 +474,7 @@ $numero_a_atendar = $numero_a_atendar->row();
             // otherwise they'd all just say "list"
             views: {
                 listDay: {buttonText: 'Día'},
-               // listWeek: {buttonText: 'list week'}
+                // listWeek: {buttonText: 'list week'}
             },
             locale: 'es',
             defaultView: 'month',
@@ -425,7 +488,7 @@ $numero_a_atendar = $numero_a_atendar->row();
                 <?php    foreach ($seguimientos->result() as $seguimiento) { ?>
                 {
                     id: '<?php echo $seguimiento->bts_id; ?>',
-                    title: '<?php echo $seguimiento->bts_tipo.'id: '.$seguimiento->bts_id; ?>',
+                    title: '<?php echo $seguimiento->bts_tipo . 'id: ' . $seguimiento->bts_id; ?>',
                     start: '<?php echo $seguimiento->bts_fecha_seguimiento; ?>',
                     color: '<?php echo color_seguimiento($seguimiento->bts_estado, $seguimiento->bts_fecha_seguimiento); ?>'
 
@@ -437,6 +500,7 @@ $numero_a_atendar = $numero_a_atendar->row();
             eventClick: function (calEvent, jsEvent, view) {
                 //console.log($(calEvent.id));
                 seguimiento_id = calEvent.id;
+
                 $('#seguimiento_modal').modal('show');
                 $.ajax({
                     type: 'GET',
@@ -445,9 +509,11 @@ $numero_a_atendar = $numero_a_atendar->row();
                     success: function (data) {
                         //console.log(data);
                         $("#datos_seguimiento").html(data);
+                        bt_id = $("#bt_id").text();
 
                     }
                 });
+
 
 
                 // change the border color just for fun
@@ -460,7 +526,11 @@ $numero_a_atendar = $numero_a_atendar->row();
 
     $('#seguimiento_modal').on('hide.bs.modal', function () {
         $("#datos_seguimiento").html('');
-    })
+    });
+    $('#registros_by_number').on('hide.bs.modal', function () {
+        $("#registros_by_numbert_container").html('');
+    });
+
 
 </script>
 <?php $this->stop() ?>

@@ -49,6 +49,7 @@ class Marketing extends Base_Controller
     }
 
     //MARKETING
+    //captura de numero
     public function capturar_numeros()
     {
         $data = compobarSesion();
@@ -58,7 +59,6 @@ class Marketing extends Base_Controller
         $data['numeros_ingresados_user'] = $this->Marketing_model->get_numeros_ingresados_dia_user($data['user_id']);
         echo $this->templates->render('admin/admin_capturar_numero', $data);
     }
-
     public function guardar_numero()
     {
         $data = compobarSesion();
@@ -79,19 +79,7 @@ class Marketing extends Base_Controller
         redirect(base_url() . 'marketing/capturar_numeros/');
     }
 
-    public function registros_en_bolsa_by_id()
-    {
-        header("Access-Control-Allow-Origin: *");
-        //OBTENEMOS VARIABLES DE LA URL
-        $telefono = $_GET['telefono'];
-        //pasamos variablea al modelo
-        $datos_carro = $this->Marketing_model->registros_en_bolsa_by_telefono($telefono);
-        //imprimimos en formato json el resultado
-        if ($datos_carro) {
-            echo json_encode($datos_carro->result());
-        }
-    }
-
+    //bajar numero
     public function bajar_numero()
     {
         $data = compobarSesion();
@@ -112,7 +100,25 @@ class Marketing extends Base_Controller
         }
         echo $this->templates->render('admin/admin_bajar_numero', $data);
     }
+    public function guardar_seguimiento()
+    {
+        print_contenido($_POST);
 
+        //exit();
+        //guardamos hora y fecha, tipo y comentario de seguimiento.
+        //guardamos los datos del seguiimiento
+        $datos_seguimiento = array(
+            'bts_user_id' => $this->input->post('bts_user_id'),
+            'bts_fecha_seguimiento' => $this->input->post('bts_fecha_seguimiento'),
+            'bts_bt_id' => $this->input->post('bts_bt_id'),
+            'bts_comentario' => $this->input->post('bts_comentario'),
+            'bts_estado' => 'pendiente',
+            'bts_tipo' => $this->input->post('bts_tipo')
+        );
+        $this->Marketing_model->guardar_seguimiento($datos_seguimiento);
+        echo 'agendado';
+    }
+    //Seguimientos
     public function seguimientos()
     {
         $data = compobarSesion();
@@ -155,7 +161,6 @@ class Marketing extends Base_Controller
         echo $this->templates->render('admin/admin_seguimiento_registro', $data);
 
     }
-
     public function guardar_resultado_seguimiento()
     {
         //print_contenido($_POST);
@@ -171,7 +176,7 @@ class Marketing extends Base_Controller
 
         //actualizamos el esatado del registro
         $actualizar_registro = array(
-            'bt_estado' => 'interesado',
+            'bt_estado' => $this->input->post('resultado_action'),
             'bt_user_id_atendiendo' => $this->input->post('bts_user_id'),
             'bt_id' => $this->input->post('bts_bt_id'),
         );
@@ -180,24 +185,38 @@ class Marketing extends Base_Controller
         echo 'actualizado';
     }
 
-    public function guardar_seguimiento()
+    //buscar registros
+    public function registros_en_bolsa_by_id()
     {
-            print_contenido($_POST);
-
-        //exit();
-        //guardamos hora y fecha, tipo y comentario de seguimiento.
-        //guardamos los datos del seguiimiento
-        $datos_seguimiento = array(
-            'bts_user_id' => $this->input->post('bts_user_id'),
-            'bts_fecha_seguimiento' => $this->input->post('bts_fecha_seguimiento'),
-            'bts_bt_id' => $this->input->post('bts_bt_id'),
-            'bts_comentario' => $this->input->post('bts_comentario'),
-            'bts_estado' => 'pendiente',
-            'bts_tipo' => $this->input->post('bts_tipo')
-        );
-        $this->Marketing_model->guardar_seguimiento($datos_seguimiento);
-        echo 'agendado';
+        header("Access-Control-Allow-Origin: *");
+        //OBTENEMOS VARIABLES DE LA URL
+        $telefono = $_GET['telefono'];
+        //pasamos variablea al modelo
+        $datos_carro = $this->Marketing_model->registros_en_bolsa_by_telefono($telefono);
+        //imprimimos en formato json el resultado
+        if ($datos_carro) {
+            echo json_encode($datos_carro->result());
+        }
     }
-
+    public function seguimientos_by_registro(){
+        header("Access-Control-Allow-Origin: *");
+        //OBTENEMOS VARIABLES DE LA URL
+        $telefono = $_GET['telefono'];
+        //pasamos variablea al modelo
+        $data['reistros_by_number'] = $this->Marketing_model->registros_en_bolsa_by_telefono($telefono);
+        echo $this->templates->render('admin/admin_seguimientos_by_registro', $data);
+    }
+    public function seguimientos_by_bt_id()
+    {
+        header("Access-Control-Allow-Origin: *");
+        //OBTENEMOS VARIABLES DE LA URL
+        $bt_id = $_GET['bt_id'];
+        //pasamos variablea al modelo
+        $datos_registro = $this->Marketing_model->get_seguimientos_by_bolsa_id($bt_id);
+        //imprimimos en formato json el resultado
+        if ($datos_registro) {
+            echo json_encode($datos_registro->result());
+        }
+    }
 
 }

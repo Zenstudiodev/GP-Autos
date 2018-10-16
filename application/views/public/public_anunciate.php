@@ -36,7 +36,7 @@ $this->layout('public/public_master', [
                             <img src="<?php echo base_url()?>/ui/public/images/anunciate/template.jpg" class="img-responsive">
                         </div>
                         <div class="card-action">
-                            <a href="#anunciate_modal"
+                            <a href="<?echo base_url()?>cliente/login"
                                class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light btn" id="btn_vip">Publica
                                 tu auto</a>
                             <!--<a href="#anunciate_modal"

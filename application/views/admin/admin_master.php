@@ -22,13 +22,14 @@
     <!-- Custom css for pages -->
     <?php echo $this->section('css_p') ?>
 
-    <link href='https ://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url()?>/ui/admin/css/style.css" />
 </head>
 <body>
 
 <!--Header-part-->
 <div id="header">
-    <h1><a href="dashboard.html">GP AUTOS</a></h1>
+    <h1><a href="<?php echo base_url().'admin'?>">GP AUTOS</a></h1>
 </div>
 <!--close-Header-part-->
 

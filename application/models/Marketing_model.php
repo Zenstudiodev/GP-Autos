@@ -206,6 +206,13 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function get_seguimientos_by_bolsa_id($bts_bt_id){
+        $this->db->where('bts_bt_id', $bts_bt_id);
+        $query = $this->db->get('bolsa_telefonos_seguimientos');
+        //$this->db->limit(1);
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
     function actualizar_estado_seguimiento($seguimiento)
     {
