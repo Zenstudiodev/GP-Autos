@@ -13,6 +13,8 @@
     'username' => $username,
     'rol' => $rol,
 ]);
+
+
 $parametro_numeros = $parametro_numeros->row();
 $numeros_diarios_requeridos = $parametro_numeros->parametro_valor;
 //carros para bolsa

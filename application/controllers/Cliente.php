@@ -14,6 +14,7 @@ class Cliente extends Base_Controller
         parent::__construct();
         $this->load->library('email');
         $this->load->model('Carros_model');
+        $this->load->model('Admin_model');
         $this->load->model('Banners_model');
         $this->load->model('Cliente_model');
         $this->load->model('Pagos_model');
@@ -473,6 +474,7 @@ class Cliente extends Base_Controller
             redirect('cliente/login');
         }
         $data = cargar_componentes_buscador();
+        $data['parametros'] = $this->Admin_model->get_parametros();
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();

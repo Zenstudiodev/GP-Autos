@@ -54,7 +54,6 @@ function radio_helper10($valor, $valor_carro)
         }
     }
 }
-
 function estados_a_colores($estado)
 {
     $color_clase_estado = '';
@@ -72,6 +71,11 @@ function estados_a_colores($estado)
     }
 
     echo $color_clase_estado;
+}
+function display_formato_dinero_return($valor)
+{
+    $valor_formateado = number_format($valor, 2, '.', ',');
+    return $valor_formateado;
 }
 function print_contenido($var){
     echo '<pre>';

@@ -19,4 +19,9 @@ class Admin_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    public function get_parametros(){
+        $query = $this->db->get('parametros');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 }

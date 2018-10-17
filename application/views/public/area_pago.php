@@ -49,6 +49,10 @@ $ubicacion_carro_select_options = array(
     "ZACAPA" => "ZACAPA"
 );
 
+$parametros = $parametros->result();
+$precio_vip = $parametros[1];
+$precio_individual = $parametros[2];
+
 
 ?>
 <?php $this->start('title') ?>
@@ -77,6 +81,7 @@ $ubicacion_carro_select_options = array(
                     <h5>Seleccione tipo de anuncio</h5>
                     <div class="card">
                         <div class="card-content">
+
                             <div class="row">
                                 <div class="input-field col s12 m12">
                                     <!--UBICACIÓN-->
@@ -95,10 +100,102 @@ $ubicacion_carro_select_options = array(
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>Credito</td>
+                                        <td>
+                                            Indefinido
+                                            <i class="material-icons tooltipped" data-position="bottom" data-delay="50"
+                                               data-tooltip="El anuncio permanecera en la pagina hasta que se venda ">
+                                                help_outline
+                                            </i>
+                                        </td>
                                         <td><i class="material-icons">check</i>
                                         </td>
+                                        <td><i class="material-icons">check</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Crédito
+                                            <i class="material-icons tooltipped" data-position="bottom" data-delay="50"
+                                               data-tooltip="Se facilitara el tramite del crédito para la compra del vehiculo ">
+                                                help_outline
+                                            </i>
+                                        </td>
+                                        <td><i class="material-icons">check</i>
+                                        </td>
+                                        <td><i class="material-icons">check</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Calcomanía
+                                            <i class="material-icons tooltipped" data-position="bottom" data-delay="50"
+                                               data-tooltip="Instalación de calcomanía con número de teléfono y código de vehículo">
+                                                help_outline
+                                            </i>
+                                        </td>
+                                        <td><i class="material-icons">check</i>
+                                        </td>
+                                        <td><i class="material-icons">check</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Facebook
+                                            <i class="material-icons tooltipped" data-position="bottom" data-delay="50"
+                                               data-tooltip="Se pagara publicidad en facebook para promocionar el vehhiculo">
+                                                help_outline
+                                            </i>
+                                        </td>
+                                        <td><i class="material-icons">check</i>
+                                        </td>
+                                        <td><i class="material-icons">check</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Comision
+                                            <i class="material-icons tooltipped" data-position="bottom" data-delay="50"
+                                               data-tooltip="Comision en concepto de tramites sobre el valor del vehiculo">
+                                                help_outline
+                                            </i>
+                                        </td>
+                                        <td><i class="material-icons">close</i>
+                                        </td>
+                                        <td>5 %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Tipo de venta
+                                            <i class="material-icons tooltipped" data-position="bottom" data-delay="50"
+                                               data-tooltip="Vanta Directa: el cliente hace la necociación directaemente">
+                                                help_outline
+                                            </i>
+                                        </td>
+                                        <td>Directo</td>
+                                        <td>Bajo cita</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mailing
+                                            <i class="material-icons tooltipped" data-position="bottom" data-delay="50"
+                                               data-tooltip="Envío de correo a base de GP Autos con 60,000 correos y subiendo ">
+                                                help_outline
+                                            </i>
+                                        </td>
                                         <td><i class="material-icons">close</i></td>
+                                        <td><i class="material-icons">check</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Asesor Personalizado
+                                            <i class="material-icons tooltipped" data-position="bottom" data-delay="50"
+                                               data-tooltip="Apoyo en coordinacion de citas y promocion del vehículo">
+                                                help_outline
+                                            </i>
+                                        </td>
+                                        <td><i class="material-icons">close</i></td>
+                                        <td><i class="material-icons">check</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Precio
+                                        </td>
+                                        <td>Q.<?php echo display_formato_dinero_return($precio_individual->parametro_valor);?></td>
+                                        <td>Q.<?php echo display_formato_dinero_return($precio_vip->parametro_valor);?></td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -127,6 +224,7 @@ $ubicacion_carro_select_options = array(
 <script>
     $(document).ready(function () {
         $('select').material_select();
+        $('.tooltipped').tooltip({delay: 50});
     });
 </script>
 <?php $this->stop() ?>
