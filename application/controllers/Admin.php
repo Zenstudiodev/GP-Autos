@@ -54,8 +54,25 @@ class Admin extends Base_Controller
     //admin
     public function parametros(){
         $data = compobarSesion();
-        $data['parametro_numeros'] = $this->Admin_model->get_telefonos_bolsa();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        $data['parametros'] = $this->Admin_model->get_parametros();
+
         echo $this->templates->render('admin/admin_parametros', $data);
+    }
+    public function actualizar_parametros(){
+        //print_contenido($_POST);
+        $post_data = array(
+            'carros_bolsa' => $this->input->post('carros_bolsa'),
+            'precio_vip' => $this->input->post('precio_vip'),
+            'precio_individual' => $this->input->post('precio_individual'),
+        );
+
+        $this->Admin_model->actualizar_parametros($post_data);
+        $this->session->set_flashdata('mensaje', 'Parametros actualizados');
+        redirect(base_url() . 'index.php/admin/parametros/');
+
     }
     public function pendientes()
     {

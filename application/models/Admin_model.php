@@ -24,4 +24,28 @@ class Admin_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    public function actualizar_parametros($parametros){
+        //Actualizar carros para la bolsa
+        $datos = array(
+            'parametro_valor'          => $parametros['carros_bolsa'],
+        );
+        $this->db->where('parametro_id', '1');
+        $query = $this->db->update('parametros', $datos);
+
+        //Actualizar precio de anuncio vip
+        $datos = array(
+            'parametro_valor'          => $parametros['precio_vip'],
+        );
+
+        //Actualizar precio de anucios individuales
+        $this->db->where('parametro_id', '2');
+        $query = $this->db->update('parametros', $datos);
+        $datos = array(
+            'parametro_valor'          => $parametros['precio_individual'],
+        );
+
+        $this->db->where('parametro_id', '3');
+        $query = $this->db->update('parametros', $datos);
+
+    }
 }

@@ -284,8 +284,15 @@ $t4x4_n = array(
                         <a class="waves-effect waves-light btn"
                            href="<?php echo base_url() ?>/cliente/login">Ingresar </a>
                     <?php } ?>
-                    <a class="waves-effect waves-light btn"
-                       href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                    <?php
+                    if ($CI->ion_auth->logged_in()) { ?>
+                        <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/auth/logout">
+                            Cerrar sesión</a>
+                    <?php } else { ?>
+                        <a class="waves-effect waves-light btn"
+                           href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                    <?php }
+                    ?>
                 </div>
                 <div class="col m2">
                     <p class="text-right"><i class="fa fa-phone"></i>
@@ -308,7 +315,7 @@ $t4x4_n = array(
                     <a href="<?php echo base_url() ?>index.php/Productos/anunciate" class="collection-item black-text">
                         Anuncia tu vehiculo <i class="material-icons  secondary-content orange-text darken-3">note_add</i>
                     </a>
-                    <a href="<?php echo base_url(); ?>" class="collection-item black-text">
+                    <a href="<?php echo base_url(); ?>Carro/filtro/TODOS/TODOS/AUTOMOVIL/TODOS/TODOS/TODOS/TODOS/TODOS/TODOS/0-600000/1952-2019" class="collection-item black-text">
                         Vehiculos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
                     </a>
                     <a href="<?php echo base_url() ?>index.php/Productos/financiamiento"
@@ -883,7 +890,7 @@ $t4x4_n = array(
         buscador_a_min = $("#a_carro_min").val();
         buscador_a_max = $("#a_carro_max").val();
         var filtros;
-        filtros = '<?php echo base_url()?>' + 'index.php/Carro/filtro/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
+        filtros = '<?php echo base_url()?>' + 'Carro/filtro/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
         window.location.assign(filtros);
     });
     //Actualizar marcas
@@ -899,7 +906,7 @@ $t4x4_n = array(
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + filtro_tipo,
+            url: '<?php echo base_url()?>Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
                 $('#marca_carro option').remove();
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
@@ -928,7 +935,7 @@ $t4x4_n = array(
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+                url: '<?php echo base_url()?>Carro/lineas?tipo=' + tipo + '&marca=' + marca,
                 success: function (data) {
                     $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                     $.each(data, function (key, value) {

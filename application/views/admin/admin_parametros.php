@@ -14,18 +14,41 @@
     'rol' => $rol,
 ]);
 
+$parametros = $parametros->result();
+$telefonos_diarios_bolsa = $parametros[0];
+$precio_vip = $parametros[1];
+$precio_individual = $parametros[2];
 
-$parametro_numeros = $parametro_numeros->row();
-$numeros_diarios_requeridos = $parametro_numeros->parametro_valor;
+$numeros_diarios_requeridos = $telefonos_diarios_bolsa->parametro_valor;
+$precio_vip_val = $precio_vip->parametro_valor;
+$precio_individual_val = $precio_individual->parametro_valor;
 //carros para bolsa
 $carros_bolsa = array(
-    'type'        => 'number',
-    'name'        => 'carros_bolsa',
-    'id'          => 'carros_bolsa',
-    'class'       => ' form-control',
+    'type' => 'number',
+    'name' => 'carros_bolsa',
+    'id' => 'carros_bolsa',
+    'class' => ' form-control',
     'placeholder' => 'Carros necesarios para bolsa de números',
-    'value'       => $numeros_diarios_requeridos,
-    'required'    => 'required'
+    'value' => $numeros_diarios_requeridos,
+    'required' => 'required'
+);
+$precio_vip_input = array(
+    'type' => 'number',
+    'name' => 'precio_vip',
+    'id' => 'precio_vip',
+    'class' => ' form-control',
+    'placeholder' => 'Precio de anuncios VIP',
+    'value' => $precio_vip_val,
+    'required' => 'required'
+);
+$precio_individual_input = array(
+    'type' => 'number',
+    'name' => 'precio_individual',
+    'id' => 'precio_individual',
+    'class' => ' form-control',
+    'placeholder' => 'Precio de anuncios individuales',
+    'value' => $precio_individual_val,
+    'required' => 'required'
 );
 ?>
 <?php $this->start('css_p') ?>
@@ -66,34 +89,68 @@ $carros_bolsa = array(
                     <?php } ?>
                     <div class="widget-content ">
                         <div class="container-fluid">
-                            <form action="<?php echo base_url()?>marketing/guardar_numero" method="post">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <!--telefono-->
-                                    <div class="form-group">
-                                        <label class="control-label">Carros diarios necesarios para bolsa</label>
-                                        <div class="controls">
-                                            <?php echo form_input($carros_bolsa); ?>
+                            <form action="<?php echo base_url() ?>admin/actualizar_parametros" method="post">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <!--telefono-->
+                                        <div class="form-group">
+                                            <label class="control-label">Carros diarios necesarios para bolsa</label>
+                                            <div class="controls">
+                                                <?php echo form_input($carros_bolsa); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <!--Precio VIP-->
+                                        <div class="form-group">
+                                            <label class="control-label">Valor de anucios VIP</label>
+                                            <div class="controls">
+                                                <?php echo form_input($precio_vip_input); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <!--Precio Individual-->
+                                        <div class="form-group">
+                                            <label class="control-label">Valor de anucios Individuales</label>
+                                            <div class="controls">
+                                                <?php echo form_input($precio_individual_input); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn btn-success">Guardar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-
-                                </div>
-                                <div class="col-md-3">
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="form-actions">
-                                            <button type="submit" class="btn btn-success">Guardar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             </form>
 

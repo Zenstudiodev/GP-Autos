@@ -92,8 +92,16 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
 
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn"
-                       href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                    <?php
+                    if ($CI->ion_auth->logged_in()) { ?>
+                        <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/auth/logout">
+                            Cerrar sesión</a>
+                    <?php } else { ?>
+                        <a class="waves-effect waves-light btn"
+                           href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                    <?php }
+                    ?>
+
                 </div>
             </div>
         </div>
@@ -119,8 +127,15 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
                         <a class="waves-effect waves-light btn"
                            href="<?php echo base_url() ?>/cliente/login">Ingresar </a>
                     <?php } ?>
-                    <a class="waves-effect waves-light btn"
-                       href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                    <?php
+                    if ($CI->ion_auth->logged_in()) { ?>
+                        <a class="waves-effect waves-light btn" href="<?php echo base_url() ?>/auth/logout">
+                            Cerrar sesión</a>
+                    <?php } else { ?>
+                        <a class="waves-effect waves-light btn"
+                           href="<?php echo base_url() ?>/cliente/registro">registrarse</a>
+                    <?php }
+                    ?>
                 </div>
                 <div class="col m2">
                     <p class="text-right"><i class="fa fa-phone"></i>
