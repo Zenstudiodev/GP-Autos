@@ -205,20 +205,20 @@ $CI =& get_instance();
                                     <?php }?>
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <div class="imageContainer">
-                                        <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>">
+                                        <a href="<?php echo base_url() . 'Carro/ver_feria/' . $carro->id_carro ?>">
                                             <img class="activator"
                                                  src="<?php echo 'http://www.gpautos.net//web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="card-content">
-                                    <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>">
+                                    <a href="<?php echo base_url() . 'Carro/ver_feria/' . $carro->id_carro ?>">
                                         <span class="card-title  grey-text text-darken-4"><?php echo substr($carro->id_marca, 0, 9); ?></span>
                                     </a>
                                     <p>
                                         <?php echo substr($carro->id_linea, 0, 12); ?>
                                         - <?php echo $carro->crr_modelo ?><br>
-                                        <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>"
+                                        <a href="<?php echo base_url() . 'Carro/ver_feria/' . $carro->id_carro ?>"
                                            class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">ver</a>
                                     </p>
                                 </div>
@@ -340,7 +340,7 @@ $CI =& get_instance();
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + tipo,
+                url: '<?php echo base_url()?>Carro/marcas?tipo=' + tipo,
                 success: function (data) {
                     $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                     $.each(data, function (key, value) {
@@ -356,7 +356,7 @@ $CI =& get_instance();
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+                url: '<?php echo base_url()?>Carro/lineas?tipo=' + tipo + '&marca=' + marca,
                 success: function (data) {
                     $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                     $.each(data, function (key, value) {

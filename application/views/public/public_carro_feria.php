@@ -54,9 +54,7 @@ if ($carro) {
     <meta property="og:title" content="<?php echo $data_carro->id_marca; ?>"/>
     <meta property="og:description" content="<?php echo $data_carro->id_linea . ' - ' . $data_carro->crr_modelo; ?>"/>
     <meta property="product:price:amount" content="<?php echo $data_carro->crr_precio; ?>"/>
-
     <?php
-
     $monedaOG = '';
     if ($data_carro->crr_moneda_precio == '$') {
         $monedaOG = 'USD';
@@ -102,7 +100,7 @@ if ($carro) {
                     <?php// if ( $data_carro->id_predio_virtual != 0) { ?>
                         <p>
                         <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
-                           href="<?php echo base_url() . 'index.php/predio/ver/' . $data_carro->id_predio_virtual; ?>"><i
+                           href="<?php echo base_url() . 'predio/ver/' . $data_carro->id_predio_virtual; ?>"><i
                                     class="fa fa-car left"></i>
                             Predio virtual</a>
                         </p><?php } ?>
@@ -991,7 +989,7 @@ if ($carro) {
                 $("#credito_carro_form").hide();
                 $.ajax({
                     type: 'POST',
-                    url: '<?php echo base_url()?>index.php/Formularios/credito_carro',
+                    url: '<?php echo base_url()?>Formularios/credito_carro',
                     data: formulario_informacion_data,
                     beforeSend: function () {
                         $("#loader_credito").fadeIn();
@@ -1033,7 +1031,7 @@ if ($carro) {
                 $("#form_contacto_alert").hide();
                 $.ajax({
                     type: 'POST',
-                    url: '<?php echo base_url()?>index.php/Formularios/info_carro',
+                    url: '<?php echo base_url()?>Formularios/info_carro',
                     data: formulario_informacion_data,
                     beforeSend: function () {
                         $("#informacion_carro_modal").find('.modal-content').html('<div class="preloader-wrapper big active">\n' +
@@ -1068,7 +1066,7 @@ if ($carro) {
         {
         "@context": "http://schema.org","@type": "Vehicle",
         "name": "<?php echo $data_carro->id_marca . ' - ' . $data_carro->id_linea . ' | ' . $data_carro->crr_modelo; ?>",
-        "url" : "<?php echo base_url() . 'index.php/Carro/ver/' . $data_carro->id_carro; ?>",
+        "url" : "<?php echo base_url() . 'Carro/ver/' . $data_carro->id_carro; ?>",
         "image" : "<?php echo 'http://gpautos.net/web/images_cont/' . $data_carro->id_carro . ' (1).jpg'; ?>",
         "brand": "<?php echo $data_carro->id_marca; ?>",
         "fuelType":"<?php echo $data_carro->crr_combustible; ?>",

@@ -155,19 +155,19 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
 
 
                 <div class="collection">
-                    <a href="<?php echo base_url() ?>index.php/Productos/anunciate" class="collection-item black-text">
+                    <a href="<?php echo base_url() ?>Productos/anunciate" class="collection-item black-text">
                         Anuncia tu vehiculo <i
                                 class="material-icons  secondary-content orange-text darken-3">note_add</i>
                     </a>
                     <a href="<?php echo base_url(); ?>" class="collection-item black-text">
                         Vehiculos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
                     </a>
-                    <a href="<?php echo base_url() ?>index.php/Productos/financiamiento"
+                    <a href="<?php echo base_url() ?>Productos/financiamiento"
                        class="collection-item black-text">
                         Financiamiento <i
                                 class="material-icons  secondary-content orange-text darken-3">aattach_money</i>
                     </a>
-                    <a href="<?php echo base_url() ?>index.php/Productos/seguros" class="collection-item black-text">
+                    <a href="<?php echo base_url() ?>Productos/seguros" class="collection-item black-text">
                         Seguros <i class="material-icons  secondary-content orange-text darken-3">assignment</i>
                     </a>
                     <!--<a href="" class="collection-item black-text">
@@ -176,7 +176,7 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
                     <a href="" class="collection-item black-text">
                         Franquicia <i class="material-icons  secondary-content orange-text darken-3" >account_balance</i>
                     </a>-->
-                    <a href="<?php echo base_url() ?>index.php/Contacto" class="collection-item black-text">
+                    <a href="<?php echo base_url() ?>Contacto" class="collection-item black-text">
                         Contacto <i class="material-icons  secondary-content orange-text darken-3">email</i>
                     </a>
 
@@ -270,7 +270,7 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
                     info@gpautos.net</p>
                 <h5 class="white-text">Productos</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="<?php echo base_url() ?>index.php/Productos/seguros">Seguros</a>
+                    <li><a class="grey-text text-lighten-3" href="<?php echo base_url() ?>Productos/seguros">Seguros</a>
                     </li>
                     <!--<li><a class="grey-text text-lighten-3" href="#!">Traspaso</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Franquicia</a></li>-->

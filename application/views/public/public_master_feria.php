@@ -377,7 +377,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             <li>
                 <div id="homeSearchBox">
                     <h4 class="texto_naranja">Buscar</h4>
-                    <form method="post" action="<?php echo base_url(); ?>index.php/carro/por_codigo_feria">
+                    <form method="post" action="<?php echo base_url(); ?>carro/por_codigo_feria">
                         <ul class="collapsible" data-collapsible="expandable">
                             <li>
                                 <div class="collapsible-header active"><i class="material-icons">directions_car</i>Código
@@ -565,7 +565,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                     info@gpautos.net</p>
                 <h5 class="white-text">Productos</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="<?php echo base_url() ?>index.php/Productos/seguros">Seguros</a>
+                    <li><a class="grey-text text-lighten-3" href="<?php echo base_url() ?>Productos/seguros">Seguros</a>
                     </li>
                     <!--<li><a class="grey-text text-lighten-3" href="#!">Traspaso</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Franquicia</a></li>-->
@@ -721,7 +721,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         if (codigo_carro_a_buscar == '') {
             console.log('codigo vacio ');
         } else {
-            window.location.href = "<?php echo base_url();?>index.php/Carro/ver/" + codigo_carro_a_buscar;
+            window.location.href = "<?php echo base_url();?>Carro/ver/" + codigo_carro_a_buscar;
         }
     });
 
@@ -763,7 +763,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + filtro_tipo,
+            url: '<?php echo base_url()?>Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
@@ -782,7 +782,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+            url: '<?php echo base_url()?>Carro/lineas?tipo=' + tipo + '&marca=' + marca,
             success: function (data) {
                 $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
@@ -841,7 +841,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         buscador_a_min = $("#a_carro_min").val();
         buscador_a_max = $("#a_carro_max").val();
         var filtros;
-        filtros = '<?php echo base_url()?>' + 'index.php/Carro/filtro_feria/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
+        filtros = '<?php echo base_url()?>' + 'Carro/filtro_feria/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
         window.location.assign(filtros);
     });
     //Actualizar marcas
@@ -857,7 +857,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + filtro_tipo,
+            url: '<?php echo base_url()?>Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
@@ -885,7 +885,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+                url: '<?php echo base_url()?>Carro/lineas?tipo=' + tipo + '&marca=' + marca,
                 success: function (data) {
                     $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                     $.each(data, function (key, value) {

@@ -61,13 +61,6 @@
     </ul>
 </div>
 
-<!--start-top-serch-->
-<div id="search">
-    <input type="text" placeholder="Search here..."/>
-    <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-</div>
-<!--close-top-serch-->
-
 <!--sidebar-menu-->
 
 <div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
@@ -75,41 +68,41 @@
 
         <!--<li><a href="<?php /*echo base_url()*/?>index.php/admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
 
-        <li><a href="<?php echo base_url()?>index.php/admin"><i class="icon icon-signal"></i> <span>Inicio</span></a> </li>
+        <li><a href="<?php echo base_url()?>admin"><i class="icon icon-signal"></i> <span>Inicio</span></a> </li>
 
 
         <?php if($rol =='gerente' || $rol =='developer' || $rol =='editor' || $rol =='externo' || $rol =='predio' || $rol=='marketing'){?>
-        <li><a href="<?php echo base_url()?>index.php/admin/vehiculos"><i class="icon icon-signal"></i> <span>vehiculos</span></a> </li>
+        <li><a href="<?php echo base_url()?>admin/vehiculos"><i class="icon icon-signal"></i> <span>vehiculos</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
-            <li><a href="<?php echo base_url()?>index.php/admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
+            <li><a href="<?php echo base_url()?>admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
 
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
-            <li><a href="<?php echo base_url()?>index.php/marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a> </li>
+            <li><a href="<?php echo base_url()?>marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
-            <li><a href="<?php echo base_url()?>index.php/marketing/bajar_numero"><i class="icon icon-file"></i> <span>Bajar número</span></a> </li>
+            <li><a href="<?php echo base_url()?>marketing/bajar_numero"><i class="icon icon-file"></i> <span>Bajar número</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
-            <li><a href="<?php echo base_url()?>index.php/marketing/seguimientos"><i class="icon icon-file"></i> <span>Seguimientos</span></a> </li>
+            <li><a href="<?php echo base_url()?>marketing/seguimientos"><i class="icon icon-file"></i> <span>Seguimientos</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
-            <li><a href="<?php echo base_url()?>index.php/admin/predios"><i class="icon icon-file"></i> <span>Predios</span></a> </li>
-            <li><a href="<?php echo base_url()?>index.php/admin/usuarios"><i class="icon icon-file"></i> <span>Usuarios</span></a> </li>
-            <li><a href="<?php echo base_url()?>index.php/admin/pendientes"><i class="icon icon-file"></i> <span>vahiculos pendientes</span></a> </li>
+            <li><a href="<?php echo base_url()?>admin/predios"><i class="icon icon-file"></i> <span>Predios</span></a> </li>
+            <li><a href="<?php echo base_url()?>admin/usuarios"><i class="icon icon-file"></i> <span>Usuarios</span></a> </li>
+            <li><a href="<?php echo base_url()?>admin/pendientes"><i class="icon icon-file"></i> <span>vahiculos pendientes</span></a> </li>
         <?php }?>
 	    <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
-        <li><a href="<?php echo base_url()?>index.php/admin/banners"><i class="icon icon-file"></i> <span>Banners</span></a> </li>
+        <li><a href="<?php echo base_url()?>admin/banners"><i class="icon icon-file"></i> <span>Banners</span></a> </li>
         <?php }?>
 	    <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
-        <li><a href="<?php echo base_url()?>index.php/admin/banners_header"><i class="icon icon-file"></i> <span>Banners Header</span></a> </li>
+        <li><a href="<?php echo base_url()?>admin/banners_header"><i class="icon icon-file"></i> <span>Banners Header</span></a> </li>
 	    <?php }?>
 	    <?php if($rol =='gerente' || $rol == 'developer' ){?>
-        <li><a href="<?php echo base_url()?>index.php/admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a> </li>
+        <li><a href="<?php echo base_url()?>admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' ){?>
-            <li><a href="<?php echo base_url()?>index.php/admin/parametros"><i class="icon icon-file"></i> <span>Parametros</span></a> </li>
+            <li><a href="<?php echo base_url()?>admin/parametros"><i class="icon icon-file"></i> <span>Parametros</span></a> </li>
         <?php }?>
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
         <li ><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>

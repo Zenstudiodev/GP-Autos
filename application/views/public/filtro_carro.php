@@ -213,20 +213,20 @@ $CI =& get_instance();
                             <div class="card" id="<?php echo $carro->crr_codigo . '_card' ?>">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <div class="imageContainer">
-                                        <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>">
+                                        <a href="<?php echo base_url() . 'Carro/ver/' . $carro->id_carro ?>">
                                             <img class="activator"
                                                  src="<?php echo base_url() . 'web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="card-content">
-                                    <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>">
+                                    <a href="<?php echo base_url() . 'Carro/ver/' . $carro->id_carro ?>">
                                         <span class="card-title  grey-text text-darken-4"><?php echo substr($carro->id_marca, 0, 9); ?></span>
                                     </a>
                                     <p>
                                         <?php echo substr($carro->id_linea, 0, 12); ?>
                                         - <?php echo $carro->crr_modelo ?><br>
-                                        <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>"
+                                        <a href="<?php echo base_url() . 'Carro/ver/' . $carro->id_carro ?>"
                                            class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">ver</a>
                                     </p>
                                 </div>
@@ -274,36 +274,6 @@ $CI =& get_instance();
 <?php $this->start('js_p') ?>
     <script src="<?php echo base_url(); ?>ui/public/js/jquery.smoothscroll.min.js"></script>
     <script>
-
-        //variables para el buscador
-        var buscador_ubicacion;
-        var buscador_tipo;
-        var buscador_marca;
-        var buscador_linea;
-        var buscador_combustible;
-        var buscador_transmision;
-        var buscador_origen;
-        var buscador_precio_min;
-        var buscador_precio_max;
-        var buscador_a_min;
-        var buscador_a_max;
-
-        var marca;
-        var tipo;
-
-        //precio carro
-        var precioCarroSlider;
-        var precio_carro;
-        var precio_carro_max;
-        var precio_carro_min;
-
-        //Año carro
-        var aCarroSlider;
-        var a_carro;
-        var a_carro_min;
-        var a_carro_max;
-
-
         //Slide to card
         <?php if (isset($_GET['card'])){?>
         var target = $('#<?php echo($_GET["card"]); ?>');
@@ -312,16 +282,12 @@ $CI =& get_instance();
         //alert('<?php echo $_GET['card']; ?>');
         <?php } ?>
 
-
-
         //realizamos accines luego de que termina el ajax
         $(document).ajaxComplete(function () {
           //  $("#marca_vehiculo").val(buscador_marca);
           //  $("#linea_carro").val(buscador_linea);
             $('select').material_select();
         });
-
-
 
     </script>
 <?php $this->stop() ?>

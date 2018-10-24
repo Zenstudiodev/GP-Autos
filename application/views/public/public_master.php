@@ -312,18 +312,18 @@ $t4x4_n = array(
 
 
                 <div class="collection">
-                    <a href="<?php echo base_url() ?>index.php/Productos/anunciate" class="collection-item black-text">
+                    <a href="<?php echo base_url() ?>Productos/anunciate" class="collection-item black-text">
                         Anuncia tu vehiculo <i class="material-icons  secondary-content orange-text darken-3">note_add</i>
                     </a>
                     <a href="<?php echo base_url(); ?>Carro/filtro/TODOS/TODOS/AUTOMOVIL/TODOS/TODOS/TODOS/TODOS/TODOS/TODOS/0-600000/1952-2019" class="collection-item black-text">
                         Vehiculos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
                     </a>
-                    <a href="<?php echo base_url() ?>index.php/Productos/financiamiento"
+                    <a href="<?php echo base_url() ?>Productos/financiamiento"
                        class="collection-item black-text">
                         Financiamiento <i
                                 class="material-icons  secondary-content orange-text darken-3">aattach_money</i>
                     </a>
-                    <a href="<?php echo base_url() ?>index.php/Productos/seguros" class="collection-item black-text">
+                    <a href="<?php echo base_url() ?>Productos/seguros" class="collection-item black-text">
                         Seguros <i class="material-icons  secondary-content orange-text darken-3">assignment</i>
                     </a>
                     <!--<a href="" class="collection-item black-text">
@@ -332,7 +332,7 @@ $t4x4_n = array(
                     <a href="" class="collection-item black-text">
                         Franquicia <i class="material-icons  secondary-content orange-text darken-3" >account_balance</i>
                     </a>-->
-                    <a href="<?php echo base_url() ?>index.php/Contacto" class="collection-item black-text">
+                    <a href="<?php echo base_url() ?>Contacto" class="collection-item black-text">
                         Contacto <i class="material-icons  secondary-content orange-text darken-3">email</i>
                     </a>
 
@@ -418,7 +418,7 @@ $t4x4_n = array(
         <li>
             <div id="homeSearchBox">
                 <h4 class="texto_naranja">Buscar</h4>
-                <form method="post" action="<?php echo base_url(); ?>index.php/carro/por_codigo">
+                <form method="post" action="<?php echo base_url(); ?>carro/por_codigo">
                     <ul class="collapsible" data-collapsible="expandable">
                         <li>
                             <div class="collapsible-header active"><i class="material-icons">directions_car</i>Código
@@ -621,7 +621,7 @@ $t4x4_n = array(
                     info@gpautos.net</p>
                 <h5 class="white-text">Productos</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="<?php echo base_url() ?>index.php/Productos/seguros">Seguros</a>
+                    <li><a class="grey-text text-lighten-3" href="<?php echo base_url() ?>Productos/seguros">Seguros</a>
                     </li>
                     <!--<li><a class="grey-text text-lighten-3" href="#!">Traspaso</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Franquicia</a></li>-->
@@ -768,7 +768,7 @@ $t4x4_n = array(
         if (codigo_carro_a_buscar == '') {
             console.log('codigo vacio ');
         } else {
-            window.location.href = "<?php echo base_url();?>index.php/Carro/ver/" + codigo_carro_a_buscar;
+            window.location.href = "<?php echo base_url();?>Carro/ver/" + codigo_carro_a_buscar;
         }
     });
 
@@ -810,7 +810,7 @@ $t4x4_n = array(
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/marcas?tipo=' + filtro_tipo,
+            url: '<?php echo base_url()?>Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
 
 
@@ -831,7 +831,7 @@ $t4x4_n = array(
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url()?>index.php/Carro/lineas?tipo=' + tipo + '&marca=' + marca,
+            url: '<?php echo base_url()?>Carro/lineas?tipo=' + tipo + '&marca=' + marca,
             success: function (data) {
                 $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
