@@ -5,7 +5,7 @@
  * Date: 8/06/2017
  * Time: 7:24 PM
  */
-$this->layout('public/public_master', [
+$this->layout('public/public_master_feria', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
@@ -271,13 +271,12 @@ if ($carro) {
 
                     <div class="section">
                         <!--TODO BOTONES PARA ACCIONES -->
-
                         <div class="row hide-on-small-only">
                             <div class="col s12 m6">
                                 <div class="dr_chat">
-                                    <a class="wts_btn waves-effect waves-light btn  z-depth-3" target="_blank"
-                                       href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">Chat
-                                        directo <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
+                                    <a class="wts_btn waves-effect waves-light btn  z-depth-3" id_carro="<?php echo $data_carro->id_carro ?>" target="_blank"
+                                       href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">
+                                        chat directo con<br> vendedor <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
                                 </div>
                             </div>
 
@@ -303,9 +302,9 @@ if ($carro) {
                             <ul class="collection">
                                 <li class="collection-item">
                                     <div class="dr_chat">
-                                        <a class="wts_btn waves-effect waves-light btn  z-depth-3" target="_blank"
-                                           href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">Chat
-                                            directo <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
+                                        <a class="wts_btn waves-effect waves-light btn  z-depth-3" id_carro="<?php echo $data_carro->id_carro ?>" target="_blank"
+                                           href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">
+                                            chat directo con<br> vendedor <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
                                     </div>
                                 </li>
                                 <li class="collection-item">
@@ -339,7 +338,6 @@ if ($carro) {
                                 </li>-->
                             </ul>
                         </div>
-
                     </div>
                 </div>
                 <div class="col s12 m12 l6">
@@ -921,10 +919,28 @@ if ($carro) {
 <?php $this->stop() ?>
 
 <?php $this->start('js_p') ?>
-    <script src="<?php echo base_url(); ?>ui/public/js/galleria-1.5.7.min.js"></script>
-
 
     <script type="text/javascript">
+
+        $(".wts_btn ").click(function () {
+            console.log('click whatsapp');
+            id_carro = $(this).attr('id_carro');
+            console.log( "click en wspt " + id_carro );
+
+            Carro_data = {
+                id_carro: id_carro
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'https://gpautos.net/carro/registrar_whatsapp',
+                data: Carro_data,
+
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
 
 
         $('#calculador_carro').change(function () {

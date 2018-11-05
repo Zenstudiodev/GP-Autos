@@ -219,6 +219,10 @@ class Admin extends Base_Controller
             $data['carros_predio'] = $this->Predio_model->get_carros_predios_baja($user->predio_id);
             $data['carros'] =$data['carros_predio'];
         }
+        if ($data['rol'] == 'externo') {
+            //carros de baja de usuario externo
+            $data['carros'] = $this->Carros_model->get_carros_baja_externos_by_user_id($data['user_id']);
+        }
         if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor') {
             $data['carros'] = $this->Carros_model->ListarCarros_admin_baja();
         }
@@ -228,6 +232,14 @@ class Admin extends Base_Controller
     public function renovaciones_carros()
     {
         $data = compobarSesion();
+        $rol = $data['rol'];
+        if($rol == 'developer' || $rol == 'gerente' || $rol == 'editor' || $rol == 'marketing'){
+        //si tiene permisos no hacer nada sino
+        }else{
+            //redirigir a vehiculos
+            redirect(base_url().'admin/vehiculos');
+        }
+
         $data['carros'] = $this->Carros_model->listarCarro_individuales_admin();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
@@ -725,7 +737,7 @@ class Admin extends Base_Controller
         $id_carro= $this->Carros_model->crear_carro($datos);
 
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
-        redirect(base_url() . 'index.php/admin/subir_fotos/' . $id_carro, 'refresh');
+        redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
     }
     public function guardar_carro_externo()
     {
@@ -809,7 +821,7 @@ class Admin extends Base_Controller
        $id_carro= $this->Carros_model->crear_carro($datos);
 
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
-        redirect(base_url() . 'index.php/admin/subir_fotos/' . $id_carro, 'refresh');
+        redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
     }
     public function renovar_carro()
     {
@@ -879,7 +891,7 @@ class Admin extends Base_Controller
         $this->Carros_model->guardar_transaccion($datos_transaccion);
 
         $this->session->set_flashdata('mensaje', 'Carro COD:' . $datos_carro['id_carro'] . ' renovado correctamente correctamente');
-        redirect(base_url() . 'index.php/admin/', 'refresh');
+        redirect(base_url() . 'admin/', 'refresh');
     }
     public function reactivar_carro()
     {
@@ -934,7 +946,7 @@ class Admin extends Base_Controller
         $this->Carros_model->guardar_transaccion($datos_transaccion);
 
         $this->session->set_flashdata('mensaje', 'Carro COD:' . $datos_carro['id_carro'] . ' Reactivado correctamente correctamente');
-        redirect(base_url() . 'index.php/admin/', 'refresh');
+        redirect(base_url() . 'admin/', 'refresh');
     }
     public function reactivar_carro_predio_p()
     {
@@ -943,7 +955,7 @@ class Admin extends Base_Controller
         //id carro
         $data['id_carro'] = $this->uri->segment(3);
         $this->Carros_model->reactivar_carro_predio($data['id_carro']);
-        redirect(base_url() . 'index.php/admin/vehiculos', 'refresh');
+        redirect(base_url() . 'admin/vehiculos', 'refresh');
     }
     public function banners()
     {
@@ -982,7 +994,7 @@ class Admin extends Base_Controller
         //print_r($post_data);
 
         $this->Banners_model->crear_banners_header($post_data);
-        redirect(base_url() . 'index.php/admin/banners_header/');
+        redirect(base_url() . 'admin/banners_header/');
     }
     public function banners_header()
     {
@@ -1015,7 +1027,7 @@ class Admin extends Base_Controller
         //print_r($post_data);
 
         $this->Banners_model->actualizar_banners_header($post_data);
-        redirect(base_url() . 'index.php/admin/banners_header/');
+        redirect(base_url() . 'admin/banners_header/');
     }
     public function actualizar_banner()
     {
@@ -1031,7 +1043,7 @@ class Admin extends Base_Controller
         //print_r($post_data);
 
         $this->Banners_model->actualizar_banners($post_data);
-        redirect(base_url() . 'index.php/admin/banners/');
+        redirect(base_url() . 'admin/banners/');
     }
     public function dar_de_baja_btn()
     {
@@ -1042,7 +1054,7 @@ class Admin extends Base_Controller
         echo  "<script type='text/javascript'>";
         echo "window.close();";
         echo "</script>";
-        //redirect(base_url() . 'index.php/admin');
+        //redirect(base_url() . 'admin');
 
     }
     public function activar_carro_btn()

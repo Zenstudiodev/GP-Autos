@@ -57,7 +57,7 @@
             </ul>
         </li>-->
         <!--<li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>-->
-        <li class=""><a title="" href="<?php echo base_url()?>index.php/login/logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+        <li class=""><a title="" href="<?php echo base_url()?>login/logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
     </ul>
 </div>
 
@@ -66,7 +66,7 @@
 <div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
     <ul>
 
-        <!--<li><a href="<?php /*echo base_url()*/?>index.php/admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
+        <!--<li><a href="<?php /*echo base_url()*/?>admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
 
         <li><a href="<?php echo base_url()?>admin"><i class="icon icon-signal"></i> <span>Inicio</span></a> </li>
 

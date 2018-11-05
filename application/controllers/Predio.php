@@ -48,7 +48,7 @@ class Predio extends Base_Controller
 
 		//pagination
 		$config = array();
-		$config["base_url"] = base_url() . "index.php/predio/ver/".$data['segmento'];
+		$config["base_url"] = base_url() . "predio/ver/".$data['segmento'];
 		$config["total_rows"] = $data['numero_resultados'];
 		$config["per_page"] = 20;
 		$config["uri_segment"] =4;

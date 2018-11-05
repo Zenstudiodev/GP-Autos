@@ -149,7 +149,7 @@ class Cliente extends Base_Controller
                 //if the login is successful
                 //redirect them back to the home page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect('cliente/perfil', 'refresh');
+                redirect(base_url().'cliente/perfil', 'refresh');
             } else {
                 // if the login was un-successful
                 // redirect them back to the login page
@@ -203,12 +203,59 @@ class Cliente extends Base_Controller
             redirect('cliente/login');
         }
         $data = cargar_componentes_buscador();
+        $data['parametros'] = $this->Admin_model->get_parametros();
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
-        $this->Cliente_model->get_cliente_data($user_id);
-        echo $this->templates->render('public/public_seleccion_anuncio', $data);
+
+        echo $this->templates->render('public/seleccion_anuncio', $data);
+    }
+    public function forma_pago(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+
+
+        $datos_anuncio = array(
+            'ubicacion_carro'  => $this->input->post('ubicacion_carro'),
+            'tipo_anuncio'     => $this->input->post('tipo_anuncio'),
+        );
+
+        $this->session->set_userdata($datos_anuncio);
+
+        print_contenido($_POST);
+        print_contenido($_SESSION);
+        $data['parametros'] = $this->Admin_model->get_parametros();
+
+        echo $this->templates->render('public/forma_pago', $data);
+
+    }
+    public function datos_pago(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $datos_anuncio = array(
+            'forma_pago'  => $this->input->post('forma_pago'),
+        );
+        $this->session->set_userdata($datos_anuncio);
+        echo $this->session->forma_pago;
+
+        print_contenido($_POST);
+        print_contenido($_SESSION);
+        $data['forma_pago'] = $this->session->forma_pago;
+
+        echo $this->templates->render('public/datos_pago', $data);
     }
     public function publicar_carro()
     {
@@ -481,6 +528,9 @@ class Cliente extends Base_Controller
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
 
         echo $this->templates->render('public/area_pago', $data);
+    }
+    public function tipo_anuncio(){
+
     }
     public function pago_anuncio(){
         if (!$this->ion_auth->logged_in()) {

@@ -40,7 +40,7 @@
                                             class="icon-ok"></i> Carros activos</a></li>
                             <li role="presentation" class=""><a href="<?php echo base_url() ?>/admin/carros_de_baja"><i
                                             class="icon-remove"></i> Carros Inactivos</a></li>
-                            <?php if ($rol != 'predio') { ?>
+                            <?php if ($rol == 'developer' || $rol == 'gerente' || $rol == 'editor' || $rol == 'marketing') { ?>
                                 <li role="presentation" class=""><a
                                             href="<?php echo base_url() ?>/admin/renovaciones_carros"><i
                                                 class="icon-remove"></i> Renovaciones</a></li>
@@ -88,10 +88,12 @@
                                 <tr>
                                     <th>Acciones</th>
                                     <th>Codigo</th>
+                                    <th>visitas</th>
                                     <th>Tipo</th>
                                     <th>Marca</th>
                                     <th>Linea</th>
                                     <th>Modelo</th>
+                                    <th>Teléfono</th>
                                     <th>Inicio</th>
                                     <th>Vencimiento</th>
 
@@ -102,10 +104,12 @@
                                 <tr>
                                     <th>Acciones</th>
                                     <th>Codigo</th>
+                                    <th>visitas</th>
                                     <th>Tipo</th>
                                     <th>Marca</th>
                                     <th>Linea</th>
                                     <th>Modelo</th>
+                                    <th>Teléfono</th>
                                     <th>Inicio</th>
                                     <th>Vencimiento</th>
 
@@ -123,14 +127,14 @@
                                                 ?>
                                                 <div class="btn-group" role="group" aria-label="...">
                                                     <a class="btn btn-success btn-xs"
-                                                       href="<?php echo base_url() . 'index.php/admin/renovar_carro/' . $carro->id_carro ?>"
+                                                       href="<?php echo base_url() . 'admin/renovar_carro/' . $carro->id_carro ?>"
                                                        target="_blank"><i class="icon-calendar"></i> Renovar</a>
                                                     <a class="btn btn-danger btn-xs"
-                                                       href="<?php echo base_url() . 'index.php/admin/dar_de_baja_btn/' . $carro->id_carro ?>"><i
+                                                       href="<?php echo base_url() . 'admin/dar_de_baja_btn/' . $carro->id_carro ?>" target="_blank"><i
                                                                 class="icon-remove"></i> Dar de baja</a>
                                                     <?php if ($rol != 'predio') { ?>
                                                         <a class="btn btn-warning btn-xs"
-                                                           href="<?php echo base_url() . 'index.php/admin/agregar_a_feria/' . $carro->id_carro ?>"
+                                                           href="<?php echo base_url() . 'admin/agregar_a_feria/' . $carro->id_carro ?>"
                                                            target="_blank"><i class="icon-plus"></i> Agregar a feria</a>
                                                     <?php } ?>
 
@@ -140,14 +144,19 @@
                                             <?php } ?></td>
                                         <td>
                                             <?php if ($rol != 'predio') { ?>
-                                                <a href="<?php echo base_url() . 'index.php/admin/editarCarro/' . $carro->id_carro ?>">
+                                                <a href="<?php echo base_url() . 'admin/editarCarro/' . $carro->id_carro ?>">
                                                     <?php echo $carro->id_carro ?>
                                                 </a>
                                             <?php } else { ?>
-                                                <a href="<?php echo base_url() . 'index.php/admin/editarCarroPredio/' . $carro->id_carro ?>">
+                                                <a href="<?php echo base_url() . 'admin/editarCarroPredio/' . $carro->id_carro ?>">
                                                     <?php echo $carro->id_carro ?>
                                                 </a>
                                             <?php } ?>
+                                        </td>
+                                        <td>
+
+                                            <?php echo $carro->vistas ?>
+
                                         </td>
 
                                         <td>
@@ -158,6 +167,7 @@
                                         <td><?php echo $carro->id_marca ?></td>
                                         <td><?php echo $carro->id_linea ?></td>
                                         <td><?php echo $carro->crr_modelo ?></td>
+                                        <td><?php echo $carro->crr_telefono_propietario?></td>
                                         <td> <?php echo $carro->crr_fecha ?></td>
                                         <td> <?php echo $carro->crr_vencimiento ?></td>
 

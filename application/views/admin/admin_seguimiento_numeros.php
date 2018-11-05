@@ -66,7 +66,7 @@ $fecha = array(
     'required' => 'required'
 
 );
-$numero_a_atendar = $numero_a_atendar->row();
+//$numero_a_atendar = $numero_a_atendar->row();
 
 ?>
 <?php $this->start('css_p') ?>

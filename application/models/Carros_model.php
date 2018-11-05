@@ -611,7 +611,7 @@ class Carros_model extends CI_Model
     {
 
         $this->db->where('crr_estatus', 'Alta');
-        $this->db->where('crr_estado', 'Usado');
+        //$this->db->where('crr_estado', 'Usado');
         $this->db->where('feria', '1');
         $this->db->order_by('', 'RANDOM');
         $this->db->limit(32);
@@ -1198,5 +1198,16 @@ class Carros_model extends CI_Model
         //$query = $this->db->get('carro');
         return $this->db->count_all_results('carro');
     }
+
+    //externos
+    function get_carros_baja_externos_by_user_id($user_id){
+        $this->db->where('predio_user_id', $user_id);
+        $this->db->where('crr_estatus', 'Baja');
+        $this->db->where('id_predio_virtual', '9');
+        $query = $this->db->get('carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
 
 }

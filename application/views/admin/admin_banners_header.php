@@ -43,6 +43,7 @@
                             <thead>
                             <tr>
                                 <th>id</th>
+                                <th>Area</th>
                                 <th>titulo</th>
                                 <th>vencimiento</th>
                                 <th>estado</th>
@@ -59,6 +60,7 @@
                             ?>
                             <tr class="gradeX">
                                 <td><?php echo  $banner->id_bh?></td>
+                                <td><?php echo  $banner->area_bh?></td>
                                 <td><a href="<?php echo base_url().'index.php/admin/editar_banner_header/'.$banner->id_bh;?>"> <?php echo  $banner->titulo_bh?></a></td>
                                 <td><?php echo  $banner->vencimiento_bh?></td>
                                 <td><?php echo  $banner->estado_bh?></td>

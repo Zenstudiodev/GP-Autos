@@ -90,6 +90,7 @@ $estado_carro_select   = array(
 $estado_select_options = array(
 	"Alta" => "Alta",
 	"Baja" => "Baja",
+	"Pendiente" => "Pendiente",
 );
 
 

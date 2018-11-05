@@ -33,6 +33,9 @@ $password_admin = array(
 
 $CI =& get_instance();
 ?>
+<?php $this->start('title') ?>
+<title>Inicia sesión</title>
+<?php $this->stop() ?>
 
 <?php $this->start('css_p') ?>
 <?php $this->stop() ?>
@@ -103,7 +106,7 @@ $CI =& get_instance();
 
                             <?php echo form_close(); ?>
 
-                            <p><a href="forgot_password"><?php echo lang('login_forgot_password'); ?></a></p>
+                            <p><a href="forgot_password" class="btn   text-center red darken-4 waves-effect waves-light col s12"><?php echo lang('login_forgot_password'); ?></a></p>
 
 
                         </div>

@@ -111,17 +111,17 @@ $CI =& get_instance();
                                                 </div>
                                                 <div class="card-tabs">
                                                     <ul class="tabs tabs-fixed-width">
-                                                        <li class="tab"><a href="#test4">Ver</a></li>
-                                                        <li class="tab"><a class="active" href="#test5">Editar</a></li>
-                                                        <li class="tab"><a href="#test6">Fotos</a></li>
+                                                        <li class="tab"><a href="#<?php echo $carro->id_carro.'_ver' ?>">Ver</a></li>
+                                                        <li class="tab"><a class="active" href="#<?php echo $carro->id_carro.'_editar' ?>">Editar</a></li>
+                                                        <li class="tab"><a href="#<?php echo $carro->id_carro.'_fotos' ?>">Fotos</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="card-content grey lighten-4">
-                                                    <div id="test4">
+                                                    <div id="<?php echo $carro->id_carro.'_ver' ?>">
                                                         <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro->id_carro ?>"
                                                            class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">ver</a>
                                                     </div>
-                                                    <div id="test5">
+                                                    <div id="<?php echo $carro->id_carro.'_editar' ?>">
                                                         <a href="<?php echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro ?>" class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">
                                                             Editar precio
                                                         </a>
@@ -129,7 +129,7 @@ $CI =& get_instance();
                                                             Dar de baja
                                                         </a>
                                                     </div>
-                                                    <div id="test6">
+                                                    <div id="<?php echo $carro->id_carro.'_fotos' ?>">
                                                         <div class="card-panel  lighten-2">
                                                             <p>NOTA: Al modificar la imágenes del vehiculo pasará de nuevo por revisión</p>
                                                         </div>

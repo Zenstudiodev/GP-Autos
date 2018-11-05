@@ -38,7 +38,7 @@
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class=""><a href="<?php echo base_url()?>admin/vehiculos"><i class="icon-ok"></i> Carros activos</a></li>
                                 <li role="presentation" class="active"><a href="<?php echo base_url()?>/admin/carros_de_baja"><i class="icon-remove"></i> Carros Inactivos</a></li>
-                                <?php if($rol != 'predio'){?>
+                                <?php if($rol == 'developer' || $rol == 'gerente' || $rol == 'editor' || $rol == 'marketing'){?>
                                 <li role="presentation" class="active"><a href="<?php echo base_url()?>/admin/renovaciones_carros"><i class="icon-remove"></i> Renovaciones</a></li>
                                 <?php }?>
                             </ul>

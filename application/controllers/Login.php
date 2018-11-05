@@ -72,7 +72,7 @@ class Login extends Base_Controller
 					);
 					// Add user data in session
 					$this->session->set_userdata('logged_in', $session_data);
-					redirect('admin');
+					redirect(base_url().'admin');
 				}
 			}
 			else
@@ -134,6 +134,6 @@ class Login extends Base_Controller
 		);
 		$this->session->unset_userdata('logged_in', $sess_array);
 		$data['message_display'] = 'Successfully Logout';
-		redirect('login', 'refresh');
+		redirect(base_url().'login', 'refresh');
 	}
 }

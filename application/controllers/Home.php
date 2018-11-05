@@ -265,7 +265,7 @@ class Home extends Base_Controller
 
         //pagination
         $config = array();
-        $config["base_url"] = base_url() . "index.php/home/test_filtro/" . $data['s_predio'] . '/' . $data['s_ubicacion'] . '/' . $data['s_tipo'] . '/' . $data['s_marca'] . '/' . $data['s_linea'] . '/' . $data['s_transmision'] . '/' . $data['s_combustible'] . '/' . $data['s_origen'] . '/' . $data['s_moneda'] . '/' . $data['s_precio'] . '/' . $data['s_modelo'];
+        $config["base_url"] = base_url() . "home/test_filtro/" . $data['s_predio'] . '/' . $data['s_ubicacion'] . '/' . $data['s_tipo'] . '/' . $data['s_marca'] . '/' . $data['s_linea'] . '/' . $data['s_transmision'] . '/' . $data['s_combustible'] . '/' . $data['s_origen'] . '/' . $data['s_moneda'] . '/' . $data['s_precio'] . '/' . $data['s_modelo'];
         $config["total_rows"] = $data['numero_resultados'];
         $config["per_page"] = 20;
         $config["uri_segment"] = 14;

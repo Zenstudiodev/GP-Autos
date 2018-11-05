@@ -19,8 +19,8 @@
 
 //UBICACION
 $ubicacion_carro_select = array(
-    'name' => 'ubicacion_carro',
-    'id' => 'ubicacion_carro',
+    'name' => 'ubicacion_anuncio',
+    'id' => 'ubicacion_anuncio',
     'class' => 'validate',
     'required' => 'required'
 );
@@ -81,7 +81,8 @@ $precio_individual = $parametros[2];
                     <div class="card">
                         <div class="card-content">
 
-                            <form method="post">
+                            <form method="post" action="<?php echo base_url() ?>cliente/forma_pago"
+                                  id="seleccion_anuncio">
                                 <div class="row">
                                     <div class="input-field col s12 m12">
                                         <!--UBICACIÓN-->
@@ -90,12 +91,12 @@ $precio_individual = $parametros[2];
                                     </div>
                                 </div>
                                 <div id="row">
-                                    <table class="striped">
+                                    <table class="striped table-bordes">
                                         <thead>
                                         <tr>
                                             <td>Caracteristicas</td>
-                                            <td>Individual</td>
-                                            <td>VIP</td>
+                                            <td class="t_individual">Individual</td>
+                                            <td class="t_vip">VIP</td>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -108,9 +109,11 @@ $precio_individual = $parametros[2];
                                                     help_outline
                                                 </i>
                                             </td>
-                                            <td><i class="material-icons">check</i>
+                                            <td class="t_individual"><i
+                                                        class="material-icons light-green-text accent-4">check</i>
                                             </td>
-                                            <td><i class="material-icons">check</i></td>
+                                            <td class="t_vip"><i
+                                                        class="material-icons light-green-text accent-4">check</i></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -121,9 +124,11 @@ $precio_individual = $parametros[2];
                                                     help_outline
                                                 </i>
                                             </td>
-                                            <td><i class="material-icons">check</i>
+                                            <td class="t_individual"><i
+                                                        class="material-icons light-green-text accent-4">check</i>
                                             </td>
-                                            <td><i class="material-icons">check</i></td>
+                                            <td class="t_vip"><i
+                                                        class="material-icons light-green-text accent-4">check</i></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -134,9 +139,11 @@ $precio_individual = $parametros[2];
                                                     help_outline
                                                 </i>
                                             </td>
-                                            <td><i class="material-icons">check</i>
+                                            <td class="t_individual"><i
+                                                        class="material-icons light-green-text accent-4">check</i>
                                             </td>
-                                            <td><i class="material-icons">check</i></td>
+                                            <td class="t_vip"><i
+                                                        class="material-icons light-green-text accent-4">check</i></td>
                                         </tr>
                                         <tr>
                                             <td>Facebook
@@ -146,9 +153,11 @@ $precio_individual = $parametros[2];
                                                     help_outline
                                                 </i>
                                             </td>
-                                            <td><i class="material-icons">check</i>
+                                            <td class="t_individual"><i
+                                                        class="material-icons red-text accent-4">close</i>
                                             </td>
-                                            <td><i class="material-icons">check</i></td>
+                                            <td class="t_vip"><i
+                                                        class="material-icons light-green-text accent-4">check</i></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -159,9 +168,10 @@ $precio_individual = $parametros[2];
                                                     help_outline
                                                 </i>
                                             </td>
-                                            <td><i class="material-icons">close</i>
+                                            <td class="t_individual"><i
+                                                        class="material-icons red-text accent-4">close</i>
                                             </td>
-                                            <td>5 %</td>
+                                            <td class="t_vip">5 %</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -172,8 +182,8 @@ $precio_individual = $parametros[2];
                                                     help_outline
                                                 </i>
                                             </td>
-                                            <td>Directo</td>
-                                            <td>Bajo cita</td>
+                                            <td class="t_individual">Directo</td>
+                                            <td class="t_vip">Bajo cita</td>
                                         </tr>
                                         <tr>
                                             <td>Mailing
@@ -183,8 +193,10 @@ $precio_individual = $parametros[2];
                                                     help_outline
                                                 </i>
                                             </td>
-                                            <td><i class="material-icons">close</i></td>
-                                            <td><i class="material-icons">check</i></td>
+                                            <td class="t_individual"><i
+                                                        class="material-icons red-text accent-4">close</i></td>
+                                            <td class="t_vip"><i
+                                                        class="material-icons light-green-text accent-4">check</i></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -195,24 +207,67 @@ $precio_individual = $parametros[2];
                                                     help_outline
                                                 </i>
                                             </td>
-                                            <td><i class="material-icons">close</i></td>
-                                            <td><i class="material-icons">check</i></td>
+                                            <td class="t_individual"><i
+                                                        class="material-icons red-text accent-4">close</i></td>
+                                            <td class="t_vip"><i
+                                                        class="material-icons light-green-text accent-4">check</i></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 Precio
                                             </td>
-                                            <td>
+                                            <td class="t_individual">
                                                 Q.<?php echo display_formato_dinero_return($precio_individual->parametro_valor); ?></td>
-                                            <td>
+                                            <td class="t_vip">
                                                 Q.<?php echo display_formato_dinero_return($precio_vip->parametro_valor); ?></td>
                                         </tr>
+                                        <tr class="grey darken-2 white-text">
+                                            <td>Seleccione opción</td>
+                                            <td class="t_individual"><input name="tipo_anuncio" type="radio"
+                                                                            id="anuncio_individual" class="validate"
+                                                                            value="individual" required/>
+                                                <label for="anuncio_individual"
+                                                       class="seleccion_anuncio_radio_label va"></label></td>
+                                            <td class="t_vip"><input name="tipo_anuncio" type="radio" id="anuncio_vip"
+                                                                     value="vip" required/>
+                                                <label for="anuncio_vip" class="seleccion_anuncio_radio_label"></label>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                    <table class="striped table-bordes">
+                                        <thead>
                                         <tr>
+                                            <td>Pedido</td>
+                                            <td>Total</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                Anuncio: <span id="anuncio_nombre"></span>
+                                            </td>
+                                            <td>
+                                                <span id="anuncio_precio"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="feria_check" name="feria_check" value="feria_si" />
+                                                <label for="feria_check">Feria</label></td>
                                             <td></td>
-                                            <td><input name="group1" type="radio" id="test1"/>
-                                                <label for="test1"></label></td>
-                                            <td><input name="group1" type="radio" id="test2"/>
-                                                <label for="test2"></label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="facebook_check" name="facebook_check" value="facebook_si" />
+                                                <label for="facebook_check">15 dias facebook</label></td>
+                                                </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total a pagar:</td>
+                                            <td></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -220,7 +275,7 @@ $precio_individual = $parametros[2];
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m12">
-                                        <button type="submit" class="btn btn-success">FOrma de pago</button>
+                                        <button type="submit" class="btn btn-success">Forma de pago</button>
                                     </div>
                                 </div>
                             </form>
@@ -238,6 +293,52 @@ $precio_individual = $parametros[2];
 <!-- JS personalizado -->
 <?php $this->start('js_p') ?>
 <script>
+    var ubicacion;
+    var tipo_anuncio;
+    var precio_anuncio;
+    var precio_individual;
+    var precio_vip;
+    var feria;
+    var precio_feria;
+    var facebook;
+    var precio_facebook;
+
+    precio_individual = <?php echo display_formato_dinero_return($precio_individual->parametro_valor); ?>;
+    precio_vip = <?php echo display_formato_dinero_return($precio_vip->parametro_valor); ?>;
+
+    $("#seleccion_anuncio").on('change', function () {
+        // ubicación
+        ubicacion = $("#ubicacion_anuncio").val();
+        if (ubicacion == 'GUATEMALA') {
+            $(".t_vip").show();
+        } else {
+            $(".t_vip").hide();
+        }
+        //anuncio seleccionado
+        tipo_anuncio = $("input[name='tipo_anuncio']:checked").val();
+
+        if(tipo_anuncio){
+            if(tipo_anuncio =='individual'){
+                precio_anuncio = precio_individual;
+            }
+            if(tipo_anuncio == 'vip'){
+                precio_anuncio = precio_vip;
+            }
+            $("#anuncio_precio").html(precio_anuncio);
+            $("#anuncio_nombre").html(tipo_anuncio);
+        }
+        //feria
+        feria = $("#feria_check:checked").val();
+        if(feria){
+            console.log(feria);
+        }
+        //facebook
+        facebook =$("#facebook_check:checked").val();
+        if(facebook){
+            console.log(facebook);
+        }
+
+    });
     $(document).ready(function () {
         $('select').material_select();
         $('.tooltipped').tooltip({delay: 50});

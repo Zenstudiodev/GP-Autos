@@ -6,7 +6,7 @@
  * Time: 7:12 PM
  */
 ?>
-<?php $this->layout('public/public_master_test', [
+<?php $this->layout('public/public_master_cliente', [
     'header_banners' => $header_banners,
     'predios' => $predios,
     'tipos' => $tipos,
@@ -17,7 +17,6 @@
     'combustibles' => $combustibles,
 ]);
 
-$carro = $carro->row();
 
 
 ?>
@@ -48,11 +47,11 @@ $carro = $carro->row();
                         <div class="col s12 m12">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="web/images_cont/<?php echo $carro->id_carro?> (1).jpg">
+
 
                                 </div>
                                 <div class="card-content">
-                                    <span class="card-title"><?php echo $carro->id_marca . ' - ' . $carro->id_linea . ' - ' . $carro->crr_modelo ?></span>
+                                    <span class="card-title"></span>
                                     <p>Seleccione el método de pago que desea usar para este anuncio.</p>
                                 </div>
                             </div>
@@ -61,40 +60,35 @@ $carro = $carro->row();
                 </div>
                 <div class="col m9">
                     <h5>Metodos de pago</h5>
+                    <form id="Metodo_pago" method="post" action="<?php echo base_url()?>cliente/datos_pago">
                     <ul class="collection">
-                       <!-- <li class="collection-item avatar">
-                            <a href="<?php /*echo base_url() . 'cliente/pago_tarjeta/' . $carro->id_carro */?>">
-                                <i class="material-icons circle green">credit_card</i>
-                                <span class="title">Pago con tarjeta</span>
-                                <p>Pago con tarjeta de crédito o débito (Visa Master Card) </p>
-                                <span class="secondary-content"><i class="material-icons">send</i></span>
-                            </a>
-                        </li>
                         <li class="collection-item avatar">
-                            <a href="<?php echo base_url() . 'cliente/pago_en_linea/' . $carro->id_carro ?>">
-                                <i class="material-icons circle green">account_balance</i>
-                                <span class="title">Pago en línea</span>
-                                <p>Pago desde la banca en linea de su banco</p>
-                                <span class="secondary-content"><i class="material-icons">send</i></span>
-                            </a>
-                        </li>-->
-                        <li class="collection-item avatar">
-                            <a href="<?php echo base_url() . 'cliente/pago_deposito/' . $carro->id_carro ?>">
                                 <i class="material-icons circle green">attach_money</i>
                                 <span class="title">Depósito</span>
-                                <p>Efectivo o depósito </p>
-                                <span class="secondary-content"><i class="material-icons">send</i></span>
-                            </a>
+                                <p>Deposito a cuentas bancarias Bi o GyT  </p>
+                                <span class="secondary-content">
+                                    <input name="forma_pago" type="radio" id="pago_deposito" value="pago_deposito"/>
+                                <label for="pago_deposito"></label>
+                                </span>
                         </li>
                         <li class="collection-item avatar">
-                            <a href="<?php echo base_url() . 'cliente/pago_efectivo/' . $carro->id_carro ?>">
+
                                 <i class="material-icons circle green">attach_money</i>
                                 <span class="title">Efectivo</span>
-                                <p>Efectivo o depósito </p>
-                                <span class="secondary-content"><i class="material-icons">send</i></span>
-                            </a>
+                                <p>Se llegara a hacer el cobro a su ubicación</p>
+                                <p>O pagara en las oficinas de Gp Autos</p>
+                                <span class="secondary-content">
+                                    <input name="forma_pago" type="radio" id="pago_efectivo" value="pago_efectivo"/>
+                                <label for="pago_efectivo"></label>
+                                </span>
+                        </li>
+                        <li class="collection-item">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Seleccionar
+                                <i class="material-icons right">send</i>
+                            </button>
                         </li>
                     </ul>
+                    </form>
                 </div>
             </div>
         </div>

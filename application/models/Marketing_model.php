@@ -25,7 +25,7 @@ class Marketing_model extends CI_Model
             'bt_tipo' => $data['tipo_carro'],
             'bt_marca' => $data['marca'],
             'bt_linea' => $data['linea'],
-            'bt_modelo' => $data['tipo_carro'],
+            'bt_modelo' => $data['modelo'],
             'bt_user_id' => $data['user_id'],
         );
         $this->db->insert('bolsa_telefonos', $datos);

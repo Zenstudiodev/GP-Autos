@@ -12,6 +12,16 @@
     padding: 25px;
 }
 
+/*Botones
+.btn, .btn-large {
+    background-color: #2d2d2d;
+}
+.btn:hover, .btn-large:hover {
+    background-color: #ffffff;
+}
+.btn:focus, .btn-large:focus, .btn-floating:focus {
+    background-color: #ffffff;
+}*/
 
 /*BUSCADOR*/
 #ubicacion_carro{
@@ -326,13 +336,16 @@ i.small {
 }
 
 a.wts_btn {
-    background-color: #25D366;
+    background-color: #4fca5d;
     color: #fff;
-    padding: 3px;
+    padding: 13px;
     margin: 0;
     width: 100%;
+    height: 64px;
     display: block;
     text-align: center;
+    border-radius: 31px;
+    line-height: 1rem;
 }
 
 div#homeSearchBox {
@@ -359,6 +372,23 @@ div#homeSearchBox {
     }
 }
 
+/*SELECCION DE ANUNCIO*/
+.table-bordes{
+
+}
+.table-bordes td, th {
+    padding: 4px 5px;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+.t_vip, .t_individual{
+    text-align: center;
+}
+
+.seleccion_anuncio_radio_label:before {
+    border: 2px solid #ffffff !important;
+}
 /*Subir imagenenes*/
 .upl_card label:hover {
     cursor: pointer;
@@ -413,9 +443,14 @@ div#jivo-iframe-container:not(.jivo-c-mobile){
 /*Feria*/
 div#feria {
     background: url(/ui/public/images/feria/feria_bg.jpg);
-    background-size: cover;
+    background-size: auto;
 }
-
+.titulo_feria{
+    color: #ffffff;
+    background: #01649f;
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+}
 .ribbon {
     position: absolute !important;
     width: 36%!important;
@@ -424,22 +459,28 @@ div#feria {
     z-index: 2 !important;
 }
 div#getting-started {
-    color: #459201;
+    color: #fff;
     font-size: 2.5rem;
     font-weight: bold;
     font-family: 'Source Code Pro', monospace;
     text-transform: uppercase;
 }
 #feria_countDown {
-    color: #459201;
+    color: #fff;
     font-size: 1.2rem;
     font-weight: bold;
     font-family: 'Source Code Pro', monospace;
     text-transform: uppercase;
-    background: black;
+    background: #2b76b9;
     text-align: center;
     border-radius: 21px;
     padding: 9px;
+}
+.salir_feria_btn{
+    height: 59px;
+    width: 100%;
+    line-height: 60px;
+    margin-top: 20px;
 }
 
 /*Vista de carro feria*/

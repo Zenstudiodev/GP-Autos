@@ -20,7 +20,7 @@
 $carro = $carro->row();
 
 
-//>Boleta
+//Boleta
 $boleta = array(
     'type' => 'text',
     'name' => 'boleta',
@@ -102,8 +102,6 @@ $banco_options = array(
                                 <div class="row">
                                     <div class="card-panel orange darken-1">
                                         <div class="row borde_blanco">
-
-
                                             <h3 class="white-text text-center">
                                                 Cuentas disponibles para depósito
                                             </h3>

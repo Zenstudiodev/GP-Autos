@@ -335,11 +335,14 @@ $t4x4_n = array(
                     <a href="<?php echo base_url() ?>Contacto" class="collection-item black-text">
                         Contacto <i class="material-icons  secondary-content orange-text darken-3">email</i>
                     </a>
-
-
                 </div>
-
-
+                <!--CONTDOWN -->
+                <div id="feria_countDown">
+                    <div id="feria_cd_tittle">
+                        La gran feria virtual termina en
+                    </div>
+                    <div id="getting-started"></div>
+                </div>
             </div>
             <div class="col s12 m8">
                 <section id="banner">
@@ -658,6 +661,7 @@ $t4x4_n = array(
 <script type="text/javascript" src="<?php echo base_url() ?>ui/public/js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>ui/public/js/camera.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>ui/public/js/jquery.scrollTo.min.js"></script>
+<script src="/bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
 
 <!--Banners-->
 <!--<script type="text/javascript" src="<?php echo base_url() ?>/ui/public/js/banners_cont.js"></script>-->
@@ -667,7 +671,14 @@ $t4x4_n = array(
 -->
 <!-- JS personalizado -->
 <?php echo $this->section('js_p') ?>
-
+<script type="text/javascript">
+    $("#getting-started")
+        .countdown("2018/11/29", function (event) {
+            $(this).text(
+                event.strftime('%D días %H:%M:%S')
+            );
+        });
+</script>
 <!-- JS personalizado -->
 <script>
     var filtro_predio;
@@ -812,8 +823,7 @@ $t4x4_n = array(
             dataType: 'json',
             url: '<?php echo base_url()?>Carro/marcas?tipo=' + filtro_tipo,
             success: function (data) {
-
-
+                $('#marca_carro option').remove();
                 $('#marca_carro').append('<option value="TODOS">TODOS</option>');
                 $.each(data, function (key, value) {
                     $('#marca_carro').append('<option value="' + value.id_marca + '">' + value.id_marca + '</option>');
@@ -898,8 +908,6 @@ $t4x4_n = array(
         //console.log('cambio de tipo');
         $("#loading_marca_filter").show();
         $('#marca_carro option').remove();
-
-
         filtro_tipo = $("#tipo_carro").val();
         // console.log(filtro_tipo);
         var options;
@@ -937,6 +945,7 @@ $t4x4_n = array(
                 dataType: 'json',
                 url: '<?php echo base_url()?>Carro/lineas?tipo=' + tipo + '&marca=' + marca,
                 success: function (data) {
+                    $('#linea_carro option').remove();
                     $('#linea_carro').append('<option value="TODOS">TODOS</option>');
                     $.each(data, function (key, value) {
                         linea_options += '<option value="' + value.id_linea + '">' + value.id_linea + '</option>';

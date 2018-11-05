@@ -39,7 +39,7 @@ $CI =& get_instance();
             <!--row para incluir buscador-->
             <div class="row">
                 <div class="col m12 s12">
-                    <h1 class="texto_naranja">Feria Virtual</h1>
+                    <h1 class="titulo_feria">Feria Virtual -G&T Continental- </h1>
                     <div class="row">
                         <?php
                         $cardCount = 0;
@@ -63,18 +63,18 @@ $CI =& get_instance();
                                             <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>">
 
                                                 <img class="activator"
-                                                     src="<?php echo 'http://www.gpautos.net//web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
+                                                     src="<?php echo 'https://www.gpautos.net//web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="card-content">
-                                        <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>">
+                                        <a href="<?php echo base_url() . 'Carro/ver_feria/' . $carro->id_carro ?>">
                                             <span class="card-title  grey-text text-darken-4"><?php echo substr($carro->id_marca, 0, 9); ?></span>
                                         </a>
                                         <p>
                                             <?php echo substr($carro->id_linea, 0, 12); ?>
                                             - <?php echo $carro->crr_modelo ?><br>
-                                            <a href="<?php echo base_url() . 'index.php/Carro/ver_feria/' . $carro->id_carro ?>"
+                                            <a href="<?php echo base_url() . 'Carro/ver_feria/' . $carro->id_carro ?>"
                                                class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">ver</a>
                                         </p>
                                     </div>
