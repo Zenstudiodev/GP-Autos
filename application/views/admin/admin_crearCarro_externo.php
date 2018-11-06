@@ -64,8 +64,6 @@ $estado_select_options = array(
     "Alta" => "Alta",
     "Baja" => "Baja",
 );
-
-
 //TIPO
 $tipo_carro_select = array(
     'name' => 'tipo_carro',
@@ -77,7 +75,6 @@ $tipo_carro_select_options = array();
 foreach ($tipos->result() as $tipo_carro) {
     $tipo_carro_select_options[$tipo_carro->id_tipo_carro] = $tipo_carro->id_tipo_carro;
 }
-
 //MARCA
 $marca_carro_select = array(
     'name' => 'marca_carro',
@@ -89,7 +86,6 @@ $marca_carro_select_options = array();
 foreach ($marca->result() as $marca_carro) {
     $marca_carro_select_options[$marca_carro->nombre] = $marca_carro->nombre;
 }
-
 //UBICACION
 $ubicacion_carro_select = array(
     'name' => 'ubicacion_carro',
@@ -121,7 +117,6 @@ $ubicacion_carro_select_options = array(
     "TOTONICAPÁN" => "TOTONICAPÁN",
     "ZACAPA" => "ZACAPA"
 );
-
 //LINEA
 $linea_carro_select = array(
     'name' => 'linea_carro',
@@ -135,7 +130,6 @@ if ($linea) {
         $linea_carro_select_options[$linea_carro->id_linea] = $linea_carro->id_linea;
     }
 }
-
 //Moneda
 $moneda_carro_select = array(
     'name' => 'moneda_carro',
@@ -147,7 +141,6 @@ $moneda_carro_select_options = array(
     '$' => '$',
     'Q' => 'Q'
 );
-
 //Precio
 $precio = array(
     'type' => 'number',
@@ -159,8 +152,6 @@ $precio = array(
     //'value'       => $carro->crr_precio,
     'required' => 'required'
 );
-
-
 //Otros
 $otros = array(
     'type' => 'text',
@@ -170,7 +161,6 @@ $otros = array(
     'maxlength' => '380',
     //'value'     => $carro->crr_otros,
 );
-
 $modelo = array(
     'type' => 'text',
     'name' => 'modelo',
@@ -180,7 +170,6 @@ $modelo = array(
     //'value'       => $carro->crr_modelo,
     'required' => 'required'
 );
-
 //ORIGEN
 $origen_carro_select = array(
     'name' => 'origen_carro',
@@ -203,7 +192,6 @@ $combustible_carro_select_options = array();
 foreach ($combustibles->result() as $combustible) {
     $combustible_carro_select_options[$combustible->nombre] = $combustible->nombre;
 }
-
 //cilindros
 $cilindros = array(
     'type' => 'text',
@@ -224,7 +212,6 @@ $color = array(
     'value' => $carro->crr_color,
     'required' => 'required'
 );
-
 $ac_s = array(
     'name' => 'ac',
     'id' => 'ac_s',
@@ -238,7 +225,6 @@ $ac_n = array(
     'value' => 'no',
     'checked' => false,
 );
-
 $alarma_s = array(
     'name' => 'alarma',
     'id' => 'alarma_s',
@@ -252,7 +238,6 @@ $alarma_n = array(
     'value' => 'no',
     'checked' => false,
 );
-
 $aros_m_s = array(
     'name' => 'aros_m',
     'id' => 'aros_m_s',
@@ -266,7 +251,6 @@ $aros_m_n = array(
     'value' => 'no',
     'checked' => false,
 );
-
 $cerradura_c_s = array(
     'name' => 'cerradura_c',
     'id' => 'cerradura_c_s',
@@ -280,7 +264,6 @@ $cerradura_c_n = array(
     'value' => 'no',
     'checked' => false,
 );
-
 $bolsa_aire_s = array(
     'name' => 'bolsa_aire',
     'id' => 'bolsa_aire_s',
@@ -294,7 +277,6 @@ $bolsa_aire_n = array(
     'value' => 'no',
     'checked' => false,
 );
-
 $platos_s = array(
     'name' => 'platos',
     'id' => 'platos_s',
@@ -308,7 +290,6 @@ $platos_n = array(
     'value' => 'no',
     'checked' => false,
 );
-
 $polarizado_s = array(
     'name' => 'polarizado',
     'id' => 'polarizado_s',
@@ -322,7 +303,6 @@ $polarizado_n = array(
     'value' => 'no',
     'checked' => false,
 );
-
 $sun_roof_s = array(
     'name' => 'sun_roof',
     'id' => 'sun_roof_s',
@@ -630,9 +610,6 @@ $banco = array(
             <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
-
-
-
                         <h5>Información del carro</h5>
                     </div>
 

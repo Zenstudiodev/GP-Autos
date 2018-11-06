@@ -22,8 +22,8 @@ class Pagos_model extends CI_Model
             'carro_id'=>$data['carro_id'],
             'metodo'=>$data['metodo'],
             'monto'=>$data['monto_pago'],
-            'direccion'=>$data['direccion'],
-            'telefono'=>$data['telefono'],
+            'banco'=>$data['banco'],
+            'boleta'=>$data['boleta'],
         );
         $this->db->insert('pago_anuncio', $datos_pago);
     }

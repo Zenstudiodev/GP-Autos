@@ -380,7 +380,7 @@ $carro = $carro->row();
                             </div>
                             <div class="row">
                                 <a class=" btn orange darken-1"
-                                   href="<?php echo base_url() . 'admin/vehiculos/'?>">Publicar anuncio</a>
+                                   href="<?php echo base_url() . 'admin/'?>">Inicio</a>
                             </div>
 
                             <!--Materialize modal-->

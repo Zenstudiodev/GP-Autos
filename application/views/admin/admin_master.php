@@ -76,7 +76,9 @@
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
             <li><a href="<?php echo base_url()?>admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
-
+        <?php }?>
+        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
+            <li><a href="<?php echo base_url()?>admin/crear_carro_asesor"><i class="icon icon-signal"></i> <span>Subir carro (asesor)</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
             <li><a href="<?php echo base_url()?>marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a> </li>
