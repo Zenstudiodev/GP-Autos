@@ -67,6 +67,8 @@ class Admin extends Base_Controller
             'carros_bolsa' => $this->input->post('carros_bolsa'),
             'precio_vip' => $this->input->post('precio_vip'),
             'precio_individual' => $this->input->post('precio_individual'),
+            'precio_feria' => $this->input->post('precio_feria'),
+            'precio_facebook' => $this->input->post('precio_facebook'),
         );
 
         $this->Admin_model->actualizar_parametros($post_data);

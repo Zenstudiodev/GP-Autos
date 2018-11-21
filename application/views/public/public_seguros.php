@@ -167,7 +167,7 @@ $this->layout('public/public_master', [
                                         <div class="input-field col m6 s12">
                                             <select name="aseguradora" id="aseguradora" required>
                                                 <option>Seleccione aseguradora</option>
-                                                <!--<option value="gyt">Gyt Continental</option>-->
+                                                <option value="gyt" selected="selected">SEGUROS GYT</option>
                                                 <option value="roble">El Roble</option>
                                             </select>
                                             <label>Nombre</label>

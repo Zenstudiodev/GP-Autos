@@ -1174,7 +1174,6 @@ class Carros_model extends CI_Model
 
         $this->db->where('predio_user_id', $user_id);
         $this->db->where('crr_estatus', 'Alta');
-
         $query = $this->db->get('carro');
         if ($query->num_rows() > 0) return $query->num_rows();
         else return 0;

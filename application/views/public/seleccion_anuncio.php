@@ -52,6 +52,8 @@ $ubicacion_carro_select_options = array(
 $parametros = $parametros->result();
 $precio_vip = $parametros[1];
 $precio_individual = $parametros[2];
+$precio_feria = $parametros[3];
+$precio_facebook = $parametros[4];
 
 
 ?>
@@ -256,18 +258,18 @@ $precio_individual = $parametros[2];
                                             <td>
                                                 <input type="checkbox" id="feria_check" name="feria_check" value="feria_si" />
                                                 <label for="feria_check">Feria</label></td>
-                                            <td></td>
+                                            <td><span id="anuncio_precio_feria"></span></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="facebook_check" name="facebook_check" value="facebook_si" />
                                                 <label for="facebook_check">15 dias facebook</label></td>
                                                 </td>
-                                            <td></td>
+                                            <td><span id="anuncio_precio_facebook"></span></td>
                                         </tr>
                                         <tr>
                                             <td>Total a pagar:</td>
-                                            <td></td>
+                                            <td><span id="total_a_pagar"></span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -302,11 +304,22 @@ $precio_individual = $parametros[2];
     var precio_feria;
     var facebook;
     var precio_facebook;
+    var total_a_pagar;
 
     precio_individual = <?php echo display_formato_dinero_return($precio_individual->parametro_valor); ?>;
     precio_vip = <?php echo display_formato_dinero_return($precio_vip->parametro_valor); ?>;
+    precio_feria = <?php echo display_formato_dinero_return($precio_feria->parametro_valor); ?>;
+    precio_facebook = <?php echo display_formato_dinero_return($precio_facebook->parametro_valor); ?>;
 
     $("#seleccion_anuncio").on('change', function () {
+        //reset total a pagar
+        total_a_pagar = 0;
+        //reset precios facebook y feria
+        $("#anuncio_precio_feria").html('');
+        $("#anuncio_precio_facebook").html('');
+
+
+
         // ubicación
         ubicacion = $("#ubicacion_anuncio").val();
         if (ubicacion == 'GUATEMALA') {
@@ -326,17 +339,26 @@ $precio_individual = $parametros[2];
             }
             $("#anuncio_precio").html(precio_anuncio);
             $("#anuncio_nombre").html(tipo_anuncio);
+            total_a_pagar = total_a_pagar + precio_anuncio;
         }
         //feria
         feria = $("#feria_check:checked").val();
         if(feria){
             console.log(feria);
+            total_a_pagar = total_a_pagar + precio_feria;
+            $("#anuncio_precio_feria").html(precio_feria);
         }
         //facebook
         facebook =$("#facebook_check:checked").val();
         if(facebook){
             console.log(facebook);
+            total_a_pagar = total_a_pagar + precio_facebook;
+            $("#anuncio_precio_facebook").html(precio_facebook);
         }
+
+        $("#total_a_pagar").html(total_a_pagar);
+
+
 
     });
     $(document).ready(function () {

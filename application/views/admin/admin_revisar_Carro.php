@@ -82,8 +82,12 @@ if($usuario){
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td>Código</td>
-                                                    <td><?php echo $carro->id_carro ?></td>
+                                                    <td>Id Cliente</td>
+                                                    <td><?php echo $carro->user_id ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Id Cliente predio</td>
+                                                    <td><a href="<?php echo base_url().'admin/editar_usuario/'.$carro->predio_user_id?>" target="_blank"><?php echo $carro->predio_user_id ?></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Fecha de creación</td>

@@ -43,6 +43,7 @@ $tipo_resultado_select = array(
 $tipo_resultado_select_options = array(
     "llamada" => "llamada",
     "publicar" => "publicar",
+    "publicado" => "publicado",
     "no_interesado" => "No Interesado",
 );
 

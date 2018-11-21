@@ -25,6 +25,7 @@ class Cliente extends Base_Controller
 
         $this->lang->load('auth');
     }
+
     public function registro()
     {
         $data = cargar_componentes_buscador();
@@ -128,6 +129,7 @@ class Cliente extends Base_Controller
 
 
     }
+
     public function login()
     {
         $data = cargar_componentes_buscador();
@@ -149,7 +151,7 @@ class Cliente extends Base_Controller
                 //if the login is successful
                 //redirect them back to the home page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect(base_url().'cliente/perfil', 'refresh');
+                redirect(base_url() . 'cliente/perfil', 'refresh');
             } else {
                 // if the login was un-successful
                 // redirect them back to the login page
@@ -175,6 +177,7 @@ class Cliente extends Base_Controller
 
 
     }
+
     public function perfil()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -187,17 +190,18 @@ class Cliente extends Base_Controller
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
         $this->Cliente_model->get_cliente_data($user_id);
-        if($this->Cliente_model->get_carros_cliente($user_id)){
-            $data['carros']=$this->Cliente_model->get_carros_cliente($user_id);
-        }else{
-            $data['carros']=false;
+        if ($this->Cliente_model->get_carros_cliente($user_id)) {
+            $data['carros'] = $this->Cliente_model->get_carros_cliente($user_id);
+        } else {
+            $data['carros'] = false;
         }
         //$data['carros']=
 
         echo $this->templates->render('public/perfil', $data);
     }
 
-    public function seleccion_anuncio(){
+    public function seleccion_anuncio()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -211,7 +215,9 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/seleccion_anuncio', $data);
     }
-    public function forma_pago(){
+
+    public function forma_pago()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -224,8 +230,10 @@ class Cliente extends Base_Controller
 
 
         $datos_anuncio = array(
-            'ubicacion_carro'  => $this->input->post('ubicacion_carro'),
-            'tipo_anuncio'     => $this->input->post('tipo_anuncio'),
+            'ubicacion_anuncio' => $this->input->post('ubicacion_anuncio'),
+            'tipo_anuncio' => $this->input->post('tipo_anuncio'),
+            'feria' => $this->input->post('feria_check'),
+            'facebook' => $this->input->post('facebook_check'),
         );
 
         $this->session->set_userdata($datos_anuncio);
@@ -237,7 +245,9 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/forma_pago', $data);
 
     }
-    public function datos_pago(){
+
+    public function datos_pago()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -246,7 +256,7 @@ class Cliente extends Base_Controller
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $datos_anuncio = array(
-            'forma_pago'  => $this->input->post('forma_pago'),
+            'forma_pago' => $this->input->post('forma_pago'),
         );
         $this->session->set_userdata($datos_anuncio);
         echo $this->session->forma_pago;
@@ -257,6 +267,7 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/datos_pago', $data);
     }
+
     public function publicar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -281,7 +292,9 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/publicar_carro', $data);
 
     }
-    public function editar_carro(){
+
+    public function editar_carro()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -305,6 +318,7 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/editar_carro', $data);
     }
+
     public function guardar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -387,6 +401,7 @@ class Cliente extends Base_Controller
 
 
     }
+
     public function guardar_editar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -469,7 +484,9 @@ class Cliente extends Base_Controller
 
 
     }
-    public function dar_de_baja(){
+
+    public function dar_de_baja()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -480,6 +497,7 @@ class Cliente extends Base_Controller
         $this->Carros_model->public_dar_de_baja($data['carro_id']);
         redirect('cliente/perfil/');
     }
+
     public function subir_fotos()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -491,7 +509,7 @@ class Cliente extends Base_Controller
         //carro
         $data['carro_id'] = $this->uri->segment(3);
         $data['cambio_foto'] = $this->uri->segment(4);
-        if($data['cambio_foto'] == '1'){
+        if ($data['cambio_foto'] == '1') {
             $this->Carros_model->public_pasar_a_revision_fotos($data['carro_id']);
         }
         $data['banners'] = $this->Banners_model->banneers_activos();
@@ -501,21 +519,24 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/subir_fotos', $data);
     }
+
     public function procesar_foto()
     {
-       /* echo '<pre>';
-        print_r($_FILES);
-        echo '</pre>';
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';*/
+        /* echo '<pre>';
+         print_r($_FILES);
+         echo '</pre>';
+         echo '<pre>';
+         print_r($_POST);
+         echo '</pre>';*/
         $image = file_get_contents($_FILES['imagen']['tmp_name']);
         $id_carro = $_POST['id_carro'];
-        $numero_foto =$_POST['img_number'];
+        $numero_foto = $_POST['img_number'];
 
-        file_put_contents('/home2/gpautos/public_html/web/images_cont/'.$id_carro.' ('.$numero_foto.').jpg', $image);
+        file_put_contents('/home2/gpautos/public_html/web/images_cont/' . $id_carro . ' (' . $numero_foto . ').jpg', $image);
     }
-    public function area_pago(){
+
+    public function area_pago()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -529,10 +550,14 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/area_pago', $data);
     }
-    public function tipo_anuncio(){
+
+    public function tipo_anuncio()
+    {
 
     }
-    public function pago_anuncio(){
+
+    public function pago_anuncio()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -549,13 +574,19 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/pago_anuncio', $data);
     }
-    public function pago_tarjeta(){
+
+    public function pago_tarjeta()
+    {
 
     }
-    public function pago_en_linea(){
+
+    public function pago_en_linea()
+    {
 
     }
-    public function pago_deposito(){
+
+    public function pago_deposito()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -570,7 +601,9 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/pago_deposito', $data);
     }
-    public function pago_efectivo(){
+
+    public function pago_efectivo()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -585,7 +618,9 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/pago_efectivo', $data);
     }
-    public function guarda_pago_efectivo(){
+
+    public function guarda_pago_efectivo()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -593,18 +628,20 @@ class Cliente extends Base_Controller
         $user_id = $this->ion_auth->get_user_id();
 
         $datos_pago_efectivo = array(
-            'user_id'    => $user_id,
-            'direccion'    => $this->input->post('direccion'),
-            'telefono'    => $this->input->post('telefono'),
-            'monto'    => 175,
-            'carro_id'    => $this->input->post('carro_id'),
+            'user_id' => $user_id,
+            'direccion' => $this->input->post('direccion'),
+            'telefono' => $this->input->post('telefono'),
+            'monto' => 175,
+            'carro_id' => $this->input->post('carro_id'),
         );
         $data['banners'] = $this->Pagos_model->guardar_pago_efectivo($datos_pago_efectivo);
         //redirigimos a visanet
-        redirect(base_url() . 'Cliente/revisar_anuncio/'.$this->input->post('carro_id'));
+        redirect(base_url() . 'Cliente/revisar_anuncio/' . $this->input->post('carro_id'));
 
     }
-    public function guarda_pago_deposito(){
+
+    public function guarda_pago_deposito()
+    {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
@@ -612,18 +649,20 @@ class Cliente extends Base_Controller
         $user_id = $this->ion_auth->get_user_id();
 
         $datos_pago_efectivo = array(
-            'user_id'    => $user_id,
-            'banco'    => $this->input->post('banco'),
-            'metodo'    => 'deposito',
-            'monto'    => 125,
-            'carro_id'    => $this->input->post('carro_id'),
+            'user_id' => $user_id,
+            'banco' => $this->input->post('banco'),
+            'metodo' => 'deposito',
+            'monto' => 175,
+            'carro_id' => $this->input->post('carro_id'),
         );
         $data['banners'] = $this->Pagos_model->guardar_pago_deposito($datos_pago_efectivo);
         //redirigimos a visanet
-        redirect(base_url() . 'Cliente/revisar_anuncio/'.$this->input->post('carro_id'));
+        redirect(base_url() . 'Cliente/revisar_anuncio/' . $this->input->post('carro_id'));
 
     }
-    public function revisar_anuncio(){
+
+    public function revisar_anuncio()
+    {
 
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
@@ -641,55 +680,43 @@ class Cliente extends Base_Controller
         $data['pagos_carro'] = $this->Pagos_model->get_pagos_carro_public($data['carro_id']);
         echo $this->templates->render('public/revisar_anuncio', $data);
     }
+
     public function forgot_password()
     {
         // setting validation rules by checking whether identity is username or email
-        if ($this->config->item('identity', 'ion_auth') != 'email')
-        {
+        if ($this->config->item('identity', 'ion_auth') != 'email') {
             $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_identity_label'), 'required');
-        }
-        else
-        {
+        } else {
             $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
         }
 
 
-        if ($this->form_validation->run() === FALSE)
-        {
+        if ($this->form_validation->run() === FALSE) {
             $this->data['type'] = $this->config->item('identity', 'ion_auth');
             // setup the input
             $this->data['identity'] = array('name' => 'identity',
                 'id' => 'identity',
             );
 
-            if ($this->config->item('identity', 'ion_auth') != 'email')
-            {
+            if ($this->config->item('identity', 'ion_auth') != 'email') {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
-            }
-            else
-            {
+            } else {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
             }
 
             // set any errors and display the form
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-            echo $this->templates->render('auth/forgot_password', $this->   data);
+            echo $this->templates->render('auth/forgot_password', $this->data);
             //$this->_render_page('auth/forgot_password', $this->data);
-        }
-        else
-        {
+        } else {
             $identity_column = $this->config->item('identity', 'ion_auth');
             $identity = $this->ion_auth->where($identity_column, $this->input->post('identity'))->users()->row();
 
-            if (empty($identity))
-            {
+            if (empty($identity)) {
 
-                if ($this->config->item('identity', 'ion_auth') != 'email')
-                {
+                if ($this->config->item('identity', 'ion_auth') != 'email') {
                     $this->ion_auth->set_error('forgot_password_identity_not_found');
-                }
-                else
-                {
+                } else {
                     $this->ion_auth->set_error('forgot_password_email_not_found');
                 }
 
@@ -700,21 +727,19 @@ class Cliente extends Base_Controller
             // run the forgotten password method to email an activation code to the user
             $forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
 
-            if ($forgotten)
-            {
+            if ($forgotten) {
                 // if there were no errors
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
                 redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
-            }
-            else
-            {
+            } else {
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
                 redirect("auth/forgot_password", 'refresh');
             }
         }
     }
 
-    function correo_publicacion(){
+    function correo_publicacion()
+    {
 
         //configuracion de correo
         $config['mailtype'] = 'html';
@@ -767,8 +792,142 @@ class Cliente extends Base_Controller
         $this->email->send();
 
 
-        echo'send';
+        echo 'send';
 
+    }
+
+    public function facturar()
+    {
+
+        //--------------------------------------- DETALLE DEL PRIMER PRODUCTO -----------------------------------
+        $detalle[0]["cantidad"] = 2;
+        $detalle[0]["unidadMedida"] = "UND";
+        $detalle[0]["codigoProducto"] = "001-2011";
+        $detalle[0]["descripcionProducto"] = "Prontuario Tributario";
+        $detalle[0]["precioUnitario"] = "150";
+        $detalle[0]["montoBruto"] = "300";
+        $detalle[0]["montoDescuento"] = "0";
+        $detalle[0]["importeNetoGravado"] = "336";
+        $detalle[0]["detalleImpuestosIva"] = "36";
+        $detalle[0]["importeExento"] = "0";
+        $detalle[0]["otrosImpuestos"] = "0";
+        $detalle[0]["importeOtrosImpuestos"] = "0";
+        $detalle[0]["importeTotalOperacion"] = "336";
+        $detalle[0]["tipoProducto"] = "S";// B= BIEN, S= SERVICIO
+        //-------------------------------------------------------------------------------------------------------
+        $detalle[0]["personalizado_01"] = "N/A";
+        $detalle[0]["personalizado_02"] = "N/A";
+        $detalle[0]["personalizado_03"] = "N/A";
+        $detalle[0]["personalizado_04"] = "N/A";
+        $detalle[0]["personalizado_05"] = "N/A";
+        $detalle[0]["personalizado_06"] = "N/A";
+        //--------------------------------------- DETALLE DEL SEGUNDO PRODUCTO ----------------------------------
+        $detalle[1]["cantidad"] = 1;
+        $detalle[1]["unidadMedida"] = "UND";
+        $detalle[1]["codigoProducto"] = "002-2011";
+        $detalle[1]["descripcionProducto"] = "Membresia 6 Meses ";
+        $detalle[1]["precioUnitario"] = "1750";
+        $detalle[1]["montoBruto"] = "1750";
+        $detalle[1]["montoDescuento"] = "0";
+        $detalle[1]["importeNetoGravado"] = "1960";
+        $detalle[1]["detalleImpuestosIva"] = "210";
+        $detalle[1]["importeExento"] = "0";
+        $detalle[1]["otrosImpuestos"] = "0";
+        $detalle[1]["importeOtrosImpuestos"] = "0";
+        $detalle[1]["importeTotalOperacion"] = "1960";
+        $detalle[1]["tipoProducto"] = "B";// B= BIEN, S= SERVICIO
+        //-------------------------------------------------------------------------------------------------------
+        $detalle[1]["personalizado_01"] = "N/A";
+        $detalle[1]["personalizado_02"] = "N/A";
+        $detalle[1]["personalizado_03"] = "N/A";
+        $detalle[1]["personalizado_04"] = "N/A";
+        $detalle[1]["personalizado_05"] = "N/A";
+        $detalle[1]["personalizado_06"] = "N/A";
+
+        try {
+
+            $client = new SoapClient("https://www.ingface.net/listener/ingface?wsdl", array("exceptions" => 1));
+            $resultado = $client->registrarDte(array("dte" => array("usuario" => "GPAUTOS",
+                    "clave" => "A3C73DA00A0C49722CACA5AD7B80C6CDD41D8CD98F00B204E9800998ECF8427E",
+                    "validador" => false,
+                    "dte" => array
+                    (
+                        "codigoEstablecimiento" => "2",
+                        "idDispositivo" => "001",
+                        "serieAutorizada" => "FAC",
+                        "numeroResolucion" => "301620181114163",
+                        "fechaResolucion" => "2018-11-14",
+                        "tipoDocumento" => "FACE",
+                        "serieDocumento" => "63",
+
+                        "estadoDocumento" => "ACTIVO",
+                        "numeroDocumento" => "3",
+                        "fechaDocumento" => "2018-11-14",
+                        "codigoMoneda" => "GTQ",
+                        "tipoCambio" => "1",
+                        "nitComprador" => str_replace("-", "", "5503407-1"),
+                        "nombreComercialComprador" => "CONSUMIDOR FELIZ",
+                        "direccionComercialComprador" => "CIUDAD",
+                        "telefonoComprador" => "22082208",
+                        "correoComprador" => "correo@infile.com.gt",
+                        "regimen2989" => false,
+                        "departamentoComprador" => "N/A",
+                        "municipioComprador" => "N/A",
+
+                        "importeBruto" => 200,
+                        "importeDescuento" => 0,
+                        "importeTotalExento" => 0,
+                        "importeOtrosImpuestos" => 0,
+                        "importeNetoGravado" => 224,
+                        "detalleImpuestosIva" => 24,
+                        "montoTotalOperacion" => 224,
+                        "descripcionOtroImpuesto" => "N/A",
+
+                        "observaciones" => "N/A",
+                        "nitVendedor" => str_replace("-", "", "136771-4"),
+                        "departamentoVendedor" => "GUATEMALA",
+                        "municipioVendedor" => "GUATEMALA",
+                        "direccionComercialVendedor" => "CIUDAD REFORMA",
+                        "NombreComercialRazonSocialVendedor" => "NOMBRE DELA EMPRESA, S.A",
+                        "nombreCompletoVendedor" => "NOMBRE DELA EMPRESA, S.A",
+                        "regimenISR" => "1",
+
+                        "personalizado_01" => "N/A",
+                        "personalizado_02" => "N/A",
+                        "personalizado_03" => "N/A",
+                        "personalizado_04" => "N/A",
+                        "personalizado_05" => "N/A",
+                        "personalizado_06" => "N/A",
+                        "personalizado_07" => "N/A",
+                        "personalizado_08" => "N/A",
+                        "personalizado_09" => "N/A",
+                        "personalizado_10" => "N/A",
+                        "personalizado_11" => "N/A",
+                        "personalizado_12" => "N/A",
+                        "personalizado_13" => "N/A",
+                        "personalizado_14" => "N/A",
+                        "personalizado_15" => "N/A",
+                        "personalizado_16" => "N/A",
+                        "personalizado_17" => "N/A",
+                        "personalizado_18" => "N/A",
+                        "personalizado_19" => "N/A",
+                        "personalizado_20" => "N/A",
+
+                        "detalleDte" => $detalle
+                    )
+                )
+                )
+            );
+
+            if ($resultado->return->valido) {
+                echo "DTE: " . $resultado->return->numeroDte . "</br>";
+                echo "CAE: " . $resultado->return->cae . "</br>";
+            } else {
+                echo "ERROR: " . $resultado->return->descripcion;
+            }
+        } catch (SoapFault $E) {
+            $objResponse->addAlert($E->faultstring);
+        }
     }
 
 }

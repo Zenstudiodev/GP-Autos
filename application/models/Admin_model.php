@@ -36,15 +36,28 @@ class Admin_model extends CI_Model
         $datos = array(
             'parametro_valor'          => $parametros['precio_vip'],
         );
-
-        //Actualizar precio de anucios individuales
         $this->db->where('parametro_id', '2');
         $query = $this->db->update('parametros', $datos);
+
+        //Actualizar precio de anucios individuales
         $datos = array(
             'parametro_valor'          => $parametros['precio_individual'],
         );
-
         $this->db->where('parametro_id', '3');
+        $query = $this->db->update('parametros', $datos);
+
+        //Actualizar precio de feria
+        $datos = array(
+            'parametro_valor'          => $parametros['precio_feria'],
+        );
+        $this->db->where('parametro_id', '4');
+        $query = $this->db->update('parametros', $datos);
+
+        //Actualizar precio de anucios en facebook
+        $datos = array(
+            'parametro_valor'          => $parametros['precio_facebook'],
+        );
+        $this->db->where('parametro_id', '5');
         $query = $this->db->update('parametros', $datos);
 
     }
