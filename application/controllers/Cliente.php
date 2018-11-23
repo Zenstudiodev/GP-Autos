@@ -255,18 +255,288 @@ class Cliente extends Base_Controller
 
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $parametros = $this->Admin_model->get_parametros();
+
         $datos_anuncio = array(
             'forma_pago' => $this->input->post('forma_pago'),
         );
         $this->session->set_userdata($datos_anuncio);
-        echo $this->session->forma_pago;
+
+
+        $parametros = $parametros->result();
+        $precio_vip = $parametros[1];
+        $precio_individual = $parametros[2];
+        $precio_feria = $parametros[3];
+        $precio_facebook = $parametros[4];
+
 
         print_contenido($_POST);
         print_contenido($_SESSION);
         $data['forma_pago'] = $this->session->forma_pago;
+        $data['tipo_anuncio'] = $this->session->tipo_anuncio;
+
+        $data['precio_anuncio'] = 0;
+        $data['precio_feria'] = false;
+        $data['precio_facebook'] = false;
+        $total_a_pagar = 0;
+
+
+        if ($this->session->feria) {
+            $data['precio_feria'] = $precio_feria;
+            $total_a_pagar = $total_a_pagar + $precio_feria->parametro_valor;
+        }
+        if ($this->session->facebook) {
+            $data['precio_facebook'] = $precio_facebook;
+            $total_a_pagar = $total_a_pagar + $precio_facebook->parametro_valor;
+        }
+
+        if ($data['tipo_anuncio'] == 'individual') {
+            $data['precio_anuncio'] = $precio_individual;
+        }
+        if ($data['tipo_anuncio'] == 'vip') {
+            $data['precio_anuncio'] = $precio_vip;
+        }
+
+        $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
+        $data['total_a_pagar'] = $total_a_pagar;
+
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
 
         echo $this->templates->render('public/datos_pago', $data);
     }
+
+    public function pago_deposito()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        //carro
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        echo $this->templates->render('public/pago_deposito', $data);
+    }
+
+    public function pago_efectivo()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        //carro
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        echo $this->templates->render('public/pago_efectivo', $data);
+    }
+
+    public function guarda_pago_efectivo()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+
+        $datos_pago_efectivo = array(
+            'user_id' => $user_id,
+            'direccion' => $this->input->post('direccion'),
+            'telefono' => $this->input->post('telefono'),
+            'monto' => 175,
+            'carro_id' => $this->input->post('carro_id'),
+        );
+        $data['banners'] = $this->Pagos_model->guardar_pago_efectivo($datos_pago_efectivo);
+        //redirigimos a visanet
+        redirect(base_url() . 'Cliente/revisar_anuncio/' . $this->input->post('carro_id'));
+
+    }
+
+    public function guarda_pago_deposito()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+
+        $datos_pago_efectivo = array(
+            'user_id' => $user_id,
+            'banco' => $this->input->post('banco'),
+            'metodo' => 'deposito',
+            'monto' => 175,
+            'carro_id' => $this->input->post('carro_id'),
+        );
+        $data['banners'] = $this->Pagos_model->guardar_pago_deposito($datos_pago_efectivo);
+        //redirigimos a visanet
+        redirect(base_url() . 'Cliente/revisar_anuncio/' . $this->input->post('carro_id'));
+
+    }
+
+    public function guardar_pago_en_linea()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+        $datos_usuario = $this->Cliente_model->get_cliente_data($user_id);
+        $datos_usuario = $datos_usuario->row();
+
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $parametros = $this->Admin_model->get_parametros();
+        $parametros = $parametros->result();
+        $precio_vip = $parametros[1];
+        $precio_individual = $parametros[2];
+        $precio_feria = $parametros[3];
+        $precio_facebook = $parametros[4];
+
+        //[nombre_tarjeta] => Carlos Samayoa
+    //[card_number] => 4012 8888 8888 1881
+    //[mes_vencimiento_tarjeta] => 15
+    //[a_vencimiento_tarjeta] => 20
+    //[cvv_tarjeta] => 655
+    //[action] =>
+
+
+        $data['forma_pago'] = $this->session->forma_pago;
+        $data['tipo_anuncio'] = $this->session->tipo_anuncio;
+        $data['ubicacion_anuncio'] = $this->session->ubicacion_anuncio;
+        $data['email'] = $this->session->email;
+        $data['ip_adress'] = $this->input->ip_address();
+
+        //datos de usuario
+
+        //datos de tarjeta
+        $numero_tarjeta = $this->input->post('card_number');
+        $expirationMonth =$this->input->post('mes_vencimiento_tarjeta');
+        $expirationYear =$this->input->post('a_vencimiento_tarjeta');
+        if($expirationYear < 2000){
+            $expirationYear = '20'.$expirationYear;
+        }
+
+
+        //datos de producto
+        $data['tipo_anuncio'] = $this->session->tipo_anuncio;
+
+        $data['precio_anuncio'] = 0;
+        $data['precio_feria'] = false;
+        $data['precio_facebook'] = false;
+        $total_a_pagar = 0;
+
+
+        if ($this->session->feria) {
+            $data['precio_feria'] = $precio_feria;
+            $total_a_pagar = $total_a_pagar + $precio_feria->parametro_valor;
+        }
+        if ($this->session->facebook) {
+            $data['precio_facebook'] = $precio_facebook;
+            $total_a_pagar = $total_a_pagar + $precio_facebook->parametro_valor;
+        }
+
+        if ($data['tipo_anuncio'] == 'individual') {
+            $data['precio_anuncio'] = $precio_individual;
+        }
+        if ($data['tipo_anuncio'] == 'vip') {
+            $data['precio_anuncio'] = $precio_vip;
+        }
+
+        $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
+        $data['total_a_pagar'] = $total_a_pagar;
+
+        //print_contenido($_POST);
+        //exit();
+
+        // Before using this example, you can use your own reference code for the transaction.
+        $referenceCode = 'visanetgt_gpautos';
+
+        $client = new CybsSoapClient();
+        $request = $client->createRequest($referenceCode);
+        // This section contains a sample transaction request for the authorization
+        //// service with complete billing, payment card, and purchase (two items) information.
+
+        $ccAuthService = new stdClass();
+        $ccAuthService->run = 'true';
+        $request->ccAuthService = $ccAuthService;
+
+        $billTo = new stdClass();
+        $billTo->firstName = $datos_usuario->first_name;
+        $billTo->lastName = $datos_usuario->last_name;
+        $billTo->street1 = 'Ciudad';
+        $billTo->city = $data['ubicacion_anuncio'];
+        $billTo->state = $data['ubicacion_anuncio'];
+        $billTo->postalCode = '01010';
+        $billTo->country = 'GT';
+        $billTo->email = $data['email'];
+        $billTo->ipAddress = $data['ip_adress'];
+        $request->billTo = $billTo;
+
+        $card = new stdClass();
+        $card->accountNumber = $numero_tarjeta;
+        $card->expirationMonth = $expirationMonth;
+        $card->expirationYear = $expirationYear;
+        $request->card = $card;
+
+
+        $purchaseTotals = new stdClass();
+        $purchaseTotals->currency = 'GTQ';
+        $request->purchaseTotals = $purchaseTotals;
+
+        /*$item0 = new stdClass();
+        $item0->unitPrice = '12.34';
+        $item0->quantity = '2';
+        $item0->id = '0';*/
+
+        $item1 = new stdClass();
+        $item1->unitPrice = $total_a_pagar;
+        $item1->unitPrice = $total_a_pagar;
+        $item1->id = '1';
+
+        //$request->item = array($item0, $item1);
+        $request->item = array($item1);
+
+        $reply = $client->runTransaction($request);
+
+// This section will show all the reply fields.
+        print("\nAUTH RESPONSE: " . print_contenido($reply, true));
+
+        if ($reply->decision != 'ACCEPT') {
+            echo 'poner mensaje de error redireccionar';
+            print("\nFailed auth request.\n");
+            return;
+        }else{
+            echo 'guardar numero de transaccion en base de datos';
+           echo $reply->requestID;
+        }
+
+// Build a capture using the request ID in the response as the auth request ID
+       /* $ccCaptureService = new stdClass();
+        $ccCaptureService->run = 'true';
+        $ccCaptureService->authRequestID = $reply->requestID;
+
+        $captureRequest = $client->createRequest($referenceCode);
+        $captureRequest->ccCaptureService = $ccCaptureService;
+        $captureRequest->item = array($item1);
+        $captureRequest->purchaseTotals = $purchaseTotals;
+
+        $captureReply = $client->runTransaction($captureRequest);
+       */
+
+       // This section will show all the reply fields.
+       // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
+
+    }
+
 
     public function publicar_carro()
     {
@@ -585,81 +855,6 @@ class Cliente extends Base_Controller
 
     }
 
-    public function pago_deposito()
-    {
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('cliente/login');
-        }
-        $data = cargar_componentes_buscador();
-        //carro
-        $data['carro_id'] = $this->uri->segment(3);
-        $data['banners'] = $this->Banners_model->banneers_activos();
-        $data['header_banners'] = $this->Banners_model->header_banners_activos();
-        $user_id = $this->ion_auth->get_user_id();
-        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
-        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
-        echo $this->templates->render('public/pago_deposito', $data);
-    }
-
-    public function pago_efectivo()
-    {
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('cliente/login');
-        }
-        $data = cargar_componentes_buscador();
-        //carro
-        $data['carro_id'] = $this->uri->segment(3);
-        $data['banners'] = $this->Banners_model->banneers_activos();
-        $data['header_banners'] = $this->Banners_model->header_banners_activos();
-        $user_id = $this->ion_auth->get_user_id();
-        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
-        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
-        echo $this->templates->render('public/pago_efectivo', $data);
-    }
-
-    public function guarda_pago_efectivo()
-    {
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('cliente/login');
-        }
-        $user_id = $this->ion_auth->get_user_id();
-
-        $datos_pago_efectivo = array(
-            'user_id' => $user_id,
-            'direccion' => $this->input->post('direccion'),
-            'telefono' => $this->input->post('telefono'),
-            'monto' => 175,
-            'carro_id' => $this->input->post('carro_id'),
-        );
-        $data['banners'] = $this->Pagos_model->guardar_pago_efectivo($datos_pago_efectivo);
-        //redirigimos a visanet
-        redirect(base_url() . 'Cliente/revisar_anuncio/' . $this->input->post('carro_id'));
-
-    }
-
-    public function guarda_pago_deposito()
-    {
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('cliente/login');
-        }
-        $user_id = $this->ion_auth->get_user_id();
-
-        $datos_pago_efectivo = array(
-            'user_id' => $user_id,
-            'banco' => $this->input->post('banco'),
-            'metodo' => 'deposito',
-            'monto' => 175,
-            'carro_id' => $this->input->post('carro_id'),
-        );
-        $data['banners'] = $this->Pagos_model->guardar_pago_deposito($datos_pago_efectivo);
-        //redirigimos a visanet
-        redirect(base_url() . 'Cliente/revisar_anuncio/' . $this->input->post('carro_id'));
-
-    }
 
     public function revisar_anuncio()
     {

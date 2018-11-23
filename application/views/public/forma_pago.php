@@ -63,6 +63,15 @@
                     <form id="Metodo_pago" method="post" action="<?php echo base_url()?>cliente/datos_pago">
                     <ul class="collection">
                         <li class="collection-item avatar">
+                            <i class="material-icons circle green">attach_money</i>
+                            <span class="title">Pago en línea</span>
+                            <p>Con tarjeta de  débito o crédito</p>
+                            <span class="secondary-content">
+                                    <input name="forma_pago" type="radio" id="pago_en_linea" value="pago_en_linea"/>
+                                <label for="pago_en_linea"></label>
+                                </span>
+                        </li>
+                        <li class="collection-item avatar">
                                 <i class="material-icons circle green">attach_money</i>
                                 <span class="title">Depósito</span>
                                 <p>Deposito a cuentas bancarias Bi o GyT  </p>

@@ -12,7 +12,7 @@
 // Using Composer-generated autoload file.
 //require __DIR__ . '/vendor/autoload.php';
 // Or, uncomment the line below if you're not using Composer autoloader.
-require_once(__DIR__ . '/vendor/cybersource/sdk-php/lib/CybsSoapClient.php');
+//require_once(__DIR__ . '/vendor/cybersource/sdk-php/lib/CybsSoapClient.php');
 
 // Before using this example, you can use your own reference code for the transaction.
 $referenceCode = 'visanetgt_gpautos';

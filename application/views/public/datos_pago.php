@@ -16,6 +16,53 @@
     'transmisiones' => $transmisiones,
     'combustibles' => $combustibles,
 ]);
+//datos de usuario
+
+$datos_usuario = $datos_usuario->row();
+//pago en linea
+$nombre_tarjeta = array(
+    'type' => 'text',
+    'name' => 'nombre_tarjeta',
+    'id' => 'nombre_tarjeta',
+    'class' => ' validate',
+    'value' =>  $datos_usuario->first_name . ' ' . $datos_usuario->last_name,
+    //'placeholder' => 'Nombre en la tarjeta',
+    'required' => 'required',
+);
+$numero_tarjeta = array(
+    'type' => 'text',
+    'name' => 'card_number',
+    'id' => 'card_number',
+    'class' => ' validate',
+    //'placeholder' => 'Numero de tarjeta',
+    'required' => 'required',
+);
+
+$mes_vencimiento_tarjeta = array(
+    'type' => 'text',
+    'name' => 'mes_vencimiento_tarjeta',
+    'id' => 'mes_vencimiento_tarjeta',
+    'class' => ' validate',
+    //'placeholder' => 'Mes',
+    'required' => 'required',
+);
+$a_vencimiento_tarjeta = array(
+    'type' => 'text',
+    'name' => 'a_vencimiento_tarjeta',
+    'id' => 'a_vencimiento_tarjeta',
+    'class' => ' validate',
+    //'placeholder' => 'Año',
+    'required' => 'required',
+);
+
+$cvv_tarjeta = array(
+    'type' => 'text',
+    'name' => 'cvv_tarjeta',
+    'id' => 'cvv_tarjeta',
+    'class' => ' validate',
+    //'placeholder' => 'CVV',
+    'required' => 'required',
+);
 
 //deposito
 
@@ -25,7 +72,7 @@ $boleta = array(
     'name' => 'boleta',
     'id' => 'boleta',
     'class' => ' validate',
-    'placeholder' => 'Boleta',
+    //'placeholder' => 'Boleta',
     'required' => 'required',
 );
 //Banco
@@ -67,9 +114,16 @@ $telefono = array(
     'required' => 'required',
     //'disabled'    => 'disabled'
 );
+
+
+
+
+
 ?>
 
-
+<?php $this->start('title') ?>
+<title>Datos de pago</title>
+<?php $this->stop() ?>
 <?php $this->start('css_p') ?>
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">-->
 <?php $this->stop() ?>
@@ -90,90 +144,180 @@ $telefono = array(
             <h5>Pagar Anuncio</h5>
             <div class="row">
                 <div class="col m12">
-                    <h5>Datos de pago</h5>
                     <div class="card">
-                        <form id="Metodo_pago" method="post" action="<?php echo base_url() ?>cliente/datos_pago">
+                        <form id="Metodo_pago" method="post" action="<?php echo base_url() ?>cliente/guardar_pago_en_linea">
                             <div class="card-content">
-                                <?php if ($forma_pago == 'pago_deposito') { ?>
+                                <div class="row">
+                                    <div class="col m8">
+                                        <h5>Datos de pago</h5>
+                                        <?php if ($forma_pago == 'pago_en_linea') { ?>
 
-                                    <div class="row">
-                                        <div class="card-panel orange darken-1">
-                                            <div class="row borde_blanco">
-                                                <h3 class="white-text text-center">
-                                                    Cuentas disponibles para depósito
-                                                </h3>
-                                                <div class="col m2"></div>
-                                                <div class="col m5">
-                                                    <h5 class="white-text">Banco insustrial</h5>
-                                                    <p class="white-text">
-                                                        3170003004<br>
-                                                        GPAUTOS S.A.<br>
-                                                    </p>
+                                            <div class="row">
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <?php echo form_input($nombre_tarjeta); ?>
+                                                    <label for="nombre_tarjeta">Nombre en tarjeta:</label>
                                                 </div>
-                                                <div class="col m5">
-                                                    <h5 class="white-text">Banco GyT</h5>
-                                                    <p class="white-text">
-                                                        0000271643<br>
-                                                        GPAUTOS S.A.<br>
-                                                    </p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <?php echo form_input($numero_tarjeta); ?>
+                                                    <label for="numero_tarjeta">Número de tarjeta:</label>
+                                                    <span class="card_icon"></span> </p>
+                                                    <div class="status card-panel ">
+                                                        <span class="status_icon"></span>
+                                                        <span class="status_message"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col m4 s12">
+                                                    <?php echo form_input($mes_vencimiento_tarjeta); ?>
+                                                    <label for="numero_tarjeta">Mes de vencimiento</label>
+                                                </div>
+                                                <div class="input-field col m4 s12">
+                                                    <?php echo form_input($a_vencimiento_tarjeta); ?>
+                                                    <label for="numero_tarjeta">Año de vencimiento</label>
+                                                </div>
+                                                <div class="input-field col m4 s12">
+                                                    <?php echo form_input($cvv_tarjeta); ?>
+                                                    <label for="numero_tarjeta">Código de verificación </label>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                        <?php if ($forma_pago == 'pago_deposito') { ?>
+
+                                            <div class="row">
+                                                <div class="card-panel orange darken-1">
+                                                    <div class="row borde_blanco">
+                                                        <h3 class="white-text text-center">
+                                                            Cuentas disponibles para depósito
+                                                        </h3>
+                                                        <div class="col m2"></div>
+                                                        <div class="col m5">
+                                                            <h5 class="white-text">Banco insustrial</h5>
+                                                            <p class="white-text">
+                                                                3170003004<br>
+                                                                GPAUTOS S.A.<br>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col m5">
+                                                            <h5 class="white-text">Banco GyT</h5>
+                                                            <p class="white-text">
+                                                                0000271643<br>
+                                                                GPAUTOS S.A.<br>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <?php echo form_input($boleta); ?>
+                                                    <label for="boleta">Boleta:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <!--Banco-->
+                                                    <?php echo form_dropdown($banco, $banco_options); ?>
+                                                    <label for="banco">Banco</label>
                                                 </div>
                                             </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <?php echo form_input($boleta); ?>
-                                            <label for="boleta">Boleta:</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <!--Banco-->
-                                            <?php echo form_dropdown($banco, $banco_options); ?>
-                                            <label for="banco">Banco</label>
-                                        </div>
-                                    </div>
+                                        <?php } ?>
+                                        <?php if ($forma_pago == 'pago_efectivo') { ?>
+                                            <div class="row">
+                                                <div class="card-panel orange darken-1">
+                                                    <p class="white-text">
+                                                        El pago en efectivo tiene un recargo de Q15.00
+                                                    </p>
 
-                                <?php } ?>
-                                <?php if ($forma_pago == 'pago_efectivo') { ?>
-                                <div class="row">
-                                    <div class="card-panel orange darken-1">
-                                        <p class="white-text">
-                                            El pago en efectivo tiene un recargo de Q15.00
-                                        </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <?php echo form_input($direccion); ?>
+                                                    <label for="direccion">Dirección:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <?php echo form_input($telefono); ?>
+                                                    <label for="direccion">Telèfono:</label>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                    <?php
 
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <?php echo form_input($direccion); ?>
-                                        <label for="direccion">Dirección:</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <?php echo form_input($telefono); ?>
-                                        <label for="direccion">Telèfono:</label>
+                                    //calculos para anunci
+                                    ?>
+
+                                    <div class="col m4">
+                                        <h5>Datos del anuncio</h5>
+                                        <table class="striped table-bordes">
+                                            <thead>
+                                            <tr>
+                                                <td>Pedido</td>
+                                                <td>Total</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    Anuncio: <span id="anuncio_nombre"><?php echo $tipo_anuncio; ?></span>
+                                                </td>
+                                                <td>
+                                                    <span id="anuncio_precio"><?php echo $precio_anuncio->parametro_valor; ?></span>
+                                                </td>
+                                            </tr>
+                                            <?php if($precio_feria){?>
+                                            <tr>
+                                                <td>
+                                                   Feria
+                                                </td>
+                                                <td>
+                                                    <span id="anuncio_precio_feria">
+                                                        <?php echo $precio_feria->parametro_valor; ?>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <?php }?>
+                                            <?php if($precio_facebook){?>
+                                            <tr>
+                                                <td>
+                                                   Facebook
+                                                </td>
+                                                <td><span id="anuncio_precio_facebook"><?php echo $precio_facebook->parametro_valor; ?></span></td>
+                                            </tr>
+                                            <?php }?>
+                                            <tr>
+                                                <td>Total a pagar:</td>
+                                                <td><span id="total_a_pagar"><?php echo $total_a_pagar; ?></span></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
                                     </div>
                                 </div>
                             </div>
-                            <?php } ?>
-                    </div>
-                    <div class="card-action">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
-                                    datos de pago
-                                    <i class="material-icons right">send</i>
-                                </button>
+                            <div class="card-action">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+                                            datos de pago
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
-        </div>
         </div>
     </section>
     <?php
@@ -183,7 +327,46 @@ $telefono = array(
 <?php $this->stop() ?>
 <!-- JS personalizado -->
 <?php $this->start('js_p') ?>
+<script src="<?php echo base_url() ?>ui/vendor/cardcheck/jquery.cardcheck.js"></script>
 <script>
+    $('.card input').bind('focus', function() {
+        $('.card .status').hide();
+    });
+    $('.card input').bind('blur', function() {
+        $('.card .status').show();
+    });
+
+    $('.card input').cardcheck({
+        callback: function(result) {
+            var status = (result.validLen && result.validLuhn) ? 'valid' : 'invalid',
+                message = '',
+                types = '';
+            // Get the names of all accepted card types to use in the status message.
+            for (i in result.opts.types) {
+                types += result.opts.types[i].name + ", ";
+            }
+            types = types.substring(0, types.length-2);
+            // Set status message
+            if (result.len < 1) {
+                message = 'Por favor ingrese el número de la tarjeta';
+            } else if (!result.cardClass) {
+                message = 'Aceptamos tarjetas: ' + types + '.';
+            } else if (!result.validLen) {
+                message = 'Revise que el numero que escribio coinicde con su tarjeta ' + result.cardName + ' (al parecer hay algun número incorrecto.)';
+            } else if (!result.validLuhn) {
+                message = 'Revise que el numero que escribio coinicde con su tarjeta ' + result.cardName + ' (did you mistype a digit?)';
+            } else {
+                message = 'El número de la tarjeta ' + result.cardName + ' que ingreso parece válido.';
+            }
+
+            // Show credit card icon
+            $('.card .card_icon').removeClass().addClass('card_icon ' + result.cardClass);
+
+            // Show status message
+            $('.card .status').removeClass('invalid valid').addClass(status).children('.status_message').text(message);
+        }
+    });
+
     $(document).ready(function () {
         $('select').material_select();
     });
