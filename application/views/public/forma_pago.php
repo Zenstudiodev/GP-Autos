@@ -62,16 +62,16 @@
                     <h5>Metodos de pago</h5>
                     <form id="Metodo_pago" method="post" action="<?php echo base_url()?>cliente/datos_pago">
                     <ul class="collection">
-                        <li class="collection-item avatar">
+                        <li class="collection-item avatar" id="pago_en_linea_item">
                             <i class="material-icons circle green">attach_money</i>
-                            <span class="title">Pago en línea</span>
-                            <p>Con tarjeta de  débito o crédito</p>
+                            <span class="title">Pago con tarjeta de  débito o crédito</span>
+                            <p>Visa y Master Card</p>
                             <span class="secondary-content">
                                     <input name="forma_pago" type="radio" id="pago_en_linea" value="pago_en_linea"/>
                                 <label for="pago_en_linea"></label>
                                 </span>
                         </li>
-                        <li class="collection-item avatar">
+                        <!--<li class="collection-item avatar">
                                 <i class="material-icons circle green">attach_money</i>
                                 <span class="title">Depósito</span>
                                 <p>Deposito a cuentas bancarias Bi o GyT  </p>
@@ -79,8 +79,8 @@
                                     <input name="forma_pago" type="radio" id="pago_deposito" value="pago_deposito"/>
                                 <label for="pago_deposito"></label>
                                 </span>
-                        </li>
-                        <li class="collection-item avatar">
+                        </li>-->
+                        <li class="collection-item avatar" id="pago_efectivo_item">
 
                                 <i class="material-icons circle green">attach_money</i>
                                 <span class="title">Efectivo</span>
@@ -109,5 +109,13 @@
 <?php $this->stop() ?>
 <!-- JS personalizado -->
 <?php $this->start('js_p') ?>
+<script>
 
+    $("#pago_efectivo_item").click(function () {
+        document.getElementById("pago_efectivo").checked = true;
+    });
+    $("#pago_en_linea_item").click(function () {
+        document.getElementById("pago_en_linea").checked = true;
+    });
+</script>
 <?php $this->stop() ?>

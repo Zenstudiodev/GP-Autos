@@ -21,7 +21,7 @@
 $ubicacion_carro_select = array(
     'name' => 'ubicacion_anuncio',
     'id' => 'ubicacion_anuncio',
-    'class' => 'validate',
+    'class' => 'validate browser-default',
     'required' => 'required'
 );
 $ubicacion_carro_select_options = array(
@@ -85,17 +85,20 @@ $precio_facebook = $parametros[4];
 
                             <form method="post" action="<?php echo base_url() ?>cliente/forma_pago"
                                   id="seleccion_anuncio">
-                                <div class="row">
+                                <div class="row orange darken-3 ">
+                                    <div class=" col s12 m12">
+                                    <label class="control-label white-text">UBICACIÓN</label>
+                                    </div>
                                     <div class="input-field col s12 m12">
                                         <!--UBICACIÓN-->
                                         <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, 'GUATEMALA'); ?>
-                                        <label class="control-label">UBICACIÓN</label>
                                     </div>
+                                    <p>&nbsp;</p>
                                 </div>
                                 <div id="row">
                                     <table class="striped table-bordes">
                                         <thead>
-                                        <tr>
+                                        <tr class="grey darken-2 white-text">
                                             <td>Caracteristicas</td>
                                             <td class="t_individual">Individual</td>
                                             <td class="t_vip">VIP</td>
@@ -104,12 +107,15 @@ $precio_facebook = $parametros[4];
                                         <tbody>
                                         <tr>
                                             <td>
-                                                Indefinido
-                                                <i class="material-icons tooltipped" data-position="bottom"
+                                                <p class="bold">
+                                                    Indefinido
+                                                </p>
+                                                <!--<i class="material-icons tooltipped" data-position="bottom"
                                                    data-delay="50"
                                                    data-tooltip="El anuncio permanecera en la pagina hasta que se venda ">
                                                     help_outline
-                                                </i>
+                                                </i>-->
+                                                <small>Anuncio permanecera hasta que se venda.</small>
                                             </td>
                                             <td class="t_individual"><i
                                                         class="material-icons light-green-text accent-4">check</i>
@@ -119,12 +125,11 @@ $precio_facebook = $parametros[4];
                                         </tr>
                                         <tr>
                                             <td>
-                                                Crédito
-                                                <i class="material-icons tooltipped" data-position="bottom"
-                                                   data-delay="50"
-                                                   data-tooltip="Se facilitara el tramite del crédito para la compra del vehiculo ">
-                                                    help_outline
-                                                </i>
+                                                <p class="bold">
+                                                    Crédito
+                                                </p>
+                                                <small>Credito bancario disponible para tus clientes compradores</small>
+
                                             </td>
                                             <td class="t_individual"><i
                                                         class="material-icons light-green-text accent-4">check</i>
@@ -134,12 +139,10 @@ $precio_facebook = $parametros[4];
                                         </tr>
                                         <tr>
                                             <td>
-                                                Calcomanía
-                                                <i class="material-icons tooltipped" data-position="bottom"
-                                                   data-delay="50"
-                                                   data-tooltip="Instalación de calcomanía con número de teléfono y código de vehículo">
-                                                    help_outline
-                                                </i>
+                                                <p class="bold">
+                                                    Calcomanía
+                                                </p>
+                                                <small> ingresa tu codigo para recibir gratis tu calcomania</small>
                                             </td>
                                             <td class="t_individual"><i
                                                         class="material-icons light-green-text accent-4">check</i>
@@ -148,12 +151,11 @@ $precio_facebook = $parametros[4];
                                                         class="material-icons light-green-text accent-4">check</i></td>
                                         </tr>
                                         <tr>
-                                            <td>Facebook
-                                                <i class="material-icons tooltipped" data-position="bottom"
-                                                   data-delay="50"
-                                                   data-tooltip="Se pagara publicidad en facebook para promocionar el vehhiculo">
-                                                    help_outline
-                                                </i>
+                                            <td>
+                                                <p class="bold">
+                                                    Facebook
+                                                </p>
+                                                <small>Incluye publicidad pagada en fb por 15 dias</small>
                                             </td>
                                             <td class="t_individual"><i
                                                         class="material-icons red-text accent-4">close</i>
@@ -163,12 +165,10 @@ $precio_facebook = $parametros[4];
                                         </tr>
                                         <tr>
                                             <td>
-                                                Comision
-                                                <i class="material-icons tooltipped" data-position="bottom"
-                                                   data-delay="50"
-                                                   data-tooltip="Comision en concepto de tramites sobre el valor del vehiculo">
-                                                    help_outline
-                                                </i>
+                                                <p class="bold">
+                                                    Comision
+                                                </p>
+                                                <small>Comision por venta de vehiculo 5%</small>
                                             </td>
                                             <td class="t_individual"><i
                                                         class="material-icons red-text accent-4">close</i>
@@ -177,23 +177,21 @@ $precio_facebook = $parametros[4];
                                         </tr>
                                         <tr>
                                             <td>
-                                                Tipo de venta
-                                                <i class="material-icons tooltipped" data-position="bottom"
-                                                   data-delay="50"
-                                                   data-tooltip="Vanta Directa: el cliente hace la necociación directaemente">
-                                                    help_outline
-                                                </i>
+                                                <p class="bold">
+                                                    Tipo de venta
+                                                </p>
+                                                <small>Directa: el cliente hace la negociación directamente</small><br>
+                                                <small>Bajo cita: Demostración en oficina GP Autos</small>
                                             </td>
                                             <td class="t_individual">Directo</td>
                                             <td class="t_vip">Bajo cita</td>
                                         </tr>
                                         <tr>
-                                            <td>Mailing
-                                                <i class="material-icons tooltipped" data-position="bottom"
-                                                   data-delay="50"
-                                                   data-tooltip="Envío de correo a base de GP Autos con 60,000 correos y subiendo ">
-                                                    help_outline
-                                                </i>
+                                            <td>
+                                                <p class="bold">
+                                                    Mailing
+                                                </p>
+                                                <small>1 envio de correo masivo a clientes de gpautos </small>
                                             </td>
                                             <td class="t_individual"><i
                                                         class="material-icons red-text accent-4">close</i></td>
@@ -202,12 +200,11 @@ $precio_facebook = $parametros[4];
                                         </tr>
                                         <tr>
                                             <td>
-                                                Asesor Personalizado
-                                                <i class="material-icons tooltipped" data-position="bottom"
-                                                   data-delay="50"
-                                                   data-tooltip="Apoyo en coordinacion de citas y promocion del vehículo">
-                                                    help_outline
-                                                </i>
+                                                <p class="bold">
+                                                    Asesor Personalizado
+                                                </p>
+                                                <small>Asesor de gpautos  para vender tu carro</small>
+
                                             </td>
                                             <td class="t_individual"><i
                                                         class="material-icons red-text accent-4">close</i></td>
@@ -216,7 +213,20 @@ $precio_facebook = $parametros[4];
                                         </tr>
                                         <tr>
                                             <td>
-                                                Precio
+                                                <p class="bold">
+                                                    Pago GPAUTOS
+                                                </p>
+                                                <small>Pago garantizado por parte de gpautos.s,a.</small>
+
+                                            </td>
+                                            <td class="t_individual"><i
+                                                        class="material-icons red-text accent-4">close</i></td>
+                                            <td class="t_vip"><i
+                                                        class="material-icons light-green-text accent-4">check</i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p class="bold">Precio</p>
                                             </td>
                                             <td class="t_individual">
                                                 Q.<?php echo display_formato_dinero_return($precio_individual->parametro_valor); ?></td>
@@ -225,12 +235,16 @@ $precio_facebook = $parametros[4];
                                         </tr>
                                         <tr class="grey darken-2 white-text">
                                             <td>Seleccione opción</td>
-                                            <td class="t_individual"><input name="tipo_anuncio" type="radio"
+                                            <td class="t_individual">
+                                                <small>Seleccione opción</small><br>
+                                                <input name="tipo_anuncio" type="radio"
                                                                             id="anuncio_individual" class="validate"
                                                                             value="individual" required/>
                                                 <label for="anuncio_individual"
                                                        class="seleccion_anuncio_radio_label va"></label></td>
-                                            <td class="t_vip"><input name="tipo_anuncio" type="radio" id="anuncio_vip"
+                                            <td class="t_vip">
+                                                <small>Seleccione opción</small><br>
+                                                <input name="tipo_anuncio" type="radio" id="anuncio_vip"
                                                                      value="vip" required/>
                                                 <label for="anuncio_vip" class="seleccion_anuncio_radio_label"></label>
                                             </td>
@@ -240,8 +254,8 @@ $precio_facebook = $parametros[4];
                                     <hr>
                                     <table class="striped table-bordes">
                                         <thead>
-                                        <tr>
-                                            <td>Pedido</td>
+                                        <tr class="grey darken-2 white-text">
+                                            <td>Agrégale interés a tu publicación</td>
                                             <td>Total</td>
                                         </tr>
                                         </thead>
@@ -250,26 +264,26 @@ $precio_facebook = $parametros[4];
                                             <td>
                                                 Anuncio: <span id="anuncio_nombre"></span>
                                             </td>
-                                            <td>
+                                            <td class="t_individual" >
                                                 <span id="anuncio_precio"></span>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <td>
                                                 <input type="checkbox" id="feria_check" name="feria_check" value="feria_si" />
                                                 <label for="feria_check">Feria</label></td>
                                             <td><span id="anuncio_precio_feria"></span></td>
-                                        </tr>
+                                        </tr>-->
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="facebook_check" name="facebook_check" value="facebook_si" />
-                                                <label for="facebook_check">15 dias facebook</label></td>
+                                                <label for="facebook_check">Más 15 dias anuncios en facebook pagado</label></td>
                                                 </td>
-                                            <td><span id="anuncio_precio_facebook"></span></td>
+                                            <td class="t_individual"><span id="anuncio_precio_facebook"></span></td>
                                         </tr>
                                         <tr>
                                             <td>Total a pagar:</td>
-                                            <td><span id="total_a_pagar"></span></td>
+                                            <td class="t_individual" ><span class="bold" id="total_a_pagar"></span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -337,7 +351,7 @@ $precio_facebook = $parametros[4];
             if(tipo_anuncio == 'vip'){
                 precio_anuncio = precio_vip;
             }
-            $("#anuncio_precio").html(precio_anuncio);
+            $("#anuncio_precio").html('Q.'+ precio_anuncio);
             $("#anuncio_nombre").html(tipo_anuncio);
             total_a_pagar = total_a_pagar + precio_anuncio;
         }
@@ -353,17 +367,19 @@ $precio_facebook = $parametros[4];
         if(facebook){
             console.log(facebook);
             total_a_pagar = total_a_pagar + precio_facebook;
-            $("#anuncio_precio_facebook").html(precio_facebook);
+            $("#anuncio_precio_facebook").html('Q.'+precio_facebook);
         }
 
-        $("#total_a_pagar").html(total_a_pagar);
+        $("#total_a_pagar").html('Q.'+total_a_pagar);
 
 
 
     });
+
     $(document).ready(function () {
         $('select').material_select();
-        $('.tooltipped').tooltip({delay: 50});
+        //$('.tooltipped').tooltip({delay: 50});
+        //$("#ubicacion_anuncio:selected").removeAttr("selected");
     });
 </script>
 <?php $this->stop() ?>

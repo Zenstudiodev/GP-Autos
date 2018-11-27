@@ -238,8 +238,8 @@ class Cliente extends Base_Controller
 
         $this->session->set_userdata($datos_anuncio);
 
-        print_contenido($_POST);
-        print_contenido($_SESSION);
+       // print_contenido($_POST);
+        //print_contenido($_SESSION);
         $data['parametros'] = $this->Admin_model->get_parametros();
 
         echo $this->templates->render('public/forma_pago', $data);
@@ -270,8 +270,8 @@ class Cliente extends Base_Controller
         $precio_facebook = $parametros[4];
 
 
-        print_contenido($_POST);
-        print_contenido($_SESSION);
+        //print_contenido($_POST);
+        //print_contenido($_SESSION);
         $data['forma_pago'] = $this->session->forma_pago;
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
 
@@ -508,15 +508,26 @@ class Cliente extends Base_Controller
         $reply = $client->runTransaction($request);
 
 // This section will show all the reply fields.
-        print("\nAUTH RESPONSE: " . print_contenido($reply, true));
+       // print("\nAUTH RESPONSE: " . print_contenido($reply, true));
 
         if ($reply->decision != 'ACCEPT') {
             echo 'poner mensaje de error redireccionar';
             print("\nFailed auth request.\n");
             return;
         }else{
-            echo 'guardar numero de transaccion en base de datos';
-           echo $reply->requestID;
+
+            $datos_pago_efectivo = array(
+                'user_id' => $user_id,
+                'carro_id' => $this->input->post('carro_id'),
+                'transaccion' => $reply->requestID,
+                'monto' => $total_a_pagar,
+            );
+            $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
+
+            redirect(base_url() . 'cliente/publicar_carro');
+
+            //echo 'guardar numero de transaccion en base de datos';
+           //echo $reply->requestID;
         }
 
 // Build a capture using the request ID in the response as the auth request ID

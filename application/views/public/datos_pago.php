@@ -38,21 +38,52 @@ $numero_tarjeta = array(
     'required' => 'required',
 );
 
-$mes_vencimiento_tarjeta = array(
-    'type' => 'text',
+$mes_vencimiento_tarjeta_select = array(
     'name' => 'mes_vencimiento_tarjeta',
     'id' => 'mes_vencimiento_tarjeta',
-    'class' => ' validate',
+    'class' => ' validate browser-default',
     //'placeholder' => 'Mes',
     'required' => 'required',
 );
+
+$mes_vencimiento_tarjeta_select_options = array(
+    "01" => "Enero (01)",
+    "02" => "Febrero (02)",
+    "03" => "Marzo (03)",
+    "04" => "Abril (04)",
+    "05" => "Mayo (05)",
+    "06" => "Junio (06)",
+    "07" => "Julio (07)",
+    "08" => "Agosto (08)",
+    "09" => "Septiembre (09)",
+    "10" => "Octubre (10)",
+    "11" => "Nombiembre (11)",
+    "12" => "Diciembre (12)",
+);
+
+
+
 $a_vencimiento_tarjeta = array(
-    'type' => 'text',
     'name' => 'a_vencimiento_tarjeta',
     'id' => 'a_vencimiento_tarjeta',
-    'class' => ' validate',
+    'class' => ' validate browser-default',
     //'placeholder' => 'Año',
     'required' => 'required',
+);
+$a_vencimiento_tarjeta_select_options = array(
+    "18" => "2018",
+    "19" => "2019",
+    "20" => "2020",
+    "21" => "2021",
+    "22" => "2022",
+    "23" => "2023",
+    "24" => "2024",
+    "25" => "2025",
+    "26" => "2026",
+    "27" => "2027",
+    "28" => "2028",
+    "29" => "2029",
+    "30" => "2030",
 );
 
 $cvv_tarjeta = array(
@@ -172,13 +203,31 @@ $telefono = array(
                                                 </div>
                                             </div>
                                             <div class="row">
+
                                                 <div class="input-field col m4 s12">
-                                                    <?php echo form_input($mes_vencimiento_tarjeta); ?>
-                                                    <label for="numero_tarjeta">Mes de vencimiento</label>
+                                                    <div class="row">
+                                                        <div class=" col s12 m12">
+                                                            <label for="mes_vencimiento_tarjeta">Mes de vencimiento</label>
+                                                            <br>
+                                                        </div>
+                                                        <div class="input-field col s12 m12">
+                                                            <!--UBICACIÓN-->
+                                                            <?php echo form_dropdown($mes_vencimiento_tarjeta_select, $mes_vencimiento_tarjeta_select_options); ?>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                                 <div class="input-field col m4 s12">
-                                                    <?php echo form_input($a_vencimiento_tarjeta); ?>
-                                                    <label for="numero_tarjeta">Año de vencimiento</label>
+                                                    <div class="row">
+                                                        <div class=" col s12 m12">
+                                                            <label for="a_vencimiento_tarjeta">Año de vencimiento</label>
+                                                            <br>
+                                                        </div>
+                                                        <div class="input-field col s12 m12">
+                                                            <!--UBICACIÓN-->
+                                                            <?php echo form_dropdown($a_vencimiento_tarjeta, $a_vencimiento_tarjeta_select_options); ?>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="input-field col m4 s12">
                                                     <?php echo form_input($cvv_tarjeta); ?>
@@ -229,14 +278,7 @@ $telefono = array(
 
                                         <?php } ?>
                                         <?php if ($forma_pago == 'pago_efectivo') { ?>
-                                            <div class="row">
-                                                <div class="card-panel orange darken-1">
-                                                    <p class="white-text">
-                                                        El pago en efectivo tiene un recargo de Q15.00
-                                                    </p>
 
-                                                </div>
-                                            </div>
                                             <div class="row">
                                                 <div class="input-field col s12">
                                                     <?php echo form_input($direccion); ?>
@@ -271,7 +313,7 @@ $telefono = array(
                                                     Anuncio: <span id="anuncio_nombre"><?php echo $tipo_anuncio; ?></span>
                                                 </td>
                                                 <td>
-                                                    <span id="anuncio_precio"><?php echo $precio_anuncio->parametro_valor; ?></span>
+                                                    <span id="anuncio_precio">Q.<?php echo $precio_anuncio->parametro_valor; ?></span>
                                                 </td>
                                             </tr>
                                             <?php if($precio_feria){?>
@@ -291,12 +333,12 @@ $telefono = array(
                                                 <td>
                                                    Facebook
                                                 </td>
-                                                <td><span id="anuncio_precio_facebook"><?php echo $precio_facebook->parametro_valor; ?></span></td>
+                                                <td><span id="anuncio_precio_facebook">Q.<?php echo $precio_facebook->parametro_valor; ?></span></td>
                                             </tr>
                                             <?php }?>
                                             <tr>
                                                 <td>Total a pagar:</td>
-                                                <td><span id="total_a_pagar"><?php echo $total_a_pagar; ?></span></td>
+                                                <td><span id="total_a_pagar">Q.<?php echo $total_a_pagar; ?></span></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -307,8 +349,7 @@ $telefono = array(
                             <div class="card-action">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
-                                            datos de pago
+                                        <button class="btn waves-effect waves-light" type="submit" name="action">Pagar anuncio
                                             <i class="material-icons right">send</i>
                                         </button>
                                     </div>

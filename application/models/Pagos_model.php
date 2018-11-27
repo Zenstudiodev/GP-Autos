@@ -55,6 +55,19 @@ class Pagos_model extends CI_Model
         );
         $this->db->insert('pago_anuncio', $datos_pago_efectivo);
     }
+    function guardar_pago_en_linea($data){
+        //fecha
+        $fecha = New DateTime();
+        $datos_pago_efectivo= array(
+            'fecha'=>$fecha->format('Y-m-d'),
+            'user_id'=>$data['user_id'],
+            'carro_id'=>'0',
+            'metodo'=>'en_linea',
+            'transaccion'=>$data['transaccion'],
+            'monto'=>$data['monto'],
+        );
+        $this->db->insert('pago_anuncio', $datos_pago_efectivo);
+    }
     function get_pagos_carro_admin($id_carro){
         $this->db->where('carro_id', $id_carro);
         $query = $this->db->get('pago_anuncio');
