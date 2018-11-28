@@ -19,13 +19,43 @@
 //datos de usuario
 
 $datos_usuario = $datos_usuario->row();
+
+//datos facturacion
+$nombre_facturacion = array(
+    'type' => 'text',
+    'name' => 'nombre_facturacion',
+    'id' => 'nombre_facturacion',
+    'class' => ' validate',
+    'value' => $datos_usuario->first_name . ' ' . $datos_usuario->last_name,
+    //'placeholder' => 'Nombre en la tarjeta',
+    'required' => 'required',
+);
+$direccion_facturacion = array(
+    'type' => 'text',
+    'name' => 'direccion_facturacion',
+    'id' => 'direccion_facturacion',
+    'class' => ' validate',
+    //'value' => $datos_usuario->first_name . ' ' . $datos_usuario->last_name,
+    //'placeholder' => 'Nombre en la tarjeta',
+    'required' => 'required',
+);
+$nit_facturacion = array(
+    'type' => 'text',
+    'name' => 'nit_facturacion',
+    'id' => 'nit_facturacion',
+    'class' => ' validate',
+    //'value' => $datos_usuario->first_name . ' ' . $datos_usuario->last_name,
+    //'placeholder' => 'Nombre en la tarjeta',
+    'required' => 'required',
+);
+
 //pago en linea
 $nombre_tarjeta = array(
     'type' => 'text',
     'name' => 'nombre_tarjeta',
     'id' => 'nombre_tarjeta',
     'class' => ' validate',
-    'value' =>  $datos_usuario->first_name . ' ' . $datos_usuario->last_name,
+    'value' => $datos_usuario->first_name . ' ' . $datos_usuario->last_name,
     //'placeholder' => 'Nombre en la tarjeta',
     'required' => 'required',
 );
@@ -60,7 +90,6 @@ $mes_vencimiento_tarjeta_select_options = array(
     "11" => "Nombiembre (11)",
     "12" => "Diciembre (12)",
 );
-
 
 
 $a_vencimiento_tarjeta = array(
@@ -147,9 +176,6 @@ $telefono = array(
 );
 
 
-
-
-
 ?>
 
 <?php $this->start('title') ?>
@@ -176,10 +202,44 @@ $telefono = array(
             <div class="row">
                 <div class="col m12">
                     <div class="card">
-                        <form id="Metodo_pago" method="post" action="<?php echo base_url() ?>cliente/guardar_pago_en_linea">
+                        <form id="Metodo_pago" method="post"
+                              action="<?php echo base_url() ?>cliente/guardar_pago_en_linea">
                             <div class="card-content">
+                                <?php if (isset($error)) { ?>
+                                    <div class="alert alert-danger alert-block"><a class="close" data-dismiss="alert"
+                                                                                    href="#">×</a>
+                                        <h4 class="alert-heading">Ocurrio un problema al procesar su pago</h4>
+                                        <?php echo $error; ?>
+                                    </div>
+                                <?php } ?>
+                                <?php if (isset($mensaje)) { ?>
+                                    <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
+                                                                                    href="#">×</a>
+                                        <h4 class="alert-heading">Acción exitosa!</h4>
+                                        <?php echo $mensaje; ?>
+                                    </div>
+                                <?php } ?>
                                 <div class="row">
                                     <div class="col m8">
+                                        <div class="card-panel grey lighten-3">
+                                            <h5>Datos de facturación</h5>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <?php echo form_input($nombre_facturacion); ?>
+                                                    <label for="nombre_tarjeta">Nombre factura:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col m6 s12">
+                                                    <?php echo form_input($direccion_facturacion); ?>
+                                                    <label for="nombre_tarjeta">Dirección:</label>
+                                                </div>
+                                                <div class="input-field col m6 s12">
+                                                    <?php echo form_input($nit_facturacion); ?>
+                                                    <label for="nombre_tarjeta">NIT:</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h5>Datos de pago</h5>
                                         <?php if ($forma_pago == 'pago_en_linea') { ?>
 
@@ -207,7 +267,8 @@ $telefono = array(
                                                 <div class="input-field col m4 s12">
                                                     <div class="row">
                                                         <div class=" col s12 m12">
-                                                            <label for="mes_vencimiento_tarjeta">Mes de vencimiento</label>
+                                                            <label for="mes_vencimiento_tarjeta">Mes de
+                                                                vencimiento</label>
                                                             <br>
                                                         </div>
                                                         <div class="input-field col s12 m12">
@@ -220,7 +281,8 @@ $telefono = array(
                                                 <div class="input-field col m4 s12">
                                                     <div class="row">
                                                         <div class=" col s12 m12">
-                                                            <label for="a_vencimiento_tarjeta">Año de vencimiento</label>
+                                                            <label for="a_vencimiento_tarjeta">Año de
+                                                                vencimiento</label>
                                                             <br>
                                                         </div>
                                                         <div class="input-field col s12 m12">
@@ -310,32 +372,35 @@ $telefono = array(
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    Anuncio: <span id="anuncio_nombre"><?php echo $tipo_anuncio; ?></span>
+                                                    Anuncio: <span
+                                                            id="anuncio_nombre"><?php echo $tipo_anuncio; ?></span>
                                                 </td>
                                                 <td>
                                                     <span id="anuncio_precio">Q.<?php echo $precio_anuncio->parametro_valor; ?></span>
                                                 </td>
                                             </tr>
-                                            <?php if($precio_feria){?>
-                                            <tr>
-                                                <td>
-                                                   Feria
-                                                </td>
-                                                <td>
+                                            <?php if ($precio_feria) { ?>
+                                                <tr>
+                                                    <td>
+                                                        Feria
+                                                    </td>
+                                                    <td>
                                                     <span id="anuncio_precio_feria">
                                                         <?php echo $precio_feria->parametro_valor; ?>
                                                     </span>
-                                                </td>
-                                            </tr>
-                                            <?php }?>
-                                            <?php if($precio_facebook){?>
-                                            <tr>
-                                                <td>
-                                                   Facebook
-                                                </td>
-                                                <td><span id="anuncio_precio_facebook">Q.<?php echo $precio_facebook->parametro_valor; ?></span></td>
-                                            </tr>
-                                            <?php }?>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                            <?php if ($precio_facebook) { ?>
+                                                <tr>
+                                                    <td>
+                                                        Facebook
+                                                    </td>
+                                                    <td>
+                                                        <span id="anuncio_precio_facebook">Q.<?php echo $precio_facebook->parametro_valor; ?></span>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                             <tr>
                                                 <td>Total a pagar:</td>
                                                 <td><span id="total_a_pagar">Q.<?php echo $total_a_pagar; ?></span></td>
@@ -349,7 +414,8 @@ $telefono = array(
                             <div class="card-action">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <button class="btn waves-effect waves-light" type="submit" name="action">Pagar anuncio
+                                        <button class="btn waves-effect waves-light" type="submit" name="action">Pagar
+                                            anuncio
                                             <i class="material-icons right">send</i>
                                         </button>
                                     </div>
@@ -370,15 +436,15 @@ $telefono = array(
 <?php $this->start('js_p') ?>
 <script src="<?php echo base_url() ?>ui/vendor/cardcheck/jquery.cardcheck.js"></script>
 <script>
-    $('.card input').bind('focus', function() {
+    $('.card input').bind('focus', function () {
         $('.card .status').hide();
     });
-    $('.card input').bind('blur', function() {
+    $('.card input').bind('blur', function () {
         $('.card .status').show();
     });
 
     $('.card input').cardcheck({
-        callback: function(result) {
+        callback: function (result) {
             var status = (result.validLen && result.validLuhn) ? 'valid' : 'invalid',
                 message = '',
                 types = '';
@@ -386,7 +452,7 @@ $telefono = array(
             for (i in result.opts.types) {
                 types += result.opts.types[i].name + ", ";
             }
-            types = types.substring(0, types.length-2);
+            types = types.substring(0, types.length - 2);
             // Set status message
             if (result.len < 1) {
                 message = 'Por favor ingrese el número de la tarjeta';
