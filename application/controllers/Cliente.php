@@ -252,15 +252,23 @@ class Cliente extends Base_Controller
             // redirect them to the login page
             redirect('cliente/login');
         }
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        if ($this->session->flashdata('error')) {
+
+            $data['error'] = $this->session->flashdata('error');
+        }else{
+            $datos_anuncio = array(
+                'forma_pago' => $this->input->post('forma_pago'),
+            );
+
+            $this->session->set_userdata($datos_anuncio);
+        }
 
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $parametros = $this->Admin_model->get_parametros();
-
-        $datos_anuncio = array(
-            'forma_pago' => $this->input->post('forma_pago'),
-        );
-        $this->session->set_userdata($datos_anuncio);
 
 
         $parametros = $parametros->result();
@@ -511,8 +519,14 @@ class Cliente extends Base_Controller
        // print("\nAUTH RESPONSE: " . print_contenido($reply, true));
 
         if ($reply->decision != 'ACCEPT') {
-            echo 'poner mensaje de error redireccionar';
-            print("\nFailed auth request.\n");
+            $this->session->set_flashdata('error', $reply->reasonCode);
+            redirect(base_url() . 'cliente/datos_pago');
+                //echo 'poner mensaje de error redireccionar';
+            //print("\nFailed auth request.\n");
+            // This section will show all the reply fields.
+            echo '<pre>';
+            print("\nRESPONSE: " . print_r($reply, true));
+            echo '</pre>';
             return;
         }else{
 
