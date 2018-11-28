@@ -529,7 +529,6 @@ class Cliente extends Base_Controller
             echo '</pre>';
             return;
         }else{
-
             $datos_pago_efectivo = array(
                 'user_id' => $user_id,
                 'carro_id' => $this->input->post('carro_id'),
