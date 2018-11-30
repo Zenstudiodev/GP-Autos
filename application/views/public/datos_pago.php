@@ -414,6 +414,7 @@ $telefono = array(
                             <div class="card-action">
                                 <div class="row">
                                     <div class="input-field col s12">
+                                        <input type="hidden" id="deviceFingerprintID" name="deviceFingerprintID">
                                         <button class="btn waves-effect waves-light" type="submit" name="action">Pagar
                                             anuncio
                                             <i class="material-icons right">send</i>
@@ -435,7 +436,16 @@ $telefono = array(
 <!-- JS personalizado -->
 <?php $this->start('js_p') ?>
 <script src="<?php echo base_url() ?>ui/vendor/cardcheck/jquery.cardcheck.js"></script>
+<!-- Visa fingerprint -->
+<script src="<?php echo base_url() ?>ui/public/js/cybs_devicefingerprint.js"></script>
 <script>
+    var sessionID;
+    sessionID = cybs_dfprofiler("visanetgt_gpautos","test");
+    console.log(sessionID);
+    $("#deviceFingerprintID").val(sessionID);
+
+    //document.write('<input type="text" name="deviceFingerprintID" value="' + cybs_dfprofiler("visanetgt_gpautos","test") + '">');
+
     $('.card input').bind('focus', function () {
         $('.card .status').hide();
     });

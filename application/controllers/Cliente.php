@@ -256,8 +256,7 @@ class Cliente extends Base_Controller
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
         if ($this->session->flashdata('error')) {
-
-            $data['error'] = $this->session->flashdata('error');
+            $data['error'] = reasoncode_text($this->session->flashdata('error'));
         }else{
             $datos_anuncio = array(
                 'forma_pago' => $this->input->post('forma_pago'),
@@ -279,7 +278,7 @@ class Cliente extends Base_Controller
 
 
         //print_contenido($_POST);
-        //print_contenido($_SESSION);
+        print_contenido($_SESSION);
         $data['forma_pago'] = $this->session->forma_pago;
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
 
@@ -409,14 +408,6 @@ class Cliente extends Base_Controller
         $precio_feria = $parametros[3];
         $precio_facebook = $parametros[4];
 
-        //[nombre_tarjeta] => Carlos Samayoa
-    //[card_number] => 4012 8888 8888 1881
-    //[mes_vencimiento_tarjeta] => 15
-    //[a_vencimiento_tarjeta] => 20
-    //[cvv_tarjeta] => 655
-    //[action] =>
-
-
         $data['forma_pago'] = $this->session->forma_pago;
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
         $data['ubicacion_anuncio'] = $this->session->ubicacion_anuncio;
@@ -442,6 +433,11 @@ class Cliente extends Base_Controller
         $data['precio_facebook'] = false;
         $total_a_pagar = 0;
 
+        //datos de facturacion
+        $nombre_factura = $this->input->post('deviceFingerprintID');
+        $direccion_factura = $this->input->post('deviceFingerprintID');
+        $nit = $this->input->post('deviceFingerprintID');
+
 
         if ($this->session->feria) {
             $data['precio_feria'] = $precio_feria;
@@ -464,7 +460,6 @@ class Cliente extends Base_Controller
 
         //print_contenido($_POST);
         //exit();
-
         // Before using this example, you can use your own reference code for the transaction.
         $referenceCode = 'visanetgt_gpautos';
 
@@ -480,7 +475,7 @@ class Cliente extends Base_Controller
         $billTo = new stdClass();
         $billTo->firstName = $datos_usuario->first_name;
         $billTo->lastName = $datos_usuario->last_name;
-        $billTo->street1 = 'Ciudad';
+        $billTo->street1 = $direccion_factura;
         $billTo->city = $data['ubicacion_anuncio'];
         $billTo->state = $data['ubicacion_anuncio'];
         $billTo->postalCode = '01010';
@@ -500,6 +495,10 @@ class Cliente extends Base_Controller
         $purchaseTotals->currency = 'GTQ';
         $request->purchaseTotals = $purchaseTotals;
 
+
+        $request->deviceFingerprintID = $this->input->post('deviceFingerprintID');
+        //echo $this->input->post('deviceFingerprintID');
+
         /*$item0 = new stdClass();
         $item0->unitPrice = '12.34';
         $item0->quantity = '2';
@@ -507,16 +506,17 @@ class Cliente extends Base_Controller
 
         $item1 = new stdClass();
         $item1->unitPrice = $total_a_pagar;
-        $item1->unitPrice = $total_a_pagar;
+        $item1->productName = $data['tipo_anuncio'];
         $item1->id = '1';
 
         //$request->item = array($item0, $item1);
         $request->item = array($item1);
 
+        //print_contenido($request);
         $reply = $client->runTransaction($request);
 
 // This section will show all the reply fields.
-       // print("\nAUTH RESPONSE: " . print_contenido($reply, true));
+        //print("\nAUTH RESPONSE: " . print_contenido($reply, true));
 
         if ($reply->decision != 'ACCEPT') {
             $this->session->set_flashdata('error', $reply->reasonCode);
@@ -524,9 +524,9 @@ class Cliente extends Base_Controller
                 //echo 'poner mensaje de error redireccionar';
             //print("\nFailed auth request.\n");
             // This section will show all the reply fields.
-            echo '<pre>';
-            print("\nRESPONSE: " . print_r($reply, true));
-            echo '</pre>';
+            //echo '<pre>';
+            //print("\nRESPONSE: " . print_r($reply, true));
+            //echo '</pre>';
             return;
         }else{
             $datos_pago_efectivo = array(
@@ -534,10 +534,18 @@ class Cliente extends Base_Controller
                 'carro_id' => $this->input->post('carro_id'),
                 'transaccion' => $reply->requestID,
                 'monto' => $total_a_pagar,
+                'nombre_factura' => $nombre_factura,
+                'nit' => $nit,
+                'direccion_factura' => $direccion_factura,
             );
             $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
-
-            redirect(base_url() . 'cliente/publicar_carro');
+            if ($data['tipo_anuncio'] == 'individual') {
+                redirect(base_url() . 'cliente/publicar_carro');
+            }
+            if ($data['tipo_anuncio'] == 'vip') {
+                redirect(base_url() . 'cliente/publicar_carro_vip');
+            }
+            //redirect(base_url() . 'cliente/publicar_carro');
 
             //echo 'guardar numero de transaccion en base de datos';
            //echo $reply->requestID;
@@ -584,6 +592,30 @@ class Cliente extends Base_Controller
         $data['transmision'] = $this->Carros_model->get_transmision();
 
         echo $this->templates->render('public/publicar_carro', $data);
+
+    }
+    public function publicar_carro_vip()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+
+        $data['tipos_cf'] = $this->Carros_model->tipos_vehiculo();
+        $data['marca_cf'] = $this->Carros_model->marca_vehiculo();
+        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
+        $data['tapiceria'] = $this->Carros_model->get_tapicerias();
+        $data['transmision'] = $this->Carros_model->get_transmision();
+
+        echo $this->templates->render('public/publicar_carro_vip', $data);
 
     }
 
@@ -694,6 +726,70 @@ class Cliente extends Base_Controller
         redirect('cliente/subir_fotos/' . $carro_id);
 
 
+    }
+    public function guardar_carro_vip()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $usuario = $data['datos_usuario']->row();
+
+        $datos = array(
+            'crr_fecha' => $this->input->post('fecha'),
+            'crr_placa' => $this->input->post('placa'),
+            'id_tipo_carro' => $this->input->post('tipo_carro_uf'),
+            'id_marca' => $this->input->post('marca_carro_uf'),
+            'id_linea' => $this->input->post('linea_carro_uf'),
+            'id_ubicacion' => $this->input->post('ubicacion_carro'),
+            'crr_moneda_precio' => $this->input->post('moneda_carro'),
+            'crr_precio' => $this->input->post('precio'),
+            'crr_img' => $this->input->post('codigo') . '.jpg',
+            'crr_modelo' => $this->input->post('modelo'),
+            'crr_origen' => $this->input->post('origen_carro'),
+            'crr_ac' => $this->input->post('ac'),
+            'crr_alarma' => $this->input->post('alarma'),
+            'crr_aros_magnecio' => $this->input->post('aros_m'),
+            'crr_bolsas_aire' => $this->input->post('bolsa_aire'),
+            'crr_cerradura_central' => $this->input->post('cerradura_c'),
+            'crr_cilindros' => $this->input->post('cilindros'),
+            'crr_color' => $this->input->post('color'),
+            'crr_combustible' => $this->input->post('combustible_carro'),
+            'crr_espejos' => $this->input->post('espejos_e'),
+            'crr_kilometraje' => $this->input->post('kilometraje'),
+            'crr_motor' => $this->input->post('motor'),
+            'crr_platos' => $this->input->post('platos'),
+            'crr_polarizado' => $this->input->post('polarizado'),
+            'crr_puertas' => $this->input->post('puertas_carro'),
+            'crr_radio' => $this->input->post('radio'),
+            'crr_sunroof' => $this->input->post('sun_roof'),
+            'crr_tapiceria' => $this->input->post('tapiceria_carro'),
+            'crr_timon_hidraulico' => $this->input->post('timon_h'),
+            'crr_transmision' => $this->input->post('transmision_carro'),
+            'crr_4x4' => $this->input->post('t4x4'),
+            'crr_vidrios_electricos' => $this->input->post('vidrios_e'),
+            'crr_freno_delantero' => $this->input->post('freno_delantero'),
+            'crr_freno_trasero' => $this->input->post('freno_trasero'),
+            'crr_blindaje' => $this->input->post('blindaje'),
+            'crr_otros' => $this->input->post('otros'),
+            'crr_estado' => 'Usado',
+            'crr_contacto_nombre' => $usuario->first_name,
+            'crr_contacto_telefono' => $usuario->phone,
+            'crr_contacto_email' => $usuario->email,
+            'crr_estatus' => 'Pendiente',
+            'id_predio_virtual' => '9',
+            'crr_premium' => 'no',
+            'crr_certiauto' => 'no',
+            'crr_nombre_propietario' => $usuario->first_name,
+            'crr_telefono_propietario' => $usuario->phone,
+            'crr_vencimiento' => $usuario->email,
+            'user_id' => $user_id,
+        );
+
+        $carro_id = $this->Carros_model->crear_carro_public($datos);
+        redirect('cliente/subir_fotos/' . $carro_id);
     }
 
     public function guardar_editar_carro()
