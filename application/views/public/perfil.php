@@ -20,7 +20,9 @@ $usuario = $datos_usuario->row();
 
 $CI =& get_instance();
 ?>
-
+<?php $this->start('title') ?>
+<title>Perfil</title>
+<?php $this->stop() ?>
 <?php $this->start('css_p') ?>
 <?php $this->stop() ?>
 
@@ -73,7 +75,7 @@ $CI =& get_instance();
                 <!-- profile-page-sidebar-->
                 <!-- profile-page-wall -->
                 <div id="profile-page-wall" class="col s12 m9">
-                    <a class="waves-effect waves-light btn orange darken-1" href="publicar_carro"><i
+                    <a class="waves-effect waves-light btn orange darken-1" href="<?php echo base_url()?>cliente/seleccion_anuncio"><i
                                 class="material-icons left">cloud</i>Publicar un carro</a>
                     <h1 class="texto_naranja">Vehículos ingresados</h1>
                     <div class="row">

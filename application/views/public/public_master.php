@@ -336,13 +336,13 @@ $t4x4_n = array(
                         Contacto <i class="material-icons  secondary-content orange-text darken-3">email</i>
                     </a>
                 </div>
-                <!--CONTDOWN -->
+                <!--CONTDOWN
                 <div id="feria_countDown">
                     <div id="feria_cd_tittle">
                         La gran feria virtual termina en
                     </div>
                     <div id="getting-started"></div>
-                </div>
+                </div> -->
             </div>
             <div class="col s12 m8">
                 <section id="banner">

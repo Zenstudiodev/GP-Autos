@@ -238,7 +238,7 @@ class Cliente extends Base_Controller
 
         $this->session->set_userdata($datos_anuncio);
 
-       // print_contenido($_POST);
+        // print_contenido($_POST);
         //print_contenido($_SESSION);
         $data['parametros'] = $this->Admin_model->get_parametros();
 
@@ -257,7 +257,7 @@ class Cliente extends Base_Controller
         }
         if ($this->session->flashdata('error')) {
             $data['error'] = reasoncode_text($this->session->flashdata('error'));
-        }else{
+        } else {
             $datos_anuncio = array(
                 'forma_pago' => $this->input->post('forma_pago'),
             );
@@ -278,7 +278,7 @@ class Cliente extends Base_Controller
 
 
         //print_contenido($_POST);
-        print_contenido($_SESSION);
+        //print_contenido($_SESSION);
         $data['forma_pago'] = $this->session->forma_pago;
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
 
@@ -349,23 +349,84 @@ class Cliente extends Base_Controller
 
     public function guarda_pago_efectivo()
     {
+        //comprobacion de sesion y datos de usuario
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('cliente/login');
         }
         $user_id = $this->ion_auth->get_user_id();
+        $datos_usuario = $this->Cliente_model->get_cliente_data($user_id);
+        $datos_usuario = $datos_usuario->row();
+        $nombre_usuario = $datos_usuario->first_name . ' ' . $datos_usuario->last_name;
 
+        //parametros de precio
+        $parametros = $this->Admin_model->get_parametros();
+        $parametros = $parametros->result();
+        $precio_vip = $parametros[1];
+        $precio_individual = $parametros[2];
+        $precio_feria = $parametros[3];
+        $precio_facebook = $parametros[4];
+
+        //datos de sesion
+        $data['forma_pago'] = $this->session->forma_pago;
+        $data['tipo_anuncio'] = $this->session->tipo_anuncio;
+        $data['ubicacion_anuncio'] = $this->session->ubicacion_anuncio;
+        $data['email'] = $this->session->email;
+
+        //datos de producto
+        $data['tipo_anuncio'] = $this->session->tipo_anuncio;
+
+        $data['precio_anuncio'] = 0;
+        $data['precio_feria'] = false;
+        $data['precio_facebook'] = false;
+        $total_a_pagar = 0;
+
+        //datos de facturacion
+        $nombre_factura = $this->input->post('nombre_facturacion');
+        $direccion_factura = $this->input->post('direccion_facturacion');
+        $nit = $this->input->post('nit_facturacion');
+
+        //procesamos precio
+        if ($this->session->feria) {
+            $data['precio_feria'] = $precio_feria;
+            $total_a_pagar = $total_a_pagar + $precio_feria->parametro_valor;
+        }
+        if ($this->session->facebook) {
+            $data['precio_facebook'] = $precio_facebook;
+            $total_a_pagar = $total_a_pagar + $precio_facebook->parametro_valor;
+        }
+        if ($data['tipo_anuncio'] == 'individual') {
+            $data['precio_anuncio'] = $precio_individual;
+        }
+        if ($data['tipo_anuncio'] == 'vip') {
+            $data['precio_anuncio'] = $precio_vip;
+        }
+        $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
+        $data['total_a_pagar'] = $total_a_pagar;
+
+        //datos para guardar pago
         $datos_pago_efectivo = array(
             'user_id' => $user_id,
             'direccion' => $this->input->post('direccion'),
             'telefono' => $this->input->post('telefono'),
-            'monto' => 175,
-            'carro_id' => $this->input->post('carro_id'),
+            'monto' => $total_a_pagar,
+            'nombre_factura' => $nombre_factura,
+            'nit' => $nit,
+            'direccion_factura' => $direccion_factura,
         );
-        $data['banners'] = $this->Pagos_model->guardar_pago_efectivo($datos_pago_efectivo);
-        //redirigimos a visanet
-        redirect(base_url() . 'Cliente/revisar_anuncio/' . $this->input->post('carro_id'));
+        //guardar pago
+        $this->Pagos_model->guardar_pago_efectivo($datos_pago_efectivo);
 
+        //correo notificacion de pago
+        $this->notiticacion_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago efectivo');
+
+        //redireccion
+        if ($data['tipo_anuncio'] == 'individual') {
+            redirect(base_url() . 'cliente/publicar_carro');
+        }
+        if ($data['tipo_anuncio'] == 'vip') {
+            redirect(base_url() . 'cliente/publicar_carro_vip');
+        }
     }
 
     public function guarda_pago_deposito()
@@ -375,6 +436,9 @@ class Cliente extends Base_Controller
             redirect('cliente/login');
         }
         $user_id = $this->ion_auth->get_user_id();
+        $datos_usuario = $this->Cliente_model->get_cliente_data($user_id);
+        $datos_usuario = $datos_usuario->row();
+
 
         $datos_pago_efectivo = array(
             'user_id' => $user_id,
@@ -398,6 +462,7 @@ class Cliente extends Base_Controller
         $user_id = $this->ion_auth->get_user_id();
         $datos_usuario = $this->Cliente_model->get_cliente_data($user_id);
         $datos_usuario = $datos_usuario->row();
+        $nombre_usuario = $datos_usuario->first_name . ' ' . $datos_usuario->last_name;
 
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
@@ -418,12 +483,11 @@ class Cliente extends Base_Controller
 
         //datos de tarjeta
         $numero_tarjeta = $this->input->post('card_number');
-        $expirationMonth =$this->input->post('mes_vencimiento_tarjeta');
-        $expirationYear =$this->input->post('a_vencimiento_tarjeta');
-        if($expirationYear < 2000){
-            $expirationYear = '20'.$expirationYear;
+        $expirationMonth = $this->input->post('mes_vencimiento_tarjeta');
+        $expirationYear = $this->input->post('a_vencimiento_tarjeta');
+        if ($expirationYear < 2000) {
+            $expirationYear = '20' . $expirationYear;
         }
-
 
         //datos de producto
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
@@ -434,10 +498,9 @@ class Cliente extends Base_Controller
         $total_a_pagar = 0;
 
         //datos de facturacion
-        $nombre_factura = $this->input->post('deviceFingerprintID');
-        $direccion_factura = $this->input->post('deviceFingerprintID');
-        $nit = $this->input->post('deviceFingerprintID');
-
+        $nombre_factura = $this->input->post('nombre_facturacion');
+        $direccion_factura = $this->input->post('direccion_facturacion');
+        $nit = $this->input->post('nit_facturacion');
 
         if ($this->session->feria) {
             $data['precio_feria'] = $precio_feria;
@@ -521,14 +584,14 @@ class Cliente extends Base_Controller
         if ($reply->decision != 'ACCEPT') {
             $this->session->set_flashdata('error', $reply->reasonCode);
             redirect(base_url() . 'cliente/datos_pago');
-                //echo 'poner mensaje de error redireccionar';
+            //echo 'poner mensaje de error redireccionar';
             //print("\nFailed auth request.\n");
             // This section will show all the reply fields.
             //echo '<pre>';
             //print("\nRESPONSE: " . print_r($reply, true));
             //echo '</pre>';
             return;
-        }else{
+        } else {
             $datos_pago_efectivo = array(
                 'user_id' => $user_id,
                 'carro_id' => $this->input->post('carro_id'),
@@ -539,6 +602,9 @@ class Cliente extends Base_Controller
                 'direccion_factura' => $direccion_factura,
             );
             $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
+
+            //correo notificacion de pago
+            $this->notiticacion_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta');
             if ($data['tipo_anuncio'] == 'individual') {
                 redirect(base_url() . 'cliente/publicar_carro');
             }
@@ -546,9 +612,8 @@ class Cliente extends Base_Controller
                 redirect(base_url() . 'cliente/publicar_carro_vip');
             }
             //redirect(base_url() . 'cliente/publicar_carro');
-
             //echo 'guardar numero de transaccion en base de datos';
-           //echo $reply->requestID;
+            //echo $reply->requestID;
         }
 
 // Build a capture using the request ID in the response as the auth request ID
@@ -563,10 +628,53 @@ class Cliente extends Base_Controller
 
         $captureReply = $client->runTransaction($captureRequest);
        */
+        // This section will show all the reply fields.
+        // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
+    }
 
-       // This section will show all the reply fields.
-       // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
+    //notificacion de carro
+    public function notiticacion_pago($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago)
+    {
 
+        //configuracion de correo
+        $config['mailtype'] = 'html';
+
+        $configGmail = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'info@gpautos.net',
+            'smtp_pass' => 'JdGg2005gp',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        );
+        $this->email->initialize($configGmail);
+
+
+        $this->email->from('info@gpautos.net', 'GP AUTOS');
+        $this->email->to($correo);
+        // $this->email->cc($correo);
+        $this->email->cc('pagos@gpautos.net');
+        $this->email->bcc('csamayoa@zenstudiogt.com');
+
+        $this->email->subject('Se registro un pago');
+
+        //mensaje
+        $message = '<html><body>';
+        $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+        $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+        $message .= "<tr><td><strong>Usuario:</strong> </td><td>" . strip_tags($cliente_id) . "</td></tr>";
+        $message .= "<tr><td><strong>Nombre de cliente:</strong> </td><td>" . strip_tags($nombre) . "</td></tr>";
+        $message .= "<tr><td><strong>Tipo de anuncio:</strong> </td><td>" . strip_tags($anuncio) . "</td></tr>";
+        $message .= "<tr><td><strong>Método de pago:</strong> </td><td>" . strip_tags($metodo_pago) . "</td></tr>";
+        $message .= "<tr><td><strong>Monto pagado:</strong> </td><td>" . strip_tags($monto) . "</td></tr>";
+        $message .= "</table>";
+        $message .= "</body></html>";
+
+        $this->email->message($message);
+        //enviar correo
+        $this->email->send();
     }
 
 
@@ -594,6 +702,7 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/publicar_carro', $data);
 
     }
+
     public function publicar_carro_vip()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -727,6 +836,7 @@ class Cliente extends Base_Controller
 
 
     }
+
     public function guardar_carro_vip()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -974,7 +1084,6 @@ class Cliente extends Base_Controller
     {
 
     }
-
 
     public function revisar_anuncio()
     {

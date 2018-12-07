@@ -33,12 +33,13 @@ class Pagos_model extends CI_Model
         $datos_pago_efectivo= array(
             'fecha'=>$fecha->format('Y-m-d'),
             'user_id'=>$data['user_id'],
-            'carro_id'=>$data['carro_id'],
             'metodo'=>'efectivo',
             'direccion'=>$data['direccion'],
             'telefono'=>$data['telefono'],
             'monto'=>$data['monto'],
-
+            'nombre_factura'=>$data['nombre_factura'],
+            'nit'=>$data['nit'],
+            'direccion_factura'=>$data['direccion_factura'],
         );
         $this->db->insert('pago_anuncio', $datos_pago_efectivo);
     }
@@ -65,6 +66,9 @@ class Pagos_model extends CI_Model
             'metodo'=>'en_linea',
             'transaccion'=>$data['transaccion'],
             'monto'=>$data['monto'],
+            'nombre_factura'=>$data['nombre_factura'],
+            'nit'=>$data['nit'],
+            'direccion_factura'=>$data['direccion_factura'],
         );
         $this->db->insert('pago_anuncio', $datos_pago_efectivo);
     }

@@ -202,12 +202,18 @@ $telefono = array(
             <div class="row">
                 <div class="col m12">
                     <div class="card">
-                        <form id="Metodo_pago" method="post"
-                              action="<?php echo base_url() ?>cliente/guardar_pago_en_linea">
+                        <?php if ($forma_pago == 'pago_en_linea') { ?>
+                        <form id="Metodo_pago" method="post" action="<?php echo base_url() ?>cliente/guardar_pago_en_linea">
+                        <?php } ?>
+                        <?php if ($forma_pago == 'pago_efectivo') { ?>
+                        <form id="Metodo_pago" method="post" action="<?php echo base_url() ?>cliente/guarda_pago_efectivo">
+                        <?php } ?>
+
+
                             <div class="card-content">
                                 <?php if (isset($error)) { ?>
                                     <div class="alert alert-danger alert-block"><a class="close" data-dismiss="alert"
-                                                                                    href="#">×</a>
+                                                                                   href="#">×</a>
                                         <h4 class="alert-heading">Ocurrio un problema al procesar su pago</h4>
                                         <?php echo $error; ?>
                                     </div>
@@ -440,7 +446,7 @@ $telefono = array(
 <script src="<?php echo base_url() ?>ui/public/js/cybs_devicefingerprint.js"></script>
 <script>
     var sessionID;
-    sessionID = cybs_dfprofiler("visanetgt_gpautos","test");
+    sessionID = cybs_dfprofiler("visanetgt_gpautos", "test");
     console.log(sessionID);
     $("#deviceFingerprintID").val(sessionID);
 
