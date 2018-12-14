@@ -104,6 +104,9 @@
         <li><a href="<?php echo base_url()?>admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' ){?>
+            <li><a href="<?php echo base_url()?>admin/codigos_descuento"><i class="icon icon-file"></i> <span>Codigos de descuento</span></a> </li>
+        <?php }?>
+        <?php if($rol =='gerente' || $rol == 'developer' ){?>
             <li><a href="<?php echo base_url()?>admin/parametros"><i class="icon icon-file"></i> <span>Parametros</span></a> </li>
         <?php }?>
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>

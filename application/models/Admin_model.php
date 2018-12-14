@@ -61,4 +61,8 @@ class Admin_model extends CI_Model
         $query = $this->db->update('parametros', $datos);
 
     }
+
+
+    //codigos de descuento
+
 }

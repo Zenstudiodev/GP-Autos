@@ -124,12 +124,20 @@ $CI =& get_instance();
                                                            class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">ver</a>
                                                     </div>
                                                     <div id="<?php echo $carro->id_carro.'_editar' ?>">
-                                                        <a href="<?php echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro ?>" class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">
-                                                            Editar precio
-                                                        </a>
-                                                        <a href="<?php echo base_url() . 'index.php/cliente/dar_de_baja/' . $carro->id_carro ?>" class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">
-                                                            Dar de baja
-                                                        </a>
+                                                        <div class="row">
+                                                            <div class="col s6">
+                                                                <a href="<?php echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro ?>" class="waves-effect waves-light">
+                                                                    Editar precio
+                                                                </a>
+                                                            </div>
+                                                            <div class="col s6">
+                                                                <a href="<?php echo base_url() . 'index.php/cliente/dar_de_baja/' . $carro->id_carro ?>" class="waves-effect waves-light">
+                                                                    Dar de baja
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+
                                                     </div>
                                                     <div id="<?php echo $carro->id_carro.'_fotos' ?>">
                                                         <div class="card-panel  lighten-2">
@@ -144,10 +152,10 @@ $CI =& get_instance();
 
 
                                         </div>
-                                        <?php if ($cardCount == 4) { ?>
+                                        <?php if ($cardCount == 3) { ?>
                                             <div class="row">
                                         <?php } ?>
-                                        <?php if ($cardCount == 4 || $cardCount == 8) { ?>
+                                        <?php if ($cardCount == 3 || $cardCount == 6) { ?>
                                             </div>
 
                                         <?php } ?>

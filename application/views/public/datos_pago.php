@@ -446,12 +446,11 @@ $telefono = array(
 <script src="<?php echo base_url() ?>ui/public/js/cybs_devicefingerprint.js"></script>
 <script>
     var sessionID;
-    sessionID = cybs_dfprofiler("visanetgt_gpautos", "test");
+    //sessionID = cybs_dfprofiler("visanetgt_gpautos", "test");
+    sessionID = cybs_dfprofiler("visanetgt_gpautos", "live");
     console.log(sessionID);
     $("#deviceFingerprintID").val(sessionID);
-
     //document.write('<input type="text" name="deviceFingerprintID" value="' + cybs_dfprofiler("visanetgt_gpautos","test") + '">');
-
     $('.card input').bind('focus', function () {
         $('.card .status').hide();
     });
@@ -481,7 +480,6 @@ $telefono = array(
             } else {
                 message = 'El número de la tarjeta ' + result.cardName + ' que ingreso parece válido.';
             }
-
             // Show credit card icon
             $('.card .card_icon').removeClass().addClass('card_icon ' + result.cardClass);
 

@@ -655,14 +655,14 @@ class Cliente extends Base_Controller
         $this->email->from('info@gpautos.net', 'GP AUTOS');
         $this->email->to($correo);
         // $this->email->cc($correo);
-        $this->email->cc('pagos@gpautos.net');
+        $this->email->cc('pagos@gpautos.net, anuncios2@gpautos.net');
         $this->email->bcc('csamayoa@zenstudiogt.com');
 
         $this->email->subject('Se registro un pago');
 
         //mensaje
         $message = '<html><body>';
-        $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+        $message .= '<img src="http://gpautos.net/ui/public/images/logoGp.png" alt="GP AUTOS" />';
         $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
         $message .= "<tr><td><strong>Usuario:</strong> </td><td>" . strip_tags($cliente_id) . "</td></tr>";
         $message .= "<tr><td><strong>Nombre de cliente:</strong> </td><td>" . strip_tags($nombre) . "</td></tr>";
@@ -885,8 +885,8 @@ class Cliente extends Base_Controller
             'crr_blindaje' => $this->input->post('blindaje'),
             'crr_otros' => $this->input->post('otros'),
             'crr_estado' => 'Usado',
-            'crr_contacto_nombre' => $usuario->first_name,
-            'crr_contacto_telefono' => $usuario->phone,
+            'crr_contacto_nombre' => 'PROPIETARIO',
+            'crr_contacto_telefono' => '',
             'crr_contacto_email' => $usuario->email,
             'crr_estatus' => 'Pendiente',
             'id_predio_virtual' => '9',
@@ -894,7 +894,7 @@ class Cliente extends Base_Controller
             'crr_certiauto' => 'no',
             'crr_nombre_propietario' => $usuario->first_name,
             'crr_telefono_propietario' => $usuario->phone,
-            'crr_vencimiento' => $usuario->email,
+            'crr_vencimiento' => '',
             'user_id' => $user_id,
         );
 

@@ -343,6 +343,7 @@ class Carros_model extends CI_Model
 	function ListarCarros_pendientes()
 	{
 		$this->db->where('user_id !=', '0');
+		$this->db->where('id_predio_virtual !=', '9');
 		$this->db->where('crr_estatus', 'Pendiente');
 		$query = $this->db->get('carro');
 
@@ -378,6 +379,7 @@ class Carros_model extends CI_Model
     }
     function numeroCarros_pendientes(){
         $this->db->where('user_id !=', '0');
+        $this->db->where('id_predio_virtual !=', '9');
         $this->db->where('crr_estatus', 'Pendiente');
         $query = $this->db->get('carro');
 

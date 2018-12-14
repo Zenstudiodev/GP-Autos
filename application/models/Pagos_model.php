@@ -78,6 +78,12 @@ class Pagos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function get_pagos_user_admin($user_id){
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get('pago_anuncio');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
     function get_pagos_carro_public($id_carro){
         $this->db->where('carro_id', $id_carro);
         $this->db->limit(1);
