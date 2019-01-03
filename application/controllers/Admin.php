@@ -68,6 +68,38 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/admin_codigos_descuento', $data);
     }
+    public function crear_cupon(){
+
+        $data = compobarSesion();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        $data['cupones']= $this->Admin_model->get_cupones();
+        echo $this->templates->render('admin/admin_crear_codigos_descuento', $data);
+    }
+    public function guardar_codigo_descuento(){
+        $data = compobarSesion();
+        //datos del cupon a array
+        $datos_cupon = array(
+            'nombre' =>$this->input->post('nombre_input'),
+            'tipo' =>$this->input->post('tipo_input'),
+            'valor' =>$this->input->post('valor_cupon'),
+            'codigo' =>$this->input->post('codigo_input'),
+        );
+        //guardamos los datos del cupon
+        $this->Admin_model->guardar_codigo_descuento($datos_cupon);
+        redirect(base_url().'admin/crear_cupon');
+    }
+    public function dar_de_baja_cupon(){
+        $data = compobarSesion();
+        $cupon_id = $this->uri->segment(3);
+        //echo'dar de baja cupon '.$cupon_id;
+        //dar de baja el cupon
+        $this->Admin_model->dar_de_baja_cupon($cupon_id);
+        redirect(base_url().'admin/crear_cupon');
+
+
+    }
     public function actualizar_parametros(){
         //print_contenido($_POST);
         $post_data = array(

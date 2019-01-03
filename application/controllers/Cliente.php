@@ -215,6 +215,21 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/seleccion_anuncio', $data);
     }
+    public function seleccion_anuncio_dev()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        $data['parametros'] = $this->Admin_model->get_parametros();
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+
+        echo $this->templates->render('public/seleccion_anuncio_dev', $data);
+    }
 
     public function forma_pago()
     {
@@ -676,7 +691,6 @@ class Cliente extends Base_Controller
         //enviar correo
         $this->email->send();
     }
-
 
     public function publicar_carro()
     {

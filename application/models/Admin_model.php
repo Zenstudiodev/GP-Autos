@@ -65,4 +65,29 @@ class Admin_model extends CI_Model
 
     //codigos de descuento
 
+    public function guardar_codigo_descuento($datos_cupon){
+        $datos = array(
+            'nombre'   => $datos_cupon['nombre'],
+            'tipo'   => $datos_cupon['tipo'],
+            'valor'   => $datos_cupon['valor'],
+            'codigo'   => $datos_cupon['codigo'],
+        );
+        $this->db->insert('cupones', $datos);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+    }
+    public function get_cupones(){
+        $query = $this->db->get('cupones');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    public function dar_de_baja_cupon($cupon_id){
+        //Actualizar carros para la bolsa
+        $datos = array(
+            'estado'=> 'Inactivo',
+        );
+        $this->db->where('id', $cupon_id);
+        $query = $this->db->update('cupones', $datos);
+    }
+
 }

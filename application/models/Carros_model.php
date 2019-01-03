@@ -834,7 +834,7 @@ class Carros_model extends CI_Model
 	}
 	function combustible_vehiculo()
 	{
-		$query = $this->db->get('combustible');
+            $query = $this->db->get('combustible');
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}

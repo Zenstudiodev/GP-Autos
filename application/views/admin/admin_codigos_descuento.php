@@ -62,7 +62,8 @@ $precio_facebook_input = array(
                     <?php } ?>
                     <div class="widget-content ">
                         <div class="container-fluid">
-                            <form action="<?php echo base_url() ?>admin/actualizar_parametros" method="post">
+                            <a class="btn btn-success" href="<?php echo base_url()?>admin/crear_cupon">Crear código</a>
+                            <form action="<?php echo base_url() ?>admin/crear_cupon" method="post">
 
 
                                 <div class="row">
