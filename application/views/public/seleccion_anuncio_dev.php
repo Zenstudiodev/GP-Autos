@@ -366,17 +366,17 @@ $precio_facebook = $parametros[4];
         console.log(cupon_a_probar);
         //comprobar cupon
 
-        Banner_data = {
-            banner_id: banner_id
+        cupon_data = {
+            cupon_code: cupon_a_probar
         };
 
         $.ajax({
             type: 'POST',
-            url: '<?php echo base_url()?>admin/',
-            data: Banner_data,
+            url: '<?php echo base_url()?>admin/validar_cupon',
+            data: cupon_data,
 
             success: function (data) {
-                //console.log(data);
+                console.log(data);
             }
         });
 

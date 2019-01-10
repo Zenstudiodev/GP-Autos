@@ -100,6 +100,9 @@ class Admin extends Base_Controller
 
 
     }
+    public function validar_cupon(){
+        print_contenido($_POST);
+    }
     public function actualizar_parametros(){
         //print_contenido($_POST);
         $post_data = array(

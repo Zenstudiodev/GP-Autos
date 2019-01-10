@@ -225,4 +225,13 @@ class Marketing_model extends CI_Model
         $query = $this->db->update('bolsa_telefonos_seguimientos', $datos);
     }
 
+    //registro de marketing
+    function usuarios_marketing($usuarios){
+        //usuarios de marketing
+        $this->db->or_where_in('ID', $usuarios);
+        $query = $this->db->get('users_b');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
 }

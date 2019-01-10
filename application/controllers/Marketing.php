@@ -219,4 +219,15 @@ class Marketing extends Base_Controller
         }
     }
 
+    //control de marketing
+    public function registros_marketing(){
+        $data = compobarSesion();
+        $usuarios_marketing = array('10', '78');
+        $data['usuarios_marketing']= $this->Marketing_model->usuarios_marketing($usuarios_marketing);
+
+        print_contenido($data['usuarios_marketing']->result());
+        echo $this->templates->render('admin/admin_registro_marketing', $data);
+    }
+
+
 }
