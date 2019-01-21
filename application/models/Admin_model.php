@@ -89,5 +89,10 @@ class Admin_model extends CI_Model
         $this->db->where('id', $cupon_id);
         $query = $this->db->update('cupones', $datos);
     }
-
+    public function get_cupon_by_code($cupon_id){
+        $this->db->where('parametro_nombre','telefonos_diarios_bolsa');
+        $query = $this->db->get('parametros');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 }
