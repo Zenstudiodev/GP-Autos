@@ -43,7 +43,7 @@ class Formularios  extends Base_Controller
 			//configuracion de correo
 			$config['mailtype'] = 'html';
 
-			$configGmail = array(
+			/*$configGmail = array(
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
@@ -52,8 +52,8 @@ class Formularios  extends Base_Controller
 				'mailtype' => 'html',
 				'charset' => 'utf-8',
 				'newline' => "\r\n"
-			);
-			$this->email->initialize($configGmail);
+			);*/
+			$this->email->initialize($config);
 
 			$this->email->from('info@gpautos.net', 'GP AUTOS - anunciate');
 			$this->email->to('gerencia@gpautos.net');

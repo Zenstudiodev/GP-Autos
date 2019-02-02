@@ -101,11 +101,15 @@ class Admin extends Base_Controller
 
     }
     public function validar_cupon(){
-        print_contenido($_POST);
+        //print_contenido($_POST);
         $codigo_cupon = $_POST['cupon_code'];
         $datos_cupon = $this->Admin_model->get_cupon_by_code($codigo_cupon);
-
-
+        if($datos_cupon){
+            $json_cupon = json_encode($datos_cupon->row());
+            echo $json_cupon;
+        }else{
+            echo 'no';
+        }
     }
     public function actualizar_parametros(){
         //print_contenido($_POST);

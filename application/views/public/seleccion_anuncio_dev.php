@@ -276,9 +276,10 @@ $precio_facebook = $parametros[4];
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">
+                                            <td>
                                                 <?php echo form_input($cupon_input); ?>
                                             </td>
+                                            <td><button id="cupon_button" class="btn ">Validar codigo</button></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -360,10 +361,10 @@ $precio_facebook = $parametros[4];
     precio_facebook = <?php echo display_formato_dinero_return($precio_facebook->parametro_valor); ?>;
 
 
-    $("#codigo_cupon").on('change', function () {
+    $("#cupon_button").on('click', function () {
         //obtenemos codigo para probar cupon
-        cupon_a_probar = $(this).val();
-        console.log(cupon_a_probar);
+        cupon_a_probar = $("#codigo_cupon").val();
+        //console.log(cupon_a_probar);
         //comprobar cupon
 
         cupon_data = {
@@ -374,14 +375,16 @@ $precio_facebook = $parametros[4];
             type: 'POST',
             url: '<?php echo base_url()?>admin/validar_cupon',
             data: cupon_data,
-
             success: function (data) {
                 console.log(data);
+                if(data=='no'){
+                    // Materialize.toast(message, displayLength, className, completeCallback);
+                    Materialize.toast('Codigo no valido', 4000) // 4000 is the duration of the toast
+                }else {
+
+                }
             }
         });
-
-
-
     });
 
     $("#seleccion_anuncio").on('change', function () {
