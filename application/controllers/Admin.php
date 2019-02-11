@@ -589,7 +589,7 @@ class Admin extends Base_Controller
         );
         //$this->Pagos_model->guardar_pago_admin($datos_pago);
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
-        redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
+            redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
     }
     //crear carro asesor
     public function crear_carro_asesor(){
