@@ -381,7 +381,8 @@ $precio_facebook = $parametros[4];
                     // Materialize.toast(message, displayLength, className, completeCallback);
                     Materialize.toast('Codigo no valido', 4000) // 4000 is the duration of the toast
                 }else {
-
+                    var obj = jQuery.parseJSON( data );
+                    console.log( obj );
                 }
             }
         });
