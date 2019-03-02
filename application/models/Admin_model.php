@@ -62,9 +62,7 @@ class Admin_model extends CI_Model
 
     }
 
-
     //codigos de descuento
-
     public function guardar_codigo_descuento($datos_cupon){
         $datos = array(
             'nombre'   => $datos_cupon['nombre'],
@@ -95,4 +93,5 @@ class Admin_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
 }

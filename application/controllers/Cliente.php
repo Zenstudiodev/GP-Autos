@@ -226,7 +226,15 @@ class Cliente extends Base_Controller
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();
+        $cupon = $this->session->cupon;
+        if($cupon){
+            $data['cupon_activo']=$cupon;
+            $data['datos_cupon']= $this->Admin_model->get_cupon_by_code($cupon);
+        }else{
+            $data['cupon_activo']='';
+        }
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+
 
         echo $this->templates->render('public/seleccion_anuncio_dev', $data);
     }
@@ -320,6 +328,26 @@ class Cliente extends Base_Controller
         }
 
         $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
+        $cupon = $this->session->cupon;
+        if($cupon){
+            $data['cupon_activo']=$cupon;
+            $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
+            $data_cupon = $data_cupon->row();
+
+            print_contenido($data_cupon);
+
+            if ($data_cupon->tipo == 'Porcentage') {
+               $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
+            }
+            if ($data_cupon->tipo == 'Valor') {
+                $descuento_cupon = $data_cupon->valor;
+            }
+            $data['descuento_cupon'] = $descuento_cupon;
+        }else{
+            $descuento_cupon = 0;
+        }
+        $total_a_pagar = $total_a_pagar - $descuento_cupon;
+
         $data['total_a_pagar'] = $total_a_pagar;
 
         $user_id = $this->ion_auth->get_user_id();
@@ -418,6 +446,26 @@ class Cliente extends Base_Controller
         }
         $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
         $data['total_a_pagar'] = $total_a_pagar;
+        $data['cupon_activo']='';
+        $cupon = $this->session->cupon;
+        if($cupon){
+            $data['cupon_activo']=$cupon;
+            $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
+            $data_cupon = $data_cupon->row();
+
+            print_contenido($data_cupon);
+
+            if ($data_cupon->tipo == 'Porcentage') {
+                $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
+            }
+            if ($data_cupon->tipo == 'Valor') {
+                $descuento_cupon = $data_cupon->valor;
+            }
+            $data['descuento_cupon'] = $descuento_cupon;
+        }else{
+            $descuento_cupon = 0;
+        }
+        $total_a_pagar = $total_a_pagar - $descuento_cupon;
 
         //datos para guardar pago
         $datos_pago_efectivo = array(
@@ -428,6 +476,7 @@ class Cliente extends Base_Controller
             'nombre_factura' => $nombre_factura,
             'nit' => $nit,
             'direccion_factura' => $direccion_factura,
+            'cupon' => $data['cupon_activo'],
         );
         //guardar pago
         $this->Pagos_model->guardar_pago_efectivo($datos_pago_efectivo);
@@ -487,15 +536,12 @@ class Cliente extends Base_Controller
         $precio_individual = $parametros[2];
         $precio_feria = $parametros[3];
         $precio_facebook = $parametros[4];
-
         $data['forma_pago'] = $this->session->forma_pago;
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
         $data['ubicacion_anuncio'] = $this->session->ubicacion_anuncio;
         $data['email'] = $this->session->email;
         $data['ip_adress'] = $this->input->ip_address();
-
         //datos de usuario
-
         //datos de tarjeta
         $numero_tarjeta = $this->input->post('card_number');
         $expirationMonth = $this->input->post('mes_vencimiento_tarjeta');
@@ -534,6 +580,27 @@ class Cliente extends Base_Controller
         }
 
         $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
+        $data['cupon_activo']='';
+        $cupon = $this->session->cupon;
+        if($cupon){
+            $data['cupon_activo']=$cupon;
+            $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
+            $data_cupon = $data_cupon->row();
+
+            print_contenido($data_cupon);
+
+            if ($data_cupon->tipo == 'Porcentage') {
+                $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
+            }
+            if ($data_cupon->tipo == 'Valor') {
+                $descuento_cupon = $data_cupon->valor;
+            }
+            $data['descuento_cupon'] = $descuento_cupon;
+        }else{
+            $descuento_cupon = 0;
+        }
+        $total_a_pagar = $total_a_pagar - $descuento_cupon;
+
         $data['total_a_pagar'] = $total_a_pagar;
 
         //print_contenido($_POST);
@@ -607,6 +674,7 @@ class Cliente extends Base_Controller
             //echo '</pre>';
             return;
         } else {
+
             $datos_pago_efectivo = array(
                 'user_id' => $user_id,
                 'carro_id' => $this->input->post('carro_id'),
@@ -615,6 +683,7 @@ class Cliente extends Base_Controller
                 'nombre_factura' => $nombre_factura,
                 'nit' => $nit,
                 'direccion_factura' => $direccion_factura,
+                'cupon' => $data['cupon_activo'],
             );
             $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
 

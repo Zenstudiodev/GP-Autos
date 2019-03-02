@@ -407,6 +407,16 @@ $telefono = array(
                                                     </td>
                                                 </tr>
                                             <?php } ?>
+                                            <?php if(isset($cupon_activo)){  ?>
+                                                <tr>
+                                                    <td>
+                                                        Cupón activo: <?php echo $cupon_activo; ?>
+                                                    </td>
+                                                    <td>
+                                                        <span id="anuncio_precio_facebook">- Q.<?php echo $descuento_cupon; ?></span>
+                                                    </td>
+                                                </tr>
+                                            <?php }?>
                                             <tr>
                                                 <td>Total a pagar:</td>
                                                 <td><span id="total_a_pagar">Q.<?php echo $total_a_pagar; ?></span></td>

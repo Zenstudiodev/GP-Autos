@@ -49,10 +49,15 @@ $ubicacion_carro_select_options = array(
     "ZACAPA" => "ZACAPA"
 );
 
+if ($datos_cupon) {
+    $datos_cupon = $datos_cupon->row();
+}
+
 $cupon_input = array(
     'type' => 'text',
     'name' => 'codigo_cupon',
     'id' => 'codigo_cupon',
+    'value' => $datos_cupon->codigo,
     'class' => ' form-control',
     'placeholder' => 'Código de cupón',
 );
@@ -279,7 +284,9 @@ $precio_facebook = $parametros[4];
                                             <td>
                                                 <?php echo form_input($cupon_input); ?>
                                             </td>
-                                            <td><button id="cupon_button" class="btn ">Validar codigo</button></td>
+                                            <td>
+                                                <button id="cupon_button" class="btn ">Validar codigo</button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -300,28 +307,29 @@ $precio_facebook = $parametros[4];
                                                 <span id="anuncio_precio"></span>
                                             </td>
                                         </tr>
-                                        <!--<tr>
-                                            <td>
-                                                <input type="checkbox" id="feria_check" name="feria_check" value="feria_si" />
-                                                <label for="feria_check">Feria</label></td>
-                                            <td><span id="anuncio_precio_feria"></span></td>
-                                        </tr>-->
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="facebook_check" name="facebook_check"
                                                        value="facebook_si"/>
                                                 <label for="facebook_check">Más 15 dias anuncios en facebook
-                                                    pagado</label></td>
+                                                    pagado</label>
                                             </td>
                                             <td class="t_individual"><span id="anuncio_precio_facebook"></span></td>
                                         </tr>
+                                        <?php if(isset($datos_cupon)){  ?>
+                                            <tr>
+                                                <td>
+                                                  <p>Cupón activo: <?php echo $datos_cupon->codigo; ?></p>
+                                                </td>
+                                                <td class="t_individual"><span id="t_descuento_cupon"></span></td>
+                                            </tr>
+                                        <?php }?>
                                         <tr>
                                             <td>Total a pagar:</td>
                                             <td class="t_individual"><span class="bold" id="total_a_pagar"></span></td>
                                         </tr>
                                         </tbody>
                                     </table>
-
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m12">
@@ -354,6 +362,7 @@ $precio_facebook = $parametros[4];
     var precio_facebook;
     var total_a_pagar;
     var cupon_activo;
+    var valor_cupon;
 
     precio_individual = <?php echo display_formato_dinero_return($precio_individual->parametro_valor); ?>;
     precio_vip = <?php echo display_formato_dinero_return($precio_vip->parametro_valor); ?>;
@@ -377,12 +386,13 @@ $precio_facebook = $parametros[4];
             data: cupon_data,
             success: function (data) {
                 console.log(data);
-                if(data=='no'){
+                if (data == 'no') {
                     // Materialize.toast(message, displayLength, className, completeCallback);
                     Materialize.toast('Codigo no valido', 4000) // 4000 is the duration of the toast
-                }else {
-                    var obj = jQuery.parseJSON( data );
-                    console.log( obj );
+                } else {
+                    var obj = jQuery.parseJSON(data);
+                    console.log(obj);
+                    window.location.reload();
                 }
             }
         });
@@ -416,6 +426,29 @@ $precio_facebook = $parametros[4];
             $("#anuncio_precio").html('Q.' + precio_anuncio);
             $("#anuncio_nombre").html(tipo_anuncio);
             total_a_pagar = total_a_pagar + precio_anuncio;
+            //cupon
+
+            <?php
+            if(isset($datos_cupon)){
+                if($datos_cupon->tipo == 'Porcentage'){
+                    ?>
+            valor_cupon = precio_anuncio *0.<?php echo $datos_cupon->valor; ?>;
+            console.log(valor_cupon);
+            $("#t_descuento_cupon").html('-'+valor_cupon);
+                <?php }
+                if($datos_cupon->tipo == 'Valor') {?>
+            valor_cupon = <?php echo $datos_cupon->valor; ?>;
+            console.log(valor_cupon)
+            $("#t_descuento_cupon").html('-'+valor_cupon);
+                <?php }?>
+            <?php }else{ ?>
+            valor_cupon = 0;
+            <?php }?>
+
+            //total con descuento del cupon
+            total_a_pagar = total_a_pagar - valor_cupon;
+            console.log(total_a_pagar);
+
         }
         //feria
         feria = $("#feria_check:checked").val();

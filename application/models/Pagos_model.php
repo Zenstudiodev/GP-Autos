@@ -40,6 +40,8 @@ class Pagos_model extends CI_Model
             'nombre_factura'=>$data['nombre_factura'],
             'nit'=>$data['nit'],
             'direccion_factura'=>$data['direccion_factura'],
+            'cupon'=>$data['cupon'],
+            
         );
         $this->db->insert('pago_anuncio', $datos_pago_efectivo);
     }
@@ -69,6 +71,7 @@ class Pagos_model extends CI_Model
             'nombre_factura'=>$data['nombre_factura'],
             'nit'=>$data['nit'],
             'direccion_factura'=>$data['direccion_factura'],
+            'cupon'=>$data['cupon'],
         );
         $this->db->insert('pago_anuncio', $datos_pago_efectivo);
     }

@@ -105,7 +105,13 @@ class Admin extends Base_Controller
         $codigo_cupon = $_POST['cupon_code'];
         $datos_cupon = $this->Admin_model->get_cupon_by_code($codigo_cupon);
         if($datos_cupon){
-            $json_cupon = json_encode($datos_cupon->row());
+            $cupon = $datos_cupon->row();
+
+            $datos_anuncio = array(
+                'cupon' => $cupon->codigo,
+            );
+            $this->session->set_userdata($datos_anuncio);
+            $json_cupon = json_encode($cupon);
             echo $json_cupon;
         }else{
             echo 'no';
