@@ -160,7 +160,7 @@ $datos_buscador = $CI->session->userdata('filtros_buscador');
                                 class="material-icons  secondary-content orange-text darken-3">note_add</i>
                     </a>
                     <a href="<?php echo base_url(); ?>" class="collection-item black-text">
-                        Vehiculos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
+                        Ver todos los vehículos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
                     </a>
                     <a href="<?php echo base_url() ?>Productos/financiamiento"
                        class="collection-item black-text">

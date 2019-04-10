@@ -302,5 +302,7 @@ class Home extends Base_Controller
         echo $this->templates->render('public/registro', $data);
     }
 
-
+    public function splash(){
+        echo $this->templates->render('public/splash');
+    }
 }

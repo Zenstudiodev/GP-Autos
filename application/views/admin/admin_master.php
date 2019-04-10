@@ -16,6 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="<?php echo base_url()?>/ui/admin/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo base_url()?>/ui/admin/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-style.css"/>
+    <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-media.css"/>
     <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/css/uniform.css" />
     <!--Fonnt Awsome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -78,6 +80,9 @@
             <li><a href="<?php echo base_url()?>admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
+            <li><a href="<?php echo base_url()?>admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
+        <?php }?>
+        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
             <li><a href="<?php echo base_url()?>admin/crear_carro_asesor"><i class="icon icon-signal"></i> <span>Subir carro (asesor)</span></a> </li>
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
@@ -101,7 +106,13 @@
         <li><a href="<?php echo base_url()?>admin/banners_header"><i class="icon icon-file"></i> <span>Banners Header</span></a> </li>
 	    <?php }?>
 	    <?php if($rol =='gerente' || $rol == 'developer' ){?>
-        <li><a href="<?php echo base_url()?>admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a> </li>
+            <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes</span> </a>
+                <ul>
+                    <li><a href="<?php echo base_url()?>admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a> </li>
+                    <li><a href="<?php echo base_url()?>admin/reporte_marketing">Reporte de marketing</a></li>
+                </ul>
+            </li>
+
         <?php }?>
         <?php if($rol =='gerente' || $rol == 'developer' ){?>
             <li><a href="<?php echo base_url()?>admin/codigos_descuento"><i class="icon icon-file"></i> <span>Codigos de descuento</span></a> </li>
@@ -109,6 +120,8 @@
         <?php if($rol =='gerente' || $rol == 'developer' ){?>
             <li><a href="<?php echo base_url()?>admin/parametros"><i class="icon icon-file"></i> <span>Parametros</span></a> </li>
         <?php }?>
+
+
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
         <li ><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
         <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>

@@ -316,7 +316,7 @@ $t4x4_n = array(
                         Anuncia tu vehiculo <i class="material-icons  secondary-content orange-text darken-3">note_add</i>
                     </a>
                     <a href="<?php echo base_url(); ?>Carro/filtro/TODOS/TODOS/AUTOMOVIL/TODOS/TODOS/TODOS/TODOS/TODOS/TODOS/0-600000/1952-2019" class="collection-item black-text">
-                        Vehiculos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
+                        Ver todos los vehículos <i class="material-icons  secondary-content orange-text darken-3">directions_car</i>
                     </a>
                     <a href="<?php echo base_url() ?>Productos/financiamiento"
                        class="collection-item black-text">
@@ -963,6 +963,8 @@ $t4x4_n = array(
         }
     });
 </script>
+
+
 
 <script>
     (function (i, s, o, g, r, a, m) {

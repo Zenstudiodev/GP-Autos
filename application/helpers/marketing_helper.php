@@ -29,5 +29,41 @@ function color_seguimiento($estado, $fecha)
 
     return $color_evento;
 }
+function numeros_agregados_reporte($user, $de, $a){
+    $ci =& get_instance();
+    $numeros_agregados='';
+    $numeros_agregados = $ci->Marketing_model->numeros_agregados($user, $de, $a);
+    if ($numeros_agregados){
+        $numeros_agregados = $numeros_agregados->num_rows();
+    }
+    else{
+        $numeros_agregados =0;
+    }
+    return($numeros_agregados);
+}
+function numeros_bajados_reporte($user, $de, $a){
+    $ci =& get_instance();
+    $numeros_bajados='';
+    $numeros_bajados = $ci->Marketing_model->numeros_bajados($user, $de, $a);
+    if ($numeros_bajados){
+        $numeros_bajados = $numeros_bajados->num_rows();
+    }
+    else{
+        $numeros_bajados =0;
+    }
+    return($numeros_bajados);
+}
+function numeros_seguimientos_reporte($user, $de, $a){
+    $ci =& get_instance();
+    $numeros_bajados='';
+    $numeros_bajados = $ci->Marketing_model->numeros_seguimientos($user, $de, $a);
+    if ($numeros_bajados){
+        $numeros_bajados = $numeros_bajados->num_rows();
+    }
+    else{
+        $numeros_bajados =0;
+    }
+    return($numeros_bajados);
+}
 
 ?>

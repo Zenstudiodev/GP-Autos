@@ -1289,13 +1289,6 @@ class Admin extends Base_Controller
         //print_r($carros_con_vencimiento->result());
         echo '</pre>';
     }
-    public function trasancciones()
-    {
-        $data = compobarSesion();
-        $data['transacciones'] = $this->Carros_model->get_transacciones();
-        echo $this->templates->render('admin/transacciones', $data);
-
-    }
     public function carro_imagen()
     {
         $data = compobarSesion();
@@ -1304,6 +1297,41 @@ class Admin extends Base_Controller
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
         echo $this->templates->render('admin/carro_imagen', $data);
+    }
+    //reportes
+    public function trasancciones()
+    {
+        $data = compobarSesion();
+        $data['transacciones'] = $this->Carros_model->get_transacciones();
+        echo $this->templates->render('admin/transacciones', $data);
+
+    }
+    public function reporte_marketing(){
+        $data = compobarSesion();
+        //fechas de reporte
+        if ($this->uri->segment(3)) {
+            $data['de'] = $this->uri->segment(3);
+        }else{
+            $ayer = New DateTime();
+            $ayer = $ayer->modify('-1 days');
+            $data['de'] = $ayer->format('Y-m-d');
+        }
+        if ($this->uri->segment(4)) {
+            $data['a'] = $this->uri->segment(4);
+        }else{
+            $hoy = New DateTime();
+            $data['a'] = $hoy->format('Y-m-d');
+        }
+
+
+
+
+        //usuarios de marketing
+        $usuarios_marketing = array('10', '78');
+        $data['usuarios_marketing']= $this->Marketing_model->usuarios_marketing($usuarios_marketing);
+
+
+        echo $this->templates->render('admin/reporte_marketing', $data);
     }
 
     //predios
@@ -1426,6 +1454,7 @@ class Admin extends Base_Controller
         $this->Usuarios_model->actualizar_usuarios($post_data);
         redirect(base_url() . 'admin/usuarios/');
     }
+
 
 
 

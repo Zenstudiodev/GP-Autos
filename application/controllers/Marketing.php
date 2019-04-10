@@ -229,5 +229,17 @@ class Marketing extends Base_Controller
         echo $this->templates->render('admin/admin_registro_marketing', $data);
     }
 
+    //rotulaciones
+    public function rotulaciones(){
+        $data = compobarSesion();
+        echo $this->templates->render('admin/admin_listado_rotulaciones', $data);
+    }
+    public function crear_rotulacion(){
+        $data = compobarSesion();
+        echo $this->templates->render('admin/admin_crear_rotulacion', $data);
+    }
+    public function completar_rotulacion(){}
+    public function informe_rotulaciones(){}
+
 
 }

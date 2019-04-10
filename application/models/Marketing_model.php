@@ -32,7 +32,6 @@ class Marketing_model extends CI_Model
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
-
     function get_numeros_ingresados_dia_user($user_id)
     {
         $fecha = New DateTime();
@@ -42,7 +41,6 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query->num_rows();
         else return 0;
     }
-
     function registros_en_bolsa_by_telefono($telefono)
     {
         $this->db->where('bt_telefono', $telefono);
@@ -50,7 +48,6 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function registros_en_bolsa_by_id($bt_id)
     {
         $this->db->where('bt_id', $bt_id);
@@ -58,7 +55,6 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function get_carros_publicados_en_el_mes()
     {
         $fecha = New DateTime();
@@ -131,7 +127,6 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function asignar_numero_bajado($registro)
     {
         $datos = array(
@@ -140,7 +135,6 @@ class Marketing_model extends CI_Model
         $this->db->where('bt_id', $registro['bt_id']);
         $query = $this->db->update('bolsa_telefonos', $datos);
     }
-
     function guardar_resultado_seguimiento($resultado)
     {
         $fecha = New DateTime();
@@ -156,7 +150,6 @@ class Marketing_model extends CI_Model
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
-
     function actualizar_registro_bolsa($registro)
     {
         $fecha = New DateTime();
@@ -168,7 +161,6 @@ class Marketing_model extends CI_Model
         $this->db->where('bt_id', $registro['bt_id']);
         $query = $this->db->update('bolsa_telefonos', $datos);
     }
-
     function guardar_seguimiento($seguimiento)
     {
         $fecha = New DateTime($seguimiento['bts_fecha_seguimiento']);
@@ -197,7 +189,6 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function get_datos_seguimiento_by_id($seguimiento_id)
     {
         $this->db->where('bts_id', $seguimiento_id);
@@ -213,7 +204,6 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function actualizar_estado_seguimiento($seguimiento)
     {
         $fecha = New DateTime();
@@ -228,8 +218,43 @@ class Marketing_model extends CI_Model
     //registro de marketing
     function usuarios_marketing($usuarios){
         //usuarios de marketing
-        $this->db->or_where_in('ID', $usuarios);
+        $this->db->or_where_in('id', $usuarios);
         $query = $this->db->get('users_b');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+    function numeros_agregados($user_id, $de, $a){
+        $this->db->where('bt_user_id', $user_id);
+        $this->db->where('bt_fecha_ingreso  >=', $de);
+        $this->db->where('bt_fecha_ingreso  <=', $a);
+        $query = $this->db->get('bolsa_telefonos');
+        //$this->db->limit(1);
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function numeros_bajados($user_id, $de, $a){
+        $this->db->where('bt_user_id_atendiendo', $user_id);
+        $this->db->where('bt_fecha_atendido  >=', $de);
+        $this->db->where('bt_fecha_atendido  <=', $a);
+        $query = $this->db->get('bolsa_telefonos');
+        //$this->db->limit(1);
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function numeros_seguimientos($user_id, $de, $a){
+        $this->db->where('bts_user_id', $user_id);
+        $this->db->where('bts_fecha_resultado  >=', $de);
+        $this->db->where('bts_fecha_resultado  <=', $a);
+        $query = $this->db->get('bolsa_telefonos_seguimientos');
+        //$this->db->limit(1);
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+    function rotulaciones_pendientes(){
+        $this->db->where('rotulaciones_estado', 'pendiente');
+        $query = $this->db->get('rotulaciones');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
