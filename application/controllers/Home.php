@@ -18,7 +18,14 @@ class Home extends Base_Controller
         $this->load->helper(array('url', 'language'));
     }
 
+
+
     public function index()
+    {
+        echo $this->templates->render('public/splash');
+
+    }
+    public function inicio()
     {
         $data = cargar_componentes_buscador();
         $data['banners'] = $this->Banners_model->banneers_activos();

@@ -14,9 +14,25 @@
     'rol' => $rol,
 ]);
 
-$parametro_numeros = $parametro_numeros->row();
-$numeros_diarios_requeridos = $parametro_numeros->parametro_valor;
+//Nombre
+$nombre = array(
+    'type' => 'text',
+    'name' => 'nombre',
+    'id' => 'nombre',
+    'class' => ' form-control',
+    'placeholder' => 'Nombre',
+    'required' => 'required'
+);
 
+//direccion
+$direccion = array(
+    'type' => 'text',
+    'name' => 'direccion',
+    'id' => 'direccion',
+    'class' => ' form-control',
+    'placeholder' => 'Dirección',
+    'required' => 'required'
+);
 
 //Codigo
 $codigo = array(
@@ -77,14 +93,10 @@ $telefono = array(
 $tipo_carro_select         = array(
     'name'     => 'tipo_carro',
     'id'       => 'tipo_carro',
-    'class'    => ' browser-default form-control',
+
     'required' => 'required'
 );
 $tipo_carro_select_options = array();
-foreach ($tipos->result() as $tipo_carro)
-{
-    $tipo_carro_select_options[$tipo_carro->id_tipo_carro] = $tipo_carro->id_tipo_carro;
-}
 
 //MARCA
 $marca = array(
@@ -144,7 +156,7 @@ $modelo = array(
             <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
-                        <h5>Agregar número</h5>
+                        <h5>Agregar rotulación</h5>
                     </div>
 
                     <?php if (isset($mensaje)) { ?>
@@ -157,38 +169,28 @@ $modelo = array(
                     <div class="widget-content ">
                         <div class="container">
                             <div class="row">
-                                <ul class="quick-actions">
-                                    <li class="bg_lo">
-                                        <a href="#">
-                                            <i class="fas fa-phone"></i>
-                                            <?php
-                                            $numeros_pendientes = $numeros_diarios_requeridos - $numeros_ingresados_user ;
-                                            echo $numeros_pendientes;?>
-                                            <br>
-                                            Números pendientes
-                                    </li>
-                                </ul>
+
                             </div>
                         </div>
 
                         <div class="container-fluid">
-                            <form action="<?php echo base_url()?>marketing/guardar_numero" method="post">
+                            <form action="<?php echo base_url()?>marketing/guardar_rotulacion" method="post">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <!--telefono-->
+                                    <!--nombre-->
                                     <div class="form-group">
-                                        <label class="control-label">Teléfono</label>
+                                        <label class="control-label">Nombre</label>
                                         <div class="controls">
-                                            <?php echo form_input($telefono); ?>
+                                            <?php echo form_input($nombre); ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <!--UBICACIÓN-->
+                                    <!--direccion-->
                                     <div class="form-group">
-                                        <label class="control-label">UBICACIÓN</label>
+                                        <label class="control-label">Dirección</label>
                                         <div class="controls">
-                                            <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, 'GUATEMALA') ?>
+                                            <?php echo form_input($direccion); ?>
                                         </div>
                                     </div>
                                 </div>

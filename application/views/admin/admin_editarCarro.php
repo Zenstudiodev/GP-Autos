@@ -197,7 +197,7 @@ $otros = array(
 	'name'      => 'otros',
 	'id'        => 'otros',
 	'class'     => 'span11 form-control ',
-	'maxlength' => '140',
+	'maxlength' => '255',
 	'value'     => $carro->crr_otros,
 	'required'  => 'required'
 );

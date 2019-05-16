@@ -238,6 +238,7 @@ class Marketing extends Base_Controller
         $data = compobarSesion();
         echo $this->templates->render('admin/admin_crear_rotulacion', $data);
     }
+    public function guardar_rotulacion(){}
     public function completar_rotulacion(){}
     public function informe_rotulaciones(){}
 

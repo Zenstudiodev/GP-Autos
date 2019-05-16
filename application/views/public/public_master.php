@@ -306,7 +306,7 @@ $t4x4_n = array(
 
         <div class="row">
             <div class="col s12 m4 col-md-4">
-                <a href="<?php echo base_url(); ?>">
+                <a href="<?php echo base_url().'home/inicio'; ?>">
                     <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
                 </a>
 

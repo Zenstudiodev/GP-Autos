@@ -31,24 +31,30 @@
 
 <div id="splash_bg">
     <div class="container">
-        <div class="row justify-content-md-center align-items-center">
-            <div class="col-md-2"><img src="<?php echo base_url()?>ui/public/images/bandera_gt.png" class="img-fluid">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-2 col-4">
+                <a href="<?php echo base_url()?>home/inicio">
+                    <img src="<?php echo base_url()?>ui/public/images/bandera_gt.png" class="img-fluid">
+                </a>
             <h3>GUATEMALA</h3>
             </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-2"><img src="<?php echo base_url()?>ui/public/images/bandera_es.png" class="img-fluid">
+            <div class="col-md-2 col-1"></div>
+            <div class="col-md-2 col-4">
+                <a href="https://sv.gpautos.net">
+                    <img src="<?php echo base_url()?>ui/public/images/bandera_es.png" class="img-fluid">
+                </a>
             <h3>EL SALVADOR</h3>
             </div>
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row justify-content-md-center align-items-center logos">
-        <div class="col-md-3"><img src="<?php echo base_url()?>ui/public/images/logo/autos.png" class="img-fluid"></div>
-        <div class="col-md-3"><img src="<?php echo base_url()?>ui/public/images/logo/seguros.png" class="img-fluid"></div>
-        <div class="col-md-3"><img src="<?php echo base_url()?>ui/public/images/logo/compras.png" class="img-fluid"></div>
+<!--<div class="container">
+    <div class="row justify-content-center align-items-center logos">
+        <div class="col-md-3 col-8 col-xs-offset-5"><img src="<?php echo base_url()?>ui/public/images/logo/autos.png" class="img-fluid"></div>
+        <div class="col-md-3 col-8"><img src="<?php echo base_url()?>ui/public/images/logo/seguros.png" class="img-fluid"></div>
+        <div class="col-md-3 col-8"><img src="<?php echo base_url()?>ui/public/images/logo/compras.png" class="img-fluid"></div>
     </div>
-</div>
+</div>-->
 <footer>
     <div class="container">
         <div class="row align-items-center footer">

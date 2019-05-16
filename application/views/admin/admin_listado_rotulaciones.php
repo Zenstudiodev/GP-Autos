@@ -90,7 +90,7 @@ $telefono = array(
                     <div class="widget-content ">
                         <div class="container">
                             <div class="row">
-                                <a class="btn btn-success">Crear rotulación</a>
+                                <a class="btn btn-success" href="<?php echo base_url()?>marketing/crear_rotulacion">Crear rotulación</a>
                             </div>
                         </div>
 
