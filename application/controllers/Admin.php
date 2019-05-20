@@ -966,7 +966,6 @@ class Admin extends Base_Controller
         redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
     }
 
-
     //Renovar carro
     public function renovar_carro()
     {
@@ -1030,6 +1029,7 @@ class Admin extends Base_Controller
         $this->Carros_model->guardar_precio_feria($post_data);
         redirect(base_url() . 'admin/');
     }
+
     //CARROS
     public function disponibilidad()
     {
@@ -1454,9 +1454,4 @@ class Admin extends Base_Controller
         $this->Usuarios_model->actualizar_usuarios($post_data);
         redirect(base_url() . 'admin/usuarios/');
     }
-
-
-
-
-
 }

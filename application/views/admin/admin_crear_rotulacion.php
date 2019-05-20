@@ -96,7 +96,9 @@ $tipo_carro_select         = array(
 
     'required' => 'required'
 );
-$tipo_carro_select_options = array();
+$tipo_carro_select_options = array(
+        'carro'=>'carro'
+);
 
 //MARCA
 $marca = array(

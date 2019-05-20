@@ -276,14 +276,14 @@ if ($carro) {
                                 <div class="dr_chat">
                                     <a class="wts_btn waves-effect waves-light btn  z-depth-3" id_carro="<?php echo $data_carro->id_carro ?>" target="_blank"
                                        href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">
-                                        chat directo con<br> vendedor <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
+                                        Pedir información <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
                                 </div>
                             </div>
 
                             <div class="col s12 m6">
                                 <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
                                    href="#informacion_carro_modal"><i
-                                            class="fa fa-info left"></i> Pedir información</a>
+                                            class="fa fa-envelope left"></i> Pedir información</a>
                             </div>
                             <!--<div class="col s12 m3">
                                 <a class="waves-effect waves-light btn orange darken-3 z-depth-3"><i
@@ -304,14 +304,14 @@ if ($carro) {
                                     <div class="dr_chat">
                                         <a class="wts_btn waves-effect waves-light btn  z-depth-3" id_carro="<?php echo $data_carro->id_carro ?>" target="_blank"
                                            href="https://api.whatsapp.com/send?phone=502<?php echo $data_carro->crr_contacto_telefono ?>&text=<?php echo urlencode('Vi tu carro en gpautos, quisiera información del codigo: ' . $data_carro->id_carro . ' Marca: ' . $data_carro->id_marca . ' Linea: ' . $data_carro->id_linea . ' Modelo: ' . $data_carro->crr_modelo) ?>">
-                                            chat directo con<br> vendedor <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
+                                            Pedir información <img src="<?php echo base_url(); ?>ui/public/images/ws_icon.png"></a>
                                     </div>
                                 </li>
                                 <li class="collection-item">
                                     <div>
                                         <a class="waves-effect waves-light btn orange darken-3 z-depth-3"
                                            href="#informacion_carro_modal"><i
-                                                    class="fa fa-info left"></i> Pedir información</a>
+                                                    class="fa fa-envelope left"></i> Pedir información</a>
 
                                     </div>
                                 </li>
