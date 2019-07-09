@@ -250,13 +250,14 @@ class Cliente extends Base_Controller
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
-
-
+        //print_contenido($_POST);
         $datos_anuncio = array(
             'ubicacion_anuncio' => $this->input->post('ubicacion_anuncio'),
             'tipo_anuncio' => $this->input->post('tipo_anuncio'),
             'feria' => $this->input->post('feria_check'),
             'facebook' => $this->input->post('facebook_check'),
+            'telefono_calcomania' => $this->input->post('calcomania_telefono_input'),
+            'direccion_calcomania' => $this->input->post('calcomania_direccion_input'),
         );
 
         $this->session->set_userdata($datos_anuncio);
@@ -301,7 +302,7 @@ class Cliente extends Base_Controller
 
 
         //print_contenido($_POST);
-        //print_contenido($_SESSION);
+        print_contenido($_SESSION);
         $data['forma_pago'] = $this->session->forma_pago;
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
 
@@ -453,7 +454,7 @@ class Cliente extends Base_Controller
             $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
             $data_cupon = $data_cupon->row();
 
-            print_contenido($data_cupon);
+            //print_contenido($data_cupon);
 
             if ($data_cupon->tipo == 'Porcentage') {
                 $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
@@ -587,7 +588,7 @@ class Cliente extends Base_Controller
             $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
             $data_cupon = $data_cupon->row();
 
-            print_contenido($data_cupon);
+           // print_contenido($data_cupon);
 
             if ($data_cupon->tipo == 'Porcentage') {
                 $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
@@ -684,6 +685,8 @@ class Cliente extends Base_Controller
                 'nit' => $nit,
                 'direccion_factura' => $direccion_factura,
                 'cupon' => $data['cupon_activo'],
+                'direccion_rotulacion' => $this->session->direccion_calcomania,
+                'telefono_rotulacion' => $this->session->telefono_calcomania,
             );
             $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
 

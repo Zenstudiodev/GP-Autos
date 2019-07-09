@@ -253,6 +253,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (1).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (1).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/1'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -261,6 +264,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (2).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (2).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/2'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -271,6 +277,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (3).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (3).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/3'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -279,6 +288,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (4).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (4).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/4'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -289,6 +301,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (5).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (5).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/5'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -297,6 +312,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (6).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (6).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/6'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -307,6 +325,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (7).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (7).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/7'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -315,6 +336,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (8).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (8).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/8'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -325,6 +349,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (9).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (9).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/9'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>
@@ -333,6 +360,9 @@ if($usuario){
                                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro->id_carro . ' (10).jpg')) { ?>
                                                 <img src="<?php echo 'http://gpautos.net/web/images_cont/' . $carro->id_carro . ' (10).jpg' ?>"
                                                      class="img-responsive">
+                                                <a href="<?php echo base_url().'admin/borrar_imagen/'.$carro->id_carro.'/10'?>" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </a>
                                             <?php } else {
                                             } ?>
                                         </div>

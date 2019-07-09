@@ -132,6 +132,11 @@
                                                     <a class="btn btn-danger btn-xs"
                                                        href="<?php echo base_url() . 'admin/dar_de_baja_btn/' . $carro->id_carro ?>" target="_blank"><i
                                                                 class="icon-remove"></i> Dar de baja</a>
+                                                    <?php if ($rol == 'developer' || $rol == 'gerente' || $rol == 'editor' || $rol == 'marketing' || $rol == 'predio') { ?>
+                                                        <a class="btn btn-info btn-xs" href="<?php echo base_url() . 'admin/subir_fotos/' . $carro->id_carro ?>"  >
+                                                            <i class="icon-plus-sign"></i> editar - subir foto
+                                                        </a>
+                                                    <?php } ?>
                                                     <?php if ($rol != 'predio') { ?>
                                                         <a class="btn btn-warning btn-xs"
                                                            href="<?php echo base_url() . 'admin/agregar_a_feria/' . $carro->id_carro ?>"
@@ -152,6 +157,7 @@
                                                     <?php echo $carro->id_carro ?>
                                                 </a>
                                             <?php } ?>
+
                                         </td>
                                         <td>
 

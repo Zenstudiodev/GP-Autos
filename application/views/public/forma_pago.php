@@ -80,7 +80,7 @@
                                 <label for="pago_deposito"></label>
                                 </span>
                         </li>-->
-                        <li class="collection-item avatar" id="pago_efectivo_item">
+                        <!--<li class="collection-item avatar" id="pago_efectivo_item">
 
                                 <i class="material-icons circle green">attach_money</i>
                                 <span class="title">Efectivo</span>
@@ -90,7 +90,7 @@
                                     <input name="forma_pago" type="radio" id="pago_efectivo" value="pago_efectivo"/>
                                 <label for="pago_efectivo"></label>
                                 </span>
-                        </li>
+                        </li>-->
                         <li class="collection-item">
                             <button class="btn waves-effect waves-light" type="submit" name="action">Seleccionar
                                 <i class="material-icons right">send</i>

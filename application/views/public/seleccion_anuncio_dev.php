@@ -61,6 +61,21 @@ $cupon_input = array(
     'class' => ' form-control',
     'placeholder' => 'Código de cupón',
 );
+$calcomania_telefono_input = array(
+    'type' => 'text',
+    'name' => 'calcomania_telefono_input',
+    'id' => 'calcomania_telefono_input',
+    'class' => ' form-control',
+    'placeholder' => 'Teléfono',
+);
+$calcomania_direccion_input = array(
+    'type' => 'text',
+    'name' => 'calcomania_direccion_input',
+    'id' => 'calcomania_direccion_input',
+    'class' => ' form-control',
+    'placeholder' => 'Dirección',
+);
+
 
 $parametros = $parametros->result();
 $precio_vip = $parametros[1];
@@ -271,6 +286,31 @@ $precio_facebook = $parametros[4];
                                     <table class="striped table-bordes">
                                         <thead>
                                         <tr class="grey darken-2 white-text">
+                                            <td colspan="2">Rotulación</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                Calcomania:
+                                            </td>
+                                            <td >
+                                                <input type="checkbox"  id="calcomania" name="calcomania" value="calcomania" />
+                                                <label for="calcomania">SI</label>
+
+                                            </td>
+                                        </tr>
+                                        <tr id="form_calcomania_container">
+                                            <td><?php echo form_input($calcomania_telefono_input); ?></td>
+                                            <td><?php echo form_input($calcomania_direccion_input); ?> </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+
+                                    <table class="striped table-bordes">
+                                        <thead>
+                                        <tr class="grey darken-2 white-text">
                                             <td colspan="2">Cupones de descuento</td>
                                         </tr>
                                         </thead>
@@ -363,13 +403,25 @@ $precio_facebook = $parametros[4];
     var total_a_pagar;
     var cupon_activo;
     var valor_cupon;
-
+    var calcomania;
     precio_individual = <?php echo display_formato_dinero_return($precio_individual->parametro_valor); ?>;
     precio_vip = <?php echo display_formato_dinero_return($precio_vip->parametro_valor); ?>;
     precio_feria = <?php echo display_formato_dinero_return($precio_feria->parametro_valor); ?>;
     precio_facebook = <?php echo display_formato_dinero_return($precio_facebook->parametro_valor); ?>;
 
 
+
+    //ocultar formulario de calcomania
+    $("#form_calcomania_container").hide();
+
+    $("#calcomania").on('change', function () {
+        calcomania = $("input[name='calcomania']:checked").val();
+        if(calcomania){
+            $("#form_calcomania_container").show();
+        }else{
+            $("#form_calcomania_container").hide();
+        }
+    });
     $("#cupon_button").on('click', function () {
         //obtenemos codigo para probar cupon
         cupon_a_probar = $("#codigo_cupon").val();

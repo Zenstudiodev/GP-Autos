@@ -30,13 +30,17 @@ class Admin extends Base_Controller
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
+        $data['carros_usuario_predio_pendientes']= false;
 
         if ($data['rol'] == 'predio') {
             $user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
             $user = $user->row();
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
+            //carros del predio asignados al usuario
             $data['carros_usuario_predio']= $this->Predio_model->get_carros_predio_usuario($data['user_id']);
+            $data['carros_usuario_predio_pendientes']= $this->Predio_model->get_carros_usuario_predio_pendientes($data['user_id']);
+
             if($data['carros_usuario_predio']){
                 $data['numero_de_carros'] = $data['carros_usuario_predio']->num_rows();
             }
@@ -1004,6 +1008,29 @@ class Admin extends Base_Controller
         $data['linea'] = $this->Carros_model->lineas_vehiculo($carro_r->id_tipo_carro, $carro_r->id_marca);
 
         echo $this->templates->render('admin/admin_subir_fotos', $data);
+    }
+    public function borrar_imagen()
+    {
+
+        //Id de imagen desde segmento URL
+        $carro_id = $data['imagen_id'] = $this->uri->segment(3);
+        //Id de producto desde segmento URL
+        $imagen_numero = $data['prducto_id'] = $this->uri->segment(4);
+        //borrado de imagen
+
+        if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id.' ('.$imagen_numero.').jpg')) {
+            //echo 'imagen existe';
+            if (unlink('/home2/gpautos/public_html/web/images_cont/' . $carro_id.' ('.$imagen_numero.').jpg')) {
+                $this->session->set_flashdata('mensaje', 'se borro la imagen');
+                redirect(base_url() . '/admin/revisar_carro/' . $carro_id);
+            } else {
+                echo 'no se borro';
+            }
+        } else {
+
+            //echo 'la imagen no existe';
+        }
+
     }
     //FERIA
     public function agregar_a_feria(){

@@ -72,6 +72,8 @@ class Pagos_model extends CI_Model
             'nit'=>$data['nit'],
             'direccion_factura'=>$data['direccion_factura'],
             'cupon'=>$data['cupon'],
+            'direccion_rotulacion'=>$data['cupon'],
+            'telefono_rotulacion'=>$data['cupon'],
         );
         $this->db->insert('pago_anuncio', $datos_pago_efectivo);
     }

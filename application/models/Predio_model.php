@@ -60,6 +60,13 @@ class Predio_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function get_carros_usuario_predio_pendientes($user_id){
+        $this->db->where_in('predio_user_id', $user_id);
+        $this->db->where('crr_estatus', 'Pendiente');
+        $query = $this->db->get('carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
     function guardar_predio($predio){
         //fecha
         $fecha = New DateTime();
