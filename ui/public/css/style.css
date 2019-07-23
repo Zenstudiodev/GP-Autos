@@ -532,6 +532,13 @@ h2.precio_oferta{
     text-align: center;
 }
 
+/*Predios*/
+#lista_predios{}
+#lista_predios .card-title{
+    font-size: 20px;
+}
+
+
 @media only screen and (min-width: 993px) {
     .container {
         width: 90%;

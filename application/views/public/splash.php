@@ -12,6 +12,12 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="fb:app_id" content="302184056577324"/>
+    <meta property="og:image" content="http://gpautos.net/ui/public/images/logo/fb.jpg"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://gpautos.net/"/>
+    <meta property="og:title" content="	GP AUTOS"/>
+    <meta property="og:description" content="El predio virtual mas grande de Guatemala"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -24,6 +30,7 @@
         <div class="row">
             <div class="col">
                 <h1>WWW.GPAUTOS.NET</h1>
+                <p><img src="https://gpautos.net/ui/public/images/logoGp.png"></p>
             </div>
         </div>
     </div>

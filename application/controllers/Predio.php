@@ -92,5 +92,66 @@ class Predio extends Base_Controller
 	function predios_amin(){
 
     }
+    function listado_predio(){
+        $data = cargar_componentes_buscador();
+        //obtenemos el id del carro desde el segmento de url
+        $data['segmento'] = $this->uri->segment(3);
+        if (!$data['segmento'])
+        {
+            //TODO  redirigir a vista de listao de carros
+            //redirect('prospectos/prospectosList', 'refresh');
+        }
+        else
+        {
+
+            $data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
+            if($data['carro']){
+                $data_carro = $data['carro']->row();
+                $predio=$this->Predio_model->get_predio_data($data_carro->id_predio_virtual);
+                if($predio) {
+                    $predio = $predio->row();
+                    if ($predio->prv_estatus == 'Baja') {
+                        $data['carro'] = false;
+                    }
+                }
+
+            }
+
+        }
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $data['predios_activos'] = $this->Predio_model->predios_activos();
+        echo $this->templates->render('public/lista_predios', $data);
+
+    }
+    function afiliarse(){
+        $data = cargar_componentes_buscador();
+        //obtenemos el id del carro desde el segmento de url
+        $data['segmento'] = $this->uri->segment(3);
+        if (!$data['segmento'])
+        {
+            //TODO  redirigir a vista de listao de carros
+            //redirect('prospectos/prospectosList', 'refresh');
+        }
+        else
+        {
+
+            $data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
+            if($data['carro']){
+                $data_carro = $data['carro']->row();
+                $predio=$this->Predio_model->get_predio_data($data_carro->id_predio_virtual);
+                if($predio) {
+                    $predio = $predio->row();
+                    if ($predio->prv_estatus == 'Baja') {
+                        $data['carro'] = false;
+                    }
+                }
+
+            }
+
+        }
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $data['predios_activos'] = $this->Predio_model->predios_activos();
+        echo $this->templates->render('public/registro_predio', $data);
+    }
 
 }

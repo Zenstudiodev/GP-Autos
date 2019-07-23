@@ -26,6 +26,13 @@ class Predio_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    //predios activos
+    function predios_activos(){
+        $this->db->where('prv_estatus', 'Alta');
+        $query = $this->db->get('predio_virtual');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
 	function predios_admin(){
         $query = $this->db->get('predio_virtual');
