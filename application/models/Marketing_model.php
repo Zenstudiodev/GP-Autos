@@ -251,7 +251,6 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function rotulaciones_pendientes(){
         $this->db->where('rotulaciones_estado', 'pendiente');
         $query = $this->db->get('rotulaciones');

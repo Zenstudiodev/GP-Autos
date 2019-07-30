@@ -129,15 +129,146 @@
                                 </li>
 
                             <?php } ?>
-                                <li>
-                                    <button class="btn btn-warning btn-mini">View All</button>
-                                </li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-file"></i> </span>
+                            <h5>Desglose</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                                <div class="box-body">
+                                    <?php
+                                    if (isset($from)) {
+                                        //fecha de inicio
+                                        $fecha_inicio = New DateTime($from);
+                                        $fecha_inicio_t = New DateTime($from);
+                                        //fecha final
+                                        $fecha_final = New DateTime($to);
+                                    } else {
+                                        $fecha = New DateTime();
+                                        $mes = $fecha->format('m');
+                                        $year = $fecha->format('Y');
+                                        $inicio_mes = $year . '-' . $mes . '-' . '01';
+                                        $fin_mes = $year . '-' . $mes . '-' . days_in_month($mes, $year);
+                                        $fecha_inicio = new  DateTime($inicio_mes);
+                                        $fecha_inicio_t = new  DateTime($inicio_mes);
+                                        $fecha_final = New DateTime($fin_mes);
+                                    }
+
+                                    //diferencia de dias
+                                    $diferencia = $fecha_inicio->diff($fecha_final);
+                                    //echo $diferencia->format('%a días');
+                                    //pasmos el dato de diferencia a numero
+                                    $diferencia_numero = $diferencia->format('%a');
+                                    //ajustamos para cubrir todos los dias
+                                    $diferencia_numero = $diferencia_numero + 1;
+                                    //echo $diferencia_numero;
+
+                                    ?>
+                                    <div class="">
+                                        <div class="table-responsive">
+                                            <table class="table table-condensed">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th rowspan="2">Día</th>
+                                                        <th colspan="4">transacciones</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>nombre</th>
+                                                        <th>Numeros agregados:</th>
+                                                        <th>Numeros bajados:</th>
+                                                        <th>Seguimientos:</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    <?php
+                                                    $i = 0; //delcaramos el puntero
+
+                                                    //definimos los totales globales
+                                                    $total_deposito_periodo = 0;
+                                                    do {
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo $fecha_inicio->format('Y-m-d'); ?></td>
+                                                            <?php
+                                                            //loop de numeros
+                                                            ?>
+                                                            <td colspan="6">
+                                                                <table class="table table-bordered">
+                                                                    <tr>
+                                                                        <td>Nombre</td>
+                                                                        <td>agregado </td>
+                                                                        <td>bajado</td>
+                                                                        <td>seguimiento</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                       <td>Flor</td>
+                                                                       <td><?php echo numeros_agregados_reporte('78', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>
+                                                                       <td><?php echo numeros_bajados_reporte('78', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>
+                                                                       <td><?php echo numeros_seguimientos_reporte('78', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>
+                                                                   </tr>
+                                                                    <tr>
+                                                                        <td>michelle</td>
+                                                                        <td><?php echo numeros_agregados_reporte('10', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>
+                                                                        <td><?php echo numeros_bajados_reporte('10', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>
+                                                                        <td><?php echo numeros_seguimientos_reporte('10', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>
+                                                                    </tr>
+
+
+                                                                    <?php if (false) {
+                                                                        foreach ($deposito_dia->result() as $deposito) {
+                                                                            $vinsanet_total_dia = $vinsanet_total_dia + $deposito->monto;
+                                                                            ?>
+                                                                            <tr>
+                                                                                <td><?php echo 1?></td>
+                                                                                <td><?php echo 1 ?></td>
+                                                                                <td><?php echo 1 ?></td>
+                                                                                <td><?php echo 1 ?></td>
+                                                                                <td><?php echo 1?></td>
+                                                                                <td><?php echo 1; ?></td>
+                                                                            </tr>
+                                                                        <?php }
+                                                                        $total_deposito_periodo = $total_deposito_periodo + $vinsanet_total_dia;
+                                                                    } ?>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+
+                                                        <?php
+                                                        //modificamos puntero despues de ejecucion
+                                                        $i = $i + 1;
+                                                        //modificamos fecha despues de ejecucion
+                                                        $fecha_inicio->modify('+1 day');
+                                                    } while ($i < $diferencia_numero);
+                                                    ?>
+
+                                                    <tr>
+                                                        <td>totales</td>
+                                                        <td colspan="3">Total deposito</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
+                                                            <br>
+                                                            a <?php echo $fecha_final->format('Y-m-d'); ?>
+                                                        </td>
+                                                        <td colspan="4"><?php echo 'Q.' ; ?></td>
+                                                    </tr>
+
+
+                                                    </tbody>
+                                                </table>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                     <?php
                 } else {
-                    echo 'Aun no hay prospectos';
+                    echo 'Aun no hay usuarios';
                 } ?>
             </div>
         </div>
