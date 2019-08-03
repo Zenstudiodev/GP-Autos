@@ -40,43 +40,71 @@ $this->layout('public/public_master', [
             </div>
             <div class="row">
                 <div class="col s2"></div>
-                <form class="col s8">
+                <form class="col s8" action="<?php echo base_url().'predio/guardar_afiliacion'?>" method="post">
+                    <?php if (isset($mensaje)) { ?>
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <?php echo $mensaje?>
+                        </div>
+
+                    <?php } ?>
+
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="first_name" type="text" class="validate">
-                            <label for="first_name">Nombre</label>
+                            <input id="nombre_predio" type="text" class="validate" name="nombre_predio">
+                            <label for="nombre_predio">Nombre Predio</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="last_name" type="text" class="validate">
-                            <label for="last_name">Nombre Predio</label>
+                            <input id="descripcion_predio" type="text" class="validate" name="descripcion_predio">
+                            <label for="descripcion_predio">Descripción del predio</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="telefono_predio" type="text" class="validate" name="telefono_predio">
+                            <label for="telefonoj_predio">Teléfono del predio</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s8">
-                            <input id="last_name" type="text" class="validate">
-                            <label for="last_name">Direccion predio</label>
+                            <input id="direccion_predio" type="text" class="validate" name="direccion_predio">
+                            <label for="direccion_predio">Direccion predio</label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="last_name" type="text" class="validate">
-                            <label for="last_name">Número de carros</label>
+                            <input id="numero_carros" type="text" class="validate" name="numero_carros" >
+                            <label for="numero_carros">Número de carros</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="user_name" type="text" class="validate" name="user_name">
+                            <label for="user_name">Usuario</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Correo</label>
+                            <input id="nombre_usuario" type="text" class="validate" name="nombre_usuario">
+                            <label for="nombre_usuario">Nombre</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="password" type="password" class="validate">
+                            <input id="correo" type="email" class="validate" name="correo">
+                            <label for="correo">Correo</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate" name="password">
                             <label for="password">Clave</label>
                         </div>
                     </div>
                     <button class="btn waves-effect waves-light" type="submit" name="action">Aplicar afiliación
-                        <i class="material-icons right">send</i>
+                        <i class="material-icons right">registrarse</i>
                     </button>
                 </form>
                 <div class="col s2"></div>

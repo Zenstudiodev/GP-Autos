@@ -139,12 +139,12 @@
                         <div class="widget-content nopadding">
                                 <div class="box-body">
                                     <?php
-                                    if (isset($from)) {
+                                    if (isset($de)) {
                                         //fecha de inicio
-                                        $fecha_inicio = New DateTime($from);
-                                        $fecha_inicio_t = New DateTime($from);
+                                        $fecha_inicio = New DateTime($de);
+                                        $fecha_inicio_t = New DateTime($de);
                                         //fecha final
-                                        $fecha_final = New DateTime($to);
+                                        $fecha_final = New DateTime($a);
                                     } else {
                                         $fecha = New DateTime();
                                         $mes = $fecha->format('m');

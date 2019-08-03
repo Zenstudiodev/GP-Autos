@@ -1413,6 +1413,20 @@ class Admin extends Base_Controller
         $this->Predio_model->actualizar_predio($post_data);
         redirect(base_url() . 'admin/predios/');
     }
+    public function predio_pendientes(){
+        $data = compobarSesion();
+        $rol =  $data['rol'];
+        $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
+        $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
+        $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
+        $data['carros_pendientes_fotos'] = $this->Carros_model->numeroCarros_pendientes_fotos();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        $data['carros'] = $this->Carros_model->ListarCarros_pendientes();
+        echo $this->templates->render('admin/admin_pendientes', $data);
+    }
+    function subir_foto_predio(){}
 
     //usuarios de predios
     public function usuarios(){

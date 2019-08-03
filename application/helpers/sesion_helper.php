@@ -24,3 +24,11 @@ function compobarSesion()
 	return $data;
 
 }
+function usuario_predio_existe($username){
+
+    $ci =& get_instance();
+    $ci->load->model('Usuarios_model');
+    $usuario = $ci->Usuarios_model->get_usuario_by_username($username);
+
+    return $usuario;
+}

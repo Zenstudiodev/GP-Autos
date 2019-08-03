@@ -90,6 +90,8 @@ class Predio_model extends CI_Model
             'carros_permitidos'=> $predio['carros_permitidos']
         );
         $this->db->insert('predio_virtual', $datos);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
     }
     function actualizar_predio($predio){
         $datos = array(

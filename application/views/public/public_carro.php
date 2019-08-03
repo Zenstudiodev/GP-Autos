@@ -142,7 +142,7 @@ if ($carro) {
                         <div class="carousel-inner" role="listbox">
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (1).jpg')) { ?>
-                                <div class="item active">
+                                <div class="item <?php echo activo_del_carrusel('1', $data_carro->id_carro);?>">
                                     <img src="<?php echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (1).jpg' ?>"
                                          class="responsive-img" >
                                 </div>
@@ -152,7 +152,7 @@ if ($carro) {
 
                             <?php
                             if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $data_carro->id_carro . ' (2).jpg')) { ?>
-                                <div class="item">
+                                <div class="item <?php echo activo_del_carrusel('2', $data_carro->id_carro);?>">
                                     <img src="<?php echo base_url().'web/images_cont/' . $data_carro->id_carro . ' (2).jpg' ?>"
                                          class="img-responsive">
 
@@ -953,6 +953,7 @@ if ($carro) {
             $("#form_credito_alert").hide();
             $("#loader_credito").hide();
             $('.tooltipped').tooltip({delay: 50});
+
         });
 
 

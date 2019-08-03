@@ -61,11 +61,17 @@
                                 </ul>
                             <?php } ?>
                             <hr>
+                            <?php if ($rol == 'predio') { ?>
+                                predio
+                                imagen de predio
+                                <a class="btn btn-success">Subir imagen de predio</a>
+                            <?php } ?>
+                            <hr>
+
                             <?php if($carros_usuario_predio_pendientes){?>
                             <h1>Carros pendientes de aprobación</h1>
                             <?php if ($rol == 'predio') { ?>
                             <?php } ?>
-
                             <div class="container">
                                 <div class="row">
                                     <?php foreach ($carros_usuario_predio_pendientes->result() as $carro_pendiente) { ?>

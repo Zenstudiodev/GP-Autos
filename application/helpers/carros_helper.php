@@ -17,7 +17,31 @@ function mostrar_precio_carro($cantidad, $moneda)
     }
     echo money_format("%i", $cantidad);
 }
+function activo_del_carrusel($numero_foto, $carro_id){
+    $estado = 'active';
+    if($numero_foto == '1'){
+        if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . ' (1).jpg')) {
+            $estado = 'active nuemro 1';
+        }else{
+            $estado = '';
+        }
+    }
+    if($numero_foto == '2'){
+        if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . ' (1).jpg')) {
+            $estado = '';
+        }else{
+            $estado = '';
+            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . ' (2).jpg')) {
+                $estado = 'active';
+            }else{
+                $estado = '';
+            }
 
+        }
+    }
+
+    return $estado;
+}
 function radio_helper($valor, $valor_carro)
 {
 

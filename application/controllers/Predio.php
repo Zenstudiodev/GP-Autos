@@ -127,10 +127,66 @@ class Predio extends Base_Controller
         $data = cargar_componentes_buscador();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $data['predios_activos'] = $this->Predio_model->predios_activos();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
         echo $this->templates->render('public/registro_predio', $data);
     }
     function guardar_afiliacion(){
-	    print_contenido($_POST);
+	    //print_contenido($_POST);
+	    //predio
+	    $nombre_predio = $this->input->post('nombre_predio');
+	    $direccion_predio = $this->input->post('direccion_predio');
+	    $telefono_predio = $this->input->post('telefono_predio');
+	    $descripcion_predio = $this->input->post('descripcion_predio');
+	    $numero_carros_predio = $this->input->post('numero_carros');
+        //usuario
+        $user_name = $this->input->post('user_name');
+        $nombre_usuario = $this->input->post('nombre_usuario');
+        $correo = $this->input->post('correo');
+        $password = $this->input->post('password');
+
+        //comprobar si existe usuario
+        $exsiste = usuario_predio_existe($user_name);
+        if($exsiste){
+            //flag
+            $this->session->set_flashdata('mensaje', 'ya existe el nombre de usuario');
+           redirect(base_url().'predio/afiliarse');
+        }else{
+            //crear Predio
+            $datos_predio = array(
+                'nombre'=> $nombre_predio,
+                'diercción'=> $direccion_predio,
+                'telefono'=> $telefono_predio,
+                'descripcion'=> $descripcion_predio,
+                'imagen'=> '',
+                'estado'=> 'pendiente',
+                'carros_activos'=> '0',
+                'carros_permitidos'=> $numero_carros_predio
+            );
+            $predio_id = $this->Predio_model->guardar_predio($datos_predio);
+            //crar usuario
+
+            $post_data = array(
+                'username' => $user_name,
+                'correo' => $correo,
+                'clave' => $password,
+                'nombre' => $nombre_usuario,
+                'rol' => 'predio',
+                'carro_activos' => '0',
+                'carro_premitidos' => $numero_carros_predio,
+                'predio' => $predio_id,
+            );
+            //print_r($post_data);
+
+            $this->Usuarios_model->guardar_usuarios($post_data);
+            echo $predio_id;
+            echo 'guardado mandar correo';
+        }
+
+
+
+
     }
     function subir_imagen_predio(){}
     function solicitud_recibida(){}

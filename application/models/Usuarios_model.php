@@ -25,6 +25,12 @@ class Usuarios_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function get_usuario_by_username($username){
+        $this->db->where('username', $username);
+        $query = $this->db->get('users_b');
+        if ($query->num_rows() > 0) return true;
+        else return false;
+    }
     function guardar_usuarios($data){
         //fecha
         $fecha = New DateTime();
