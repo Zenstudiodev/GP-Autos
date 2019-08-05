@@ -1360,6 +1360,21 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/reporte_marketing', $data);
     }
+    public function reporte_marketing_desglose_dia(){
+        $data = compobarSesion();
+
+        //fecha
+        $fecha =$this->uri->segment(3);
+        //subidas_ dia
+        $data['numeros_agregados_flor'] = $this->Marketing_model->numeros_agregados_dia('78', $fecha);
+        //bajadas dia
+        $data['numeros_bajados_flor'] = $this->Marketing_model->numeros_bajados_dia('78', $fecha);
+        //seguimientos dia
+        $data['seguimientos_flor'] = $this->Marketing_model->numeros_seguimientos_dia('78', $fecha);
+        //seguimientos dia
+
+        echo $this->templates->render('admin/reporte_marketing_dia', $data);
+    }
 
     //predios
     public function predios()

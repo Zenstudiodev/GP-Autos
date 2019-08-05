@@ -233,10 +233,26 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function numeros_agregados_dia($user_id, $fecha){
+        $this->db->where('bt_user_id', $user_id);
+        $this->db->where('bt_fecha_ingreso', $fecha);
+        $query = $this->db->get('bolsa_telefonos');
+        //$this->db->limit(1);
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
     function numeros_bajados($user_id, $de, $a){
         $this->db->where('bt_user_id_atendiendo', $user_id);
         $this->db->where('bt_fecha_atendido  >=', $de);
         $this->db->where('bt_fecha_atendido  <=', $a);
+        $query = $this->db->get('bolsa_telefonos');
+        //$this->db->limit(1);
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function numeros_bajados_dia($user_id, $fecha){
+        $this->db->where('bt_user_id_atendiendo', $user_id);
+        $this->db->where('bt_fecha_atendido', $fecha);
         $query = $this->db->get('bolsa_telefonos');
         //$this->db->limit(1);
         if ($query->num_rows() > 0) return $query;
@@ -251,11 +267,21 @@ class Marketing_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function numeros_seguimientos_dia($user_id, $fecha){
+        $this->db->where('bts_user_id', $user_id);
+        $this->db->where('bts_fecha_resultado', $fecha);
+        $query = $this->db->get('bolsa_telefonos_seguimientos');
+        //$this->db->limit(1);
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
     function rotulaciones_pendientes(){
         $this->db->where('rotulaciones_estado', 'pendiente');
         $query = $this->db->get('rotulaciones');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
+
 
 }
