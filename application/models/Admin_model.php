@@ -68,6 +68,7 @@ class Admin_model extends CI_Model
             'nombre'   => $datos_cupon['nombre'],
             'tipo'   => $datos_cupon['tipo'],
             'valor'   => $datos_cupon['valor'],
+            'cupon_ubicacion'   => $datos_cupon['ubicacion'],
             'codigo'   => $datos_cupon['codigo'],
         );
         $this->db->insert('cupones', $datos);

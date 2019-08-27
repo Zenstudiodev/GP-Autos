@@ -254,7 +254,7 @@ class Auth extends Base_Controller
 			{
 				// if there were no errors
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect("cliente/login", 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{

@@ -212,6 +212,16 @@ class Cliente extends Base_Controller
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $cupon = $this->session->cupon;
+        if($cupon){
+            $data['cupon_activo']=$cupon;
+            $data['datos_cupon']= $this->Admin_model->get_cupon_by_code($cupon);
+        }else{
+            $data['cupon_activo']='';
+        }
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
 
         echo $this->templates->render('public/seleccion_anuncio', $data);
     }
@@ -258,13 +268,48 @@ class Cliente extends Base_Controller
             'facebook' => $this->input->post('facebook_check'),
             'telefono_calcomania' => $this->input->post('calcomania_telefono_input'),
             'direccion_calcomania' => $this->input->post('calcomania_direccion_input'),
+            'total_pagar' => $this->input->post('total_pagar'),
         );
 
         $this->session->set_userdata($datos_anuncio);
 
         // print_contenido($_POST);
         //print_contenido($_SESSION);
+        //exit();
         $data['parametros'] = $this->Admin_model->get_parametros();
+        if($this->session->total_pagar <= '0'){
+            //echo 'guardar pago redirect a datos de carro';
+            //correo notificacion de pago
+
+            $datos_pago_efectivo = array(
+                'user_id' => $user_id,
+                'carro_id' => '',
+                'transaccion' => 'cupon',
+                'monto' => $this->session->total_pagar,
+                'nombre_factura' => '',
+                'nit' => '',
+                'direccion_factura' => '',
+                'cupon' =>  $this->session->cupon,
+                'direccion_rotulacion' => $this->session->direccion_calcomania,
+                'telefono_rotulacion' => $this->session->telefono_calcomania,
+            );
+            $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
+
+            //correo notificacion de pago
+            $this->notiticacion_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta');
+
+            if ($datos_anuncio['tipo_anuncio'] == 'individual') {
+                redirect(base_url() . 'cliente/publicar_carro');
+            }
+            if ($datos_anuncio['tipo_anuncio'] == 'vip') {
+                redirect(base_url() . 'cliente/publicar_carro_vip');
+            }
+
+
+
+
+        }else{
+        }
 
         echo $this->templates->render('public/forma_pago', $data);
 
@@ -289,6 +334,7 @@ class Cliente extends Base_Controller
             $this->session->set_userdata($datos_anuncio);
         }
 
+
         $data['banners'] = $this->Banners_model->banneers_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $parametros = $this->Admin_model->get_parametros();
@@ -302,7 +348,7 @@ class Cliente extends Base_Controller
 
 
         //print_contenido($_POST);
-        print_contenido($_SESSION);
+        //print_contenido($_SESSION);
         $data['forma_pago'] = $this->session->forma_pago;
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
 
@@ -335,7 +381,7 @@ class Cliente extends Base_Controller
             $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
             $data_cupon = $data_cupon->row();
 
-            print_contenido($data_cupon);
+            //print_contenido($data_cupon);
 
             if ($data_cupon->tipo == 'Porcentage') {
                $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;

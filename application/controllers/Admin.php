@@ -70,6 +70,7 @@ class Admin extends Base_Controller
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
+        $data['cupones']= $this->Admin_model->get_cupones();
         echo $this->templates->render('admin/admin_codigos_descuento', $data);
     }
     public function crear_cupon(){
@@ -88,11 +89,12 @@ class Admin extends Base_Controller
             'nombre' =>$this->input->post('nombre_input'),
             'tipo' =>$this->input->post('tipo_input'),
             'valor' =>$this->input->post('valor_cupon'),
+            'ubicacion' =>$this->input->post('ubicacion_input'),
             'codigo' =>$this->input->post('codigo_input'),
         );
         //guardamos los datos del cupon
         $this->Admin_model->guardar_codigo_descuento($datos_cupon);
-        redirect(base_url().'admin/crear_cupon');
+        redirect(base_url().'admin/codigos_descuento');
     }
     public function dar_de_baja_cupon(){
         $data = compobarSesion();
@@ -107,19 +109,56 @@ class Admin extends Base_Controller
     public function validar_cupon(){
         //print_contenido($_POST);
         $codigo_cupon = $_POST['cupon_code'];
+        $ubicacion_anuncio = $_POST['ubicacion_anuncio'];
         $datos_cupon = $this->Admin_model->get_cupon_by_code($codigo_cupon);
-        if($datos_cupon){
-            $cupon = $datos_cupon->row();
-
-            $datos_anuncio = array(
-                'cupon' => $cupon->codigo,
-            );
-            $this->session->set_userdata($datos_anuncio);
-            $json_cupon = json_encode($cupon);
-            echo $json_cupon;
+        //comrpobamos que se selecciono el anuncio
+        if($this->session->tipo_anuncio)
+        {
+            //comprobamos que el cupon exista
+            if($datos_cupon){
+                //datos del cupon
+                $cupon = $datos_cupon->row();
+                //comprobamos que el cupon se pueda usar en esa ubicacion y en ese tipo de anuncio
+                if($ubicacion_anuncio == $cupon->cupon_ubicacion or $ubicacion_anuncio == 'TODOS'){
+                    //echo $this->session->tipo_anuncio;
+                    //echo $cupon->tipo_auncio;
+                    if(strtoupper($this->session->tipo_anuncio) == strtoupper($cupon->tipo_auncio)){
+                        $datos_anuncio = array(
+                            'cupon' => $cupon->codigo,
+                        );
+                        $this->session->set_userdata($datos_anuncio);
+                        $json_cupon = json_encode($cupon);
+                        $this->session->set_flashdata('mensaje', 'el cupon es valido');
+                        echo $json_cupon;
+                    }else{
+                        $this->session->set_flashdata('error', 'el cupon no se puede usar en ese tipo de anuncio');
+                        echo 'no anuncio';
+                    }
+                }else{
+                    $this->session->set_flashdata('error', 'el cupon no es valido en ese departamento');
+                    echo 'no ubicacion';
+                }
+                
+            }else{
+                echo 'no';
+                $this->session->set_flashdata('mensaje', 'el cupon no es valido');
+            }
         }else{
-            echo 'no';
+            echo 'no anuncio';
+            $this->session->set_flashdata('error', 'Seleccione el tipo de anuncio que desea');
         }
+
+
+    }
+    public function sleccion_anuncio_session(){
+        $codigo_cupon = $_POST['tipo_anuncio'];
+        $datos_anuncio = array(
+            'tipo_anuncio' => $codigo_cupon,
+        );
+        $this->session->set_userdata($datos_anuncio);
+        //
+        //
+        //print_contenido($_SESSION);
     }
     public function actualizar_parametros(){
         //print_contenido($_POST);

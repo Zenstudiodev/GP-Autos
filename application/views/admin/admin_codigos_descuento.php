@@ -63,20 +63,70 @@ $precio_facebook_input = array(
                     <div class="widget-content ">
                         <div class="container-fluid">
                             <a class="btn btn-success" href="<?php echo base_url()?>admin/crear_cupon">Crear código</a>
-                            <form action="<?php echo base_url() ?>admin/crear_cupon" method="post">
+                            <?php if ($cupones) { ?>
+                                <!--Listado de cupones-->
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <div class="widget-box">
+                                            <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                                                <h5>Listado de códigos de descuento</h5>
+                                            </div>
+                                            <div class="widget-content ">
+                                                <div class="container-fluid">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered" cellspacing="0" width="100%"
+                                                               id="tabla_carros">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Nombre</th>
+                                                                <th>Tipo</th>
+                                                                <th>Valor</th>
+                                                                <th>Código</th>
+                                                                <th>Ubicación</th>
+                                                                <th>Estado</th>
+                                                                <th>Accion</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Nombre</th>
+                                                                <th>Tipo</th>
+                                                                <th>Valor</th>
+                                                                <th>Código</th>
+                                                                <th>Ubicación</th>
+                                                                <th>Estado</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </tfoot>
+                                                            <tbody>
 
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form-actions">
-                                                <button type="submit" class="btn btn-success">Guardar</button>
+                                                            <?php
+                                                            foreach ($cupones->result() as $cupon) {
+                                                                ?>
+                                                                <tr class="gradeX">
+                                                                    <td><?php echo $cupon->id ?></td>
+                                                                    <td><?php echo $cupon->nombre ?></td>
+                                                                    <td><?php echo $cupon->tipo ?></td>
+                                                                    <td><?php echo $cupon->valor ?></td>
+                                                                    <td><?php echo $cupon->codigo ?></td>
+                                                                    <td><?php echo $cupon->cupon_ubicacion ?></td>
+                                                                    <td><?php echo $cupon->estado ?></td>
+                                                                    <td><a class="btn btn-danger" href="<?php echo base_url().'admin/dar_de_baja_cupon/'.$cupon->id?>">Dar de baja</a></td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-
+                                <!--END Listado de cupones-->
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
