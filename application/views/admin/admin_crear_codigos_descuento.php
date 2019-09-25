@@ -1,3 +1,5 @@
+
+
 <?php
 /**
  * Created by PhpStorm.
@@ -35,6 +37,53 @@ $tipo_select_options = array(
     'Valor' => 'Valor',
     'Porcentage' => 'Porcentage',
 );
+
+$ubicacion_select = array(
+    'name' => 'ubicacion_input',
+    'id' => 'ubicacion_input',
+    'class' => ' form-control',
+    'required' => 'required'
+);
+
+$ubicacion_select_options = array(
+    "TODOS"   => "TODOS",
+    "ALTA VERAPAZ"   => "ALTA VERAPAZ",
+    "BAJA VERAPAZ"   => "BAJA VERAPAZ",
+    "CHIMALTENANGO"  => "CHIMALTENANGO",
+    "CHIQUIMULA"     => "CHIQUIMULA",
+    "EL PROGRESO"    => "EL PROGRESO",
+    "ESCUINTLA"      => "ESCUINTLA",
+    "GUATEMALA"      => "GUATEMALA",
+    "HUEHUETENANGO"  => "HUEHUETENANGO",
+    "IZABAL"         => "IZABAL",
+    "JALAPA"         => "JALAPA",
+    "JUTIAPA"        => "JUTIAPA",
+    "PETÉN"          => "PETÉN",
+    "QUETZALTENANGO" => "QUETZALTENANGO",
+    "QUICHÉ"         => "QUICHÉ",
+    "RETALHULEU"     => "RETALHULEU",
+    "SACATEPÉQUEZ"   => "SACATEPÉQUEZ",
+    "SAN MARCOS"     => "SAN MARCOS",
+    "SANTA ROSA"     => "SANTA ROSA",
+    "SOLOLÁ"         => "SOLOLÁ",
+    "SUCHITEPÉQUEZ"  => "SUCHITEPÉQUEZ",
+    "TOTONICAPÁN"    => "TOTONICAPÁN",
+    "ZACAPA"         => "ZACAPA"
+);
+
+$tipo_anuncio_select = array(
+    'name' => 'tipo_anuncio',
+    'id' => 'tipo_anuncio',
+    'class' => ' form-control',
+    'required' => 'required'
+);
+
+$tipo_anuncio_select_options = array(
+    "TODOS"   => "TODOS",
+    "VIP"   => "VIP",
+    "INDIVIDUAL"   => "INDIVIDUAL"
+);
+
 
 
 $valor_input = array(
@@ -111,6 +160,15 @@ $codigo_input = array(
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <!--Tipo-->
+                                        <div class="form-group">
+                                            <label class="control-label">Ubicación</label>
+                                            <div class="controls">
+                                                <?php echo form_dropdown($ubicacion_select, $ubicacion_select_options) ?>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -128,6 +186,15 @@ $codigo_input = array(
                                             <label class="control-label">Código del cupón</label>
                                             <div class="controls">
                                                 <?php echo form_input($codigo_input); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!--Tipo-->
+                                        <div class="form-group">
+                                            <label class="control-label">Código del cupón</label>
+                                            <div class="controls">
+                                                <?php echo form_dropdown($tipo_anuncio_select, $tipo_anuncio_select_options) ?>
                                             </div>
                                         </div>
                                     </div>
@@ -150,68 +217,7 @@ $codigo_input = array(
                 </div>
             </div>
         </div>
-        <?php if ($cupones) { ?>
-            <!--Listado de cupones-->
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="widget-box">
-                        <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
-                            <h5>Listado de códigos de descuento</h5>
-                        </div>
-                        <div class="widget-content ">
-                            <div class="container-fluid">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered" cellspacing="0" width="100%"
-                                           id="tabla_carros">
-                                        <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Nombre</th>
-                                            <th>Tipo</th>
-                                            <th>Valor</th>
-                                            <th>Código</th>
-                                            <th>Estado</th>
-                                            <th>Accion</th>
-                                        </tr>
-                                        </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Nombre</th>
-                                            <th>Tipo</th>
-                                            <th>Valor</th>
-                                            <th>Código</th>
-                                            <th>Estado</th>
-                                            <th></th>
-                                        </tr>
-                                        </tfoot>
-                                        <tbody>
 
-
-                                        <?php
-
-                                        foreach ($cupones->result() as $cupon) {
-                                            ?>
-                                            <tr class="gradeX">
-                                                <td><?php echo $cupon->id ?></td>
-                                                <td><?php echo $cupon->nombre ?></td>
-                                                <td><?php echo $cupon->tipo ?></td>
-                                                <td><?php echo $cupon->valor ?></td>
-                                                <td><?php echo $cupon->codigo ?></td>
-                                                <td><?php echo $cupon->estado ?></td>
-                                                <td><a class="btn btn-danger" href="<?php echo base_url().'admin/dar_de_baja_cupon/'.$cupon->id?>">Dar de baja</a></td>
-                                            </tr>
-                                        <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--END Listado de cupones-->
-        <?php } ?>
     </div>
 </div>
 <?php $this->stop() ?>
