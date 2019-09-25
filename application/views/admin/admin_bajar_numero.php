@@ -115,6 +115,7 @@ if($numero_a_atendar){
                     <div class="widget-content ">
                         <div class="container-fluid">
                             <?php if($numero_a_atendar){ ?>
+                            <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -138,7 +139,7 @@ if($numero_a_atendar){
                                 <tr>
                                     <td>
                                         <a class="btn btn-success btn-large"
-                                           href='https://api.whatsapp.com/send?phone=502<?php echo $numero_a_atendar->bt_telefono ?>&text=<?php echo urlencode('Te saludamos de *GPAUTOS.NET  El predio virtual mas grande de Guatemala !!!* La manera mas efectiva de vender tu carro.') ?>'
+                                           href='https://wa.me/502<?php echo $numero_a_atendar->bt_telefono ?>&text=<?php echo urlencode('Te saludamos de *GPAUTOS.NET  El predio virtual mas grande de Guatemala !!!* La manera mas efectiva de vender tu carro.') ?>'
                                            target="_blank"> whatsApp</a>
                                     </td>
                                     <td>
@@ -152,9 +153,11 @@ if($numero_a_atendar){
                                 </tbody>
 
                             </table>
+                            </div>
                             <?php if ($otros_registros) { ?>
                                 <h1>Otros registros</h1>
-                                <table class="table table-bordered">
+                            <div class="table-responsive">
+                            <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <td>Fecha de ingreso</td>
@@ -182,6 +185,7 @@ if($numero_a_atendar){
                                     <?php } ?>
                                     </tbody>
                                 </table>
+                            </div>
                             <?php } ?>
                             <?php }else{ ?>
                                 ya no hay registros
