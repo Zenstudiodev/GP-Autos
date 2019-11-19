@@ -182,7 +182,7 @@ class Cliente extends Base_Controller
     {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
-            redirect('cliente/login');
+            redirect(base_url().'cliente/login');
         }
         $data = cargar_componentes_buscador();
         $data['banners'] = $this->Banners_model->banneers_activos();
@@ -260,6 +260,11 @@ class Cliente extends Base_Controller
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+
+        $datos_usuario = $data['datos_usuario'];
+        $datos_usuario = $datos_usuario->row();
+        $nombre_usuario = $datos_usuario->first_name . ' ' . $datos_usuario->last_name;
+       // print_contenido($datos_usuario);
         //print_contenido($_POST);
         $datos_anuncio = array(
             'ubicacion_anuncio' => $this->input->post('ubicacion_anuncio'),
@@ -270,14 +275,15 @@ class Cliente extends Base_Controller
             'direccion_calcomania' => $this->input->post('calcomania_direccion_input'),
             'total_pagar' => $this->input->post('total_pagar'),
         );
-
         $this->session->set_userdata($datos_anuncio);
-
         // print_contenido($_POST);
         //print_contenido($_SESSION);
         //exit();
         $data['parametros'] = $this->Admin_model->get_parametros();
         if($this->session->total_pagar <= '0'){
+
+
+          //  echo '<h1>pagar 0 </h1>';
             //echo 'guardar pago redirect a datos de carro';
             //correo notificacion de pago
 
@@ -296,7 +302,7 @@ class Cliente extends Base_Controller
             $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
 
             //correo notificacion de pago
-            $this->notiticacion_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta');
+            $this->notiticacion_pago($user_id, $datos_usuario->email, $nombre_usuario, '0', $datos_anuncio['tipo_anuncio'], 'Pago descuento cupón');
 
             if ($datos_anuncio['tipo_anuncio'] == 'individual') {
                 redirect(base_url() . 'cliente/publicar_carro');
@@ -304,11 +310,8 @@ class Cliente extends Base_Controller
             if ($datos_anuncio['tipo_anuncio'] == 'vip') {
                 redirect(base_url() . 'cliente/publicar_carro_vip');
             }
-
-
-
-
         }else{
+
         }
 
         echo $this->templates->render('public/forma_pago', $data);
@@ -1277,7 +1280,7 @@ class Cliente extends Base_Controller
                 }
 
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect("auth/forgot_password", 'refresh');
+                redirect("cliente/forgot_password", 'refresh');
             }
 
             // run the forgotten password method to email an activation code to the user
@@ -1286,10 +1289,10 @@ class Cliente extends Base_Controller
             if ($forgotten) {
                 // if there were no errors
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+                redirect("cliente/login", 'refresh'); //we should display a confirmation page here instead of the login page
             } else {
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect("auth/forgot_password", 'refresh');
+                redirect("cliente/forgot_password", 'refresh');
             }
         }
     }
@@ -1410,15 +1413,15 @@ class Cliente extends Base_Controller
                     (
                         "codigoEstablecimiento" => "2",
                         "idDispositivo" => "001",
-                        "serieAutorizada" => "FAC",
-                        "numeroResolucion" => "301620181114163",
-                        "fechaResolucion" => "2018-11-14",
-                        "tipoDocumento" => "FACE",
-                        "serieDocumento" => "63",
+                        "serieAutorizada" => "GP01",
+                        "numeroResolucion" => "2019568702922229",
+                        "fechaResolucion" => "2019-02-10",
+                        "tipoDocumento" => "FACE-63",
+                        "serieDocumento" => "GP01",
 
                         "estadoDocumento" => "ACTIVO",
-                        "numeroDocumento" => "3",
-                        "fechaDocumento" => "2018-11-14",
+                        "numeroDocumento" => "1",
+                        "fechaDocumento" => "2019-10-10",
                         "codigoMoneda" => "GTQ",
                         "tipoCambio" => "1",
                         "nitComprador" => str_replace("-", "", "5503407-1"),

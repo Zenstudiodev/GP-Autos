@@ -35,5 +35,12 @@ class Productos extends Base_Controller
 		$data['header_banners'] = $this->Banners_model->header_banners_activos();
 		echo $this->templates->render('public/public_financiamiento', $data);
 	}
+    public function  interesado_tarjeta(){
+        $data = cargar_componentes_buscador();
+        //Predio
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        echo $this->templates->render('public/public_interesado_tarjeta', $data);
+    }
 
 }

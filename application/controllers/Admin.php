@@ -119,7 +119,12 @@ class Admin extends Base_Controller
                 //datos del cupon
                 $cupon = $datos_cupon->row();
                 //comprobamos que el cupon se pueda usar en esa ubicacion y en ese tipo de anuncio
-                if($ubicacion_anuncio == $cupon->cupon_ubicacion or $ubicacion_anuncio == 'TODOS'){
+                //echo $ubicacion_anuncio.'<br>';
+                //echo $cupon->cupon_ubicacion.'<br>';
+
+                //echo $this->session->tipo_anuncio.'<br>';
+                //echo $cupon->tipo_auncio.'<br>';
+                if($ubicacion_anuncio == $cupon->cupon_ubicacion or $cupon->cupon_ubicacion == 'TODOS'){
                     //echo $this->session->tipo_anuncio;
                     //echo $cupon->tipo_auncio;
                     if(strtoupper($this->session->tipo_anuncio) == strtoupper($cupon->tipo_auncio)){
