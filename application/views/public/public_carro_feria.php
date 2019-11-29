@@ -69,23 +69,7 @@ if ($carro) {
 <?php $this->stop() ?>
 
 <?php $this->start('banner') ?>
-    <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
-        <div data-thumb="<?php echo base_url() ?>ui/public/images/banner/banner1.jpg"
-             data-src="<?php echo base_url() ?>ui/public/images/banner/banner1.jpg">
-            <!--<div class="camera_caption fadeFromBottom">
-                Texto
-            </div>-->
-        </div>
-        <div data-thumb="<?php echo base_url() ?>ui/public/images/banner/banner2.jpg"
-             data-src="<?php echo base_url() ?>ui/public/images/banner/banner2.jpg">
-        </div>
-        <div data-thumb="<?php echo base_url() ?>ui/public/images/banner/banner3.jpg"
-             data-src="<?php echo base_url() ?>ui/public/images/banner/banner3.jpg">
-        </div>
-        <div data-thumb="<?php echo base_url() ?>ui/public/images/banner/banner4.jpg"
-             data-src="<?php echo base_url() ?>ui/public/images/banner/banner4.jpg">
-        </div>
-    </div><!-- #camera_wrap_1 -->
+
 <?php $this->stop() ?>
 <?php $this->start('page_content') ?>
     <div class="divider"></div>
@@ -118,6 +102,27 @@ if ($carro) {
                 </div>
                 <div class="col s12 m5">
                     <table class="highlight">
+                        <tr class="precio_feria_normal">
+                            <td>Precio:</td>
+                            <td><?php mostrar_precio_carro($data_carro->crr_precio, $data_carro->crr_moneda_precio); ?></td>
+                        </tr>
+                        <tr class="precio_feria">
+                            <td>Precio de feria:</td>
+                            <td>
+                                <?php
+                                if ($data_carro->feria == '1' && $data_carro->crr_precio_descuento < $data_carro->crr_precio) {
+                                    mostrar_precio_carro($data_carro->crr_precio_descuento, $data_carro->crr_moneda_precio);
+
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr class="cuota_mensual">
+                            <td>Cuota mensual</td>
+                            <td><?php echo $data_carro->valor_cuota; ?></td>
+                        </tr>
+                    </table>
+                    <!--<table class="highlight">
                         <thead>
                         <tr>
                             <th>Precio</th>
@@ -127,18 +132,21 @@ if ($carro) {
                         </thead>
                         <tbody>
                         <tr>
-                            <td><?php mostrar_precio_carro($data_carro->crr_precio, $data_carro->crr_moneda_precio); ?></td>
+                            <td><?php /*mostrar_precio_carro($data_carro->crr_precio, $data_carro->crr_moneda_precio); */
+                    ?></td>
                             <td><?php
-                                if ($data_carro->feria == '1' && $data_carro->crr_precio_descuento < $data_carro->crr_precio) {
-                                    mostrar_precio_carro($data_carro->crr_precio_descuento, $data_carro->crr_moneda_precio);
+                    /*                                if ($data_carro->feria == '1' && $data_carro->crr_precio_descuento < $data_carro->crr_precio) {
+                                                        mostrar_precio_carro($data_carro->crr_precio_descuento, $data_carro->crr_moneda_precio);
 
-                                }
-                                ?>
+                                                    }
+                                                    */
+                    ?>
                             </td>
-                            <td><?php echo $data_carro->valor_cuota; ?></td>
+                            <td><?php /*echo $data_carro->valor_cuota; */
+                    ?></td>
                         </tr>
                         </tbody>
-                    </table>
+                    </table>-->
 
                     <h2 class="texto_naranja" id="precio_carro">
 
@@ -553,8 +561,8 @@ if ($carro) {
                                    target="_blank">Precalificación</a>
                                 <!--
                                 <div id="calculador_holder" style="<?php if ($data_carro->crr_precio < '25000') {
-                                    echo 'display:none;';
-                                } ?>">
+                            echo 'display:none;';
+                        } ?>">
                                     <div id="calculador_carro">
                                         <span class="card-title">Estimador de financiamiento</span>
                                         <div class="row" style="display: none">
@@ -697,23 +705,23 @@ if ($carro) {
 
                             </div>
                             </div>-->
-                        </div>
                     </div>
-                    <?php if ($data_carro->crr_otros != '') { ?>
-                        <div id="comentario">
-
-                            <?php echo $data_carro->crr_otros; ?>
-                        </div>
-                    <?php } ?>
-                    <!--/.Panel-->
                 </div>
+                <?php if ($data_carro->crr_otros != '') { ?>
+                    <div id="comentario">
 
-                <div class="row">
-                </div>
-
-
+                        <?php echo $data_carro->crr_otros; ?>
+                    </div>
+                <?php } ?>
+                <!--/.Panel-->
             </div>
+
+            <div class="row">
+            </div>
+
+
         </div>
+    </div>
     </div>
     <div class="divider"></div>
 
@@ -1122,6 +1130,9 @@ if ($carro) {
         "color":"<?php echo $data_carro->crr_color; ?>",
         "itemCondition":"Usado"
         }
+
+
+
 
 
 

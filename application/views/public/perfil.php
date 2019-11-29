@@ -126,6 +126,13 @@ $CI =& get_instance();
                                                     <div id="<?php echo $carro->id_carro.'_editar' ?>">
                                                         <div class="row">
                                                             <div class="col s6">
+                                                                <a href="<?php echo base_url() . 'cliente/pagar_feria/' . $carro->id_carro ?>" class="waves-effect waves-light">
+                                                                   Pagar Feria
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col s6">
                                                                 <a href="<?php echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro ?>" class="waves-effect waves-light">
                                                                     Editar precio
                                                                 </a>

@@ -12,6 +12,8 @@ class Carro extends Base_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('Admin_model');
+		$this->load->model('Cliente_model');
 		$this->load->model('Carros_model');
 		$this->load->model('Banners_model');
 		$this->load->model('Predio_model');
@@ -628,6 +630,72 @@ class Carro extends Base_Controller
         //pasamos post al modelo
         $datos_carro = $this->Carros_model->guardar_registro_disponibilidad($post_data);
         echo $datos_carro;
+    }
+    public function pagar_feria(){
+
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        if ($this->session->flashdata('error')) {
+            $data['error'] = reasoncode_text($this->session->flashdata('error'));
+        } else {
+            $datos_anuncio = array(
+                'forma_pago' => $this->input->post('forma_pago'),
+            );
+
+            $this->session->set_userdata($datos_anuncio);
+        }
+        $data['carro_id'] = $this->uri->segment(3);
+
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $parametros = $this->Admin_model->get_parametros();
+
+
+        $parametros = $parametros->result();
+        $precio_vip = $parametros[1];
+        $precio_individual = $parametros[2];
+        $precio_feria = $parametros[3];
+        $precio_facebook = $parametros[4];
+
+
+        //print_contenido($_POST);
+        //print_contenido($_SESSION);
+        $data['forma_pago'] = $this->session->forma_pago;
+        $data['tipo_anuncio'] = $this->session->tipo_anuncio;
+
+        $data['precio_anuncio'] = 0;
+        $data['precio_feria'] = false;
+        $data['precio_facebook'] = false;
+        $total_a_pagar = 0;
+
+
+
+            $data['precio_feria'] = $precio_feria;
+            $total_a_pagar = $total_a_pagar + $precio_feria->parametro_valor;
+
+
+        //$total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
+        $data['total_a_pagar'] = $total_a_pagar;
+
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+
+        echo $this->templates->render('public/pago_feria', $data);
+
+    }
+    public function verificar_codigo_carro(){
+        header("Access-Control-Allow-Origin: *");
+        //OBTENEMOS VARIABLES DE LA URL
+        $carro_id  = $_GET['carro_id'];
+        //pasamos variablea al modelo
+        $carro = $this->Carros_model->get_datos_carro($carro_id);
+        //imprimimos en formato json el resultado
+        if($carro) {
+            echo 'true';
+        }else{
+            echo 'false';
+        }
     }
 
 

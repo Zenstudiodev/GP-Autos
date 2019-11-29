@@ -352,6 +352,13 @@ div#homeSearchBox {
     padding: 20px;
 }
 
+
+.formulario_tarjetas {
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+}
+
 @media only screen and (max-width: 600px) {
     img.camera_thumb {
         height: 15vh;
@@ -531,7 +538,15 @@ h2.precio_oferta{
     padding: 11px;
     text-align: center;
 }
-
+.precio_feria_normal{
+    font-size: 2rem;
+}
+.precio_feria{
+    color: #ef6c00;
+    font-size: 2rem;
+    font-weight:bold;
+}
+.cuota_mensual{}
 /*Predios*/
 #lista_predios{}
 #lista_predios .card-title{

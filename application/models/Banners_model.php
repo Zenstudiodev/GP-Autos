@@ -15,9 +15,8 @@ class Banners_model extends CI_Model
 	}
 	function header_banners_activos()
 	{
-		$where = "estado_bh='activo'";
-
-		$this->db->where($where);
+        $this->db->where('estado_bh', "activo");
+        $this->db->where('area_bh', "todo");
 		$this->db->order_by('id_bh', 'RANDOM');
 		$query = $this->db->get('banners_header');
 
@@ -26,10 +25,9 @@ class Banners_model extends CI_Model
 	}
 	function header_banners_feria_activos()
 	{
-		$where = "estado_bh='activo'";
-		$where = "area_bh='feria'";
 
-		$this->db->where($where);
+        $this->db->where('estado_bh', "activo");
+        $this->db->where('area_bh', "feria");
 		$this->db->order_by('id_bh', 'RANDOM');
 		$query = $this->db->get('banners_header');
 

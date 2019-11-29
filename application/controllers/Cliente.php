@@ -700,7 +700,9 @@ class Cliente extends Base_Controller
         $item0->id = '0';*/
 
         $item1 = new stdClass();
-        $item1->unitPrice = $total_a_pagar;
+        //prueba
+        //$item1->unitPrice = '1';
+       $item1->unitPrice = $total_a_pagar;
         $item1->productName = $data['tipo_anuncio'];
         $item1->id = '1';
 
@@ -713,18 +715,7 @@ class Cliente extends Base_Controller
 // This section will show all the reply fields.
         //print("\nAUTH RESPONSE: " . print_contenido($reply, true));
 
-        if ($reply->decision != 'ACCEPT') {
-            $this->session->set_flashdata('error', $reply->reasonCode);
-            redirect(base_url() . 'cliente/datos_pago');
-            //echo 'poner mensaje de error redireccionar';
-            //print("\nFailed auth request.\n");
-            // This section will show all the reply fields.
-            //echo '<pre>';
-            //print("\nRESPONSE: " . print_r($reply, true));
-            //echo '</pre>';
-            return;
-        } else {
-
+        if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode=='100') {
             $datos_pago_efectivo = array(
                 'user_id' => $user_id,
                 'carro_id' => $this->input->post('carro_id'),
@@ -750,6 +741,17 @@ class Cliente extends Base_Controller
             //redirect(base_url() . 'cliente/publicar_carro');
             //echo 'guardar numero de transaccion en base de datos';
             //echo $reply->requestID;
+        } else {
+            $this->session->set_flashdata('error', $reply->reasonCode);
+            $this->notiticacion_error_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta',$reply);
+            redirect(base_url() . 'cliente/datos_pago');
+            //echo 'poner mensaje de error redireccionar';
+            //print("\nFailed auth request.\n");
+            // This section will show all the reply fields.
+            //echo '<pre>';
+            //print("\nRESPONSE: " . print_r($reply, true));
+            //echo '</pre>';
+            return;
         }
 
 // Build a capture using the request ID in the response as the auth request ID
@@ -767,6 +769,187 @@ class Cliente extends Base_Controller
         // This section will show all the reply fields.
         // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
     }
+    public function guardar_pago_en_linea_feria()
+    {
+
+
+        $user_id = '0';
+        if ($this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            $user_id = $this->ion_auth->get_user_id();
+        }
+
+        $parametros = $this->Admin_model->get_parametros();
+        $parametros = $parametros->result();
+        $precio_vip = $parametros[1];
+        $precio_individual = $parametros[2];
+        $precio_feria = $parametros[3];
+        $precio_facebook = $parametros[4];
+        $data['forma_pago'] = $this->session->forma_pago;
+        $data['tipo_anuncio'] = $this->session->tipo_anuncio;
+        $data['ubicacion_anuncio'] = $this->session->ubicacion_anuncio;
+        $data['email'] = $this->input->post('correo_facturacion');
+        $data['ip_adress'] = $this->input->ip_address();
+        //datos de usuario
+        //datos de tarjeta
+        $numero_tarjeta = $this->input->post('card_number');
+        $expirationMonth = $this->input->post('mes_vencimiento_tarjeta');
+        $expirationYear = $this->input->post('a_vencimiento_tarjeta');
+        if ($expirationYear < 2000) {
+            $expirationYear = '20' . $expirationYear;
+        }
+
+        $data['precio_anuncio'] = 0;
+        $data['precio_feria'] = false;
+        $data['precio_facebook'] = false;
+        $total_a_pagar = 0;
+
+        //datos de facturacion
+        $nombre_factura = $this->input->post('nombre_facturacion');
+        $direccion_factura = $this->input->post('direccion_facturacion');
+        $nit = $this->input->post('nit_facturacion');
+
+        if (true) {
+            $data['precio_feria'] = $precio_feria;
+            $total_a_pagar = $total_a_pagar + $precio_feria->parametro_valor;
+        }
+
+
+        $data['total_a_pagar'] = $total_a_pagar;
+        /*print_contenido($_POST);
+        print_contenido($data);*/
+        //exit();
+
+        //print_contenido($_POST);
+        //exit();
+        // Before using this example, you can use your own reference code for the transaction.
+        $referenceCode = 'visanetgt_gpautos';
+
+        $client = new CybsSoapClient();
+        $request = $client->createRequest($referenceCode);
+        // This section contains a sample transaction request for the authorization
+        //// service with complete billing, payment card, and purchase (two items) information.
+
+        $ccAuthService = new stdClass();
+        $ccAuthService->run = 'true';
+        $request->ccAuthService = $ccAuthService;
+
+        $billTo = new stdClass();
+        $billTo->firstName = $nombre_factura;
+        $billTo->lastName = $nombre_factura;
+        $billTo->street1 = $direccion_factura;
+        $billTo->city = 'Guatemala';
+        $billTo->state = 'Guatemala';
+        $billTo->postalCode = '01010';
+        $billTo->country = 'GT';
+        $billTo->email = $data['email'];
+        $billTo->ipAddress = $data['ip_adress'];
+        $request->billTo = $billTo;
+
+        $card = new stdClass();
+        $card->accountNumber = $numero_tarjeta;
+        $card->expirationMonth = $expirationMonth;
+        $card->expirationYear = $expirationYear;
+        $request->card = $card;
+
+
+        $purchaseTotals = new stdClass();
+        $purchaseTotals->currency = 'GTQ';
+        $request->purchaseTotals = $purchaseTotals;
+
+
+        $request->deviceFingerprintID = $this->input->post('deviceFingerprintID');
+        //echo $this->input->post('deviceFingerprintID');
+
+        /*$item0 = new stdClass();
+        $item0->unitPrice = '12.34';
+        $item0->quantity = '2';
+        $item0->id = '0';*/
+
+        $item1 = new stdClass();
+        //precio porueba
+        //$item1->unitPrice = '1';
+        $item1->unitPrice = $total_a_pagar;
+        $item1->productName = 'Feria Virtual';
+        $item1->id = '1';
+
+        //$request->item = array($item0, $item1);
+        $request->item = array($item1);
+
+        //print_contenido($request);
+        $reply = $client->runTransaction($request);
+
+// This section will show all the reply fields.
+     /* print("\nAUTH RESPONSE: " . print_contenido($reply, true));
+      print("\nAUTH RESPONSE: " . print_contenido($reply->ccAuthReply, true));
+      echo 'paso el pago '.$reply->ccAuthReply->reasonCode;*/
+
+       // exit();
+
+        if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode=='100') {
+            $datos_pago_efectivo = array(
+                'user_id' => $user_id,
+                'carro_id' => $this->input->post('carro_id'),
+                'transaccion' => $reply->requestID,
+                'monto' => $total_a_pagar,
+                'nombre_factura' => $nombre_factura,
+                'nit' => $nit,
+                'direccion_factura' => $direccion_factura,
+                'cupon' => '0',
+                'direccion_rotulacion' => '-',
+                'telefono_rotulacion' => '0',
+            );
+            $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
+
+
+
+            //pasar a feria
+            $datos_feria=array(
+                'precio_feria'=>$this->input->post('precio_feria_input'),
+                'id_carro'=>$this->input->post('carro_id')
+            );
+            $this->Carros_model->guardar_precio_feria($datos_feria);
+
+
+            //correo notificacion de pago
+            $this->notiticacion_pago_feria($user_id, $data['email'], $nombre_factura, $total_a_pagar, 'feria', 'Pago con tarjeta', $datos_pago_efectivo['carro_id']);
+
+            redirect(base_url() . 'cliente/gracias_pago_feria');
+            //echo 'guardar numero de transaccion en base de datos';
+            //echo $reply->requestID;
+        } else {
+            $this->session->set_flashdata('error', $reply->reasonCode);
+            redirect(base_url() . 'carro/pagar_feria/'.$this->input->post('carro_id'));
+            //echo 'poner mensaje de error redireccionar';
+            //print("\nFailed auth request.\n");
+            // This section will show all the reply fields.
+            //echo '<pre>';
+            //print("\nRESPONSE: " . print_r($reply, true));
+            //echo '</pre>';
+            return;
+        }
+
+// Build a capture using the request ID in the response as the auth request ID
+        /* $ccCaptureService = new stdClass();
+         $ccCaptureService->run = 'true';
+         $ccCaptureService->authRequestID = $reply->requestID;
+
+         $captureRequest = $client->createRequest($referenceCode);
+         $captureRequest->ccCaptureService = $ccCaptureService;
+         $captureRequest->item = array($item1);
+         $captureRequest->purchaseTotals = $purchaseTotals;
+
+         $captureReply = $client->runTransaction($captureRequest);
+        */
+        // This section will show all the reply fields.
+        // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
+    }
+    public function gracias_pago_feria(){
+        $data = cargar_componentes_buscador();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        echo $this->templates->render('public/public_pago_feria_gracias', $data);
+    }
+
 
     //notificacion de carro
     public function notiticacion_pago($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago)
@@ -805,6 +988,94 @@ class Cliente extends Base_Controller
         $message .= "<tr><td><strong>Tipo de anuncio:</strong> </td><td>" . strip_tags($anuncio) . "</td></tr>";
         $message .= "<tr><td><strong>Método de pago:</strong> </td><td>" . strip_tags($metodo_pago) . "</td></tr>";
         $message .= "<tr><td><strong>Monto pagado:</strong> </td><td>" . strip_tags($monto) . "</td></tr>";
+        $message .= "</table>";
+        $message .= "</body></html>";
+
+        $this->email->message($message);
+        //enviar correo
+        $this->email->send();
+    }
+    public function notiticacion_pago_feria($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago, $carro_id)
+    {
+
+        //configuracion de correo
+        $config['mailtype'] = 'html';
+
+        $configGmail = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'info@gpautos.net',
+            'smtp_pass' => 'JdGg2005gp',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        );
+        $this->email->initialize($configGmail);
+
+
+        $this->email->from('info@gpautos.net', 'GP AUTOS');
+        $this->email->to($correo);
+        // $this->email->cc($correo);
+        $this->email->cc('pagos@gpautos.net, anuncios2@gpautos.net');
+        $this->email->bcc('csamayoa@zenstudiogt.com, michellepedroza@gpautos.net');
+
+        $this->email->subject('Se registro un pago');
+
+        //mensaje
+        $message = '<html><body>';
+        $message .= '<img src="http://gpautos.net/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+        $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+        $message .= "<tr><td><strong>Usuario:</strong> </td><td>" . strip_tags($cliente_id) . "</td></tr>";
+        $message .= "<tr><td><strong>Carro:</strong> </td><td>" . strip_tags($carro_id) . "</td></tr>";
+        $message .= "<tr><td><strong>Nombre de cliente:</strong> </td><td>" . strip_tags($nombre) . "</td></tr>";
+        $message .= "<tr><td><strong>Tipo de anuncio:</strong> </td><td>" . strip_tags($anuncio) . "</td></tr>";
+        $message .= "<tr><td><strong>Método de pago:</strong> </td><td>" . strip_tags($metodo_pago) . "</td></tr>";
+        $message .= "<tr><td><strong>Monto pagado:</strong> </td><td>" . strip_tags($monto) . "</td></tr>";
+        $message .= "</table>";
+        $message .= "</body></html>";
+
+        $this->email->message($message);
+        //enviar correo
+        $this->email->send();
+    }
+    public function notiticacion_error_pago($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago,$error)
+    {
+
+        //configuracion de correo
+        $config['mailtype'] = 'html';
+
+        $configGmail = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'info@gpautos.net',
+            'smtp_pass' => 'JdGg2005gp',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        );
+        $this->email->initialize($configGmail);
+
+
+        $this->email->from('info@gpautos.net', 'GP AUTOS');
+        $this->email->to($correo);
+        // $this->email->cc($correo);
+        $this->email->cc('pagos@gpautos.net, anuncios2@gpautos.net');
+        $this->email->bcc('csamayoa@zenstudiogt.com');
+
+        $this->email->subject('Se registro un error en el pago');
+
+        //mensaje
+        $message = '<html><body>';
+        $message .= '<img src="http://gpautos.net/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+        $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+        $message .= "<tr><td><strong>Usuario:</strong> </td><td>" . strip_tags($cliente_id) . "</td></tr>";
+        $message .= "<tr><td><strong>Nombre de cliente:</strong> </td><td>" . strip_tags($nombre) . "</td></tr>";
+        $message .= "<tr><td><strong>Tipo de anuncio:</strong> </td><td>" . strip_tags($anuncio) . "</td></tr>";
+        $message .= "<tr><td><strong>Método de pago:</strong> </td><td>" . strip_tags($metodo_pago) . "</td></tr>";
+        $message .= "<tr><td><strong>Monto pagado:</strong> </td><td>" . strip_tags($monto) . "</td></tr>";
+        $message .= "<tr><td><strong>Error:</strong> </td><td>" .serialize($error). "</td></tr>";
         $message .= "</table>";
         $message .= "</body></html>";
 
