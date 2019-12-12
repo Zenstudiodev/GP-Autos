@@ -1682,13 +1682,13 @@ class Cliente extends Base_Controller
                     "validador" => false,
                     "dte" => array
                     (
-                        "codigoEstablecimiento" => "2",
+                        "codigoEstablecimiento" => "1",
                         "idDispositivo" => "001",
                         "serieAutorizada" => "GP01",
                         "numeroResolucion" => "2019568702922229",
                         "fechaResolucion" => "2019-02-10",
-                        "tipoDocumento" => "FACE-63",
-                        "serieDocumento" => "GP01",
+                        "tipoDocumento" => "FACE",
+                        "serieDocumento" => "63",
 
                         "estadoDocumento" => "ACTIVO",
                         "numeroDocumento" => "1",

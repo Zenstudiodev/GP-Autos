@@ -306,7 +306,7 @@ $t4x4_n = array(
 
         <div class="row">
             <div class="col s12 m4 col-md-4">
-                <a href="<?php echo base_url().'home/inicio'; ?>">
+                <a href="<?php echo base_url(); ?>home/inicio">
                     <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
                 </a>
                 <a href="https://gpautos.net/home/inicio"><img src="<?php echo base_url(); ?>ui/public/images/bandera_gt_innner.png" id="bandera_gt_inner"></a>
@@ -336,13 +336,14 @@ $t4x4_n = array(
                         Contacto <i class="material-icons  secondary-content orange-text darken-3">email</i>
                     </a>
                 </div>
-                <!--CONTDOWN
+                <!--CONTDOWN-->
                 <div id="feria_countDown">
                     <div id="feria_cd_tittle">
                         La gran feria virtual termina en
                     </div>
                     <div id="getting-started"></div>
-                </div> -->
+                </div>
+                <a class="waves-effect waves-light btn red darken-2 white-text salir_feria_btn" href="<?php echo base_url(); ?>feria">Ir a feria</a>
             </div>
             <div class="col s12 m8">
                 <section id="banner">
@@ -673,7 +674,7 @@ $t4x4_n = array(
 <?php echo $this->section('js_p') ?>
 <script type="text/javascript">
     $("#getting-started")
-        .countdown("2018/11/29", function (event) {
+        .countdown("2020/01/01", function (event) {
             $(this).text(
                 event.strftime('%D días %H:%M:%S')
             );

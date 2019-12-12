@@ -39,7 +39,7 @@ $CI =& get_instance();
             <!--row para incluir buscador-->
             <div class="row">
                 <div class="col m12 s12">
-                    <h1 class="titulo_feria">Feria Virtual -G&T Continental- </h1>
+                    <h1 class="titulo_feria">Feria Virtual </h1>
                     <div class="row">
                         <?php
                         $cardCount = 0;

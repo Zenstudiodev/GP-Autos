@@ -478,7 +478,7 @@ div#jivo-iframe-container:not(.jivo-c-mobile){
 
 /*Feria*/
 div#feria {
-    background: url(/ui/public/images/feria/feria_bg.jpg);
+    /*background: url(/ui/public/images/feria/feria_bg.jpg);*/
     background-size: auto;
 }
 .titulo_feria{

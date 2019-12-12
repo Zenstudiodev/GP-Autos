@@ -280,7 +280,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
             </div>
             <div class="row">
                 <div class="col s12 m4 col-md-4">
-                    <a href="<?php echo base_url(); ?>">
+                    <a href="<?php echo base_url(); ?>feria">
                         <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
                     </a>
                 </div>
@@ -295,7 +295,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                     </div>
                 </div>
                 <div class="col s12 m4 col-md-4">
-                    <a class="waves-effect waves-light btn red darken-2 white-text salir_feria_btn" href="http://gpautos.net/home">Salir de feria</a>
+                    <a class="waves-effect waves-light btn red darken-2 white-text salir_feria_btn" href="http://gpautos.net/home/inicio">Salir de feria</a>
                 </div>
             </div>
             <div class="row">
@@ -616,7 +616,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
 <!-- JS personalizado -->
 <script type="text/javascript">
     $("#getting-started")
-        .countdown("2018/11/29", function (event) {
+        .countdown("2020/01/01", function (event) {
             $(this).text(
                 event.strftime('%D días %H:%M:%S')
             );
@@ -844,7 +844,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
         var filtros;
         //filtros = '<?php echo base_url()?>' + 'Carro/filtro_feria/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
        //filtros para feria solo de agencia y del 2010 al 2018
-        filtros = '<?php echo base_url()?>' + 'Carro/filtro_feria/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + 'AGENCIA' + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + '2010' + '-' + '2018';
+        filtros = '<?php echo base_url()?>' + 'Carro/filtro_feria/' + filtro_predio + '/' + filtro_ubicacion + '/' + buscador_tipo + '/' + buscador_marca + '/' + filtro_linea + '/' + buscador_transmision + '/' + buscador_combustible + '/' + buscador_origen + '/' + buscador_moneda + '/' + buscador_precio_min + '-' + buscador_precio_max + '/' + buscador_a_min + '-' + buscador_a_max;
         window.location.assign(filtros);
     });
     //Actualizar marcas
