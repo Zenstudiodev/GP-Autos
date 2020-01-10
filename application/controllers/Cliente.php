@@ -182,7 +182,7 @@ class Cliente extends Base_Controller
     {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
-            redirect(base_url().'cliente/login');
+            redirect(base_url() . 'cliente/login');
         }
         $data = cargar_componentes_buscador();
         $data['banners'] = $this->Banners_model->banneers_activos();
@@ -213,11 +213,11 @@ class Cliente extends Base_Controller
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
         $cupon = $this->session->cupon;
-        if($cupon){
-            $data['cupon_activo']=$cupon;
-            $data['datos_cupon']= $this->Admin_model->get_cupon_by_code($cupon);
-        }else{
-            $data['cupon_activo']='';
+        if ($cupon) {
+            $data['cupon_activo'] = $cupon;
+            $data['datos_cupon'] = $this->Admin_model->get_cupon_by_code($cupon);
+        } else {
+            $data['cupon_activo'] = '';
         }
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
@@ -225,6 +225,7 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/seleccion_anuncio', $data);
     }
+
     public function seleccion_anuncio_dev()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -237,11 +238,11 @@ class Cliente extends Base_Controller
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $user_id = $this->ion_auth->get_user_id();
         $cupon = $this->session->cupon;
-        if($cupon){
-            $data['cupon_activo']=$cupon;
-            $data['datos_cupon']= $this->Admin_model->get_cupon_by_code($cupon);
-        }else{
-            $data['cupon_activo']='';
+        if ($cupon) {
+            $data['cupon_activo'] = $cupon;
+            $data['datos_cupon'] = $this->Admin_model->get_cupon_by_code($cupon);
+        } else {
+            $data['cupon_activo'] = '';
         }
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
 
@@ -264,7 +265,7 @@ class Cliente extends Base_Controller
         $datos_usuario = $data['datos_usuario'];
         $datos_usuario = $datos_usuario->row();
         $nombre_usuario = $datos_usuario->first_name . ' ' . $datos_usuario->last_name;
-       // print_contenido($datos_usuario);
+        // print_contenido($datos_usuario);
         //print_contenido($_POST);
         $datos_anuncio = array(
             'ubicacion_anuncio' => $this->input->post('ubicacion_anuncio'),
@@ -280,10 +281,10 @@ class Cliente extends Base_Controller
         //print_contenido($_SESSION);
         //exit();
         $data['parametros'] = $this->Admin_model->get_parametros();
-        if($this->session->total_pagar <= '0'){
+        if ($this->session->total_pagar <= '0') {
 
 
-          //  echo '<h1>pagar 0 </h1>';
+            //  echo '<h1>pagar 0 </h1>';
             //echo 'guardar pago redirect a datos de carro';
             //correo notificacion de pago
 
@@ -295,7 +296,7 @@ class Cliente extends Base_Controller
                 'nombre_factura' => '',
                 'nit' => '',
                 'direccion_factura' => '',
-                'cupon' =>  $this->session->cupon,
+                'cupon' => $this->session->cupon,
                 'direccion_rotulacion' => $this->session->direccion_calcomania,
                 'telefono_rotulacion' => $this->session->telefono_calcomania,
             );
@@ -310,7 +311,7 @@ class Cliente extends Base_Controller
             if ($datos_anuncio['tipo_anuncio'] == 'vip') {
                 redirect(base_url() . 'cliente/publicar_carro_vip');
             }
-        }else{
+        } else {
 
         }
 
@@ -379,21 +380,21 @@ class Cliente extends Base_Controller
 
         $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
         $cupon = $this->session->cupon;
-        if($cupon){
-            $data['cupon_activo']=$cupon;
-            $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
+        if ($cupon) {
+            $data['cupon_activo'] = $cupon;
+            $data_cupon = $this->Admin_model->get_cupon_by_code($cupon);
             $data_cupon = $data_cupon->row();
 
             //print_contenido($data_cupon);
 
             if ($data_cupon->tipo == 'Porcentage') {
-               $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
+                $descuento_cupon = $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
             }
             if ($data_cupon->tipo == 'Valor') {
                 $descuento_cupon = $data_cupon->valor;
             }
             $data['descuento_cupon'] = $descuento_cupon;
-        }else{
+        } else {
             $descuento_cupon = 0;
         }
         $total_a_pagar = $total_a_pagar - $descuento_cupon;
@@ -496,23 +497,23 @@ class Cliente extends Base_Controller
         }
         $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
         $data['total_a_pagar'] = $total_a_pagar;
-        $data['cupon_activo']='';
+        $data['cupon_activo'] = '';
         $cupon = $this->session->cupon;
-        if($cupon){
-            $data['cupon_activo']=$cupon;
-            $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
+        if ($cupon) {
+            $data['cupon_activo'] = $cupon;
+            $data_cupon = $this->Admin_model->get_cupon_by_code($cupon);
             $data_cupon = $data_cupon->row();
 
             //print_contenido($data_cupon);
 
             if ($data_cupon->tipo == 'Porcentage') {
-                $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
+                $descuento_cupon = $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
             }
             if ($data_cupon->tipo == 'Valor') {
                 $descuento_cupon = $data_cupon->valor;
             }
             $data['descuento_cupon'] = $descuento_cupon;
-        }else{
+        } else {
             $descuento_cupon = 0;
         }
         $total_a_pagar = $total_a_pagar - $descuento_cupon;
@@ -630,23 +631,23 @@ class Cliente extends Base_Controller
         }
 
         $total_a_pagar = $total_a_pagar + $data['precio_anuncio']->parametro_valor;
-        $data['cupon_activo']='';
+        $data['cupon_activo'] = '';
         $cupon = $this->session->cupon;
-        if($cupon){
-            $data['cupon_activo']=$cupon;
-            $data_cupon= $this->Admin_model->get_cupon_by_code($cupon);
+        if ($cupon) {
+            $data['cupon_activo'] = $cupon;
+            $data_cupon = $this->Admin_model->get_cupon_by_code($cupon);
             $data_cupon = $data_cupon->row();
 
-           // print_contenido($data_cupon);
+            // print_contenido($data_cupon);
 
             if ($data_cupon->tipo == 'Porcentage') {
-                $descuento_cupon =  $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
+                $descuento_cupon = $data['precio_anuncio']->parametro_valor * $data_cupon->valor / 100;
             }
             if ($data_cupon->tipo == 'Valor') {
                 $descuento_cupon = $data_cupon->valor;
             }
             $data['descuento_cupon'] = $descuento_cupon;
-        }else{
+        } else {
             $descuento_cupon = 0;
         }
         $total_a_pagar = $total_a_pagar - $descuento_cupon;
@@ -702,7 +703,7 @@ class Cliente extends Base_Controller
         $item1 = new stdClass();
         //prueba
         //$item1->unitPrice = '1';
-       $item1->unitPrice = $total_a_pagar;
+        $item1->unitPrice = $total_a_pagar;
         $item1->productName = $data['tipo_anuncio'];
         $item1->id = '1';
 
@@ -715,7 +716,7 @@ class Cliente extends Base_Controller
 // This section will show all the reply fields.
         //print("\nAUTH RESPONSE: " . print_contenido($reply, true));
 
-        if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode=='100') {
+        if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode == '100') {
             $datos_pago_efectivo = array(
                 'user_id' => $user_id,
                 'carro_id' => $this->input->post('carro_id'),
@@ -743,7 +744,7 @@ class Cliente extends Base_Controller
             //echo $reply->requestID;
         } else {
             $this->session->set_flashdata('error', $reply->reasonCode);
-            $this->notiticacion_error_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta',$reply);
+            $this->notiticacion_error_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta', $reply);
             redirect(base_url() . 'cliente/datos_pago');
             //echo 'poner mensaje de error redireccionar';
             //print("\nFailed auth request.\n");
@@ -755,20 +756,21 @@ class Cliente extends Base_Controller
         }
 
 // Build a capture using the request ID in the response as the auth request ID
-       /* $ccCaptureService = new stdClass();
-        $ccCaptureService->run = 'true';
-        $ccCaptureService->authRequestID = $reply->requestID;
+        /* $ccCaptureService = new stdClass();
+         $ccCaptureService->run = 'true';
+         $ccCaptureService->authRequestID = $reply->requestID;
 
-        $captureRequest = $client->createRequest($referenceCode);
-        $captureRequest->ccCaptureService = $ccCaptureService;
-        $captureRequest->item = array($item1);
-        $captureRequest->purchaseTotals = $purchaseTotals;
+         $captureRequest = $client->createRequest($referenceCode);
+         $captureRequest->ccCaptureService = $ccCaptureService;
+         $captureRequest->item = array($item1);
+         $captureRequest->purchaseTotals = $purchaseTotals;
 
-        $captureReply = $client->runTransaction($captureRequest);
-       */
+         $captureReply = $client->runTransaction($captureRequest);
+        */
         // This section will show all the reply fields.
         // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
     }
+
     public function guardar_pago_en_linea_feria()
     {
 
@@ -880,13 +882,13 @@ class Cliente extends Base_Controller
         $reply = $client->runTransaction($request);
 
 // This section will show all the reply fields.
-     /* print("\nAUTH RESPONSE: " . print_contenido($reply, true));
-      print("\nAUTH RESPONSE: " . print_contenido($reply->ccAuthReply, true));
-      echo 'paso el pago '.$reply->ccAuthReply->reasonCode;*/
+        /* print("\nAUTH RESPONSE: " . print_contenido($reply, true));
+         print("\nAUTH RESPONSE: " . print_contenido($reply->ccAuthReply, true));
+         echo 'paso el pago '.$reply->ccAuthReply->reasonCode;*/
 
-       // exit();
+        // exit();
 
-        if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode=='100') {
+        if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode == '100') {
             $datos_pago_efectivo = array(
                 'user_id' => $user_id,
                 'carro_id' => $this->input->post('carro_id'),
@@ -902,11 +904,10 @@ class Cliente extends Base_Controller
             $this->Pagos_model->guardar_pago_en_linea($datos_pago_efectivo);
 
 
-
             //pasar a feria
-            $datos_feria=array(
-                'precio_feria'=>$this->input->post('precio_feria_input'),
-                'id_carro'=>$this->input->post('carro_id')
+            $datos_feria = array(
+                'precio_feria' => $this->input->post('precio_feria_input'),
+                'id_carro' => $this->input->post('carro_id')
             );
             $this->Carros_model->guardar_precio_feria($datos_feria);
 
@@ -919,7 +920,7 @@ class Cliente extends Base_Controller
             //echo $reply->requestID;
         } else {
             $this->session->set_flashdata('error', $reply->reasonCode);
-            redirect(base_url() . 'carro/pagar_feria/'.$this->input->post('carro_id'));
+            redirect(base_url() . 'carro/pagar_feria/' . $this->input->post('carro_id'));
             //echo 'poner mensaje de error redireccionar';
             //print("\nFailed auth request.\n");
             // This section will show all the reply fields.
@@ -944,7 +945,9 @@ class Cliente extends Base_Controller
         // This section will show all the reply fields.
         // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
     }
-    public function gracias_pago_feria(){
+
+    public function gracias_pago_feria()
+    {
         $data = cargar_componentes_buscador();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         echo $this->templates->render('public/public_pago_feria_gracias', $data);
@@ -995,6 +998,7 @@ class Cliente extends Base_Controller
         //enviar correo
         $this->email->send();
     }
+
     public function notiticacion_pago_feria($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago, $carro_id)
     {
 
@@ -1039,7 +1043,8 @@ class Cliente extends Base_Controller
         //enviar correo
         $this->email->send();
     }
-    public function notiticacion_error_pago($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago,$error)
+
+    public function notiticacion_error_pago($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago, $error)
     {
 
         //configuracion de correo
@@ -1075,7 +1080,7 @@ class Cliente extends Base_Controller
         $message .= "<tr><td><strong>Tipo de anuncio:</strong> </td><td>" . strip_tags($anuncio) . "</td></tr>";
         $message .= "<tr><td><strong>Método de pago:</strong> </td><td>" . strip_tags($metodo_pago) . "</td></tr>";
         $message .= "<tr><td><strong>Monto pagado:</strong> </td><td>" . strip_tags($monto) . "</td></tr>";
-        $message .= "<tr><td><strong>Error:</strong> </td><td>" .serialize($error). "</td></tr>";
+        $message .= "<tr><td><strong>Error:</strong> </td><td>" . serialize($error) . "</td></tr>";
         $message .= "</table>";
         $message .= "</body></html>";
 
@@ -1677,22 +1682,24 @@ class Cliente extends Base_Controller
         try {
 
             $client = new SoapClient("https://www.ingface.net/listener/ingface?wsdl", array("exceptions" => 1));
-            $resultado = $client->registrarDte(array("dte" => array("usuario" => "GPAUTOS",
+            $resultado = $client->registrarDte(array("dte" => array(
+                    "usuario" => "GPAUTOS",
                     "clave" => "A3C73DA00A0C49722CACA5AD7B80C6CDD41D8CD98F00B204E9800998ECF8427E",
                     "validador" => false,
                     "dte" => array
                     (
-                        "codigoEstablecimiento" => "1",
+                        "codigoEstablecimiento" => "2",
                         "idDispositivo" => "001",
                         "serieAutorizada" => "GP01",
                         "numeroResolucion" => "2019568702922229",
-                        "fechaResolucion" => "2019-02-10",
+                        "fechaResolucion" => "2019-10-02",
                         "tipoDocumento" => "FACE",
                         "serieDocumento" => "63",
+                        "nitGface"=>"55396127",
 
                         "estadoDocumento" => "ACTIVO",
-                        "numeroDocumento" => "1",
-                        "fechaDocumento" => "2019-10-10",
+                        "numeroDocumento" => "02",
+                        "fechaDocumento" => "2020-01-08",
                         "codigoMoneda" => "GTQ",
                         "tipoCambio" => "1",
                         "nitComprador" => str_replace("-", "", "5503407-1"),
