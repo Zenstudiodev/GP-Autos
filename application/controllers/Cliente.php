@@ -1711,9 +1711,10 @@ class Cliente extends Base_Controller
                         "departamentoComprador" => "N/A",
                         "municipioComprador" => "N/A",
 
-                        "importeBruto" => 200,
+                        "importeBruto" => $valor_a_facturar,
                         "importeDescuento" => 0,
                         "importeTotalExento" => 0,
+
                         "importeOtrosImpuestos" => 0,
                         "importeNetoGravado" => 224,
                         "detalleImpuestosIva" => 24,
