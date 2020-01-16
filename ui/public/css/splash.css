@@ -7,7 +7,7 @@
 #splash_bg{
     height: 60vh;
     background: url("/ui/public/images/splash_bg.png");
-    background-size: contain;
+    background-size: cover;
 }
 
 #splash_bg h3{
