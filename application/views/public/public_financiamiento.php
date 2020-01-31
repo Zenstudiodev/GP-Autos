@@ -188,7 +188,7 @@ $vehiculo_deseado = array(
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="input-field col s3">
+                                        <div class="input-field col s12 m3">
                                             <!--ESPEJOS-->
                                             <p>
                                                 <label for="checkboxes" class="control-label">¿Ya tiene vehículo para comprar?</label>
@@ -201,7 +201,7 @@ $vehiculo_deseado = array(
                                                 <label for="que_vehiculo_n" >No</label>
                                             </p>
                                         </div>
-                                        <div class="input-field col s9">
+                                        <div class="input-field col s12 m9">
                                             <?php echo form_input($vehiculo_deseado); ?>
                                             <label for="monto_vehiculo">Desea que le busquemos alguna opción</label>
                                         </div>
@@ -211,21 +211,25 @@ $vehiculo_deseado = array(
 
                                     <div class="row">
                                         <ul class="collection">
-                                            <li class="collection-item">Tus datos serán enviados a las entidades
-                                                bancarias para que realicen la precalificación.
+                                            <li class="collection-item">Cotización de credito
                                             </li>
-                                            <li class="collection-item">En caso tu crédito salga aprobado tienes 10 días
-                                                para presentar la documentación física.
+                                            <li class="collection-item">En breve enviaremos tu cotización por medio de correo y/o Whatsapp
                                             </li>
-                                            <li class="collection-item">Las entidades bancarias pueden llamar a tu
-                                                numero de teléfono para verificar la veracidad de la informacion.
+                                            <li class="collection-item">La cotización tiene una vigencia de 8 días hábiles para poder ingresar la papeleta.
                                             </li>
-                                            <li class="collection-item">Autorizo a las entidades bancarias para efectuar
-                                                la precalificación solicitada.
+                                            <li class="collection-item">Un asesor de GPCREDITOS se pondrá en contacto para ofrecerle un mejor servicio.
                                             </li>
-                                            <li class="collection-item">Autorizo a la empresa GPAUTOS,S.A para que envie
-                                                mi informacion a las entidades bancarias para realizar la
-                                                precalificación de crédito para la compra de vehiculo
+                                            <li class="collection-item">Documento para credito
+                                            </li>
+                                            <li class="collection-item">3 últimos estados de cuenta bancarios y firmados y sellados
+                                            </li>
+                                            <li class="collection-item">Carta de ingresos de la empresa donde labora (1 año de estabilidad)
+                                            </li>
+                                            <li class="collection-item">Recibo de luz, agua o teléfono donde reside
+                                            </li>
+                                            <li class="collection-item">Copia DPI
+                                            </li>
+                                            <li class="collection-item">Copia licencia y/o 2do documento de identificación.
                                             </li>
                                             <li class="collection-item">
                                                 <input type="checkbox" id="acepto_terminos" name="acepto_terminos"

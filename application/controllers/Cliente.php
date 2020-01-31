@@ -1033,7 +1033,7 @@ class Cliente extends Base_Controller
         $this->email->from('info@gpautos.net', 'GP AUTOS');
         $this->email->to($correo);
         // $this->email->cc($correo);
-        $this->email->cc('pagos@gpautos.net, anuncios2@gpautos.net');
+        $this->email->cc('pagos@gpautos.net, anuncios2@gpautos.net, michellepedroza@gpautos.net');
         $this->email->bcc('csamayoa@zenstudiogt.com');
 
         $this->email->subject('Se registro un pago');
@@ -1689,12 +1689,12 @@ class Cliente extends Base_Controller
 
     public function facturar()
     {
-
+        $valor_a_facturar = '175';
         //--------------------------------------- DETALLE DEL PRIMER PRODUCTO -----------------------------------
-        $detalle[0]["cantidad"] = 2;
+        $detalle[0]["cantidad"] = 1;
         $detalle[0]["unidadMedida"] = "UND";
         $detalle[0]["codigoProducto"] = "001-2011";
-        $detalle[0]["descripcionProducto"] = "Prontuario Tributario";
+        $detalle[0]["descripcionProducto"] = "Anuncio ViP";
         $detalle[0]["precioUnitario"] = "150";
         $detalle[0]["montoBruto"] = "300";
         $detalle[0]["montoDescuento"] = "0";
@@ -1713,7 +1713,7 @@ class Cliente extends Base_Controller
         $detalle[0]["personalizado_05"] = "N/A";
         $detalle[0]["personalizado_06"] = "N/A";
         //--------------------------------------- DETALLE DEL SEGUNDO PRODUCTO ----------------------------------
-        $detalle[1]["cantidad"] = 1;
+        /*$detalle[1]["cantidad"] = 1;
         $detalle[1]["unidadMedida"] = "UND";
         $detalle[1]["codigoProducto"] = "002-2011";
         $detalle[1]["descripcionProducto"] = "Membresia 6 Meses ";
@@ -1734,6 +1734,7 @@ class Cliente extends Base_Controller
         $detalle[1]["personalizado_04"] = "N/A";
         $detalle[1]["personalizado_05"] = "N/A";
         $detalle[1]["personalizado_06"] = "N/A";
+        */
 
         try {
 
@@ -1837,6 +1838,7 @@ class Cliente extends Base_Controller
         $producto_facturar = (object)null;
         $anuncio_vip = true;
         $anuncio_individual = true;
+        $anuncio_facebook = true;
         if ($anuncio_vip) {
             $producto_facturar->vip = (object)array(
                 'producto' => 'vip',
@@ -1873,6 +1875,26 @@ class Cliente extends Base_Controller
                 'otrosImpuestos' => '0',
                 'importeOtrosImpuestos' => '0',
                 'importeTotalOperacion' => '125',
+                'tipoProducto' => 'S',
+            );
+
+        }
+        if ($anuncio_facebook) {
+            $producto_facturar->facebook = (object)array(
+                'producto' => 'facebook',
+                'cantidad' => '1',
+                'unidadMedida' => 'UND',
+                'codigoProducto' => '002-2020',
+                'descripcionProducto' => 'Anuncio facebook',
+                'precioUnitario' => '100',
+                'montoBruto' => '100',
+                'montoDescuento' => '0',
+                'importeNetoGravado' => '100',
+                'detalleImpuestosIva' => '0',
+                'importeExento' => '0',
+                'otrosImpuestos' => '0',
+                'importeOtrosImpuestos' => '0',
+                'importeTotalOperacion' => '100',
                 'tipoProducto' => 'S',
             );
 
@@ -2010,25 +2032,26 @@ class Cliente extends Base_Controller
                         'protocol' => 'smtp',
                         'smtp_host' => 'ssl://smtp.gmail.com',
                         'smtp_port' => 465,
-                        'smtp_user' => 'creditos@gpautos.net',
-                        'smtp_pass' => 'GpCreditos18',
+                        'smtp_user' => 'facturacion@gpautos.net',
+                        'smtp_pass' => 'Gphector2019',
                         'mailtype' => 'html',
                         'charset' => 'utf-8',
                         'newline' => "\r\n"
                     );
                     $this->email->initialize($configGmail);
 
-                    $this->email->from('info@gpautos.net', 'GP AUTOS - Factura anuncio');
+                    $this->email->from('facturacion@gpautos.net', 'GP AUTOS - Factura');
                     $this->email->to($datos_cliente->correoComprador);
+                    $this->email->cc('facturacion@gpautos.net');
                     $this->email->bcc('csamayoa@zenstudiogt.com');
-                    $this->email->subject('Factura por Anuncio virtual');
+                    $this->email->subject('Factura GP AUTOS');
 
                     //mensaje
                     $message = '<html><body>';
-                    $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+                    $message .= '<img src="https://gpautos.net/ui/public/images/logoGp.png" alt="GP AUTOS" />';
                     $message .= '<table>';
                     $message .= "<tr><td><strong>Estimado, </strong>" .strip_tags($datos_cliente->nombreComercialComprador) ."</td></tr>";
-                    $message .= "<tr><td><strong>su anuncio se ha pagado en el siguiente link puede descargar su factura </td></tr>";
+                    $message .= "<tr><td><strong>Su transacción se realizo con exito, para descargar su factura ingrese al siguiente link.</td></tr>";
                     $message .= "<tr><td><strong><a href='https://www.ingface.net/Ingfacereport/dtefactura.jsp?cae=".$resultado->return->cae."'>factura </a>";
                     $message .= "</table>";
                     $message .= "</body></html>";

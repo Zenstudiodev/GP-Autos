@@ -336,14 +336,14 @@ $precio_facebook = $parametros[4];
                                             </td>
                                             <td class="t_individual"><span id="anuncio_precio_facebook"></span></td>
                                         </tr>
-                                        <tr>
+                                       <!-- <tr>
                                             <td>
                                                 <input type="checkbox" id="feria_check" name="feria_check"
                                                        value="feria_si"/>
                                                 <label for="feria_check">Feria Virtual</label>
                                             </td>
                                             <td class="t_individual"><span id="anuncio_precio_feria"></span></td>
-                                        </tr>
+                                        </tr>-->
                                         <?php if(isset($datos_cupon)){  ?>
                                             <tr>
                                                 <td>
