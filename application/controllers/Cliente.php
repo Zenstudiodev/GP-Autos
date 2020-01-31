@@ -733,6 +733,62 @@ class Cliente extends Base_Controller
 
             //correo notificacion de pago
             $this->notiticacion_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta');
+
+            $datos_cliente = (object)null;
+            $datos_cliente->nitComprador=$nit;
+            $datos_cliente->nombreComercialComprador=$nombre_factura;
+            $datos_cliente->direccionComercialComprador=$direccion_factura;
+            $datos_cliente->telefonoComprador='0';
+            $datos_cliente->correoComprador=$data['email'];
+            $producto_facturar = (object)null;
+
+
+            //$anuncio_vip = true;
+            //$anuncio_individual = true;
+            if ($data['tipo_anuncio'] == 'vip') {
+                $producto_facturar->vip = (object)array(
+                    'producto' => 'vip',
+                    'cantidad' => '1',
+                    'unidadMedida' => 'UND',
+                    'codigoProducto' => '001-2020',
+                    'descripcionProducto' => 'Anuncio Vip',
+                    'precioUnitario' => '275',
+                    'montoBruto' => '275',
+                    'montoDescuento' => '0',
+                    'importeNetoGravado' => '275',
+                    'detalleImpuestosIva' => '0',
+                    'importeExento' => '0',
+                    'otrosImpuestos' => '0',
+                    'importeOtrosImpuestos' => '0',
+                    'importeTotalOperacion' => '275',
+                    'tipoProducto' => 'S',
+
+                );
+            }
+            if ($data['tipo_anuncio'] == 'individual') {
+                $producto_facturar->individual = (object)array(
+                    'producto' => 'individual',
+                    'cantidad' => '1',
+                    'unidadMedida' => 'UND',
+                    'codigoProducto' => '002-2020',
+                    'descripcionProducto' => 'Anuncio Individual',
+                    'precioUnitario' => '125',
+                    'montoBruto' => '125',
+                    'montoDescuento' => '0',
+                    'importeNetoGravado' => '125',
+                    'detalleImpuestosIva' => '0',
+                    'importeExento' => '0',
+                    'otrosImpuestos' => '0',
+                    'importeOtrosImpuestos' => '0',
+                    'importeTotalOperacion' => '125',
+                    'tipoProducto' => 'S',
+                );
+
+            }
+
+           // $this->facturar_global($producto_facturar, $datos_cliente);
+
+
             if ($data['tipo_anuncio'] == 'individual') {
                 redirect(base_url() . 'cliente/publicar_carro');
             }
@@ -1695,7 +1751,7 @@ class Cliente extends Base_Controller
                         "fechaResolucion" => "2019-10-02",
                         "tipoDocumento" => "FACE",
                         "serieDocumento" => "63",
-                        "nitGface"=>"55396127",
+                        "nitGface" => "55396127",
 
                         "estadoDocumento" => "ACTIVO",
                         "numeroDocumento" => "02",
@@ -1766,6 +1822,241 @@ class Cliente extends Base_Controller
         } catch (SoapFault $E) {
             $objResponse->addAlert($E->faultstring);
         }
+    }
+
+    public function facturar_test()
+    {
+
+
+        $datos_cliente = (object)null;
+        $datos_cliente->nitComprador='7452170-5';
+        $datos_cliente->nombreComercialComprador='Carlos Samayoa';
+        $datos_cliente->direccionComercialComprador='Guatemala';
+        $datos_cliente->telefonoComprador='58352425';
+        $datos_cliente->correoComprador='csamayoa@zenstudiogt.com';
+        $producto_facturar = (object)null;
+        $anuncio_vip = true;
+        $anuncio_individual = true;
+        if ($anuncio_vip) {
+            $producto_facturar->vip = (object)array(
+                'producto' => 'vip',
+                'cantidad' => '1',
+                'unidadMedida' => 'UND',
+                'codigoProducto' => '001-2020',
+                'descripcionProducto' => 'Anuncio Vip',
+                'precioUnitario' => '275',
+                'montoBruto' => '275',
+                'montoDescuento' => '0',
+                'importeNetoGravado' => '275',
+                'detalleImpuestosIva' => '0',
+                'importeExento' => '0',
+                'otrosImpuestos' => '0',
+                'importeOtrosImpuestos' => '0',
+                'importeTotalOperacion' => '275',
+                'tipoProducto' => 'S',
+
+            );
+        }
+        if ($anuncio_individual) {
+            $producto_facturar->individual = (object)array(
+                'producto' => 'individual',
+                'cantidad' => '1',
+                'unidadMedida' => 'UND',
+                'codigoProducto' => '002-2020',
+                'descripcionProducto' => 'Anuncio Individual',
+                'precioUnitario' => '125',
+                'montoBruto' => '125',
+                'montoDescuento' => '0',
+                'importeNetoGravado' => '125',
+                'detalleImpuestosIva' => '0',
+                'importeExento' => '0',
+                'otrosImpuestos' => '0',
+                'importeOtrosImpuestos' => '0',
+                'importeTotalOperacion' => '125',
+                'tipoProducto' => 'S',
+            );
+
+        }
+
+        $this->facturar_global($producto_facturar, $datos_cliente);
+    }
+
+    public function facturar_global($producto_facturar, $datos_cliente)
+    {
+        if ($producto_facturar) {
+
+            $numero_producto = 0;
+            $valor_a_facturar =  0;
+            $fecha_documento = New DateTime();
+            $fecha_documento = $fecha_documento->format('Y-m-d');
+            $valor_iva = 0;
+            foreach ($producto_facturar as $producto) {
+                $detalle[$numero_producto]["cantidad"] = $producto->cantidad;
+                $detalle[$numero_producto]["unidadMedida"] = $producto->unidadMedida;
+                $detalle[$numero_producto]["codigoProducto"] = $producto->codigoProducto;
+                $detalle[$numero_producto]["descripcionProducto"] = $producto->descripcionProducto;
+                $detalle[$numero_producto]["precioUnitario"] = $producto->precioUnitario;
+                $detalle[$numero_producto]["montoBruto"] = $producto->montoBruto;
+                $detalle[$numero_producto]["montoDescuento"] = $producto->montoDescuento;
+                $detalle[$numero_producto]["importeNetoGravado"] = $producto->importeNetoGravado;
+                $detalle[$numero_producto]["detalleImpuestosIva"] = $producto->detalleImpuestosIva;
+                $detalle[$numero_producto]["importeExento"] = $producto->importeExento;
+
+                $detalle[$numero_producto]["otrosImpuestos"] = $producto->otrosImpuestos;
+                $detalle[$numero_producto]["importeOtrosImpuestos"] =$producto->importeOtrosImpuestos;
+                $detalle[$numero_producto]["importeTotalOperacion"] = $producto->importeTotalOperacion;
+                $detalle[$numero_producto]["tipoProducto"]= $producto->tipoProducto;// B= BIEN, S= SERVICIO
+                //-------------------------------------------------------------------------------------------------------
+                $detalle[$numero_producto]["personalizado_01"] = "N/A";
+                $detalle[$numero_producto]["personalizado_02"] = "N/A";
+                $detalle[$numero_producto]["personalizado_03"] = "N/A";
+                $detalle[$numero_producto]["personalizado_04"] = "N/A";
+                $detalle[$numero_producto]["personalizado_05"] = "N/A";
+                $detalle[$numero_producto]["personalizado_06"] = "N/A";
+
+                $numero_producto = $numero_producto + 1;
+                $valor_a_facturar = $valor_a_facturar + $producto->precioUnitario;
+
+            }
+           /* echo '<hr>';
+            print_contenido($detalle);*/
+           $valor_iva = $valor_a_facturar * 0.12;
+            try {
+
+                $client = new SoapClient("https://www.ingface.net/listener/ingface?wsdl", array("exceptions" => 1));
+                $resultado = $client->registrarDte(array("dte" => array(
+                        "usuario" => "GPAUTOS",
+                        "clave" => "A3C73DA00A0C49722CACA5AD7B80C6CDD41D8CD98F00B204E9800998ECF8427E",
+                        "validador" => false,
+                        "dte" => array
+                        (
+                            "codigoEstablecimiento" => "2",
+                            "idDispositivo" => "001",
+                            "serieAutorizada" => "GP01",
+                            "numeroResolucion" => "2019568702922229",
+                            "fechaResolucion" => "2019-10-02",
+                            "tipoDocumento" => "FACE",
+                            "serieDocumento" => "63",
+                            "nitGface" => "55396127",
+
+                            "estadoDocumento" => "ACTIVO",
+                            //"numeroDocumento" => "04",
+                            "fechaDocumento" => $fecha_documento,
+                            "codigoMoneda" => "GTQ",
+                            "tipoCambio" => "1",
+                            "nitComprador" => str_replace("-", "", $datos_cliente->nitComprador),
+                            "nombreComercialComprador" => $datos_cliente->nombreComercialComprador,
+                            "direccionComercialComprador" => $datos_cliente->direccionComercialComprador,
+                            "telefonoComprador" => $datos_cliente->telefonoComprador,
+                            "correoComprador" => $datos_cliente->correoComprador,
+                            "regimen2989" => false,
+                            "departamentoComprador" => "N/A",
+                            "municipioComprador" => "N/A",
+
+                            "importeBruto" => $valor_a_facturar,
+                            "importeDescuento" => 0,
+                            "importeTotalExento" => 0,
+
+                            "importeOtrosImpuestos" => 0,
+                            "importeNetoGravado" => $valor_a_facturar,
+                            "detalleImpuestosIva" => $valor_iva,
+                            "montoTotalOperacion" => $valor_a_facturar,
+                            "descripcionOtroImpuesto" => "N/A",
+
+                            "observaciones" => "N/A",
+                            "nitVendedor" => str_replace("-", "", "136771-4"),
+                            "departamentoVendedor" => "GUATEMALA",
+                            "municipioVendedor" => "GUATEMALA",
+                            "direccionComercialVendedor" => "CIUDAD REFORMA",
+                            "NombreComercialRazonSocialVendedor" => "GP AUTOS",
+                            "nombreCompletoVendedor" => "GP AUTOS",
+                            "regimenISR" => "1",
+
+                            "personalizado_01" => "N/A",
+                            "personalizado_02" => "N/A",
+                            "personalizado_03" => "N/A",
+                            "personalizado_04" => "N/A",
+                            "personalizado_05" => "N/A",
+                            "personalizado_06" => "N/A",
+                            "personalizado_07" => "N/A",
+                            "personalizado_08" => "N/A",
+                            "personalizado_09" => "N/A",
+                            "personalizado_10" => "N/A",
+                            "personalizado_11" => "N/A",
+                            "personalizado_12" => "N/A",
+                            "personalizado_13" => "N/A",
+                            "personalizado_14" => "N/A",
+                            "personalizado_15" => "N/A",
+                            "personalizado_16" => "N/A",
+                            "personalizado_17" => "N/A",
+                            "personalizado_18" => "N/A",
+                            "personalizado_19" => "N/A",
+                            "personalizado_20" => "N/A",
+
+                            "detalleDte" => $detalle
+                        )
+                    )
+                    )
+                );
+
+                if ($resultado->return->valido) {
+
+                    //echo "DTE: " . $resultado->return->numeroDte . "</br>";
+                    //echo "CAE: " . $resultado->return->cae . "</br>";
+
+                    //configuracion de correo
+                    $config['mailtype'] = 'html';
+                    $configGmail = array(
+                        'protocol' => 'smtp',
+                        'smtp_host' => 'ssl://smtp.gmail.com',
+                        'smtp_port' => 465,
+                        'smtp_user' => 'creditos@gpautos.net',
+                        'smtp_pass' => 'GpCreditos18',
+                        'mailtype' => 'html',
+                        'charset' => 'utf-8',
+                        'newline' => "\r\n"
+                    );
+                    $this->email->initialize($configGmail);
+
+                    $this->email->from('info@gpautos.net', 'GP AUTOS - Factura anuncio');
+                    $this->email->to($datos_cliente->correoComprador);
+                    $this->email->bcc('csamayoa@zenstudiogt.com');
+                    $this->email->subject('Factura por Anuncio virtual');
+
+                    //mensaje
+                    $message = '<html><body>';
+                    $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+                    $message .= '<table>';
+                    $message .= "<tr><td><strong>Estimado, </strong>" .strip_tags($datos_cliente->nombreComercialComprador) ."</td></tr>";
+                    $message .= "<tr><td><strong>su anuncio se ha pagado en el siguiente link puede descargar su factura </td></tr>";
+                    $message .= "<tr><td><strong><a href='https://www.ingface.net/Ingfacereport/dtefactura.jsp?cae=".$resultado->return->cae."'>factura </a>";
+                    $message .= "</table>";
+                    $message .= "</body></html>";
+
+
+                    $this->email->message($message);
+
+                    //enviar correo
+                    $this->email->send();
+
+                    // echo'send';
+
+
+                } else {
+                    echo "ERROR: " . $resultado->return->descripcion;
+                }
+            } catch (SoapFault $E) {
+                $objResponse->addAlert($E->faultstring);
+            }
+
+
+        } else {
+            echo 'no facturar';
+        }
+        exit();
+
+
+
     }
 
 }

@@ -17,7 +17,6 @@ class Formularios  extends Base_Controller
 		$this->load->helper('carros');
         $this->load->model('Banners_model');
 	}
-
 	public function index(){
 		$this->email->from('info@gpautos.net', 'GP AUTOS');
 		$this->email->to('csamayoa@zenstudiogt.com');
@@ -30,7 +29,6 @@ class Formularios  extends Base_Controller
 		$this->email->send();
 
 	}
-
 	public function info_anunciate(){
 		//comprobamos que exista post
 		if($this->input->post('correo')){
@@ -300,7 +298,6 @@ class Formularios  extends Base_Controller
 		}
 
 	}
-
 	public function seguros(){
 		//leemos datos desde post
 		$nombre = $this->input->post('nombre');
@@ -384,28 +381,20 @@ class Formularios  extends Base_Controller
 
 		echo'send';
 	}
-
     public function pre_calificacion(){
         //comprobamos que exista post
+
+        //print_contenido($_POST);
+        //exit();
         if($this->input->post('correo')){
             //leemos datos desde post
-            $carro_id = $this->input->post('carro_id');
             $nombre = $this->input->post('nombre');
-            $direccion_domicilio = $this->input->post('direccion_domicilio');
-            $numero_dpi = $this->input->post('numero_dpi');
-            $emitido_dpi= $this->input->post('emitido_dpi');
-            $nit= $this->input->post('nit');
-            $fecha_nacimiento= $this->input->post('fecha_nacimiento');
+            $numero_telefono= $this->input->post('numero_telefono');
             $numero_celular= $this->input->post('numero_celular');
-            $estado_civil= $this->input->post('estado_civil');
             $correo= $this->input->post('correo');
-            $nombre_empresa= $this->input->post('nombre_empresa');
-            $direccion_empresa= $this->input->post('direccion_empresa');
-            $puesto= $this->input->post('puesto');
-            $telefono_empresa= $this->input->post('telefono_empresa');
-            $salario= $this->input->post('salario');
-            $fecha_ingreso= $this->input->post('fecha_ingreso');
             $monto_vehiculo= $this->input->post('monto_vehiculo');
+            $que_vehiculo= $this->input->post('que_vehiculo');
+            $vehiculo_deseado= $this->input->post('vehiculo_deseado');
             $terminos= $this->input->post('acepto_terminos');
 
             //configuracion de correo
@@ -432,23 +421,13 @@ class Formularios  extends Base_Controller
             $message = '<html><body>';
             $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUT OS" />';
             $message .= '<table>';
-            $message .= "<tr><td><strong>Codigo carro:</strong> </td><td>" .strip_tags($carro_id) ."</td></tr>";
             $message .= "<tr><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
-            $message .= "<tr><td><strong>Dirección de domicilio:</strong> </td><td>" .strip_tags($direccion_domicilio) ."</td></tr>";
-            $message .= "<tr><td><strong>Numero DPI:</strong> </td><td>" . strip_tags($numero_dpi) . "</td></tr>";
-            $message .= "<tr><td><strong>DPI Emitido en:</strong> </td><td>" . strip_tags($emitido_dpi) . "</td></tr>";
-            $message .= "<tr><td><strong>NIT:</strong> </td><td>" . strip_tags($nit) . "</td></tr>";
-            $message .= "<tr><td><strong>Fecha de nacimiento:</strong> </td><td>" . strip_tags($fecha_nacimiento) . "</td></tr>";
-            $message .= "<tr><td><strong>Telefono:</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
-            $message .= "<tr><td><strong>Estado civil:</strong> </td><td>" . strip_tags($estado_civil) . "</td></tr>";
             $message .= "<tr><td><strong>Email:</strong> </td><td>" . strip_tags($correo) . "</td></tr>";
-            $message .= "<tr><td><strong>Nombre empresa:</strong> </td><td>" . strip_tags($nombre_empresa) . "</td></tr>";
-            $message .= "<tr><td><strong>Dirección empresa:</strong> </td><td>" . strip_tags($direccion_empresa) . "</td></tr>";
-            $message .= "<tr><td><strong>Puesto:</strong> </td><td>" . strip_tags($puesto) . "</td></tr>";
-            $message .= "<tr><td><strong>Teléfono empresa:</strong> </td><td>" . strip_tags($telefono_empresa) . "</td></tr>";
-            $message .= "<tr><td><strong>Salario:</strong> </td><td>" . strip_tags($salario) . "</td></tr>";
-            $message .= "<tr><td><strong>Fecha ingreso:</strong> </td><td>" . strip_tags($fecha_ingreso) . "</td></tr>";
+            $message .= "<tr><td><strong>Teléfono:</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
+            $message .= "<tr><td><strong>Celular:</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
             $message .= "<tr><td><strong>Monto vehículo:</strong> </td><td>" . strip_tags($monto_vehiculo) . "</td></tr>";
+            $message .= "<tr><td><strong>ya tiene vehículo para comprar?</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
+            $message .= "<tr><td><strong>desea que le busquemos alguna opcion?</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
             $message .= "<tr><td><strong>Terminos:</strong> </td><td>" . strip_tags($terminos) . "</td></tr>";
             $message .= "</table>";
             $message .= "</body></html>";
@@ -498,8 +477,4 @@ class Formularios  extends Base_Controller
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         echo $this->templates->render('public/public_financiamiento_gracias', $data);
     }
-
-
-
-
 }
