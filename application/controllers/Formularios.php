@@ -405,7 +405,7 @@ class Formularios  extends Base_Controller
                 'smtp_host' => 'ssl://smtp.gmail.com',
                 'smtp_port' => 465,
                 'smtp_user' => 'creditos@gpautos.net',
-                'smtp_pass' => 'GpCreditos18',
+                'smtp_pass' => 'Chinitoweb2020',
                 'mailtype' => 'html',
                 'charset' => 'utf-8',
                 'newline' => "\r\n"
