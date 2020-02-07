@@ -37,13 +37,19 @@ $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                 <div class="card">
                     <div class="card-content">
                         <div class="orange darken-2">
-                            <h1 class="white-text text-center">Gracias por precalificarte por medio de GPautos</h1>
-                            <span class="card-title white-text text-center">En breve te enviaremos la respuesta de tu precalificación</span>
+                            <h1 class="white-text text-center">Gracias por cotizar con GPAUTOS.NET</h1>
+                            <span class="card-title white-text text-center">En un momento uno de nuestros asesores te enviará tu cotización y se comunicará con tu persona.</span>
                             <p class="text-center">
                                 <img src="<?php echo base_url() ?>/ui/public/images/home_basket.png">
                             </p>
-                            <span class="card-title white-text text-center">GPAUTOS TE NOTIFICARA VIA CORREO ELECTRONICO EL RESULTADO DE TU PRECALIFICACIÓN</span>
-                            <span class="card-title white-text text-center">Nota: <br>Te recomendamos que encaso  tu precalificación sea positiva tienes 10 dias habiles para ingresar tu papeleria fisica en oficinas de gpautos:</span>
+                            <hr>
+                            <p class="white-text" >
+                                En caso desees aplicar a crédito te enviamos los requisitos solicitados por el banco:<br>
+                                - 3 últimos estados de cuenta bancarios.<br>
+                                - Carta de ingresos de la empresa donde laboras.<br>
+                                - Copia de DPI - copia de 2do.documento de identificación.
+                            </p>
+                            <hr>
                         </div>
                     </div>
                 </div>

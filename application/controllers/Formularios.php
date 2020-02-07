@@ -440,18 +440,20 @@ class Formularios  extends Base_Controller
 
            // echo'send';
 
-            $this->email->from('creditos@gpautos.net', 'GP AUTOS - Precalificación');
+            $this->email->from('creditos@gpautos.net', 'GP AUTOS - Precalificaci&oacute;n');
             $this->email->to($correo);
             //$this->email->bcc('csamayoa@zenstudiogt.com');
             $this->email->subject('Gracias por precalificarte por medio de GPautos');
 
             //mensaje
             $message = '<html><body>';
-            $message .= '<h1>Gracias por precalificarte por medio de GPautos</h1>';
-            $message .= '<img src="http://gp.carrosapagos.com/ui/public/images/logoGp.png" alt="GP AUTOS" />';
-            $message .= "<h2>En breve te enviaremos la respuesta de tu precalificación</h2>";
-            $message .= "<h3>NOTA:</h3>";
-            $message .= "<p>Te recomendamos que encaso  tu precalificación sea positiva tienes 10 dias habiles para ingresar tu papeleria fisica en oficinas de gpautos:</p>";
+            $message .= '<h1>Gracias por cotizar con GPAUTOS.NET</h1>';
+            $message .= '<img src="https://gpautos.net/ui/public/images/logoGp.png" alt="GP AUTOS" />';
+            $message .= "<h2>En un momento uno de nuestros asesores te enviará tu cotización y se comunicará con tu persona.</h2>";
+            $message .= "<p>En caso desees aplicar a crédito te enviamos los requisitos solicitados por el banco:<br>";
+            $message .= "- 3 últimos estados de cuenta bancarios.<br>";
+            $message .= "- Carta de ingresos de la empresa donde laboras.<br>";
+            $message .= "- Copia de DPI - copia de 2do.documento de identificación.</p>";
             $message .= "<p>Atentamente:<br>";
             $message .= "<p>Creditos Gpautos: <br>";
             $message .= "creditos@gpautos.net <br>";
@@ -464,7 +466,8 @@ class Formularios  extends Base_Controller
 
             //enviar correo
             $this->email->send();
-           // echo'send';
+            print_contenido($message);
+            echo'send';
             redirect(base_url().'formularios/gracias_precalificacion');
         }else{
             //redirigir al home
