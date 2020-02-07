@@ -90,6 +90,7 @@ class Admin_model extends CI_Model
     }
     public function get_cupon_by_code($cupon_id){
         $this->db->where('codigo',$cupon_id);
+        $this->db->where('estado','Activo');
         $query = $this->db->get('cupones');
         if ($query->num_rows() > 0) return $query;
         else return false;
