@@ -224,7 +224,9 @@ class Auth extends Base_Controller
 
 			// set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->_render_page('auth/forgot_password', $this->data);
+
+            echo $this->templates->render('auth/forgot_password', $this->data);
+			//$this->_render_page('auth/forgot_password', $this->data);
 		}
 		else
 		{
