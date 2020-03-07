@@ -139,7 +139,7 @@
 
 
 <?php $this->start('js_p') ?>
-<script src="<?php echo base_url() ?>ui/admin/js/select2.min.js"></script>
+<!--<script src="<?php echo base_url() ?>ui/admin/js/select2.min.js"></script>-->
 <script src="<?php echo base_url() ?>ui/admin/js/bootstrap-colorpicker.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/jquery.toggle.buttons.js"></script>

@@ -753,10 +753,10 @@ class Cliente extends Base_Controller
                     'codigoProducto' => '001-2020',
                     'descripcionProducto' => 'Anuncio Vip',
                     'precioUnitario' => '275',
-                    'montoBruto' => '275',
+                    'montoBruto' => '245.54',
                     'montoDescuento' => '0',
                     'importeNetoGravado' => '275',
-                    'detalleImpuestosIva' => '0',
+                    'detalleImpuestosIva' => '29.46',
                     'importeExento' => '0',
                     'otrosImpuestos' => '0',
                     'importeOtrosImpuestos' => '0',
@@ -765,6 +765,9 @@ class Cliente extends Base_Controller
 
                 );
             }
+
+
+
             if ($data['tipo_anuncio'] == 'individual') {
                 $producto_facturar->individual = (object)array(
                     'producto' => 'individual',
@@ -772,21 +775,21 @@ class Cliente extends Base_Controller
                     'unidadMedida' => 'UND',
                     'codigoProducto' => '002-2020',
                     'descripcionProducto' => 'Anuncio Individual',
-                    'precioUnitario' => '125',
-                    'montoBruto' => '125',
+                    'precioUnitario' => '175',
+                    'montoBruto' => '156.25',
                     'montoDescuento' => '0',
-                    'importeNetoGravado' => '125',
-                    'detalleImpuestosIva' => '0',
+                    'importeNetoGravado' => '175',
+                    'detalleImpuestosIva' => '18.75',
                     'importeExento' => '0',
                     'otrosImpuestos' => '0',
                     'importeOtrosImpuestos' => '0',
-                    'importeTotalOperacion' => '125',
+                    'importeTotalOperacion' => '175',
                     'tipoProducto' => 'S',
                 );
 
             }
 
-           // $this->facturar_global($producto_facturar, $datos_cliente);
+            $this->facturar_global($producto_facturar, $datos_cliente);
 
 
             if ($data['tipo_anuncio'] == 'individual') {
@@ -1867,10 +1870,10 @@ class Cliente extends Base_Controller
                 'codigoProducto' => '002-2020',
                 'descripcionProducto' => 'Anuncio Individual',
                 'precioUnitario' => '125',
-                'montoBruto' => '125',
+                'montoBruto' => '111.60',
                 'montoDescuento' => '0',
                 'importeNetoGravado' => '125',
-                'detalleImpuestosIva' => '0',
+                'detalleImpuestosIva' => '13.39',
                 'importeExento' => '0',
                 'otrosImpuestos' => '0',
                 'importeOtrosImpuestos' => '0',
@@ -1887,10 +1890,10 @@ class Cliente extends Base_Controller
                 'codigoProducto' => '002-2020',
                 'descripcionProducto' => 'Anuncio facebook',
                 'precioUnitario' => '100',
-                'montoBruto' => '100',
+                'montoBruto' => '89.28',
                 'montoDescuento' => '0',
                 'importeNetoGravado' => '100',
-                'detalleImpuestosIva' => '0',
+                'detalleImpuestosIva' => '10.71',
                 'importeExento' => '0',
                 'otrosImpuestos' => '0',
                 'importeOtrosImpuestos' => '0',
@@ -1942,7 +1945,8 @@ class Cliente extends Base_Controller
             }
            /* echo '<hr>';
             print_contenido($detalle);*/
-           $valor_iva = $valor_a_facturar * 0.12;
+           $monto_bruto = $valor_a_facturar /1.12;
+           $valor_iva = $monto_bruto * 0.12;
             try {
 
                 $client = new SoapClient("https://www.ingface.net/listener/ingface?wsdl", array("exceptions" => 1));
@@ -1975,7 +1979,7 @@ class Cliente extends Base_Controller
                             "departamentoComprador" => "N/A",
                             "municipioComprador" => "N/A",
 
-                            "importeBruto" => $valor_a_facturar,
+                            "importeBruto" => $monto_bruto,
                             "importeDescuento" => 0,
                             "importeTotalExento" => 0,
 
@@ -2076,10 +2080,7 @@ class Cliente extends Base_Controller
         } else {
             echo 'no facturar';
         }
-        exit();
-
-
-
+        //exit();
     }
 
 }

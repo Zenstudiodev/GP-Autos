@@ -162,7 +162,8 @@ class Formularios  extends Base_Controller
 			$datos_carro = $this->Carros_model->get_datos_carro($carro_codigo);
             $datos_carro = $datos_carro->row();
             $email_contacto = $datos_carro->crr_contacto_email;
-            if ($email_contacto == '' or $email_contacto== null or $email_contacto =="0" or $datos_carro->id_predio_virtual == '9'){
+           // if ($email_contacto == '' or $email_contacto== null or $email_contacto =="0" or $datos_carro->id_predio_virtual == '9'){
+            if ($email_contacto == '' or $email_contacto== null or $email_contacto =="0"){
                 $email_contacto = 'gppredio@gpautos.net';
             }
 
@@ -423,11 +424,11 @@ class Formularios  extends Base_Controller
             $message .= '<table>';
             $message .= "<tr><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
             $message .= "<tr><td><strong>Email:</strong> </td><td>" . strip_tags($correo) . "</td></tr>";
-            $message .= "<tr><td><strong>Teléfono:</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
+            $message .= "<tr><td><strong>Teléfono:</strong> </td><td>" . strip_tags($numero_telefono) . "</td></tr>";
             $message .= "<tr><td><strong>Celular:</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
             $message .= "<tr><td><strong>Monto vehículo:</strong> </td><td>" . strip_tags($monto_vehiculo) . "</td></tr>";
-            $message .= "<tr><td><strong>ya tiene vehículo para comprar?</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
-            $message .= "<tr><td><strong>desea que le busquemos alguna opcion?</strong> </td><td>" . strip_tags($numero_celular) . "</td></tr>";
+            $message .= "<tr><td><strong>ya tiene vehículo para comprar?</strong> </td><td>" . strip_tags($que_vehiculo) . "</td></tr>";
+            $message .= "<tr><td><strong>desea que le busquemos alguna opcion?</strong> </td><td>" . strip_tags($vehiculo_deseado) . "</td></tr>";
             $message .= "<tr><td><strong>Terminos:</strong> </td><td>" . strip_tags($terminos) . "</td></tr>";
             $message .= "</table>";
             $message .= "</body></html>";
@@ -466,8 +467,8 @@ class Formularios  extends Base_Controller
 
             //enviar correo
             $this->email->send();
-            print_contenido($message);
-            echo'send';
+           // print_contenido($message);
+           // echo'send';
             redirect(base_url().'formularios/gracias_precalificacion');
         }else{
             //redirigir al home
