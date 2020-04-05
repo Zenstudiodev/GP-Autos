@@ -190,7 +190,9 @@ class Cliente extends Base_Controller
         $user_id = $this->ion_auth->get_user_id();
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
         $this->Cliente_model->get_cliente_data($user_id);
+        $data['carros_pendientes'] = $this->Cliente_model->get_carros_asignados_cliente($user_id);
         if ($this->Cliente_model->get_carros_cliente($user_id)) {
+
             $data['carros'] = $this->Cliente_model->get_carros_cliente($user_id);
         } else {
             $data['carros'] = false;
@@ -283,11 +285,14 @@ class Cliente extends Base_Controller
         $data['parametros'] = $this->Admin_model->get_parametros();
         if ($this->session->total_pagar <= '0') {
 
-
             //  echo '<h1>pagar 0 </h1>';
             //echo 'guardar pago redirect a datos de carro';
             //correo notificacion de pago
-
+            if ($datos_anuncio['tipo_anuncio'] == 'vip') {
+                $cupon = 'gratis vip';
+            } else {
+                $cupon = $this->session->cupon;
+            }
             $datos_pago_efectivo = array(
                 'user_id' => $user_id,
                 'carro_id' => '',
@@ -296,7 +301,7 @@ class Cliente extends Base_Controller
                 'nombre_factura' => '',
                 'nit' => '',
                 'direccion_factura' => '',
-                'cupon' => $this->session->cupon,
+                'cupon' => $cupon,
                 'direccion_rotulacion' => $this->session->direccion_calcomania,
                 'telefono_rotulacion' => $this->session->telefono_calcomania,
             );
@@ -305,12 +310,32 @@ class Cliente extends Base_Controller
             //correo notificacion de pago
             $this->notiticacion_pago($user_id, $datos_usuario->email, $nombre_usuario, '0', $datos_anuncio['tipo_anuncio'], 'Pago descuento cupón');
 
+
+            //asignar carro
             if ($datos_anuncio['tipo_anuncio'] == 'individual') {
-                redirect(base_url() . 'cliente/publicar_carro');
+                $predio_virtual = '0';
             }
             if ($datos_anuncio['tipo_anuncio'] == 'vip') {
-                redirect(base_url() . 'cliente/publicar_carro_vip');
+                $predio_virtual = '9';
             }
+
+            $datos_usuario = array(
+                'crr_contacto_nombre' => $datos_usuario->first_name,
+                'crr_contacto_telefono' => $datos_usuario->phone,
+                'crr_contacto_email' => $datos_usuario->email,
+                'crr_estatus' => 'Pendiente',
+                'id_predio_virtual' => $predio_virtual,
+                'crr_nombre_propietario' => $datos_usuario->first_name,
+                'crr_telefono_propietario' => $datos_usuario->phone,
+                'crr_vencimiento' => $datos_usuario->email,
+                'user_id' => $user_id,
+            );
+
+            $carro_id = $this->Carros_model->asignar_carro($datos_usuario);
+
+            redirect(base_url() . 'cliente/perfil');
+
+
         } else {
 
         }
@@ -717,6 +742,29 @@ class Cliente extends Base_Controller
         //print("\nAUTH RESPONSE: " . print_contenido($reply, true));
 
         if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode == '100') {
+
+
+            //asignar carro
+            if ($data['tipo_anuncio'] == 'individual') {
+                $predio_virtual = '0';
+            }
+            if ($data['tipo_anuncio'] == 'vip') {
+                $predio_virtual = '9';
+            }
+
+            $datos_usuario = array(
+                'crr_contacto_nombre' => $datos_usuario->first_name,
+                'crr_contacto_telefono' => $datos_usuario->phone,
+                'crr_contacto_email' => $datos_usuario->email,
+                'crr_estatus' => 'Pendiente',
+                'id_predio_virtual' => $predio_virtual,
+                'crr_nombre_propietario' => $datos_usuario->first_name,
+                'crr_telefono_propietario' => $datos_usuario->phone,
+                'crr_vencimiento' => $datos_usuario->email,
+                'user_id' => $user_id,
+            );
+
+            $carro_id = $this->Carros_model->asignar_carro($datos_usuario);
             $datos_pago_efectivo = array(
                 'user_id' => $user_id,
                 'carro_id' => $this->input->post('carro_id'),
@@ -735,16 +783,47 @@ class Cliente extends Base_Controller
             $this->notiticacion_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta');
 
             $datos_cliente = (object)null;
-            $datos_cliente->nitComprador=$nit;
-            $datos_cliente->nombreComercialComprador=$nombre_factura;
-            $datos_cliente->direccionComercialComprador=$direccion_factura;
-            $datos_cliente->telefonoComprador='0';
-            $datos_cliente->correoComprador=$data['email'];
+            $datos_cliente->nitComprador = $nit;
+            $datos_cliente->nombreComercialComprador = $nombre_factura;
+            $datos_cliente->direccionComercialComprador = $direccion_factura;
+            $datos_cliente->telefonoComprador = '0';
+            $datos_cliente->correoComprador = $data['email'];
             $producto_facturar = (object)null;
-
 
             //$anuncio_vip = true;
             //$anuncio_individual = true;
+
+            if ($this->session->facebook) {
+
+                $precio_unitario = $precio_facebook;
+                $monto_bruto = $precio_unitario / 1.12;
+                $monto_bruto = round($monto_bruto, 2);
+                $iva = $monto_bruto * 0.12;
+                $iva = round($iva, 2);
+
+                $total_a_pagar = $total_a_pagar + $precio_facebook->parametro_valor;
+                $producto_facturar->vip = (object)array(
+                    'producto' => 'vip',
+                    'cantidad' => '1',
+                    'unidadMedida' => 'UND',
+                    'codigoProducto' => '001-2020',
+                    'descripcionProducto' => 'Anuncio Facebook',
+                    'precioUnitario' => $precio_unitario,
+                    'montoBruto' => $monto_bruto,
+                    'montoDescuento' => '0',
+                    'importeNetoGravado' => $precio_unitario,
+                    'detalleImpuestosIva' => $iva,
+                    'importeExento' => '0',
+                    'otrosImpuestos' => '0',
+                    'importeOtrosImpuestos' => '0',
+                    'importeTotalOperacion' => $precio_unitario,
+                    'tipoProducto' => 'S',
+
+                );
+
+            }
+
+
             if ($data['tipo_anuncio'] == 'vip') {
                 $producto_facturar->vip = (object)array(
                     'producto' => 'vip',
@@ -752,20 +831,39 @@ class Cliente extends Base_Controller
                     'unidadMedida' => 'UND',
                     'codigoProducto' => '001-2020',
                     'descripcionProducto' => 'Anuncio Vip',
-                    'precioUnitario' => '275',
-                    'montoBruto' => '245.54',
+                    'precioUnitario' => '0',
+                    'montoBruto' => '0',
                     'montoDescuento' => '0',
-                    'importeNetoGravado' => '275',
-                    'detalleImpuestosIva' => '29.46',
+                    'importeNetoGravado' => '0',
+                    'detalleImpuestosIva' => '0',
                     'importeExento' => '0',
                     'otrosImpuestos' => '0',
                     'importeOtrosImpuestos' => '0',
-                    'importeTotalOperacion' => '275',
+                    'importeTotalOperacion' => '0',
                     'tipoProducto' => 'S',
 
                 );
             }
+            /* if ($data['tipo_anuncio'] == 'vip') {
+                 $producto_facturar->vip = (object)array(
+                     'producto' => 'vip',
+                     'cantidad' => '1',
+                     'unidadMedida' => 'UND',
+                     'codigoProducto' => '001-2020',
+                     'descripcionProducto' => 'Anuncio Vip',
+                     'precioUnitario' => '275',
+                     'montoBruto' => '245.54',
+                     'montoDescuento' => '0',
+                     'importeNetoGravado' => '275',
+                     'detalleImpuestosIva' => '29.46',
+                     'importeExento' => '0',
+                     'otrosImpuestos' => '0',
+                     'importeOtrosImpuestos' => '0',
+                     'importeTotalOperacion' => '275',
+                     'tipoProducto' => 'S',
 
+                 );
+             }*/
 
 
             if ($data['tipo_anuncio'] == 'individual') {
@@ -775,11 +873,11 @@ class Cliente extends Base_Controller
                     'unidadMedida' => 'UND',
                     'codigoProducto' => '002-2020',
                     'descripcionProducto' => 'Anuncio Individual',
-                    'precioUnitario' => '175',
-                    'montoBruto' => '156.25',
+                    'precioUnitario' => '75',
+                    'montoBruto' => '66.96',// 75 /1.12= 66.96
                     'montoDescuento' => '0',
                     'importeNetoGravado' => '175',
-                    'detalleImpuestosIva' => '18.75',
+                    'detalleImpuestosIva' => '8.03',// 66.96*0.12= 8.03
                     'importeExento' => '0',
                     'otrosImpuestos' => '0',
                     'importeOtrosImpuestos' => '0',
@@ -792,12 +890,13 @@ class Cliente extends Base_Controller
             $this->facturar_global($producto_facturar, $datos_cliente);
 
 
-            if ($data['tipo_anuncio'] == 'individual') {
+            /*if ($data['tipo_anuncio'] == 'individual') {
                 redirect(base_url() . 'cliente/publicar_carro');
             }
             if ($data['tipo_anuncio'] == 'vip') {
                 redirect(base_url() . 'cliente/publicar_carro_vip');
-            }
+            }*/
+            redirect(base_url() . 'cliente/perfil');
             //redirect(base_url() . 'cliente/publicar_carro');
             //echo 'guardar numero de transaccion en base de datos';
             //echo $reply->requestID;
@@ -1012,7 +1111,6 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/public_pago_feria_gracias', $data);
     }
 
-
     //notificacion de carro
     public function notiticacion_pago($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago)
     {
@@ -1198,6 +1296,32 @@ class Cliente extends Base_Controller
 
     }
 
+    public function editar_precio()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        //carro
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+
+        $data['tipos_cf'] = $this->Carros_model->tipos_vehiculo();
+        $data['marca_cf'] = $this->Carros_model->marca_vehiculo();
+        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
+        $data['tapiceria'] = $this->Carros_model->get_tapicerias();
+        $data['transmision'] = $this->Carros_model->get_transmision();
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        echo $this->templates->render('public/editar_precio', $data);
+    }
+
     public function editar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1222,6 +1346,32 @@ class Cliente extends Base_Controller
         $data['transmision'] = $this->Carros_model->get_transmision();
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/editar_carro', $data);
+    }
+
+    public function llenar_carro_asignado()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        //carro
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+
+        $data['tipos_cf'] = $this->Carros_model->tipos_vehiculo();
+        $data['marca_cf'] = $this->Carros_model->marca_vehiculo();
+        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
+        $data['tapiceria'] = $this->Carros_model->get_tapicerias();
+        $data['transmision'] = $this->Carros_model->get_transmision();
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        echo $this->templates->render('public/llenar_carro_asignado', $data);
     }
 
     public function guardar_carro()
@@ -1384,73 +1534,156 @@ class Cliente extends Base_Controller
 
         $datos = array(
             'id_carro' => $this->input->post('id_carro'),
-            //'crr_fecha' => $this->input->post('fecha'),
-            //'crr_placa' => $this->input->post('placa'),
-            //'id_tipo_carro' => $this->input->post('tipo_carro_uf'),
-            //'id_marca' => $this->input->post('marca_carro_uf'),
-            //'id_linea' => $this->input->post('linea_carro_uf'),
-            //'id_ubicacion' => $this->input->post('ubicacion_carro'),
-            //'crr_moneda_precio' => $this->input->post('moneda_carro'),
+            'crr_fecha' => $this->input->post('fecha'),
+            'crr_placa' => $this->input->post('placa'),
+            'id_tipo_carro' => $this->input->post('tipo_carro_uf'),
+            'id_marca' => $this->input->post('marca_carro_uf'),
+            'id_linea' => $this->input->post('linea_carro_uf'),
+            'id_ubicacion' => $this->input->post('ubicacion_carro'),
+            'crr_moneda_precio' => $this->input->post('moneda_carro'),
             'crr_precio' => $this->input->post('precio'),
             //'crr_descripcion'          => $this->input->post('avaluo_comercial'),
-            //'crr_img' => $this->input->post('codigo') . '.jpg',
+            'crr_img' => $this->input->post('codigo') . '.jpg',
             //'crr_img_ext'              => $this->input->post('avaluo_comercial'),
             //'crr_img_path'             => $this->input->post('avaluo_comercial'),
-            //'crr_modelo' => $this->input->post('modelo'),
-            //'crr_origen' => $this->input->post('origen_carro'),
-            //'crr_ac' => $this->input->post('ac'),
-            //'crr_alarma' => $this->input->post('alarma'),
-            //'crr_aros_magnecio' => $this->input->post('aros_m'),
-            //'crr_bolsas_aire' => $this->input->post('bolsa_aire'),
-            //'crr_cerradura_central' => $this->input->post('cerradura_c'),
-            //'crr_cilindros' => $this->input->post('cilindros'),
-            //'crr_color' => $this->input->post('color'),
-            //'crr_combustible' => $this->input->post('combustible_carro'),
-            //'crr_espejos' => $this->input->post('espejos_e'),
-            //'crr_kilometraje' => $this->input->post('kilometraje'),
-            //'crr_motor' => $this->input->post('motor'),
-            //'crr_platos' => $this->input->post('platos'),
-            //'crr_polarizado' => $this->input->post('polarizado'),
-            //'crr_puertas' => $this->input->post('puertas_carro'),
-            //'crr_radio' => $this->input->post('radio'),
-            //'crr_sunroof' => $this->input->post('sun_roof'),
-            //'crr_tapiceria' => $this->input->post('tapiceria_carro'),
-            //'crr_timon_hidraulico' => $this->input->post('timon_h'),
-            //'crr_transmision' => $this->input->post('transmision_carro'),
-            //'crr_4x4' => $this->input->post('t4x4'),
-            //'crr_vidrios_electricos' => $this->input->post('vidrios_e'),
+            'crr_modelo' => $this->input->post('modelo'),
+            'crr_origen' => $this->input->post('origen_carro'),
+            'crr_ac' => $this->input->post('ac'),
+            'crr_alarma' => $this->input->post('alarma'),
+            'crr_aros_magnecio' => $this->input->post('aros_m'),
+            'crr_bolsas_aire' => $this->input->post('bolsa_aire'),
+            'crr_cerradura_central' => $this->input->post('cerradura_c'),
+            'crr_cilindros' => $this->input->post('cilindros'),
+            'crr_color' => $this->input->post('color'),
+            'crr_combustible' => $this->input->post('combustible_carro'),
+            'crr_espejos' => $this->input->post('espejos_e'),
+            'crr_kilometraje' => $this->input->post('kilometraje'),
+            'crr_motor' => $this->input->post('motor'),
+            'crr_platos' => $this->input->post('platos'),
+            'crr_polarizado' => $this->input->post('polarizado'),
+            'crr_puertas' => $this->input->post('puertas_carro'),
+            'crr_radio' => $this->input->post('radio'),
+            'crr_sunroof' => $this->input->post('sun_roof'),
+            'crr_tapiceria' => $this->input->post('tapiceria_carro'),
+            'crr_timon_hidraulico' => $this->input->post('timon_h'),
+            'crr_transmision' => $this->input->post('transmision_carro'),
+            'crr_4x4' => $this->input->post('t4x4'),
+            'crr_vidrios_electricos' => $this->input->post('vidrios_e'),
             //'crr_suspension_delantera' => $this->input->post('avaluo_comercial'),
             //'crr_suspension_trasera'   => $this->input->post('avaluo_comercial'),
-            //'crr_freno_delantero' => $this->input->post('freno_delantero'),
-            //'crr_freno_trasero' => $this->input->post('freno_trasero'),
-            //'crr_blindaje' => $this->input->post('blindaje'),
+            'crr_freno_delantero' => $this->input->post('freno_delantero'),
+            'crr_freno_trasero' => $this->input->post('freno_trasero'),
+            'crr_blindaje' => $this->input->post('blindaje'),
             //'crr_caja'                 => $this->input->post('avaluo_comercial'),
             //'crr_freno'                => $this->input->post('avaluo_comercial'),
             //'crr_suspension'           => $this->input->post('avaluo_comercial'),
             //'crr_ejes'                 => $this->input->post('avaluo_comercial'),
-            //'crr_otros' => $this->input->post('otros'),
-            //'crr_estado' => 'Usado',
+            'crr_otros' => $this->input->post('otros'),
+            'crr_estado' => 'Usado',
             //'crr_contacto'             => $this->input->post('avaluo_comercial'),
-            //'crr_contacto_nombre' => $usuario->first_name,
-            //'crr_contacto_telefono' => $usuario->phone,
-            //'crr_contacto_email' => $usuario->email,
-            'crr_estatus' => $this->input->post('estado'),
-            //'id_predio_virtual' => '0',
+            'crr_contacto_nombre' => $usuario->first_name,
+            'crr_contacto_telefono' => $usuario->phone,
+            'crr_contacto_email' => $usuario->email,
+            'crr_estatus' => 'Pendiente',
+            'id_predio_virtual' => '0',
             //'crr_date'                 => $this->input->post('avaluo_comercial'),
-            //'crr_premium' => 'no',
-            //'crr_certiauto' => 'no',
+            'crr_premium' => 'no',
+            'crr_certiauto' => 'no',
             //'crr_cuotaseguro'          => $this->input->post('avaluo_comercial'),
             //'crr_cuotafinanciamiento'  => $this->input->post('avaluo_comercial'),
-            //'crr_nombre_propietario' => $usuario->first_name,
-            //'crr_telefono_propietario' => $usuario->phone,
-            //'crr_vencimiento' => $usuario->email,
-            //'user_id' => $user_id,
+            'crr_nombre_propietario' => $usuario->first_name,
+            'crr_telefono_propietario' => $usuario->phone,
+            'crr_vencimiento' => $usuario->email,
+            // 'user_id' => $user_id,
         );
         /* echo '<pre>';
          print_r($datos);
          echo '</pre>';*/
         $carro_id = $this->Carros_model->actualizar_carro_public($datos);
         redirect('cliente/perfil/');
+
+
+    }
+
+    public function guardar_carro_asignado()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $usuario = $data['datos_usuario']->row();
+        $carro_id = $this->input->post('id_carro');
+        $datos = array(
+            'id_carro' => $this->input->post('id_carro'),
+            'crr_fecha' => $this->input->post('fecha'),
+            'crr_placa' => $this->input->post('placa'),
+            'id_tipo_carro' => $this->input->post('tipo_carro_uf'),
+            'id_marca' => $this->input->post('marca_carro_uf'),
+            'id_linea' => $this->input->post('linea_carro_uf'),
+            'id_ubicacion' => $this->input->post('ubicacion_carro'),
+            'crr_moneda_precio' => $this->input->post('moneda_carro'),
+            'crr_precio' => $this->input->post('precio'),
+            //'crr_descripcion'          => $this->input->post('avaluo_comercial'),
+            'crr_img' => $this->input->post('codigo') . '.jpg',
+            //'crr_img_ext'              => $this->input->post('avaluo_comercial'),
+            //'crr_img_path'             => $this->input->post('avaluo_comercial'),
+            'crr_modelo' => $this->input->post('modelo'),
+            'crr_origen' => $this->input->post('origen_carro'),
+            'crr_ac' => $this->input->post('ac'),
+            'crr_alarma' => $this->input->post('alarma'),
+            'crr_aros_magnecio' => $this->input->post('aros_m'),
+            'crr_bolsas_aire' => $this->input->post('bolsa_aire'),
+            'crr_cerradura_central' => $this->input->post('cerradura_c'),
+            'crr_cilindros' => $this->input->post('cilindros'),
+            'crr_color' => $this->input->post('color'),
+            'crr_combustible' => $this->input->post('combustible_carro'),
+            'crr_espejos' => $this->input->post('espejos_e'),
+            'crr_kilometraje' => $this->input->post('kilometraje'),
+            'crr_motor' => $this->input->post('motor'),
+            'crr_platos' => $this->input->post('platos'),
+            'crr_polarizado' => $this->input->post('polarizado'),
+            'crr_puertas' => $this->input->post('puertas_carro'),
+            'crr_radio' => $this->input->post('radio'),
+            'crr_sunroof' => $this->input->post('sun_roof'),
+            'crr_tapiceria' => $this->input->post('tapiceria_carro'),
+            'crr_timon_hidraulico' => $this->input->post('timon_h'),
+            'crr_transmision' => $this->input->post('transmision_carro'),
+            'crr_4x4' => $this->input->post('t4x4'),
+            'crr_vidrios_electricos' => $this->input->post('vidrios_e'),
+            //'crr_suspension_delantera' => $this->input->post('avaluo_comercial'),
+            //'crr_suspension_trasera'   => $this->input->post('avaluo_comercial'),
+            'crr_freno_delantero' => $this->input->post('freno_delantero'),
+            'crr_freno_trasero' => $this->input->post('freno_trasero'),
+            'crr_blindaje' => $this->input->post('blindaje'),
+            //'crr_caja'                 => $this->input->post('avaluo_comercial'),
+            //'crr_freno'                => $this->input->post('avaluo_comercial'),
+            //'crr_suspension'           => $this->input->post('avaluo_comercial'),
+            //'crr_ejes'                 => $this->input->post('avaluo_comercial'),
+            'crr_otros' => $this->input->post('otros'),
+            'crr_estado' => 'Usado',
+            //'crr_contacto'             => $this->input->post('avaluo_comercial'),
+            'crr_contacto_nombre' => $usuario->first_name,
+            'crr_contacto_telefono' => $usuario->phone,
+            'crr_contacto_email' => $usuario->email,
+            'crr_estatus' => 'Pendiente',
+            //'id_predio_virtual' => '0',
+            //'crr_date'                 => $this->input->post('avaluo_comercial'),
+            'crr_premium' => 'no',
+            'crr_certiauto' => 'no',
+            //'crr_cuotaseguro'          => $this->input->post('avaluo_comercial'),
+            //'crr_cuotafinanciamiento'  => $this->input->post('avaluo_comercial'),
+            'crr_nombre_propietario' => $usuario->first_name,
+            'crr_telefono_propietario' => $usuario->phone,
+            'crr_vencimiento' => $usuario->email,
+            // 'user_id' => $user_id,
+        );
+        /* echo '<pre>';
+         print_r($datos);
+         echo '</pre>';*/
+        $this->Carros_model->actualizar_carro_public($datos);
+        redirect('cliente/subir_fotos/' . $carro_id);
 
 
     }
@@ -1828,16 +2061,70 @@ class Cliente extends Base_Controller
         }
     }
 
+    public function test_metodo()
+    {
+        echo 'metodo llamado desde otro metodo';
+    }
+
+    public function guardar_factura_manual()
+    {
+        //print_contenido($_POST);
+
+        $datos_cliente = (object)null;
+        $datos_cliente->nitComprador = $this->input->post('nit_cliente');
+        $datos_cliente->nombreComercialComprador = $this->input->post('nombre_cliente');
+        $datos_cliente->direccionComercialComprador = $this->input->post('direccion_cliente');
+        $datos_cliente->telefonoComprador = $this->input->post('telefono_cliente');
+        $datos_cliente->correoComprador = $this->input->post('correo_cliente');
+        $producto_facturar = (object)null;
+
+        $precio_unitario = $this->input->post('monto_factura');
+        $monto_bruto = $precio_unitario / 1.12;
+        $monto_bruto = round($monto_bruto, 2);
+        $iva = $monto_bruto * 0.12;
+        $iva = round($iva, 2);
+
+
+        $producto_facturar->manual = (object)array(
+            'producto' => 'manual',
+            'cantidad' => '1',
+            'unidadMedida' => 'UND',
+            'codigoProducto' => '009-2020',
+            'descripcionProducto' => $this->input->post('telefono_cliente'),
+            'precioUnitario' => $precio_unitario,
+            'montoBruto' => $monto_bruto,
+            'montoDescuento' => '0',
+            'importeNetoGravado' => $precio_unitario,
+            'detalleImpuestosIva' => $iva,
+            'importeExento' => '0',
+            'otrosImpuestos' => '0',
+            'importeOtrosImpuestos' => '0',
+            'importeTotalOperacion' => $precio_unitario,
+            'tipoProducto' => 'S',
+
+        );
+        //  print_contenido($datos_cliente);
+        // print_contenido($producto_facturar);
+
+        $this->facturar_global($producto_facturar, $datos_cliente);
+        $this->session->set_flashdata('mensaje', 'Se facturo correctamente');
+        redirect(base_url() . 'admin/facturar');
+        if ($producto_facturar->manual) {
+            //   echo $producto_facturar->manual->producto;
+        }
+
+    }
+
     public function facturar_test()
     {
 
 
         $datos_cliente = (object)null;
-        $datos_cliente->nitComprador='7452170-5';
-        $datos_cliente->nombreComercialComprador='Carlos Samayoa';
-        $datos_cliente->direccionComercialComprador='Guatemala';
-        $datos_cliente->telefonoComprador='58352425';
-        $datos_cliente->correoComprador='csamayoa@zenstudiogt.com';
+        $datos_cliente->nitComprador = '7452170-5';
+        $datos_cliente->nombreComercialComprador = 'Carlos Samayoa';
+        $datos_cliente->direccionComercialComprador = 'Guatemala';
+        $datos_cliente->telefonoComprador = '58352425';
+        $datos_cliente->correoComprador = 'csamayoa@zenstudiogt.com';
         $producto_facturar = (object)null;
         $anuncio_vip = true;
         $anuncio_individual = true;
@@ -1910,8 +2197,9 @@ class Cliente extends Base_Controller
     {
         if ($producto_facturar) {
 
+
             $numero_producto = 0;
-            $valor_a_facturar =  0;
+            $valor_a_facturar = 0;
             $fecha_documento = New DateTime();
             $fecha_documento = $fecha_documento->format('Y-m-d');
             $valor_iva = 0;
@@ -1926,11 +2214,10 @@ class Cliente extends Base_Controller
                 $detalle[$numero_producto]["importeNetoGravado"] = $producto->importeNetoGravado;
                 $detalle[$numero_producto]["detalleImpuestosIva"] = $producto->detalleImpuestosIva;
                 $detalle[$numero_producto]["importeExento"] = $producto->importeExento;
-
                 $detalle[$numero_producto]["otrosImpuestos"] = $producto->otrosImpuestos;
-                $detalle[$numero_producto]["importeOtrosImpuestos"] =$producto->importeOtrosImpuestos;
+                $detalle[$numero_producto]["importeOtrosImpuestos"] = $producto->importeOtrosImpuestos;
                 $detalle[$numero_producto]["importeTotalOperacion"] = $producto->importeTotalOperacion;
-                $detalle[$numero_producto]["tipoProducto"]= $producto->tipoProducto;// B= BIEN, S= SERVICIO
+                $detalle[$numero_producto]["tipoProducto"] = $producto->tipoProducto;// B= BIEN, S= SERVICIO
                 //-------------------------------------------------------------------------------------------------------
                 $detalle[$numero_producto]["personalizado_01"] = "N/A";
                 $detalle[$numero_producto]["personalizado_02"] = "N/A";
@@ -1943,10 +2230,10 @@ class Cliente extends Base_Controller
                 $valor_a_facturar = $valor_a_facturar + $producto->precioUnitario;
 
             }
-           /* echo '<hr>';
-            print_contenido($detalle);*/
-           $monto_bruto = $valor_a_facturar /1.12;
-           $valor_iva = $monto_bruto * 0.12;
+            /* echo '<hr>';
+             print_contenido($detalle);*/
+            $monto_bruto = $valor_a_facturar / 1.12;
+            $valor_iva = $monto_bruto * 0.12;
             try {
 
                 $client = new SoapClient("https://www.ingface.net/listener/ingface?wsdl", array("exceptions" => 1));
@@ -2054,9 +2341,9 @@ class Cliente extends Base_Controller
                     $message = '<html><body>';
                     $message .= '<img src="https://gpautos.net/ui/public/images/logoGp.png" alt="GP AUTOS" />';
                     $message .= '<table>';
-                    $message .= "<tr><td><strong>Estimado, </strong>" .strip_tags($datos_cliente->nombreComercialComprador) ."</td></tr>";
+                    $message .= "<tr><td><strong>Estimado, </strong>" . strip_tags($datos_cliente->nombreComercialComprador) . "</td></tr>";
                     $message .= "<tr><td><strong>Su transacción se realizo con exito, para descargar su factura ingrese al siguiente link.</td></tr>";
-                    $message .= "<tr><td><strong><a href='https://www.ingface.net/Ingfacereport/dtefactura.jsp?cae=".$resultado->return->cae."'>factura </a>";
+                    $message .= "<tr><td><strong><a href='https://www.ingface.net/Ingfacereport/dtefactura.jsp?cae=" . $resultado->return->cae . "'>factura </a>";
                     $message .= "</table>";
                     $message .= "</body></html>";
 

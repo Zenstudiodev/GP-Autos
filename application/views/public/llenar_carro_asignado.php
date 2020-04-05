@@ -694,7 +694,7 @@ $CI =& get_instance();
                                 </div>
                             <?php } ?>
                             <div class="container">
-                                <form action="<?php echo base_url() ?>index.php/cliente/guardar_editar_carro" method="post"
+                                <form action="<?php echo base_url() ?>index.php/cliente/guardar_carro_asignado" method="post"
                                       class="" id="subir_carro_form">
                                     <div class="row">
                                         <div class="input-field col s12 m4">

@@ -1554,4 +1554,17 @@ class Admin extends Base_Controller
         $this->Usuarios_model->actualizar_usuarios($post_data);
         redirect(base_url() . 'admin/usuarios/');
     }
+
+    //factutar
+
+    public function facturar(){
+        $data = compobarSesion();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        echo $this->templates->render('admin/admin_facturar', $data);
+    }
+    public function guardar_factura(){
+        $this->Cliente->test_metodo();
+    }
 }

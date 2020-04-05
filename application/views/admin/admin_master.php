@@ -71,6 +71,9 @@
         <!--<li><a href="<?php /*echo base_url()*/?>admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
 
         <li><a href="<?php echo base_url()?>admin"><i class="icon icon-signal"></i> <span>Inicio</span></a> </li>
+        <?php if($rol =='gerente' || $rol =='developer' || $rol=='marketing'){?>
+            <li><a href="<?php echo base_url()?>admin/facturar"><i class="icon icon-signal"></i> <span>Facturar</span></a> </li>
+        <?php }?>
         <?php if($rol =='gerente' || $rol =='developer' || $rol =='editor' || $rol =='externo' || $rol =='predio' || $rol=='marketing'){?>
         <li><a href="<?php echo base_url()?>admin/vehiculos"><i class="icon icon-signal"></i> <span>vehiculos</span></a> </li>
         <?php }?>

@@ -55,11 +55,11 @@ $codigo = array(
     'id' => 'codigo',
     'class' => ' form-control',
     'placeholder' => 'Código',
-    'value'       => $carro->crr_codigo,
-    'readonly'    => 'readonly',
+    //'value'       => $carro->crr_codigo,
+    //'readonly'    => 'readonly',
     'required' => 'required',
-    'autofocus' => 'autofocus',
-    'disabled'    => 'disabled'
+    'autofocus' => 'autofocus'
+    //'disabled'    => 'disabled'
 );
 //Placa
 $placa = array(
@@ -68,7 +68,7 @@ $placa = array(
     'id' => 'placa',
     'class' => ' validate',
     'placeholder' => 'Placa',
-    'value'       => $carro->crr_placa,
+    //'value'       => $carro->crr_placa,
     'required' => 'required'
 );
 //Estado
@@ -188,7 +188,7 @@ $otros = array(
     'id' => 'otros',
     'class' => 'materialize-textarea validate',
     'data-length' => '300',
-    'value'     => $carro->crr_otros,
+    //'value'     => $carro->crr_otros,
     'required' => 'required'
 );
 
@@ -198,7 +198,7 @@ $modelo = array(
     'id' => 'modelo',
     'class' => ' validate ',
     'placeholder' => 'Modelo',
-    'value'       => $carro->crr_modelo,
+    //'value'       => $carro->crr_modelo,
     'required' => 'required'
 );
 
@@ -231,7 +231,7 @@ $cilindros = array(
     'id' => 'cilindros',
     'class' => 'validate',
     'placeholder' => 'Cilindros',
-    'value'       => $carro->crr_cilindros,
+    //'value'       => $carro->crr_cilindros,
     'required' => 'required'
 );
 //Color
@@ -386,17 +386,18 @@ $espejos_e_n = array(
     'value' => 'no',
     'checked' => false,
 );
+
 //4x4
 $t4x4_s = array(
     'name' => 't4x4',
-    'id' => '4x4_s',
+    'id' => 't4x4_s',
     'value' => 'Sí',
     'checked' => false,
     'required' => 'required'
 );
 $t4x4_n = array(
     'name' => 't4x4',
-    'id' => '4x4_n',
+    'id' => 't4x4_n',
     'value' => 'no',
     'checked' => false,
 );
@@ -539,8 +540,8 @@ $blindaje = array(
     'id' => 'blindaje',
     'class' => 'form-control',
     'placeholder' => 'Blindaje',
-    'value'       => $carro->crr_blindaje,
-    'required' => 'required'
+    //'value'       => $carro->crr_blindaje,
+    //'required' => 'required'
 );
 
 //NOMBRE CONTACTO
@@ -549,8 +550,8 @@ $nombre_contacto = array(
     'name' => 'nombre_contacto',
     'id' => 'nombre_contacto',
     'class' => 'validate',
-    'placeholder' => 'Nombre contacto',
-    'value'       => $carro->crr_contacto_nombre,
+    //'placeholder' => 'Nombre contacto',
+    //'value'       => $carro->crr_contacto_nombre,
     'required' => 'required'
 );
 //TELEFONO   CONTACTO
@@ -559,8 +560,8 @@ $telefono_contacto = array(
     'name' => 'telefono_contacto',
     'id' => 'telefono_contacto',
     'class' => 'validate',
-    'placeholder' => 'Telefono contacto',
-    'value'       => $carro->crr_contacto_telefono,
+    //'placeholder' => 'Telefono contacto',
+    //'value'       => $carro->crr_contacto_telefono,
     'required' => 'required'
 );
 
@@ -570,8 +571,8 @@ $nombre_cliente = array(
     'name' => 'nombre_cliente',
     'id' => 'nombre_cliente',
     'class' => 'validate',
-    'placeholder' => 'Nombre cliente',
-    'value'       => $carro->crr_nombre_propietario,
+    //'placeholder' => 'Nombre cliente',
+    //'value'       => $carro->crr_nombre_propietario,
     'required' => 'required'
 );
 //TELEFONO CLIENTE
@@ -580,8 +581,8 @@ $telefono_cliente = array(
     'name' => 'telefono_cliente',
     'id' => 'telefono_cliente',
     'class' => 'validate',
-    'placeholder' => 'Telefono cliente',
-    'value'       => $carro->crr_telefono_propietario,
+    //'placeholder' => 'Telefono cliente',
+    //'value'       => $carro->crr_telefono_propietario,
     'required' => 'required'
 );
 //EMAIL
@@ -590,8 +591,8 @@ $email = array(
     'name' => 'email',
     'id' => 'email',
     'class' => 'validate',
-    'placeholder' => 'Email',
-    'value'       => $carro->crr_contacto_email,
+    //'placeholder' => 'Email',
+    //'value'       => $carro->crr_contacto_email,
     'required' => 'required'
 );
 
@@ -602,7 +603,7 @@ $kilometraje = array(
     'id' => 'kilometraje',
     'class' => 'form-control',
     'placeholder' => 'kilometraje',
-    'value'       => $carro->crr_kilometraje,
+    //'value'       => $carro->crr_kilometraje,
     'required' => 'required'
 );
 
@@ -614,7 +615,7 @@ $motor = array(
     'id' => 'motor',
     'class' => 'form-control',
     'placeholder' => 'Motor CC',
-    'value'       => $carro->crr_motor,
+    //'value'       => $carro->crr_motor,
     'required' => 'required'
 );
 
@@ -625,7 +626,7 @@ $predio_id = array(
     'id' => 'predio_id',
     'class' => 'form-control',
     'placeholder' => 'Predio ID',
-    'value'       => $carro->id_predio_virtual,
+    //'value'       => $carro->id_predio_virtual,
     'required' => 'required'
 );
 
@@ -636,7 +637,7 @@ $boleta = array(
     'id' => 'boleta',
     'class' => ' form-control',
     'placeholder' => 'Boleta',
-    'value'       => $carro->crr_precio,
+    //'value'       => $carro->crr_precio,
     'required' => 'required'
 );
 //Banco
@@ -646,7 +647,7 @@ $banco = array(
     'id' => 'banco',
     'class' => ' form-control',
     'placeholder' => 'Banco',
-    'value'       => $carro->crr_precio,
+    //'value'       => $carro->crr_precio,
     'required' => 'required'
 );
 
@@ -696,51 +697,53 @@ $CI =& get_instance();
                             <div class="container">
                                 <form action="<?php echo base_url() ?>index.php/cliente/guardar_editar_carro" method="post"
                                       class="" id="subir_carro_form">
-                                    <div class="row">
+                                    <!--<div class="row">
                                         <div class="input-field col s12 m4">
-                                            <!--FECHA-->
-                                            <?php echo form_input($fecha);?>
+                                            <!--FECHA--
+                                            <?php /*echo form_input($fecha); */?>
                                             <label class="control-label">FECHA:</label>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--PLACA-->
-                                            <?php echo form_input($placa); ?>
+                                            <!--PLACA--
+                                            <?php /*echo form_input($placa); */?>
                                             <label class="control-label">PLACA</label>
                                         </div>
-                                    </div>
+                                    </div>-->
 
-                                    <div class="row">
+                                    <!--<div class="row">
                                         <div class="input-field col s12 m4">
-                                            <!--TIPO-->
-                                            <?php echo form_dropdown($tipo_carro_select, $tipo_carro_select_options);?>
+                                            <!--TIPO--
+                                            <?php /*echo form_dropdown($tipo_carro_select, $tipo_carro_select_options) */?>
                                             <label class="control-label">Tipo</label>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--MARCA-->
-                                            <?php echo form_dropdown($marca_carro_select, $marca_carro_select_options) ?>
+                                            <!--MARCA--
+                                            <?php /*echo form_dropdown($marca_carro_select, $marca_carro_select_options) */?>
                                             <label class="control-label">MARCA</label>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--LINEA-->
-                                            <?php echo form_dropdown($linea_carro_select, $linea_carro_select_options) ?>
+                                            <!--LINEA--
+                                            <?php /*echo form_dropdown($linea_carro_select, $linea_carro_select_options) */?>
                                             <label class="control-label">LINEA</label>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="row">
-                                        <div class="input-field col s12 m4">
-                                            <!--UBICACIÓN-->
-                                            <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, 'GUATEMALA'); ?>
+                                        <!--<div class="input-field col s12 m4">
+                                            <!--UBICACIÓN--
+                                            <?php /*echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, 'GUATEMALA'); */?>
                                             <label class="control-label">UBICACIÓN</label>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--MONEDA-->
-                                            <?php echo form_dropdown($moneda_carro_select, $moneda_carro_select_options, 'Q') ?>
+                                            <!--MONEDA--
+                                            <?php /*echo form_dropdown($moneda_carro_select, $moneda_carro_select_options, 'Q') */?>
                                             <label class="control-label">MONEDA</label>
                                         </div>
-                                        <!--<div class="input-field col s12 m4">
+                                        <div class="input-field col s12 m4">
                                             <!--ESTADO--
-                                            <?php //echo form_dropdown($estado_carro_select, $estado_select_options);?>
+
+
+                                            <?php echo form_dropdown($estado_carro_select, $estado_select_options);?>
                                             <label class="control-label">ESTADO :</label>
                                         </div>-->
                                         <div class="input-field col s12 m4">
@@ -749,259 +752,259 @@ $CI =& get_instance();
                                             <label class="control-label">PRECIO :</label>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!--<div class="row">
                                         <div class="input-field col s12 m4">
-                                            <!--MODELO-->
-                                            <?php echo form_input($modelo); ?>
+                                            <!--MODELO--
+                                            <?php /*echo form_input($modelo); */?>
                                             <label class="control-label">MODELO</label>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--ORIGEN-->
-                                             <?php echo form_dropdown($origen_carro_select, $origen_carro_select_options) ?>
+                                            <!--ORIGEN--
+                                             <?php /*echo form_dropdown($origen_carro_select, $origen_carro_select_options) */?>
                                             <label class="control-label">ORIGEN</label>
                                         </div>
                                         <div class=" col s12 m4">
-                                            <!--AC-->
+                                            <!--AC--
                                             <p>
                                                 <label for="checkboxes" class="control-label">Aire acondicionado</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($ac_s); ?>
+                                                <?php /*echo form_radio($ac_s); */?>
                                                 <label for="ac_s">Si</label>
 
-                                            <?php echo form_radio($ac_n); ?>
+                                            <?php /*echo form_radio($ac_n); */?>
                                                 <label for="ac_n" >No</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class=" col s12 m4">
-                                            <!--ALARMA-->
+                                            <!--ALARMA--
                                             <p>
                                                 <label for="checkboxes" class="control-label">ALARMA</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($alarma_s); ?>
+                                                <?php /*echo form_radio($alarma_s); */?>
                                                 <label for="alarma_s">Si</label>
 
-                                                <?php echo form_radio($alarma_n);?>
+                                                <?php /*echo form_radio($alarma_n); */?>
                                                 <label for="alarma_n" >No</label>
                                             </p>
                                         </div>
                                         <div class="col s12 m4">
-                                            <!--AROS-->
+                                            <!--AROS--
                                             <p>
                                                 <label for="checkboxes" class="control-label">AROS MAG.</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($aros_m_s);?>
+                                                <?php /*echo form_radio($aros_m_s); */?>
                                                 <label for="aros_m_s">Si</label>
 
-                                                <?php echo form_radio($aros_m_n); ?>
+                                                <?php /*echo form_radio($aros_m_n); */?>
                                                 <label for="aros_m_n" >No</label>
                                             </p>
 
                                         </div>
                                         <div class=" col s12 m4">
-                                            <!--BOLSA DE AIRE-->
+                                            <!--BOLSA DE AIRE--
                                             <p>
                                                 <label for="checkboxes" class="control-label">BOLSA DE AIRE</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($bolsa_aire_s);?>
+                                                <?php /*echo form_radio($bolsa_aire_s); */?>
                                                 <label for="bolsa_aire_s">Si</label>
 
-                                                <?php echo form_radio($bolsa_aire_n); ?>
+                                                <?php /*echo form_radio($bolsa_aire_n); */?>
                                                 <label for="bolsa_aire_n" >No</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class=" col s12 m4">
-                                            <!--CERRADURA-->
+                                            <!--CERRADURA--
                                             <p>
                                                 <label for="checkboxes" class="control-label">CERRADURA CENTRAL</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($cerradura_c_s);?>
+                                                <?php /*echo form_radio($cerradura_c_s); */?>
                                                 <label for="cerradura_c_s">Si</label>
-                                                <?php echo form_radio($cerradura_c_n);?>
+                                                <?php /*echo form_radio($cerradura_c_n); */?>
                                                 <label for="cerradura_c_n" >No</label>
                                             </p>
 
 
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--CILINDROS-->
-                                            <?php echo form_input($cilindros); ?>
+                                            <!--CILINDROS--
+                                            <?php /*echo form_input($cilindros); */?>
                                             <label class="control-label">CILINDROS</label>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--CILINDROS-->
-                                            <?php echo form_input($color);?>
+                                            <!--CILINDROS--
+                                            <?php /*echo form_input($color); */?>
                                             <label class="control-label">COLOR</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12 m4">
-                                            <!--COMBUSTIBLE-->
-                                            <?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options) ?>
+                                            <!--COMBUSTIBLE--
+                                            <?php /*echo form_dropdown($combustible_carro_select, $combustible_carro_select_options) */?>
                                             <label class="control-label">COMBUSTIBLE</label>
                                         </div>
                                         <div class=" col s12 m4">
-                                            <!--ESPEJOS-->
+                                            <!--ESPEJOS--
                                             <p>
                                                 <label for="checkboxes" class="control-label">ESPEJOS
                                                     ELECTRICOS</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($espejos_e_s);?>
+                                                <?php /*echo form_radio($espejos_e_s); */?>
                                                 <label for="espejos_e_s">Si</label>
 
-                                                <?php echo form_radio($espejos_e_n); ?>
+                                                <?php /*echo form_radio($espejos_e_n); */?>
                                                 <label for="espejos_e_n" >No</label>
                                             </p>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--KILOMETRAJE-->
-                                            <?php echo form_input($kilometraje); ?>
+                                            <!--KILOMETRAJE--
+                                            <?php /*echo form_input($kilometraje); */?>
                                             <label class="control-label">KILOMETRAJE:</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12 m4">
-                                            <!--MOTOR-->
-                                            <?php echo form_input($motor); ?>
+                                            <!--MOTOR--
+                                            <?php /*echo form_input($motor); */?>
                                             <label class="control-label">MOTOR CC:</label>
                                         </div>
                                         <div class=" col s12 m4">
 
-                                            <!--PLATOS-->
+                                            <!--PLATOS--
                                             <p>
                                                 <label for="checkboxes" class="control-label">PLATOS</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($platos_s); ?>
+                                                <?php /*echo form_radio($platos_s); */?>
                                                 <label for="platos_s">Si</label>
 
-                                                <?php echo form_radio($platos_n);?>
+                                                <?php /*echo form_radio($platos_n); */?>
                                                 <label for="platos_n" >No</label>
                                             </p>
                                         </div>
                                         <div class=" col s12 m4">
-                                            <!--POLARIZADO-->
+                                            <!--POLARIZADO--
                                             <p>
                                                 <label for="checkboxes" class="control-label">POLARIZADO</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($polarizado_s); ?>
+                                                <?php /*echo form_radio($polarizado_s); */?>
                                                 <label for="polarizado_s">Si</label>
 
-                                                <?php echo form_radio($polarizado_n);?>
+                                                <?php /*echo form_radio($polarizado_n); */?>
                                                 <label for="polarizado_n" >No</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12 m4">
-                                            <!--puertas-->
-                                            <?php echo form_dropdown($puertas_carro_select, $puertas_select_options) ?>
+                                            <!--puertas--
+                                            <?php /*echo form_dropdown($puertas_carro_select, $puertas_select_options) */?>
                                             <label class="control-label">PUERTAS</label>
                                         </div>
                                         <div class=" col s12 m4">
-                                            <!--RADIO-->
+                                            <!--RADIO--
                                             <p>
                                                 <label for="checkboxes" class="control-label">RADIO</label>
                                             </p>
                                             <p>
-                                                <?php  echo form_radio($radio_s);?>
+                                                <?php /*echo form_radio($radio_s); */?>
                                                 <label for="radio_s">Si</label>
 
-                                                <?php echo form_radio($radio_n); ?>
+                                                <?php /*echo form_radio($radio_n); */?>
                                                 <label for="radio_n" >No</label>
                                             </p>
                                         </div>
                                         <div class=" col s12 m4">
-                                            <!--SUN ROOF-->
+                                            <!--SUN ROOF--
                                             <p>
                                                 <label for="checkboxes" class="control-label">SUN ROOF</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($sun_roof_s); ?>
+                                                <?php /*echo form_radio($sun_roof_s); */?>
                                                 <label for="sun_roof_s">Si</label>
 
-                                                <?php echo form_radio($sun_roof_n); ?>
+                                                <?php /*echo form_radio($sun_roof_n); */?>
                                                 <label for="sun_roof_n" >No</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12 m4">
-                                            <!--TAPICERIA-->
-                                            <?php echo form_dropdown($tapiceria_carro_select, $tapiceria_carro_select_options) ?>
+                                            <!--TAPICERIA--
+                                            <?php /*echo form_dropdown($tapiceria_carro_select, $tapiceria_carro_select_options) */?>
                                             <label class="control-label">TAPICERIA</label>
                                         </div>
                                         <div class=" col s12 m4">
-                                            <!--TIMON-->
+                                            <!--TIMON--
                                             <p>
                                                 <label for="checkboxes" class="control-label">TIMON HIDRAULICO</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($timon_h_s);?>
+                                                <?php /*echo form_radio($timon_h_s); */?>
                                                 <label for="timon_h_s">Si</label>
 
-                                                <?php echo form_radio($timon_h_n); ?>
+                                                <?php /*echo form_radio($timon_h_n); */?>
                                                 <label for="timon_h_n" >No</label>
                                             </p>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--TRANSMISIÓN-->
-                                            <?php echo form_dropdown($transmision_carro_select, $transmision_select_options) ?>
+                                            <!--TRANSMISIÓN--
+                                            <?php /*echo form_dropdown($transmision_carro_select, $transmision_select_options) */?>
                                             <label class="control-label">TRANSMISIÓN</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class=" col s12 m4">
-                                            <!--VIDRIOS-->
+                                            <!--VIDRIOS--
                                             <p>
                                                 <label for="checkboxes" class="control-label">VIDRIOS ELÉCTRICOS</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($vidrios_e_s); ?>
+                                                <?php /*echo form_radio($vidrios_e_s); */?>
                                                 <label for="vidrios_e_s">Si</label>
 
-                                                <?php echo form_radio($vidrios_e_n); ?>
+                                                <?php /*echo form_radio($vidrios_e_n); */?>
                                                 <label for="vidrios_e_n" >No</label>
                                             </p>
                                         </div>
                                         <div class=" col s12 m4">
-                                            <!--4x4-->
+                                            <!--4x4--
                                             <p>
                                                 <label for="checkboxes" class="control-label">4X4</label>
                                             </p>
                                             <p>
-                                                <?php echo form_radio($t4x4_s); ?>
-                                                <label for="4x4_s">Si</label>
+                                                <?php /*echo form_radio($t4x4_s); */?>
+                                                <label for="t4x4_s">Si</label>
 
-                                                <?php echo form_radio($t4x4_n); ?>
-                                                <label for="4x4_n" >No</label>
+                                                <?php /*echo form_radio($t4x4_n); */?>
+                                                <label for="t4x4_n" >No</label>
                                             </p>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--BLINDAJE-->
-                                            <?php echo form_input($blindaje); ?>
+                                            <!--BLINDAJE--
+                                            <?php /*echo form_input($blindaje); */?>
                                             <label class="control-label">NIV. BLINDAJE :</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12 m4">
-                                            <!--FRENO DELANTERO-->
-                                            <?php echo form_dropdown($freno_d_carro_select, $freno_d_select_options) ?>
+                                            <!--FRENO DELANTERO--
+                                            <?php /*echo form_dropdown($freno_d_carro_select, $freno_d_select_options) */?>
                                             <label class="control-label">FRENO DELANTERO</label>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <!--FRENO TRASERO-->
-                                            <?php echo form_dropdown($freno_t_carro_select, $freno_t_select_options) ?>
+                                            <!--FRENO TRASERO--
+                                            <?php /*echo form_dropdown($freno_t_carro_select, $freno_t_select_options) */?>
                                             <label class="control-label">FRENO TRASERO</label>
                                         </div>
                                     </div>
@@ -1010,7 +1013,7 @@ $CI =& get_instance();
                                             <?php echo form_textarea($otros); ?>
                                             <label for="textarea1">COMENTARIO:</label>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <p style="text-align: center"
 

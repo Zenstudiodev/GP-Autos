@@ -77,6 +77,52 @@ $CI =& get_instance();
                 <div id="profile-page-wall" class="col s12 m9">
                     <a class="waves-effect waves-light btn orange darken-1" href="<?php echo base_url()?>cliente/seleccion_anuncio"><i
                                 class="material-icons left">cloud</i>Publicar un carro</a>
+                    <h1 class="texto_naranja">Espacio para publicar</h1>
+                    <div class="row">
+                        <div class="col m12 s12">
+                            <div class="row">
+                                <?php
+                                if ($carros_pendientes) {
+                                    $cardCount = 0;
+
+                                    foreach ($carros_pendientes->result() as $carro_p) {
+                                        $cardCount++
+                                        ?>
+                                        <div class="col s12 m4">
+
+                                            <div class="card">
+                                                <div class="card-image waves-effect waves-block waves-light">
+                                                    <div class="imageContainer">
+                                                        <a href="<?php echo base_url() . 'index.php/Carro/ver/' . $carro_p->id_carro ?>">
+                                                            <img class="activator"
+                                                                 src="<?php echo base_url().'ui/public/images/upl_assets/carr_placeholder.jpg' ?>">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="card-content">
+                                                    <a href="<?php echo base_url() . 'cliente/llenar_carro_asignado/' . $carro_p->id_carro ?>"
+                                                       class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">llenar datos</a>
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <?php if ($cardCount == 3) { ?>
+                                            <div class="row">
+                                        <?php } ?>
+                                        <?php if ($cardCount == 3 || $cardCount == 6) { ?>
+                                            </div>
+
+                                        <?php } ?>
+                                    <?php }
+                                } else {
+                                    echo 'aun no hay carros';
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
                     <h1 class="texto_naranja">Vehículos ingresados</h1>
                     <div class="row">
                         <div class="col m12 s12">
@@ -133,8 +179,11 @@ $CI =& get_instance();
                                                         </div>
                                                         <div class="row">
                                                             <div class="col s6">
-                                                                <a href="<?php echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro ?>" class="waves-effect waves-light">
+                                                                <a href="<?php echo base_url() . 'index.php/cliente/editar_precio/' . $carro->id_carro ?>" class="waves-effect waves-light">
                                                                     Editar precio
+                                                                </a>
+                                                                <a href="<?php echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro ?>" class="waves-effect waves-light">
+                                                                    Editar datos
                                                                 </a>
                                                             </div>
                                                             <div class="col s6">
