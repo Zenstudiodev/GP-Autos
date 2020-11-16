@@ -258,10 +258,10 @@ $precio_facebook = $parametros[4];
                                                 <input name="tipo_anuncio" type="radio"
                                                        id="anuncio_individual" class="validate"
                                                        value="individual" required
-                                                <?php if($CI->session->tipo_anuncio){
-                                                if($CI->session->tipo_anuncio == 'individual'){?>
-                                                    checked="checked"
-                                                       <?php } }?>
+                                                    <?php if($CI->session->tipo_anuncio){
+                                                        if($CI->session->tipo_anuncio == 'individual'){?>
+                                                            checked="checked"
+                                                        <?php } }?>
                                                 />
                                                 <label for="anuncio_individual"
                                                        class="seleccion_anuncio_radio_label va"></label></td>
@@ -336,14 +336,22 @@ $precio_facebook = $parametros[4];
                                             </td>
                                             <td class="t_individual"><span id="anuncio_precio_facebook"></span></td>
                                         </tr>
-                                       <!-- <tr>
+                                        <tr id="opcion_rotulacion">
                                             <td>
-                                                <input type="checkbox" id="feria_check" name="feria_check"
-                                                       value="feria_si"/>
-                                                <label for="feria_check">Feria Virtual</label>
+                                                <input type="checkbox" id="rotulacion_check" name="rotulacion_check"
+                                                       value="rotulacion_si"/>
+                                                <label for="rotulacion_check">Rotulación </label>
                                             </td>
-                                            <td class="t_individual"><span id="anuncio_precio_feria"></span></td>
-                                        </tr>-->
+                                            <td class="t_individual"><span id="anuncio_precio_rotulacion"></span></td>
+                                        </tr>
+                                        <tr>
+                                             <td>
+                                                 <input type="checkbox" id="feria_check" name="feria_check"
+                                                        value="feria_si"/>
+                                                 <label for="feria_check">Feria Virtual</label>
+                                             </td>
+                                             <td class="t_individual"><span id="anuncio_precio_feria"></span></td>
+                                         </tr>
                                         <?php if(isset($datos_cupon)){  ?>
                                             <tr>
                                                 <td>
@@ -389,14 +397,18 @@ $precio_facebook = $parametros[4];
     var precio_feria;
     var facebook;
     var precio_facebook;
+    var rotulacion;
+    var precio_rotulacion;
     var total_a_pagar;
     var cupon_activo;
     var valor_cupon;
+    var calcomania;
     var ubicacion_anuncio;
 
     precio_individual = <?php echo display_formato_dinero_return($precio_individual->parametro_valor); ?>;
     precio_vip = <?php echo display_formato_dinero_return($precio_vip->parametro_valor); ?>;
     precio_feria = <?php echo display_formato_dinero_return($precio_feria->parametro_valor); ?>;
+    precio_rotulacion = <?php echo display_formato_dinero_return($precio_feria->parametro_valor); ?>;
     precio_facebook = <?php echo display_formato_dinero_return($precio_facebook->parametro_valor); ?>;
 
 
@@ -445,6 +457,7 @@ $precio_facebook = $parametros[4];
         //reset precios facebook y feria
         $("#anuncio_precio_feria").html('');
         $("#anuncio_precio_facebook").html('');
+        $("#anuncio_precio_rotulacion").html('');
 
 
         // ubicación
@@ -465,16 +478,19 @@ $precio_facebook = $parametros[4];
             url: '<?php echo base_url()?>admin/sleccion_anuncio_session',
             data: tipo_anuncio_sesion,
             success: function (data) {
-               // console.log(data);
+                // console.log(data);
             }
         });
 
         if (tipo_anuncio) {
             if (tipo_anuncio == 'individual') {
                 precio_anuncio = precio_individual;
+                $("#opcion_rotulacion").show();
             }
             if (tipo_anuncio == 'vip') {
                 precio_anuncio = precio_vip;
+                $("#opcion_rotulacion").hide();
+                $( "#rotulacion_check" ).prop( "checked", false );
             }
             $("#anuncio_precio").html('Q.' + precio_anuncio);
             $("#anuncio_nombre").html(tipo_anuncio);
@@ -528,6 +544,14 @@ $precio_facebook = $parametros[4];
             $("#anuncio_precio_facebook").html('Q.' + precio_facebook);
         }
 
+        //Rotulacion
+        rotulacion = $("#rotulacion_check:checked").val();
+        if (rotulacion) {
+            console.log(rotulacion);
+            total_a_pagar = total_a_pagar + precio_rotulacion;
+            $("#anuncio_precio_rotulacion").html('Q.' + precio_rotulacion);
+        }
+        //total a pagar
         $("#total_a_pagar").html('Q.' + total_a_pagar);
         $("#total_pagar").val(total_a_pagar);
 
@@ -593,6 +617,14 @@ $precio_facebook = $parametros[4];
             console.log(facebook);
             total_a_pagar = total_a_pagar + precio_facebook;
             $("#anuncio_precio_facebook").html('Q.' + precio_facebook);
+        }
+
+        //Rotulacion
+        rotulacion = $("#rotulacion_check:checked").val();
+        if (rotulacion) {
+            console.log(rotulacion);
+            total_a_pagar = total_a_pagar + precio_rotulacion;
+            $("#anuncio_precio_rotulacion").html('Q.' + precio_rotulacion);
         }
 
         $("#total_a_pagar").html('Q.' + total_a_pagar);

@@ -1,5 +1,13 @@
 /*/ Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 599px) {
+    #logo_flag_container{
+        text-align: center;
+        display: block;
+    }
+
+    #mobile_flag_break{
+    display: unset;
+}
     #subir_imagenes .modal {
         width: 90%;
         height: 70%;
@@ -32,6 +40,9 @@
     }
     div#feria {
         background-size: initial;
+    }
+    div#getting-started {
+        font-size: 1.5rem;
     }
 
 }

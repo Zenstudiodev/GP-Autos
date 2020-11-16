@@ -702,14 +702,12 @@ if ($carro) {
             $ref_volver = '';
             $url_actual = rtrim(base_url(), "/") . $_SERVER['REQUEST_URI'];
 
-
             $url_ref = '';
             $url_ref_set = false;
             if (isset($_SERVER['HTTP_REFERER'])) {
                 $url_ref = $_SERVER['HTTP_REFERER'];
                 $url_ref_set = true;
             }
-
             if ($url_ref == base_url()) {
                 $ref_volver = base_url();
             } elseif ($url_ref == $url_actual) {

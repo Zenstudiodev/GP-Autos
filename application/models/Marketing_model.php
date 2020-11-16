@@ -182,6 +182,7 @@ class Marketing_model extends CI_Model
     //agenda de seguimientos
     function get_seguimientos_by_user_id($user_id)
     {
+
         $this->db->where('bts_user_id', $user_id);
         $this->db->where('bts_fecha_seguimiento !=', '0000-00-00 00:00:00');
         $query = $this->db->get('bolsa_telefonos_seguimientos');

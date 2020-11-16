@@ -34,7 +34,7 @@ foreach ($predios->result() as $predio)
 ?>
 <?php $this->start('css_p') ?>
 <!--cargamos css personalizado-->
-<link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/select2.css"/>
+<!--<link rel="stylesheet" href="<?php /*echo base_url() */?>ui/admin/css/select2.css"/>-->
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-style.css"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-media.css"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/datepicker.css"/>
@@ -128,13 +128,13 @@ foreach ($predios->result() as $predio)
 
 
 <?php $this->start('js_p') ?>
-<script src="<?php echo base_url() ?>ui/admin/js/select2.min.js"></script>
+<!--<script src="<?php /*echo base_url() */?>ui/admin/js/select2.min.js"></script>-->
 <script src="<?php echo base_url() ?>ui/admin/js/bootstrap-colorpicker.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/jquery.toggle.buttons.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/masked.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>
-<script src="<?php echo base_url() ?>ui/admin/js/matrix.form_common.js"></script>
+<<!--script src="<?php /*echo base_url() */?>ui/admin/js/matrix.form_common.js"></script>-->
 
 
 <?php $this->stop() ?>

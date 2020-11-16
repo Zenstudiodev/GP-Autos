@@ -17,6 +17,9 @@
     'combustibles' => $combustibles,
 ]);
 
+// Get a reference to the controller object
+$CI = get_instance();
+
 //UBICACION
 $ubicacion_carro_select = array(
     'name' => 'ubicacion_anuncio',
@@ -61,21 +64,6 @@ $cupon_input = array(
     'class' => ' form-control',
     'placeholder' => 'Código de cupón',
 );
-$calcomania_telefono_input = array(
-    'type' => 'text',
-    'name' => 'calcomania_telefono_input',
-    'id' => 'calcomania_telefono_input',
-    'class' => ' form-control',
-    'placeholder' => 'Teléfono',
-);
-$calcomania_direccion_input = array(
-    'type' => 'text',
-    'name' => 'calcomania_direccion_input',
-    'id' => 'calcomania_direccion_input',
-    'class' => ' form-control',
-    'placeholder' => 'Dirección',
-);
-
 
 $parametros = $parametros->result();
 $precio_vip = $parametros[1];
@@ -269,45 +257,30 @@ $precio_facebook = $parametros[4];
                                                 <br>
                                                 <input name="tipo_anuncio" type="radio"
                                                        id="anuncio_individual" class="validate"
-                                                       value="individual" required/>
+                                                       value="individual" required
+                                                    <?php if($CI->session->tipo_anuncio){
+                                                        if($CI->session->tipo_anuncio == 'individual'){?>
+                                                            checked="checked"
+                                                        <?php } }?>
+                                                />
                                                 <label for="anuncio_individual"
                                                        class="seleccion_anuncio_radio_label va"></label></td>
                                             <td class="t_vip">
                                                 <small>Seleccione opción</small>
                                                 <br>
                                                 <input name="tipo_anuncio" type="radio" id="anuncio_vip"
-                                                       value="vip" required/>
+                                                       value="vip" required
+                                                    <?php if($CI->session->tipo_anuncio){
+                                                        if($CI->session->tipo_anuncio == 'vip'){?>
+                                                            checked="checked"
+                                                        <?php } }?>
+                                                />
                                                 <label for="anuncio_vip" class="seleccion_anuncio_radio_label"></label>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <hr>
-                                    <table class="striped table-bordes">
-                                        <thead>
-                                        <tr class="grey darken-2 white-text">
-                                            <td colspan="2">Rotulación</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                Calcomania:
-                                            </td>
-                                            <td >
-                                                <input type="checkbox"  id="calcomania" name="calcomania" value="calcomania" />
-                                                <label for="calcomania">SI</label>
-
-                                            </td>
-                                        </tr>
-                                        <tr id="form_calcomania_container">
-                                            <td><?php echo form_input($calcomania_telefono_input); ?></td>
-                                            <td><?php echo form_input($calcomania_direccion_input); ?> </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <hr>
-
                                     <table class="striped table-bordes">
                                         <thead>
                                         <tr class="grey darken-2 white-text">
@@ -331,6 +304,13 @@ $precio_facebook = $parametros[4];
                                         </tbody>
                                     </table>
                                     <hr>
+                                    <?php if (isset($mensaje)) { ?>
+                                        <div class="alert alert-success alert-block"><a class="close" data-dismiss="alert"
+                                                                                        href="#">×</a>
+                                            <h4 class="alert-heading">Acción exitosa!</h4>
+                                            <?php echo $mensaje; ?>
+                                        </div>
+                                    <?php } ?>
                                     <table class="striped table-bordes">
                                         <thead>
                                         <tr class="grey darken-2 white-text">
@@ -356,18 +336,26 @@ $precio_facebook = $parametros[4];
                                             </td>
                                             <td class="t_individual"><span id="anuncio_precio_facebook"></span></td>
                                         </tr>
-                                        <tr>
+                                        <tr id="opcion_rotulacion">
                                             <td>
-                                                <input type="checkbox" id="feria_check" name="feria_check"
-                                                       value="feria_si"/>
-                                                <label for="feria_check">Feria Virtual</label>
+                                                <input type="checkbox" id="rotulacion_check" name="rotulacion_check"
+                                                       value="rotulacion_si"/>
+                                                <label for="rotulacion_check">Rotulación </label>
                                             </td>
-                                            <td class="t_individual"><span id="anuncio_precio_feria"></span></td>
+                                            <td class="t_individual"><span id="anuncio_precio_rotulacion"></span></td>
                                         </tr>
+                                        <tr>
+                                             <td>
+                                                 <input type="checkbox" id="feria_check" name="feria_check"
+                                                        value="feria_si"/>
+                                                 <label for="feria_check">Feria Virtual</label>
+                                             </td>
+                                             <td class="t_individual"><span id="anuncio_precio_feria"></span></td>
+                                         </tr>
                                         <?php if(isset($datos_cupon)){  ?>
                                             <tr>
                                                 <td>
-                                                  <p>Cupón activo: <?php echo $datos_cupon->codigo; ?></p>
+                                                    <p>Cupón activo: <?php echo $datos_cupon->codigo; ?></p>
                                                 </td>
                                                 <td class="t_individual"><span id="t_descuento_cupon"></span></td>
                                             </tr>
@@ -378,6 +366,7 @@ $precio_facebook = $parametros[4];
                                         </tr>
                                         </tbody>
                                     </table>
+                                    <input type="hidden" name="total_pagar" id="total_pagar" value="">
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m12">
@@ -408,38 +397,34 @@ $precio_facebook = $parametros[4];
     var precio_feria;
     var facebook;
     var precio_facebook;
+    var rotulacion;
+    var precio_rotulacion;
     var total_a_pagar;
     var cupon_activo;
     var valor_cupon;
     var calcomania;
+    var ubicacion_anuncio;
+
     precio_individual = <?php echo display_formato_dinero_return($precio_individual->parametro_valor); ?>;
     precio_vip = <?php echo display_formato_dinero_return($precio_vip->parametro_valor); ?>;
     precio_feria = <?php echo display_formato_dinero_return($precio_feria->parametro_valor); ?>;
+    precio_rotulacion = <?php echo display_formato_dinero_return($precio_feria->parametro_valor); ?>;
     precio_facebook = <?php echo display_formato_dinero_return($precio_facebook->parametro_valor); ?>;
 
 
-
-    //ocultar formulario de calcomania
-    $("#form_calcomania_container").hide();
-
-    $("#calcomania").on('change', function () {
-        calcomania = $("input[name='calcomania']:checked").val();
-        if(calcomania){
-            $("#form_calcomania_container").show();
-        }else{
-            $("#form_calcomania_container").hide();
-        }
-    });
-    $("#cupon_button").on('click', function () {
+    $("#cupon_button").on('click', function (event) {
+        event.preventDefault();
         //obtenemos codigo para probar cupon
         cupon_a_probar = $("#codigo_cupon").val();
+        ubicacion_anuncio = $("#ubicacion_anuncio").val();
         //console.log(cupon_a_probar);
         //comprobar cupon
 
         cupon_data = {
-            cupon_code: cupon_a_probar
+            cupon_code: cupon_a_probar,
+            ubicacion_anuncio: ubicacion_anuncio
         };
-
+        console.log(cupon_data);
         $.ajax({
             type: 'POST',
             url: '<?php echo base_url()?>admin/validar_cupon',
@@ -449,7 +434,15 @@ $precio_facebook = $parametros[4];
                 if (data == 'no') {
                     // Materialize.toast(message, displayLength, className, completeCallback);
                     Materialize.toast('Codigo no valido', 4000) // 4000 is the duration of the toast
-                } else {
+                }
+                else if (data == 'no ubicacion') {
+                    // Materialize.toast(message, displayLength, className, completeCallback);
+                    Materialize.toast('Ese cupón no se puede usar en ese departamento', 4000) // 4000 is the duration of the toast
+                }
+                else if (data == 'no anuncio') {
+                    // Materialize.toast(message, displayLength, className, completeCallback);
+                    Materialize.toast('Este cupon no se puede usar con ese tipo de anuncio', 4000) // 4000 is the duration of the toast
+                }else {
                     var obj = jQuery.parseJSON(data);
                     console.log(obj);
                     window.location.reload();
@@ -464,6 +457,7 @@ $precio_facebook = $parametros[4];
         //reset precios facebook y feria
         $("#anuncio_precio_feria").html('');
         $("#anuncio_precio_facebook").html('');
+        $("#anuncio_precio_rotulacion").html('');
 
 
         // ubicación
@@ -475,13 +469,28 @@ $precio_facebook = $parametros[4];
         }
         //anuncio seleccionado
         tipo_anuncio = $("input[name='tipo_anuncio']:checked").val();
+        //guardar
+        tipo_anuncio_sesion = {
+            tipo_anuncio: tipo_anuncio
+        };
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo base_url()?>admin/sleccion_anuncio_session',
+            data: tipo_anuncio_sesion,
+            success: function (data) {
+                // console.log(data);
+            }
+        });
 
         if (tipo_anuncio) {
             if (tipo_anuncio == 'individual') {
                 precio_anuncio = precio_individual;
+                $("#opcion_rotulacion").show();
             }
             if (tipo_anuncio == 'vip') {
                 precio_anuncio = precio_vip;
+                $("#opcion_rotulacion").hide();
+                $( "#rotulacion_check" ).prop( "checked", false );
             }
             $("#anuncio_precio").html('Q.' + precio_anuncio);
             $("#anuncio_nombre").html(tipo_anuncio);
@@ -490,17 +499,27 @@ $precio_facebook = $parametros[4];
 
             <?php
             if(isset($datos_cupon)){
-                if($datos_cupon->tipo == 'Porcentage'){
-                    ?>
+            if($datos_cupon->tipo == 'Porcentage'){
+            ?>
+
             valor_cupon = precio_anuncio *0.<?php echo $datos_cupon->valor; ?>;
             console.log(valor_cupon);
             $("#t_descuento_cupon").html('-'+valor_cupon);
-                <?php }
-                if($datos_cupon->tipo == 'Valor') {?>
-            valor_cupon = <?php echo $datos_cupon->valor; ?>;
+            <?php }
+            if($datos_cupon->tipo == 'Valor') {?>
+            <?php if($datos_cupon->tipo_auncio){?>
+            console.log('<?php echo $datos_cupon->tipo_auncio; ?>');
+
+            <?php } ?>
+            console.log(tipo_anuncio);
+            if(tipo_anuncio == '<?php echo strtolower($datos_cupon->tipo_auncio); ?>' ){
+                valor_cupon = <?php echo $datos_cupon->valor; ?>;
+            }else{
+                valor_cupon = 0;
+            }
             console.log(valor_cupon)
             $("#t_descuento_cupon").html('-'+valor_cupon);
-                <?php }?>
+            <?php }?>
             <?php }else{ ?>
             valor_cupon = 0;
             <?php }?>
@@ -525,15 +544,92 @@ $precio_facebook = $parametros[4];
             $("#anuncio_precio_facebook").html('Q.' + precio_facebook);
         }
 
+        //Rotulacion
+        rotulacion = $("#rotulacion_check:checked").val();
+        if (rotulacion) {
+            console.log(rotulacion);
+            total_a_pagar = total_a_pagar + precio_rotulacion;
+            $("#anuncio_precio_rotulacion").html('Q.' + precio_rotulacion);
+        }
+        //total a pagar
         $("#total_a_pagar").html('Q.' + total_a_pagar);
+        $("#total_pagar").val(total_a_pagar);
 
 
     });
 
     $(document).ready(function () {
         $('select').material_select();
-        //$('.tooltipped').tooltip({delay: 50});
-        //$("#ubicacion_anuncio:selected").removeAttr("selected");
+
+        //anuncio seleccionado
+        tipo_anuncio = $("input[name='tipo_anuncio']:checked").val();
+        if (tipo_anuncio) {
+            if (tipo_anuncio == 'individual') {
+                precio_anuncio = precio_individual;
+            }
+            if (tipo_anuncio == 'vip') {
+                precio_anuncio = precio_vip;
+            }
+            $("#anuncio_precio").html('Q.' + precio_anuncio);
+            $("#anuncio_nombre").html(tipo_anuncio);
+            total_a_pagar = 0;
+            total_a_pagar = total_a_pagar + precio_anuncio;
+            //cupon
+            <?php
+            if(isset($datos_cupon)){
+            if($datos_cupon->tipo == 'Porcentage'){
+            ?>
+
+            valor_cupon = precio_anuncio *0.<?php echo $datos_cupon->valor; ?>;
+            console.log(valor_cupon);
+            $("#t_descuento_cupon").html('-'+valor_cupon);
+            <?php }
+            if($datos_cupon->tipo == 'Valor') {?>
+            <?php if($datos_cupon->tipo_auncio){?>
+            console.log('<?php echo $datos_cupon->tipo_auncio; ?>');
+            <?php } ?>
+            console.log(tipo_anuncio);
+            if(tipo_anuncio == '<?php echo strtolower($datos_cupon->tipo_auncio); ?>' ){
+                valor_cupon = <?php echo $datos_cupon->valor; ?>;
+            }else{
+                valor_cupon = 0;
+            }
+            console.log(valor_cupon)
+            $("#t_descuento_cupon").html('-'+valor_cupon);
+            <?php }?>
+            <?php }else{ ?>
+            valor_cupon = 0;
+            <?php }?>
+            //total con descuento del cupon
+            total_a_pagar = total_a_pagar - valor_cupon;
+            console.log(total_a_pagar);
+        }
+        //feria
+        feria = $("#feria_check:checked").val();
+        if (feria) {
+            console.log(feria);
+            total_a_pagar = total_a_pagar + precio_feria;
+            $("#anuncio_precio_feria").html(precio_feria);
+        }
+        //facebook
+        facebook = $("#facebook_check:checked").val();
+        if (facebook) {
+            console.log(facebook);
+            total_a_pagar = total_a_pagar + precio_facebook;
+            $("#anuncio_precio_facebook").html('Q.' + precio_facebook);
+        }
+
+        //Rotulacion
+        rotulacion = $("#rotulacion_check:checked").val();
+        if (rotulacion) {
+            console.log(rotulacion);
+            total_a_pagar = total_a_pagar + precio_rotulacion;
+            $("#anuncio_precio_rotulacion").html('Q.' + precio_rotulacion);
+        }
+
+        $("#total_a_pagar").html('Q.' + total_a_pagar);
+        $("#total_pagar").val(total_a_pagar);
+
     });
 </script>
 <?php $this->stop() ?>

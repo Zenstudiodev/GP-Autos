@@ -123,6 +123,9 @@ $CI =& get_instance();
                             </div>
                         </div>
                     </div>
+                    <!--<h1 class="texto_naranja">Feria</h1>
+                    <a href="<?php /*echo base_url() . 'carro/pagar_feria_activos/'; */?>" class="btn btn-success btn-sm text-center orange darken-4 waves-effect waves-light">Pagar feria</a>-->
+                    <hr>
                     <h1 class="texto_naranja">Vehículos ingresados</h1>
                     <div class="row">
                         <div class="col m12 s12">
@@ -172,7 +175,7 @@ $CI =& get_instance();
                                                     <div id="<?php echo $carro->id_carro.'_editar' ?>">
                                                         <div class="row">
                                                             <div class="col s6">
-                                                                <a href="<?php echo base_url() . 'cliente/pagar_feria/' . $carro->id_carro ?>" class="waves-effect waves-light">
+                                                                <a href="<?php echo base_url() . 'carro/pagar_feria/' . $carro->id_carro ?>" class="waves-effect waves-light btn">
                                                                    Pagar Feria
                                                                 </a>
                                                             </div>
@@ -182,9 +185,9 @@ $CI =& get_instance();
                                                                 <a href="<?php echo base_url() . 'index.php/cliente/editar_precio/' . $carro->id_carro ?>" class="waves-effect waves-light">
                                                                     Editar precio
                                                                 </a>
-                                                                <a href="<?php echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro ?>" class="waves-effect waves-light">
+                                                                <!--<a href="<?php /*echo base_url() . 'index.php/cliente/editar_carro/' . $carro->id_carro */?>" class="waves-effect waves-light">
                                                                     Editar datos
-                                                                </a>
+                                                                </a>-->
                                                             </div>
                                                             <div class="col s6">
                                                                 <a href="<?php echo base_url() . 'index.php/cliente/dar_de_baja/' . $carro->id_carro ?>" class="waves-effect waves-light">

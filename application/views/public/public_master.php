@@ -306,11 +306,17 @@ $t4x4_n = array(
 
         <div class="row">
             <div class="col s12 m4 col-md-4">
+                <span id="logo_flag_container">
+
+
                 <a href="<?php echo base_url(); ?>home/inicio">
                     <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
                 </a>
+                <br id="mobile_flag_break">
                 <a href="https://gpautos.net/home/inicio"><img src="<?php echo base_url(); ?>ui/public/images/bandera_gt_innner.png" id="bandera_gt_inner"></a>
                 <a href="https://sv.gpautos.net"><img src="<?php echo base_url(); ?>ui/public/images/bandera_sv_inner.png" id="bandera_sv_inner"></a>
+                </span>
+
                 <div class="collection">
                     <a href="<?php echo base_url() ?>Productos/anunciate" class="collection-item black-text">
                         Anuncia tu vehiculo <i class="material-icons  secondary-content orange-text darken-3">note_add</i>
@@ -336,7 +342,7 @@ $t4x4_n = array(
                         Contacto <i class="material-icons  secondary-content orange-text darken-3">email</i>
                     </a>
                 </div>
-                <!--CONTDOWN--
+                <!--CONTDOWN---->
                 <div id="feria_countDown">
                     <div id="feria_cd_tittle">
                         La gran feria virtual termina en
@@ -344,7 +350,8 @@ $t4x4_n = array(
                     <div id="getting-started"></div>
                 </div>
                 <a class="waves-effect waves-light btn red darken-2 white-text salir_feria_btn" href="<?php echo base_url(); ?>feria">Ir a feria</a>
-                -->
+                <hr>
+
 
             </div>
             <div class="col s12 m8">
@@ -676,7 +683,7 @@ $t4x4_n = array(
 <?php echo $this->section('js_p') ?>
 <script type="text/javascript">
     $("#getting-started")
-        .countdown("2020/01/01", function (event) {
+        .countdown("2020/12/31", function (event) {
             $(this).text(
                 event.strftime('%D días %H:%M:%S')
             );

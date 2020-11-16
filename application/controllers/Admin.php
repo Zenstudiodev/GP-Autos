@@ -20,17 +20,18 @@ class Admin extends Base_Controller
         $this->load->model('Admin_model');
         $this->load->model('Marketing_model');
     }
+
     public function index()
     {
         $data = compobarSesion();
-        $rol =  $data['rol'];
+        $rol = $data['rol'];
         $data['numero_de_carros'] = 0;
 
         $data['carros'] = $this->Carros_model->ListarCarros_admin();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
-        $data['carros_usuario_predio_pendientes']= false;
+        $data['carros_usuario_predio_pendientes'] = false;
 
         if ($data['rol'] == 'predio') {
             $user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
@@ -38,10 +39,10 @@ class Admin extends Base_Controller
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
             //carros del predio asignados al usuario
-            $data['carros_usuario_predio']= $this->Predio_model->get_carros_predio_usuario($data['user_id']);
-            $data['carros_usuario_predio_pendientes']= $this->Predio_model->get_carros_usuario_predio_pendientes($data['user_id']);
+            $data['carros_usuario_predio'] = $this->Predio_model->get_carros_predio_usuario($data['user_id']);
+            $data['carros_usuario_predio_pendientes'] = $this->Predio_model->get_carros_usuario_predio_pendientes($data['user_id']);
 
-            if($data['carros_usuario_predio']){
+            if ($data['carros_usuario_predio']) {
                 $data['numero_de_carros'] = $data['carros_usuario_predio']->num_rows();
             }
 
@@ -50,13 +51,14 @@ class Admin extends Base_Controller
             $data['carros'] = $this->Carros_model->ListarCarros_admin();
             $data['numero_de_carros'] = $data['carros']->num_rows();
         }
-        $data['carros_individuales_publicados']= $this->Marketing_model->get_carros_individuales_publicados_en_el_mes();
-        $data['carros_pv9_publicados']= $this->Marketing_model->get_carros_pv9_publicados_en_el_mes();
+        $data['carros_individuales_publicados'] = $this->Marketing_model->get_carros_individuales_publicados_en_el_mes();
+        $data['carros_pv9_publicados'] = $this->Marketing_model->get_carros_pv9_publicados_en_el_mes();
         echo $this->templates->render('admin/admin_home', $data);
     }
 
     //admin
-    public function parametros(){
+    public function parametros()
+    {
         $data = compobarSesion();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
@@ -65,57 +67,66 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/admin_parametros', $data);
     }
-    public function codigos_descuento(){
+
+    public function codigos_descuento()
+    {
         $data = compobarSesion();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
-        $data['cupones']= $this->Admin_model->get_cupones();
+        $data['cupones'] = $this->Admin_model->get_cupones();
         echo $this->templates->render('admin/admin_codigos_descuento', $data);
     }
-    public function crear_cupon(){
+
+    public function crear_cupon()
+    {
 
         $data = compobarSesion();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
-        $data['cupones']= $this->Admin_model->get_cupones();
+        $data['cupones'] = $this->Admin_model->get_cupones();
         echo $this->templates->render('admin/admin_crear_codigos_descuento', $data);
     }
-    public function guardar_codigo_descuento(){
+
+    public function guardar_codigo_descuento()
+    {
         $data = compobarSesion();
         //datos del cupon a array
         $datos_cupon = array(
-            'nombre' =>$this->input->post('nombre_input'),
-            'tipo' =>$this->input->post('tipo_input'),
-            'valor' =>$this->input->post('valor_cupon'),
-            'ubicacion' =>$this->input->post('ubicacion_input'),
-            'codigo' =>$this->input->post('codigo_input'),
+            'nombre' => $this->input->post('nombre_input'),
+            'tipo' => $this->input->post('tipo_input'),
+            'valor' => $this->input->post('valor_cupon'),
+            'ubicacion' => $this->input->post('ubicacion_input'),
+            'codigo' => $this->input->post('codigo_input'),
         );
         //guardamos los datos del cupon
         $this->Admin_model->guardar_codigo_descuento($datos_cupon);
-        redirect(base_url().'admin/codigos_descuento');
+        redirect(base_url() . 'admin/codigos_descuento');
     }
-    public function dar_de_baja_cupon(){
+
+    public function dar_de_baja_cupon()
+    {
         $data = compobarSesion();
         $cupon_id = $this->uri->segment(3);
         //echo'dar de baja cupon '.$cupon_id;
         //dar de baja el cupon
         $this->Admin_model->dar_de_baja_cupon($cupon_id);
-        redirect(base_url().'admin/crear_cupon');
+        redirect(base_url() . 'admin/crear_cupon');
 
 
     }
-    public function validar_cupon(){
+
+    public function validar_cupon()
+    {
         //print_contenido($_POST);
         $codigo_cupon = $_POST['cupon_code'];
         $ubicacion_anuncio = $_POST['ubicacion_anuncio'];
         $datos_cupon = $this->Admin_model->get_cupon_by_code($codigo_cupon);
         //comrpobamos que se selecciono el anuncio
-        if($this->session->tipo_anuncio)
-        {
+        if ($this->session->tipo_anuncio) {
             //comprobamos que el cupon exista
-            if($datos_cupon){
+            if ($datos_cupon) {
                 //datos del cupon
                 $cupon = $datos_cupon->row();
                 //comprobamos que el cupon se pueda usar en esa ubicacion y en ese tipo de anuncio
@@ -124,10 +135,10 @@ class Admin extends Base_Controller
 
                 //echo $this->session->tipo_anuncio.'<br>';
                 //echo $cupon->tipo_auncio.'<br>';
-                if($ubicacion_anuncio == $cupon->cupon_ubicacion or $cupon->cupon_ubicacion == 'TODOS'){
+                if ($ubicacion_anuncio == $cupon->cupon_ubicacion or $cupon->cupon_ubicacion == 'TODOS') {
                     //echo $this->session->tipo_anuncio;
                     //echo $cupon->tipo_auncio;
-                    if(strtoupper($this->session->tipo_anuncio) == strtoupper($cupon->tipo_auncio)){
+                    if (strtoupper($this->session->tipo_anuncio) == strtoupper($cupon->tipo_auncio)) {
                         $datos_anuncio = array(
                             'cupon' => $cupon->codigo,
                         );
@@ -135,27 +146,29 @@ class Admin extends Base_Controller
                         $json_cupon = json_encode($cupon);
                         $this->session->set_flashdata('mensaje', 'el cupon es valido');
                         echo $json_cupon;
-                    }else{
+                    } else {
                         $this->session->set_flashdata('error', 'el cupon no se puede usar en ese tipo de anuncio');
                         echo 'no anuncio';
                     }
-                }else{
+                } else {
                     $this->session->set_flashdata('error', 'el cupon no es valido en ese departamento');
                     echo 'no ubicacion';
                 }
-                
-            }else{
+
+            } else {
                 echo 'no';
                 $this->session->set_flashdata('mensaje', 'el cupon no es valido');
             }
-        }else{
+        } else {
             echo 'no anuncio';
             $this->session->set_flashdata('error', 'Seleccione el tipo de anuncio que desea');
         }
 
 
     }
-    public function sleccion_anuncio_session(){
+
+    public function sleccion_anuncio_session()
+    {
         $codigo_cupon = $_POST['tipo_anuncio'];
         $datos_anuncio = array(
             'tipo_anuncio' => $codigo_cupon,
@@ -165,7 +178,9 @@ class Admin extends Base_Controller
         //
         //print_contenido($_SESSION);
     }
-    public function actualizar_parametros(){
+
+    public function actualizar_parametros()
+    {
         //print_contenido($_POST);
         $post_data = array(
             'carros_bolsa' => $this->input->post('carros_bolsa'),
@@ -180,10 +195,11 @@ class Admin extends Base_Controller
         redirect(base_url() . 'index.php/admin/parametros/');
 
     }
+
     public function pendientes()
     {
         $data = compobarSesion();
-        $rol =  $data['rol'];
+        $rol = $data['rol'];
         $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
         $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
         $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
@@ -194,10 +210,11 @@ class Admin extends Base_Controller
         $data['carros'] = $this->Carros_model->ListarCarros_pendientes();
         echo $this->templates->render('admin/admin_pendientes', $data);
     }
+
     public function pendientes_predio()
     {
         $data = compobarSesion();
-        $rol =  $data['rol'];
+        $rol = $data['rol'];
         $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
         $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
         $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
@@ -208,10 +225,11 @@ class Admin extends Base_Controller
         $data['carros'] = $this->Carros_model->ListarCarros_pendientes_predio();
         echo $this->templates->render('admin/admin_pendientes', $data);
     }
+
     public function pendientes_pv9()
     {
         $data = compobarSesion();
-        $rol =  $data['rol'];
+        $rol = $data['rol'];
         $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
         $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
         $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
@@ -222,10 +240,11 @@ class Admin extends Base_Controller
         $data['carros'] = $this->Carros_model->ListarCarros_pendientes_pv9();
         echo $this->templates->render('admin/admin_pendientes', $data);
     }
+
     public function pendientes_fotos()
     {
         $data = compobarSesion();
-        $rol =  $data['rol'];
+        $rol = $data['rol'];
         $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
         $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
         $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
@@ -236,6 +255,7 @@ class Admin extends Base_Controller
         $data['carros'] = $this->Carros_model->ListarCarros_pendientes_fotos();
         echo $this->templates->render('admin/admin_pendientes', $data);
     }
+
     public function vehiculos()
     {
         $data = compobarSesion();
@@ -254,10 +274,10 @@ class Admin extends Base_Controller
             $user = $user->row();
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
-            $data['carros_usuario_predio']= $this->Predio_model->get_carros_predio_usuario($data['user_id']);
+            $data['carros_usuario_predio'] = $this->Predio_model->get_carros_predio_usuario($data['user_id']);
 
             //$data['carros'] =$data['carros_predio'];
-            $data['carros'] =$data['carros_usuario_predio'];
+            $data['carros'] = $data['carros_usuario_predio'];
         }
         if ($data['rol'] == 'externo') {
 
@@ -265,17 +285,18 @@ class Admin extends Base_Controller
             $user = $user->row();
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
-            $data['carros_usuario_predio']= $this->Predio_model->get_carros_predio_usuario($data['user_id']);
+            $data['carros_usuario_predio'] = $this->Predio_model->get_carros_predio_usuario($data['user_id']);
 
             //$data['carros'] =$data['carros_predio'];
-            $data['carros'] =$data['carros_usuario_predio'];
+            $data['carros'] = $data['carros_usuario_predio'];
         }
-        if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') {
+        if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing' || $rol == 'supervisor' ) {
             $data['carros'] = $this->Carros_model->ListarCarros_admin();
         }
 
         echo $this->templates->render('admin/admin_carros', $data);
     }
+
     public function vehiculos_test()
     {
         $data = compobarSesion();
@@ -298,7 +319,7 @@ class Admin extends Base_Controller
             $predio = implode(", ", $predios_array);
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($predio);
-            $data['carros'] =$data['carros_predio'];
+            $data['carros'] = $data['carros_predio'];
         }
         if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor') {
             $data['carros'] = $this->Carros_model->ListarCarros_admin();
@@ -306,6 +327,7 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/admin_carros', $data);
     }
+
     public function carros_de_baja()
     {
         $data = compobarSesion();
@@ -319,11 +341,12 @@ class Admin extends Base_Controller
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
 
-        if ($data['rol'] == 'predio') {$user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
+        if ($data['rol'] == 'predio') {
+            $user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
             $user = $user->row();
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios_baja($user->predio_id);
-            $data['carros'] =$data['carros_predio'];
+            $data['carros'] = $data['carros_predio'];
         }
         if ($data['rol'] == 'externo') {
             //carros de baja de usuario externo
@@ -335,15 +358,16 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/carro_baja', $data);
     }
+
     public function renovaciones_carros()
     {
         $data = compobarSesion();
         $rol = $data['rol'];
-        if($rol == 'developer' || $rol == 'gerente' || $rol == 'editor' || $rol == 'marketing'){
-        //si tiene permisos no hacer nada sino
-        }else{
+        if ($rol == 'developer' || $rol == 'gerente' || $rol == 'editor' || $rol == 'marketing') {
+            //si tiene permisos no hacer nada sino
+        } else {
             //redirigir a vehiculos
-            redirect(base_url().'admin/vehiculos');
+            redirect(base_url() . 'admin/vehiculos');
         }
 
         $data['carros'] = $this->Carros_model->listarCarro_individuales_admin();
@@ -352,6 +376,7 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/carro_renovacion', $data);
     }
+
     public function editarCarro()
     {
         $data = compobarSesion();
@@ -377,6 +402,7 @@ class Admin extends Base_Controller
         echo $this->templates->render('admin/admin_editarCarro', $data);
 
     }
+
     public function editarCarroPredio()
     {
         $data = compobarSesion();
@@ -402,7 +428,9 @@ class Admin extends Base_Controller
         echo $this->templates->render('admin/admin_editarCarroPredio', $data);
 
     }
-    public function revisar_carro(){
+
+    public function revisar_carro()
+    {
         $data = compobarSesion();
         $data['titulo'] = 'editar carro';
         //id carro
@@ -423,7 +451,7 @@ class Admin extends Base_Controller
 
         $data['usuario'] = $this->Cliente_model->get_cliente_data($cliente_id);
         $data['pagos_carro'] = $this->Pagos_model->get_pagos_user_admin($cliente_id);
-        if($cliente_id == '0'){
+        if ($cliente_id == '0') {
             $data['pagos_carro'] = false;
         }
         //$data['pagos_carro'] = $this->Pagos_model->get_pagos_carro_admin($data['id_carro']);
@@ -433,7 +461,9 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/admin_revisar_Carro', $data);
     }
-    public function aprovar_carro(){
+
+    public function aprovar_carro()
+    {
         $data = compobarSesion();
         //id carro
         $data['id_carro'] = $this->uri->segment(3);
@@ -449,6 +479,7 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/admin_revisar_Carro', $data);
     }
+
     public function actualizar_carro()
     {
         /*echo '<pre>';
@@ -527,6 +558,7 @@ class Admin extends Base_Controller
 
 
     }
+
     //crear carro gerente developer editor
     public function crearCarro()
     {
@@ -544,6 +576,7 @@ class Admin extends Base_Controller
         echo $this->templates->render('admin/admin_crearCarro', $data);
 
     }
+
     public function guardar_carro()
     {
         $data = compobarSesion();
@@ -614,7 +647,7 @@ class Admin extends Base_Controller
             'user_predio' => $this->input->post('user_predio'),
             'garantia_gp' => $this->input->post('garantia_gp'),
         );
-        $id_carro= $this->Carros_model->crear_carro($datos_carro);
+        $id_carro = $this->Carros_model->crear_carro($datos_carro);
         $datos_transaccion = array(
             'fecha' => $this->input->post('fecha'),
             'id_carro' => $id_carro,
@@ -643,10 +676,12 @@ class Admin extends Base_Controller
         );
         //$this->Pagos_model->guardar_pago_admin($datos_pago);
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
-            redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
+        redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
     }
+
     //crear carro asesor
-    public function crear_carro_asesor(){
+    public function crear_carro_asesor()
+    {
         $data = compobarSesion();
         $data['titulo'] = 'Crear carro';
 
@@ -660,7 +695,9 @@ class Admin extends Base_Controller
         $data['transmision'] = $this->Carros_model->get_transmision();
         echo $this->templates->render('admin/admin_crearCarro_asesor', $data);
     }
-    public function guardar_carro_asesor(){
+
+    public function guardar_carro_asesor()
+    {
         $data = compobarSesion();
 
         $datos_carro = array(
@@ -729,7 +766,7 @@ class Admin extends Base_Controller
             'user_predio' => $this->input->post('user_predio'),
             'garantia_gp' => $this->input->post('garantia_gp'),
         );
-        $id_carro= $this->Carros_model->crear_carro($datos_carro);
+        $id_carro = $this->Carros_model->crear_carro($datos_carro);
         $datos_transaccion = array(
             'fecha' => $this->input->post('fecha'),
             'id_carro' => $id_carro,
@@ -762,6 +799,7 @@ class Admin extends Base_Controller
         redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
 
     }
+
     //crear carro predio
     public function crearCarro_predio()
     {
@@ -773,10 +811,10 @@ class Admin extends Base_Controller
             $user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
             $user = $user->row();
             $carros_permitidos = $user->carros_permitidos;
-            $carros_activos =  $this->Carros_model->get_carros_activos_by_user_id($user->id);
+            $carros_activos = $this->Carros_model->get_carros_activos_by_user_id($user->id);
 
-            if($carros_activos < $carros_permitidos ){
-            }else{
+            if ($carros_activos < $carros_permitidos) {
+            } else {
 
                 $this->session->set_flashdata('mensaje', 'Ha llegado a su limite de carros permitidos');
                 redirect(base_url() . 'admin/vehiculos');
@@ -784,8 +822,8 @@ class Admin extends Base_Controller
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
 
-            $data['carros'] =$data['carros_predio'];
-            $data['predio_id'] =$user->predio_id;
+            $data['carros'] = $data['carros_predio'];
+            $data['predio_id'] = $user->predio_id;
         }
 
         if ($this->session->flashdata('mensaje')) {
@@ -807,6 +845,7 @@ class Admin extends Base_Controller
         echo $this->templates->render('admin/admin_crearCarro_predio', $data);
 
     }
+
     public function guardar_carro_predio()
     {
         $data = compobarSesion();
@@ -867,7 +906,7 @@ class Admin extends Base_Controller
             'crr_estatus' => 'Pendiente',
             'id_predio_virtual' => $this->input->post('predio_id'),
             //'crr_date'                 => $this->input->post('avaluo_comercial'),
-            'crr_premium' =>'no',
+            'crr_premium' => 'no',
             'crr_certiauto' => 'no',
             //'crr_cuotaseguro'          => $this->input->post('avaluo_comercial'),
             //'crr_cuotafinanciamiento'  => $this->input->post('avaluo_comercial'),
@@ -885,11 +924,12 @@ class Admin extends Base_Controller
         print_r($datos_transaccion);
         echo '</pre>';*/
 
-        $id_carro= $this->Carros_model->crear_carro($datos);
+        $id_carro = $this->Carros_model->crear_carro($datos);
 
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
         redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
     }
+
     //crear carro externo
     public function crearCarro_externos()
     {
@@ -901,10 +941,10 @@ class Admin extends Base_Controller
             $user = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
             $user = $user->row();
             $carros_permitidos = $user->carros_permitidos;
-            $carros_activos =  $this->Carros_model->get_carros_activos_by_user_id($user->id);
+            $carros_activos = $this->Carros_model->get_carros_activos_by_user_id($user->id);
 
-            if($carros_activos < $carros_permitidos ){
-            }else{
+            if ($carros_activos < $carros_permitidos) {
+            } else {
 
                 $this->session->set_flashdata('mensaje', 'Ha llegado a su limite de carros permitidos');
                 redirect(base_url() . 'admin/vehiculos');
@@ -912,8 +952,8 @@ class Admin extends Base_Controller
             //echo $predio;
             $data['carros_predio'] = $this->Predio_model->get_carros_predios($user->predio_id);
 
-            $data['carros'] =$data['carros_predio'];
-            $data['predio_id'] =$user->predio_id;
+            $data['carros'] = $data['carros_predio'];
+            $data['predio_id'] = $user->predio_id;
         }
 
         if ($this->session->flashdata('mensaje')) {
@@ -929,6 +969,7 @@ class Admin extends Base_Controller
         echo $this->templates->render('admin/admin_crearCarro_externo', $data);
 
     }
+
     public function guardar_carro_externo()
     {
         $data = compobarSesion();
@@ -989,7 +1030,7 @@ class Admin extends Base_Controller
             'crr_estatus' => 'Pendiente',
             'id_predio_virtual' => '9',
             //'crr_date'                 => $this->input->post('avaluo_comercial'),
-            'crr_premium' =>'no',
+            'crr_premium' => 'no',
             'crr_certiauto' => 'no',
             //'crr_cuotaseguro'          => $this->input->post('avaluo_comercial'),
             //'crr_cuotafinanciamiento'  => $this->input->post('avaluo_comercial'),
@@ -1008,7 +1049,7 @@ class Admin extends Base_Controller
         echo '</pre>';*/
 
 
-       $id_carro= $this->Carros_model->crear_carro($datos);
+        $id_carro = $this->Carros_model->crear_carro($datos);
 
         $this->session->set_flashdata('mensaje', 'Carro creado correctamente');
         redirect(base_url() . 'admin/subir_fotos/' . $id_carro, 'refresh');
@@ -1030,7 +1071,9 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/admin_renovarCarro', $data);
     }
-    public function subir_fotos(){
+
+    public function subir_fotos()
+    {
         $data = compobarSesion();
         $data['titulo'] = 'editar carro';
         //id carro
@@ -1053,6 +1096,7 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/admin_subir_fotos', $data);
     }
+
     public function borrar_imagen()
     {
 
@@ -1062,9 +1106,9 @@ class Admin extends Base_Controller
         $imagen_numero = $data['prducto_id'] = $this->uri->segment(4);
         //borrado de imagen
 
-        if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id.' ('.$imagen_numero.').jpg')) {
+        if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . ' (' . $imagen_numero . ').jpg')) {
             //echo 'imagen existe';
-            if (unlink('/home2/gpautos/public_html/web/images_cont/' . $carro_id.' ('.$imagen_numero.').jpg')) {
+            if (unlink('/home2/gpautos/public_html/web/images_cont/' . $carro_id . ' (' . $imagen_numero . ').jpg')) {
                 $this->session->set_flashdata('mensaje', 'se borro la imagen');
                 redirect(base_url() . '/admin/revisar_carro/' . $carro_id);
             } else {
@@ -1076,8 +1120,10 @@ class Admin extends Base_Controller
         }
 
     }
+
     //FERIA
-    public function agregar_a_feria(){
+    public function agregar_a_feria()
+    {
         $data = compobarSesion();
         $data['titulo'] = 'Feria';
         //id carro
@@ -1091,7 +1137,9 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/admin_agregar_a_feria', $data);
     }
-    public function guardar_precio_feria(){
+
+    public function guardar_precio_feria()
+    {
         $post_data = array(
             'id_carro' => $this->input->post('codigo'),
             'precio_feria' => $this->input->post('precio_feria'),
@@ -1107,6 +1155,7 @@ class Admin extends Base_Controller
         $data = compobarSesion();
         echo $this->templates->render('admin/admin_disponibilidad', $data);
     }
+
     public function renovar_carro_p()
     {
         $data = compobarSesion();
@@ -1132,6 +1181,7 @@ class Admin extends Base_Controller
         $this->session->set_flashdata('mensaje', 'Carro COD:' . $datos_carro['id_carro'] . ' renovado correctamente correctamente');
         redirect(base_url() . 'admin/', 'refresh');
     }
+
     public function reactivar_carro()
     {
         $data = compobarSesion();
@@ -1147,6 +1197,7 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/reactivar_carro', $data);
     }
+
     public function reactivar_carro_predio()
     {
         $data = compobarSesion();
@@ -1162,6 +1213,7 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/reactivar_carro', $data);
     }
+
     public function reactivar_carro_p()
     {
         $data = compobarSesion();
@@ -1187,6 +1239,7 @@ class Admin extends Base_Controller
         $this->session->set_flashdata('mensaje', 'Carro COD:' . $datos_carro['id_carro'] . ' Reactivado correctamente correctamente');
         redirect(base_url() . 'admin/', 'refresh');
     }
+
     public function reactivar_carro_predio_p()
     {
         $data = compobarSesion();
@@ -1196,12 +1249,14 @@ class Admin extends Base_Controller
         $this->Carros_model->reactivar_carro_predio($data['id_carro']);
         redirect(base_url() . 'admin/vehiculos', 'refresh');
     }
+
     public function banners()
     {
         $data = compobarSesion();
         $data['banners'] = $this->Banners_model->banners();
         echo $this->templates->render('admin/admin_banners', $data);
     }
+
     public function editar_banner()
     {
         //id banner
@@ -1209,6 +1264,7 @@ class Admin extends Base_Controller
         $data['banner_data'] = $this->Banners_model->banner_data($data['id_banner']);
         echo $this->templates->render('admin/admin_editar_banner', $data);
     }
+
     public function crear_banner_header()
     {
         $data = compobarSesion();
@@ -1220,6 +1276,7 @@ class Admin extends Base_Controller
 
         echo $this->templates->render('admin/admin_crear_banner_header', $data);
     }
+
     public function guardar_banner_header()
     {
         $post_data = array(
@@ -1235,12 +1292,14 @@ class Admin extends Base_Controller
         $this->Banners_model->crear_banners_header($post_data);
         redirect(base_url() . 'admin/banners_header/');
     }
+
     public function banners_header()
     {
         $data = compobarSesion();
         $data['banners'] = $this->Banners_model->banners_header();
         echo $this->templates->render('admin/admin_banners_header', $data);
     }
+
     public function editar_banner_header()
     {
         //id banner
@@ -1248,6 +1307,7 @@ class Admin extends Base_Controller
         $data['banner_data'] = $this->Banners_model->banner_header_data($data['id_banner']);
         echo $this->templates->render('admin/admin_editar_banner_header', $data);
     }
+
     public function actualizar_banner_header()
     {
         /* echo '<pre>';
@@ -1268,6 +1328,7 @@ class Admin extends Base_Controller
         $this->Banners_model->actualizar_banners_header($post_data);
         redirect(base_url() . 'admin/banners_header/');
     }
+
     public function actualizar_banner()
     {
         $post_data = array(
@@ -1284,18 +1345,20 @@ class Admin extends Base_Controller
         $this->Banners_model->actualizar_banners($post_data);
         redirect(base_url() . 'admin/banners/');
     }
+
     public function dar_de_baja_btn()
     {
         //id carro
         $data['id_carro'] = $this->uri->segment(3);
 
         $this->Carros_model->dar_baja_carro_id($data['id_carro']);
-        echo  "<script type='text/javascript'>";
+        echo "<script type='text/javascript'>";
         echo "window.close();";
         echo "</script>";
         //redirect(base_url() . 'admin');
 
     }
+
     public function activar_carro_btn()
     {
         //id carro
@@ -1305,6 +1368,7 @@ class Admin extends Base_Controller
         redirect(base_url() . 'admin/pendientes');
 
     }
+
     public function actualizar_estados_carros()
     {
         $carros_con_vencimiento = $this->Carros_model->carros_con_fecha_de_vencimiento();
@@ -1360,6 +1424,7 @@ class Admin extends Base_Controller
         //print_r($carros_con_vencimiento->result());
         echo '</pre>';
     }
+
     public function carro_imagen()
     {
         $data = compobarSesion();
@@ -1369,6 +1434,7 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/carro_imagen', $data);
     }
+
     //reportes
     public function trasancciones()
     {
@@ -1377,38 +1443,40 @@ class Admin extends Base_Controller
         echo $this->templates->render('admin/transacciones', $data);
 
     }
-    public function reporte_marketing(){
+
+    public function reporte_marketing()
+    {
         $data = compobarSesion();
         //fechas de reporte
         if ($this->uri->segment(3)) {
             $data['de'] = $this->uri->segment(3);
-        }else{
+        } else {
             $ayer = New DateTime();
             $ayer = $ayer->modify('-1 days');
             $data['de'] = $ayer->format('Y-m-d');
         }
         if ($this->uri->segment(4)) {
             $data['a'] = $this->uri->segment(4);
-        }else{
+        } else {
             $hoy = New DateTime();
             $data['a'] = $hoy->format('Y-m-d');
         }
 
 
-
-
         //usuarios de marketing
         $usuarios_marketing = array('10', '78');
-        $data['usuarios_marketing']= $this->Marketing_model->usuarios_marketing($usuarios_marketing);
+        $data['usuarios_marketing'] = $this->Marketing_model->usuarios_marketing($usuarios_marketing);
 
 
         echo $this->templates->render('admin/reporte_marketing', $data);
     }
-    public function reporte_marketing_desglose_dia(){
+
+    public function reporte_marketing_desglose_dia()
+    {
         $data = compobarSesion();
 
         //fecha
-        $fecha =$this->uri->segment(3);
+        $fecha = $this->uri->segment(3);
         //subidas_ dia
         $data['numeros_agregados_flor'] = $this->Marketing_model->numeros_agregados_dia('78', $fecha);
         //bajadas dia
@@ -1430,10 +1498,13 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/admin_predios', $data);
     }
-    public function nuevo_predio(){
+
+    public function nuevo_predio()
+    {
         $data = compobarSesion();
         echo $this->templates->render('admin/nuevo_predio', $data);
     }
+
     public function editrar_predio()
     {
         $data = compobarSesion();
@@ -1441,7 +1512,9 @@ class Admin extends Base_Controller
         $data['predio'] = $this->Predio_model->get_predio_data_admin($data['id_predio']);
         echo $this->templates->render('admin/admin_editar_predio', $data);
     }
-    public function guardar_predio(){
+
+    public function guardar_predio()
+    {
         $post_data = array(
             'nombre' => $this->input->post('nombre'),
             'diercción' => $this->input->post('diercción'),
@@ -1456,7 +1529,9 @@ class Admin extends Base_Controller
         $this->Predio_model->guardar_predio($post_data);
         redirect(base_url() . 'admin/predios/');
     }
-    public function actualizar_predio(){
+
+    public function actualizar_predio()
+    {
         $post_data = array(
             'id' => $this->input->post('id'),
             'nombre' => $this->input->post('nombre'),
@@ -1472,9 +1547,11 @@ class Admin extends Base_Controller
         $this->Predio_model->actualizar_predio($post_data);
         redirect(base_url() . 'admin/predios/');
     }
-    public function predio_pendientes(){
+
+    public function predio_pendientes()
+    {
         $data = compobarSesion();
-        $rol =  $data['rol'];
+        $rol = $data['rol'];
         $data['carros_pendientes'] = $this->Carros_model->numeroCarros_pendientes();
         $data['carros_pendientes_predio'] = $this->Carros_model->numeroCarros_pendientes_predio();
         $data['carros_pendientes_predio_9'] = $this->Carros_model->numeroCarros_pendientes_pv9();
@@ -1485,10 +1562,14 @@ class Admin extends Base_Controller
         $data['carros'] = $this->Carros_model->ListarCarros_pendientes();
         echo $this->templates->render('admin/admin_pendientes', $data);
     }
-    function subir_foto_predio(){}
+
+    function subir_foto_predio()
+    {
+    }
 
     //usuarios de predios
-    public function usuarios(){
+    public function usuarios()
+    {
         $data = compobarSesion();
         $data['usuarios'] = $this->Usuarios_model->get_usuarios();
         if ($this->session->flashdata('mensaje')) {
@@ -1496,7 +1577,9 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/admin_users', $data);
     }
-    public function editar_usuario(){
+
+    public function editar_usuario()
+    {
         $data = compobarSesion();
         $data['titulo'] = 'editar usuario';
         $data['user_id'] = $this->uri->segment(3);
@@ -1509,7 +1592,9 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/admin_editar_usuario', $data);
     }
-    public function crear_usuario(){
+
+    public function crear_usuario()
+    {
         $data = compobarSesion();
         $data['user_id'] = $this->uri->segment(3);
         $data['usuario'] = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
@@ -1521,7 +1606,9 @@ class Admin extends Base_Controller
         }
         echo $this->templates->render('admin/admin_crear_usuario', $data);
     }
-    public function guardar_usuario(){
+
+    public function guardar_usuario()
+    {
         $post_data = array(
             'username' => $this->input->post('username'),
             'correo' => $this->input->post('correo'),
@@ -1537,7 +1624,9 @@ class Admin extends Base_Controller
         $this->Usuarios_model->guardar_usuarios($post_data);
         redirect(base_url() . 'admin/usuarios/');
     }
-    public function actualizar_usuarios(){
+
+    public function actualizar_usuarios()
+    {
         $post_data = array(
             'user_id' => $this->input->post('user_id'),
             'username' => $this->input->post('username'),
@@ -1557,14 +1646,287 @@ class Admin extends Base_Controller
 
     //factutar
 
-    public function facturar(){
+    public function facturar()
+    {
         $data = compobarSesion();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
         echo $this->templates->render('admin/admin_facturar', $data);
     }
-    public function guardar_factura(){
+
+    public function guardar_factura()
+    {
         $this->Cliente->test_metodo();
+    }
+
+
+    //Force soso
+    public function forcesos_crear_usuario()
+    {
+        $data = compobarSesion();
+        $data['user_id'] = $this->uri->segment(3);
+        $data['usuario'] = $this->Usuarios_model->get_usuario_by_id($data['user_id']);
+        $data['predios'] = $this->Predio_model->predios_admin();
+        $data['predios_asignados'] = $this->Predio_model->predios_asignados($data['user_id']);
+
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        echo $this->templates->render('admin/forcesos_crear_usuario', $data);
+    }
+
+    public function procesar_forceos()
+    {
+
+        //print_contenido($_POST);
+
+        $curl = curl_init();
+
+
+        $datos_usuario = array(
+            'client_id' => $this->input->post('client_id'),
+            'client_id_type' => $this->input->post('client_id_type'),
+            'name' => $this->input->post('name'),
+            'email' => $this->input->post('email'),
+            'tel_mobile1' => $this->input->post('tel_mobile1'),
+            'contract' => $this->input->post('contract'),
+            'contract_start' => $this->input->post('contract_start'),
+            'contract_end' => $this->input->post('contract_end'),
+            'sname' => $this->input->post('sname'),
+            'gender' => $this->input->post('gender'),
+            'birthdate' => $this->input->post('birthdate'),
+            'tel_res' => $this->input->post('tel_res'),
+            'tel_office' => $this->input->post('tel_office'),
+            'tel_mobil2' => $this->input->post('tel_mobile2'));
+
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://webapi.forcesos.com/api/clients",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $datos_usuario,
+            CURLOPT_HTTPHEADER => array(
+                "Accept: application/json",
+                "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YmRiNmZkNTE1YWVkZmNhYWIwYWIyMWI5YWRkMWZkN2QwNzI5ODAwYjFkZTk4NzhhODE3ODc3OThhZTEwNzRkNTQ1ZjczZDBkOWUxYTY2In0.eyJhdWQiOiI0IiwianRpIjoiNzhiZGI2ZmQ1MTVhZWRmY2FhYjBhYjIxYjlhZGQxZmQ3ZDA3Mjk4MDBiMWRlOTg3OGE4MTc4Nzc5OGFlMTA3NGQ1NDVmNzNkMGQ5ZTFhNjYiLCJpYXQiOjE1OTk1MDM2MjAsIm5iZiI6MTU5OTUwMzYyMCwiZXhwIjoxNjMxMDM5NjIwLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.mih4nYAX9cxVo2az-az5JR9Jh890KKmic6W5yP052mZYqubtV9DDbP1bPc2k85gh-5GiLvrb_FEyBS7Zz7nBV6HJtYH_4LgKhfjQMcfbsWYBg-GuH0bFOxu9YxBvk8er4CNx6uE328AelBHmRGpLum5FHdpp6TyEAk5sZQaHv04lHcLDGXrYfmdZ0yeL93H3v7rcAI4G7htiBlBhkLt6IXlDRrBNyOSxLtsI3xpNFEXhGfnF9YqQmO6Au4bo6Tm9GmR8QbZu8rdTCXGCNgZdbRbdiZHIgiGKH39Sdf6hDVdmONHydimyaCZQpGCxmkGkYRFVK3k4p3JiNYZIUYZR1o54ZCEp_xmN9NAEDjFbOu-LnZKGjrGutLTJAPsfRzSpMCOMOrKvz4YvF79tGTlTIo0of1pDEqWm9UdPz_Gg-8T9BQUICDpbrGDPb12JeJ2mFTp9nwRb9Z8L20ypSso0wz-OD2ccfK9HN4v1sndc6iDSbaz43NCPvCwajXLqLQubuAVU1p61CnYGX2YSuRW590D5Zm5YkKv6v3G0ce4aPYarrjlRHXA2kmEWDP8Q8SNeu7HXHznQoADmFmVoXlWaxcIxl1nlRZPC50zS7ff5BRQj_eJ-LgJQKb-YsJrf4_dc7ZvZmXYA8aosVl6bRezpoQRUS-gFxYzAOQVfJElTimY"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+        //echo isType($response);
+
+
+    }
+
+    public function ver_clientes_forceos()
+    {
+        $data = compobarSesion();
+
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        echo $this->templates->render('admin/forcesos_ver_usuarios', $data);
+
+    }
+
+    public function detalle_cliente_forcesos()
+    {
+        $data = compobarSesion();
+        $data['client_id'] = $this->uri->segment(3);
+
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://webapi.forcesos.com/api/clients/" . $data['client_id'] . "/clientid",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "Accept: application/json",
+                "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YmRiNmZkNTE1YWVkZmNhYWIwYWIyMWI5YWRkMWZkN2QwNzI5ODAwYjFkZTk4NzhhODE3ODc3OThhZTEwNzRkNTQ1ZjczZDBkOWUxYTY2In0.eyJhdWQiOiI0IiwianRpIjoiNzhiZGI2ZmQ1MTVhZWRmY2FhYjBhYjIxYjlhZGQxZmQ3ZDA3Mjk4MDBiMWRlOTg3OGE4MTc4Nzc5OGFlMTA3NGQ1NDVmNzNkMGQ5ZTFhNjYiLCJpYXQiOjE1OTk1MDM2MjAsIm5iZiI6MTU5OTUwMzYyMCwiZXhwIjoxNjMxMDM5NjIwLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.mih4nYAX9cxVo2az-az5JR9Jh890KKmic6W5yP052mZYqubtV9DDbP1bPc2k85gh-5GiLvrb_FEyBS7Zz7nBV6HJtYH_4LgKhfjQMcfbsWYBg-GuH0bFOxu9YxBvk8er4CNx6uE328AelBHmRGpLum5FHdpp6TyEAk5sZQaHv04lHcLDGXrYfmdZ0yeL93H3v7rcAI4G7htiBlBhkLt6IXlDRrBNyOSxLtsI3xpNFEXhGfnF9YqQmO6Au4bo6Tm9GmR8QbZu8rdTCXGCNgZdbRbdiZHIgiGKH39Sdf6hDVdmONHydimyaCZQpGCxmkGkYRFVK3k4p3JiNYZIUYZR1o54ZCEp_xmN9NAEDjFbOu-LnZKGjrGutLTJAPsfRzSpMCOMOrKvz4YvF79tGTlTIo0of1pDEqWm9UdPz_Gg-8T9BQUICDpbrGDPb12JeJ2mFTp9nwRb9Z8L20ypSso0wz-OD2ccfK9HN4v1sndc6iDSbaz43NCPvCwajXLqLQubuAVU1p61CnYGX2YSuRW590D5Zm5YkKv6v3G0ce4aPYarrjlRHXA2kmEWDP8Q8SNeu7HXHznQoADmFmVoXlWaxcIxl1nlRZPC50zS7ff5BRQj_eJ-LgJQKb-YsJrf4_dc7ZvZmXYA8aosVl6bRezpoQRUS-gFxYzAOQVfJElTimY"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        //echo $response;
+
+        $response = json_decode($response, true);
+
+
+        $data['datos_cliente'] = (object)$response['data'];
+        $data['contratos'] = (object)$response['data']['contracts'];
+
+        echo $this->templates->render('admin/detalle_cliente_forcesos', $data);
+    }
+
+    public function actualizar_contrato()
+    {
+        $data = compobarSesion();
+        $data['contrato_id'] = $this->uri->segment(3);
+
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://webapi.forcesos.com/api/clients/" . $data['contrato_id'] . "/contract",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "Accept: application/json",
+                "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YmRiNmZkNTE1YWVkZmNhYWIwYWIyMWI5YWRkMWZkN2QwNzI5ODAwYjFkZTk4NzhhODE3ODc3OThhZTEwNzRkNTQ1ZjczZDBkOWUxYTY2In0.eyJhdWQiOiI0IiwianRpIjoiNzhiZGI2ZmQ1MTVhZWRmY2FhYjBhYjIxYjlhZGQxZmQ3ZDA3Mjk4MDBiMWRlOTg3OGE4MTc4Nzc5OGFlMTA3NGQ1NDVmNzNkMGQ5ZTFhNjYiLCJpYXQiOjE1OTk1MDM2MjAsIm5iZiI6MTU5OTUwMzYyMCwiZXhwIjoxNjMxMDM5NjIwLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.mih4nYAX9cxVo2az-az5JR9Jh890KKmic6W5yP052mZYqubtV9DDbP1bPc2k85gh-5GiLvrb_FEyBS7Zz7nBV6HJtYH_4LgKhfjQMcfbsWYBg-GuH0bFOxu9YxBvk8er4CNx6uE328AelBHmRGpLum5FHdpp6TyEAk5sZQaHv04lHcLDGXrYfmdZ0yeL93H3v7rcAI4G7htiBlBhkLt6IXlDRrBNyOSxLtsI3xpNFEXhGfnF9YqQmO6Au4bo6Tm9GmR8QbZu8rdTCXGCNgZdbRbdiZHIgiGKH39Sdf6hDVdmONHydimyaCZQpGCxmkGkYRFVK3k4p3JiNYZIUYZR1o54ZCEp_xmN9NAEDjFbOu-LnZKGjrGutLTJAPsfRzSpMCOMOrKvz4YvF79tGTlTIo0of1pDEqWm9UdPz_Gg-8T9BQUICDpbrGDPb12JeJ2mFTp9nwRb9Z8L20ypSso0wz-OD2ccfK9HN4v1sndc6iDSbaz43NCPvCwajXLqLQubuAVU1p61CnYGX2YSuRW590D5Zm5YkKv6v3G0ce4aPYarrjlRHXA2kmEWDP8Q8SNeu7HXHznQoADmFmVoXlWaxcIxl1nlRZPC50zS7ff5BRQj_eJ-LgJQKb-YsJrf4_dc7ZvZmXYA8aosVl6bRezpoQRUS-gFxYzAOQVfJElTimY"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        //echo $response;
+
+        $response = json_decode($response, true);
+        $datos_de_contrato = '';
+
+
+        $data['datos_cliente'] = (object)$response['data'];
+        $contratos = (object)$response['data']['contracts'];
+        foreach ($contratos as $contrato) {
+            $contrato = (object)$contrato;
+
+            //echo $contrato->contract;
+            if ($data['contrato_id'] == $contrato->contract) {
+                $datos_de_contrato = $contrato;
+            } else {
+                //  echo'no asignar';
+            }
+        }
+        $data['datos_de_contrato'] = $datos_de_contrato;
+
+
+        echo $this->templates->render('admin/actualizar_contrato_forcesos', $data);
+    }
+
+    public function procesar_actualizar_forceos()
+    {
+        $curl = curl_init();
+
+        $datos_contrato = array(
+
+            'contract' => $this->input->post('contract'),
+            'contract_start' => $this->input->post('contract_start'),
+            'contract_end' => $this->input->post('contract_end'),
+            'status' => $this->input->post('contract_status'),
+            '_method' => 'put',
+        );
+
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://webapi.forcesos.com/api/clients/" . $datos_contrato['contract'],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $datos_contrato,
+            CURLOPT_HTTPHEADER => array(
+                "Accept: application/json",
+                "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YmRiNmZkNTE1YWVkZmNhYWIwYWIyMWI5YWRkMWZkN2QwNzI5ODAwYjFkZTk4NzhhODE3ODc3OThhZTEwNzRkNTQ1ZjczZDBkOWUxYTY2In0.eyJhdWQiOiI0IiwianRpIjoiNzhiZGI2ZmQ1MTVhZWRmY2FhYjBhYjIxYjlhZGQxZmQ3ZDA3Mjk4MDBiMWRlOTg3OGE4MTc4Nzc5OGFlMTA3NGQ1NDVmNzNkMGQ5ZTFhNjYiLCJpYXQiOjE1OTk1MDM2MjAsIm5iZiI6MTU5OTUwMzYyMCwiZXhwIjoxNjMxMDM5NjIwLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.mih4nYAX9cxVo2az-az5JR9Jh890KKmic6W5yP052mZYqubtV9DDbP1bPc2k85gh-5GiLvrb_FEyBS7Zz7nBV6HJtYH_4LgKhfjQMcfbsWYBg-GuH0bFOxu9YxBvk8er4CNx6uE328AelBHmRGpLum5FHdpp6TyEAk5sZQaHv04lHcLDGXrYfmdZ0yeL93H3v7rcAI4G7htiBlBhkLt6IXlDRrBNyOSxLtsI3xpNFEXhGfnF9YqQmO6Au4bo6Tm9GmR8QbZu8rdTCXGCNgZdbRbdiZHIgiGKH39Sdf6hDVdmONHydimyaCZQpGCxmkGkYRFVK3k4p3JiNYZIUYZR1o54ZCEp_xmN9NAEDjFbOu-LnZKGjrGutLTJAPsfRzSpMCOMOrKvz4YvF79tGTlTIo0of1pDEqWm9UdPz_Gg-8T9BQUICDpbrGDPb12JeJ2mFTp9nwRb9Z8L20ypSso0wz-OD2ccfK9HN4v1sndc6iDSbaz43NCPvCwajXLqLQubuAVU1p61CnYGX2YSuRW590D5Zm5YkKv6v3G0ce4aPYarrjlRHXA2kmEWDP8Q8SNeu7HXHznQoADmFmVoXlWaxcIxl1nlRZPC50zS7ff5BRQj_eJ-LgJQKb-YsJrf4_dc7ZvZmXYA8aosVl6bRezpoQRUS-gFxYzAOQVfJElTimY"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
+
+    public function get_contratos_forceos()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://webapi.forcesos.com/api/clients",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "Accept: application/json",
+                "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YmRiNmZkNTE1YWVkZmNhYWIwYWIyMWI5YWRkMWZkN2QwNzI5ODAwYjFkZTk4NzhhODE3ODc3OThhZTEwNzRkNTQ1ZjczZDBkOWUxYTY2In0.eyJhdWQiOiI0IiwianRpIjoiNzhiZGI2ZmQ1MTVhZWRmY2FhYjBhYjIxYjlhZGQxZmQ3ZDA3Mjk4MDBiMWRlOTg3OGE4MTc4Nzc5OGFlMTA3NGQ1NDVmNzNkMGQ5ZTFhNjYiLCJpYXQiOjE1OTk1MDM2MjAsIm5iZiI6MTU5OTUwMzYyMCwiZXhwIjoxNjMxMDM5NjIwLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.mih4nYAX9cxVo2az-az5JR9Jh890KKmic6W5yP052mZYqubtV9DDbP1bPc2k85gh-5GiLvrb_FEyBS7Zz7nBV6HJtYH_4LgKhfjQMcfbsWYBg-GuH0bFOxu9YxBvk8er4CNx6uE328AelBHmRGpLum5FHdpp6TyEAk5sZQaHv04lHcLDGXrYfmdZ0yeL93H3v7rcAI4G7htiBlBhkLt6IXlDRrBNyOSxLtsI3xpNFEXhGfnF9YqQmO6Au4bo6Tm9GmR8QbZu8rdTCXGCNgZdbRbdiZHIgiGKH39Sdf6hDVdmONHydimyaCZQpGCxmkGkYRFVK3k4p3JiNYZIUYZR1o54ZCEp_xmN9NAEDjFbOu-LnZKGjrGutLTJAPsfRzSpMCOMOrKvz4YvF79tGTlTIo0of1pDEqWm9UdPz_Gg-8T9BQUICDpbrGDPb12JeJ2mFTp9nwRb9Z8L20ypSso0wz-OD2ccfK9HN4v1sndc6iDSbaz43NCPvCwajXLqLQubuAVU1p61CnYGX2YSuRW590D5Zm5YkKv6v3G0ce4aPYarrjlRHXA2kmEWDP8Q8SNeu7HXHznQoADmFmVoXlWaxcIxl1nlRZPC50zS7ff5BRQj_eJ-LgJQKb-YsJrf4_dc7ZvZmXYA8aosVl6bRezpoQRUS-gFxYzAOQVfJElTimY"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        //$response = json_encode($response, true);
+        echo($response);
+        //$response = json_decode($response, true);
+        //$contratos = $response['data'];
+        //print_contenido(gettype($response));
+        //print_contenido($response['data']);
+        //print_contenido(gettype($contratos));
+
+        //$contratos = (object) $response;
+
+        /*foreach($contratos as  $contrato) {
+            print_r($contrato);
+            //echo'dep';
+        }*/
+    }
+    public function dar_baja_contrato_forcesos(){
+
+        $curl = curl_init();
+        $contract = $this->input->post('contract');
+
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://webapi.forcesos.com/api/clients/".$contract,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "DELETE",
+            CURLOPT_HTTPHEADER => array(
+                "Accept: application/json",
+                "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YmRiNmZkNTE1YWVkZmNhYWIwYWIyMWI5YWRkMWZkN2QwNzI5ODAwYjFkZTk4NzhhODE3ODc3OThhZTEwNzRkNTQ1ZjczZDBkOWUxYTY2In0.eyJhdWQiOiI0IiwianRpIjoiNzhiZGI2ZmQ1MTVhZWRmY2FhYjBhYjIxYjlhZGQxZmQ3ZDA3Mjk4MDBiMWRlOTg3OGE4MTc4Nzc5OGFlMTA3NGQ1NDVmNzNkMGQ5ZTFhNjYiLCJpYXQiOjE1OTk1MDM2MjAsIm5iZiI6MTU5OTUwMzYyMCwiZXhwIjoxNjMxMDM5NjIwLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.mih4nYAX9cxVo2az-az5JR9Jh890KKmic6W5yP052mZYqubtV9DDbP1bPc2k85gh-5GiLvrb_FEyBS7Zz7nBV6HJtYH_4LgKhfjQMcfbsWYBg-GuH0bFOxu9YxBvk8er4CNx6uE328AelBHmRGpLum5FHdpp6TyEAk5sZQaHv04lHcLDGXrYfmdZ0yeL93H3v7rcAI4G7htiBlBhkLt6IXlDRrBNyOSxLtsI3xpNFEXhGfnF9YqQmO6Au4bo6Tm9GmR8QbZu8rdTCXGCNgZdbRbdiZHIgiGKH39Sdf6hDVdmONHydimyaCZQpGCxmkGkYRFVK3k4p3JiNYZIUYZR1o54ZCEp_xmN9NAEDjFbOu-LnZKGjrGutLTJAPsfRzSpMCOMOrKvz4YvF79tGTlTIo0of1pDEqWm9UdPz_Gg-8T9BQUICDpbrGDPb12JeJ2mFTp9nwRb9Z8L20ypSso0wz-OD2ccfK9HN4v1sndc6iDSbaz43NCPvCwajXLqLQubuAVU1p61CnYGX2YSuRW590D5Zm5YkKv6v3G0ce4aPYarrjlRHXA2kmEWDP8Q8SNeu7HXHznQoADmFmVoXlWaxcIxl1nlRZPC50zS7ff5BRQj_eJ-LgJQKb-YsJrf4_dc7ZvZmXYA8aosVl6bRezpoQRUS-gFxYzAOQVfJElTimY"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
     }
 }

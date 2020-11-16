@@ -127,7 +127,11 @@ $fecha = array(
 
                             <ul class="site-stats">
                                 <li class="bg_lg"><i class="icon-user"></i>
+                                    <?php if($carros_individuales_publicados){?>
                                     <strong><?php echo $carros_individuales_publicados->num_rows; ?></strong>
+                                    <?php }else { ?>
+                                        <strong>0</strong>
+                                    <?php } ?>
                                     <small>numero de carros individuales publicados este mes</small>
                                 </li>
                                 <li class="bg_lg"><i class="icon-user"></i>

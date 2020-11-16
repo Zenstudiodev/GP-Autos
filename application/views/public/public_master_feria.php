@@ -284,7 +284,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                         <img src="<?php echo base_url(); ?>ui/public/images/logoGp.png" id="logo_img">
                     </a>
                 </div>
-                <div class="col s12 m4 col-md-4">
+                <!--<div class="col s12 m4 col-md-4">
 
 
                     <div id="feria_countDown">
@@ -293,7 +293,7 @@ foreach ($ubicaciones->result() as $ubicacion) {
                         </div>
                         <div id="getting-started"></div>
                     </div>
-                </div>
+                </div>-->
                 <div class="col s12 m4 col-md-4">
                     <a class="waves-effect waves-light btn red darken-2 white-text salir_feria_btn" href="http://gpautos.net/home/inicio">Salir de feria</a>
                 </div>

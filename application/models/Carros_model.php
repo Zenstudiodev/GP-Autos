@@ -297,6 +297,15 @@ class Carros_model extends CI_Model
         $this->db->where('id_carro', $data['id_carro']);
         $query = $this->db->update('carro', $datos);
     }
+    function actualizar_precio_carro_public($data)
+    {
+        $datos = array(
+
+            'crr_precio'               => $data['crr_precio'],
+        );
+        $this->db->where('id_carro', $data['id_carro']);
+        $query = $this->db->update('carro', $datos);
+    }
     function public_pasar_a_revision_fotos($id_carro)
     {
         $datos = array(

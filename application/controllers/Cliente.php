@@ -274,6 +274,8 @@ class Cliente extends Base_Controller
             'tipo_anuncio' => $this->input->post('tipo_anuncio'),
             'feria' => $this->input->post('feria_check'),
             'facebook' => $this->input->post('facebook_check'),
+            'pago_calcomania' => $this->input->post('facebook_check'),
+            'calcomania' => $this->input->post('rotulacion_check'),
             'telefono_calcomania' => $this->input->post('calcomania_telefono_input'),
             'direccion_calcomania' => $this->input->post('calcomania_direccion_input'),
             'total_pagar' => $this->input->post('total_pagar'),
@@ -374,6 +376,7 @@ class Cliente extends Base_Controller
         $precio_individual = $parametros[2];
         $precio_feria = $parametros[3];
         $precio_facebook = $parametros[4];
+        $precio_rotulacion = $parametros[5];
 
 
         //print_contenido($_POST);
@@ -384,6 +387,7 @@ class Cliente extends Base_Controller
         $data['precio_anuncio'] = 0;
         $data['precio_feria'] = false;
         $data['precio_facebook'] = false;
+        $data['precio_rotulacion'] = false;
         $total_a_pagar = 0;
 
 
@@ -394,6 +398,10 @@ class Cliente extends Base_Controller
         if ($this->session->facebook) {
             $data['precio_facebook'] = $precio_facebook;
             $total_a_pagar = $total_a_pagar + $precio_facebook->parametro_valor;
+        }
+        if ($this->session->calcomania) {
+            $data['precio_rotulacion'] = $precio_rotulacion;
+            $total_a_pagar = $total_a_pagar + $precio_rotulacion->parametro_valor;
         }
 
         if ($data['tipo_anuncio'] == 'individual') {
@@ -612,6 +620,12 @@ class Cliente extends Base_Controller
         $precio_individual = $parametros[2];
         $precio_feria = $parametros[3];
         $precio_facebook = $parametros[4];
+        $precio_rotulacion = $parametros[5];
+
+
+        //print_contenido($_POST);
+        //print_contenido($_SESSION);
+
         $data['forma_pago'] = $this->session->forma_pago;
         $data['tipo_anuncio'] = $this->session->tipo_anuncio;
         $data['ubicacion_anuncio'] = $this->session->ubicacion_anuncio;
@@ -622,6 +636,7 @@ class Cliente extends Base_Controller
         $numero_tarjeta = $this->input->post('card_number');
         $expirationMonth = $this->input->post('mes_vencimiento_tarjeta');
         $expirationYear = $this->input->post('a_vencimiento_tarjeta');
+        $cvv = $this->input->post('cvv_tarjeta');
         if ($expirationYear < 2000) {
             $expirationYear = '20' . $expirationYear;
         }
@@ -632,6 +647,7 @@ class Cliente extends Base_Controller
         $data['precio_anuncio'] = 0;
         $data['precio_feria'] = false;
         $data['precio_facebook'] = false;
+        $data['precio_rotulacion'] = false;
         $total_a_pagar = 0;
 
         //datos de facturacion
@@ -646,6 +662,10 @@ class Cliente extends Base_Controller
         if ($this->session->facebook) {
             $data['precio_facebook'] = $precio_facebook;
             $total_a_pagar = $total_a_pagar + $precio_facebook->parametro_valor;
+        }
+        if ($this->session->calcomania) {
+            $data['precio_rotulacion'] = $precio_rotulacion;
+            $total_a_pagar = $total_a_pagar + $precio_rotulacion->parametro_valor;
         }
 
         if ($data['tipo_anuncio'] == 'individual') {
@@ -709,6 +729,7 @@ class Cliente extends Base_Controller
         $card->accountNumber = $numero_tarjeta;
         $card->expirationMonth = $expirationMonth;
         $card->expirationYear = $expirationYear;
+        $card->cvNumber = $cvv;
         $request->card = $card;
 
 
@@ -741,7 +762,8 @@ class Cliente extends Base_Controller
 // This section will show all the reply fields.
         //print("\nAUTH RESPONSE: " . print_contenido($reply, true));
 
-        if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode == '100') {
+        //if ($reply->decision == 'ACCEPT' or $reply->ccAuthReply->reasonCode == '100') {
+        if ($reply->decision == 'ACCEPT' ) {
 
 
             //asignar carro
@@ -901,6 +923,7 @@ class Cliente extends Base_Controller
             //echo 'guardar numero de transaccion en base de datos';
             //echo $reply->requestID;
         } else {
+           // print_contenido($reply);
             $this->session->set_flashdata('error', $reply->reasonCode);
             $this->notiticacion_error_pago($user_id, $data['email'], $nombre_usuario, $total_a_pagar, $data['tipo_anuncio'], 'Pago con tarjeta', $reply);
             redirect(base_url() . 'cliente/datos_pago');
@@ -1174,14 +1197,12 @@ class Cliente extends Base_Controller
         );
         $this->email->initialize($configGmail);
 
-
         $this->email->from('info@gpautos.net', 'GP AUTOS');
         $this->email->to($correo);
         // $this->email->cc($correo);
         $this->email->cc('pagos@gpautos.net, anuncios2@gpautos.net');
         $this->email->bcc('csamayoa@zenstudiogt.com, michellepedroza@gpautos.net');
-
-        $this->email->subject('Se registro un pago');
+        $this->email->subject('Se registro un pago de feria');
 
         //mensaje
         $message = '<html><body>';
@@ -1195,7 +1216,6 @@ class Cliente extends Base_Controller
         $message .= "<tr><td><strong>Monto pagado:</strong> </td><td>" . strip_tags($monto) . "</td></tr>";
         $message .= "</table>";
         $message .= "</body></html>";
-
         $this->email->message($message);
         //enviar correo
         $this->email->send();
@@ -1602,6 +1622,27 @@ class Cliente extends Base_Controller
         $carro_id = $this->Carros_model->actualizar_carro_public($datos);
         redirect('cliente/perfil/');
 
+
+    }
+    public function guardar_editar_precio()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $usuario = $data['datos_usuario']->row();
+
+        $datos = array(
+            'id_carro' => $this->input->post('id_carro'),
+            'crr_precio' => $this->input->post('precio'),
+        );
+        /* echo '<pre>';
+         print_r($datos);
+         echo '</pre>';*/
+        $carro_id = $this->Carros_model->actualizar_precio_carro_public($datos);
+        redirect('cliente/perfil/');
 
     }
 
@@ -2368,6 +2409,10 @@ class Cliente extends Base_Controller
             echo 'no facturar';
         }
         //exit();
+    }
+
+    public function procesar_pago_externo(){
+        print_contenido($_POST);
     }
 
 }

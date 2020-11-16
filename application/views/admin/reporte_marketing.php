@@ -205,7 +205,7 @@
                                                                         <td>seguimiento</td>
                                                                     </tr>
                                                                     <tr>
-                                                                       <td>Flor</td>
+                                                                       <td>Marketing 1</td>
                                                                        <td><?php echo numeros_agregados_reporte('78', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>
                                                                        <td><?php echo numeros_bajados_reporte('78', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>
                                                                        <td><?php echo numeros_seguimientos_reporte('78', $fecha_inicio->format('Y-m-d'), $fecha_inicio->format('Y-m-d')); ?> </td>

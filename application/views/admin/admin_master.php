@@ -12,33 +12,37 @@
 <html lang="es">
 <head>
     <title>GP Autos Admin</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="<?php echo base_url()?>/ui/admin/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url()?>/ui/admin/css/bootstrap-responsive.min.css" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="<?php echo base_url() ?>/ui/admin/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="<?php echo base_url() ?>/ui/admin/css/bootstrap-responsive.min.css"/>
     <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-style.css"/>
     <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-media.css"/>
-    <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/css/uniform.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/uniform.css"/>
     <!--Fonnt Awsome-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <!-- Custom css for pages -->
     <?php echo $this->section('css_p') ?>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url()?>/ui/admin/css/style.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>/ui/admin/css/style.css"/>
 </head>
 <body>
 
 <!--Header-part-->
 <div id="header">
-    <h1><a href="<?php echo base_url().'admin'?>">GP AUTOS</a></h1>
+    <h1><a href="<?php echo base_url() . 'admin' ?>">GP AUTOS</a></h1>
 </div>
 <!--close-Header-part-->
 
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
     <ul class="nav">
-        <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Bienvenido <?php echo $nombre?></span><b class="caret"></b></a>
+        <li class="dropdown" id="profile-messages"><a title="" href="#" data-toggle="dropdown"
+                                                      data-target="#profile-messages" class="dropdown-toggle"><i
+                        class="icon icon-user"></i> <span class="text">Bienvenido <?php echo $nombre ?></span><b
+                        class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
                 <li class="divider"></li>
@@ -59,68 +63,87 @@
             </ul>
         </li>-->
         <!--<li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>-->
-        <li class=""><a title="" href="<?php echo base_url()?>login/logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+        <li class=""><a title="" href="<?php echo base_url() ?>login/logout"><i class="icon icon-share-alt"></i> <span
+                        class="text">Logout</span></a></li>
     </ul>
 </div>
 
 <!--sidebar-menu-->
 
-<div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
+<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
     <ul>
 
-        <!--<li><a href="<?php /*echo base_url()*/?>admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
+        <!--<li><a href="<?php /*echo base_url()*/ ?>admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
 
-        <li><a href="<?php echo base_url()?>admin"><i class="icon icon-signal"></i> <span>Inicio</span></a> </li>
-        <?php if($rol =='gerente' || $rol =='developer' || $rol=='marketing'){?>
-            <li><a href="<?php echo base_url()?>admin/facturar"><i class="icon icon-signal"></i> <span>Facturar</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol =='developer' || $rol =='editor' || $rol =='externo' || $rol =='predio' || $rol=='marketing'){?>
-        <li><a href="<?php echo base_url()?>admin/vehiculos"><i class="icon icon-signal"></i> <span>vehiculos</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
-            <li><a href="<?php echo base_url()?>admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
-            <li><a href="<?php echo base_url()?>admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='asesor'){?>
-            <li><a href="<?php echo base_url()?>admin/crear_carro_asesor"><i class="icon icon-signal"></i> <span>Subir carro (asesor)</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
-            <li><a href="<?php echo base_url()?>marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
-            <li><a href="<?php echo base_url()?>marketing/bajar_numero"><i class="icon icon-file"></i> <span>Bajar número</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor' || $rol=='marketing'){?>
-            <li><a href="<?php echo base_url()?>marketing/seguimientos"><i class="icon icon-file"></i> <span>Seguimientos</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' || $rol=='marketing'){?>
-            <li><a href="<?php echo base_url()?>admin/predios"><i class="icon icon-file"></i> <span>Predios</span></a> </li>
-            <li><a href="<?php echo base_url()?>admin/usuarios"><i class="icon icon-file"></i> <span>Usuarios</span></a> </li>
-            <li><a href="<?php echo base_url()?>admin/pendientes"><i class="icon icon-file"></i> <span>vahiculos pendientes</span></a> </li>
-        <?php }?>
-	    <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
-        <li><a href="<?php echo base_url()?>admin/banners"><i class="icon icon-file"></i> <span>Banners</span></a> </li>
-        <?php }?>
-	    <?php if($rol =='gerente' || $rol == 'developer' || $rol=='editor'){?>
-        <li><a href="<?php echo base_url()?>admin/banners_header"><i class="icon icon-file"></i> <span>Banners Header</span></a> </li>
-	    <?php }?>
-	    <?php if($rol =='gerente' || $rol == 'developer' ){?>
-            <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes</span> </a>
+        <li><a href="<?php echo base_url() ?>admin"><i class="icon icon-signal"></i> <span>Inicio</span></a></li>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'marketing' || $rol == 'supervisor') { ?>
+            <li><a href="<?php echo base_url() ?>admin/facturar"><i class="icon icon-signal"></i> <span>Facturar</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'externo' || $rol == 'predio' || $rol == 'marketing' || $rol == 'supervisor') { ?>
+            <li><a href="<?php echo base_url() ?>admin/vehiculos"><i class="icon icon-signal"></i>
+                    <span>vehiculos</span></a></li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'asesor' || $rol == 'supervisor') { ?>
+            <li><a href="<?php echo base_url() ?>admin/disponibilidad"><i class="icon icon-file"></i> <span>Disponibilidad</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'asesor') { ?>
+            <li><a href="<?php echo base_url() ?>admin/crear_carro_asesor"><i class="icon icon-signal"></i> <span>Subir carro (asesor)</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') { ?>
+            <li><a href="<?php echo base_url() ?>marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') { ?>
+            <li><a href="<?php echo base_url() ?>marketing/bajar_numero"><i class="icon icon-file"></i> <span>Bajar número</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') { ?>
+            <li><a href="<?php echo base_url() ?>marketing/seguimientos"><i class="icon icon-file"></i> <span>Seguimientos</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'marketing') { ?>
+            <li><a href="<?php echo base_url() ?>admin/predios"><i class="icon icon-file"></i> <span>Predios</span></a>
+            </li>
+            <li><a href="<?php echo base_url() ?>admin/usuarios"><i class="icon icon-file"></i>
+                    <span>Usuarios</span></a></li>
+            <li><a href="<?php echo base_url() ?>admin/pendientes"><i class="icon icon-file"></i> <span>vahiculos pendientes</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor') { ?>
+            <li><a href="<?php echo base_url() ?>admin/banners"><i class="icon icon-file"></i> <span>Banners</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor') { ?>
+            <li><a href="<?php echo base_url() ?>admin/banners_header"><i class="icon icon-file"></i> <span>Banners Header</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'supervisor') { ?>
+            <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>Reportes</span> </a>
                 <ul>
-                    <li><a href="<?php echo base_url()?>admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a> </li>
-                    <li><a href="<?php echo base_url()?>admin/reporte_marketing">Reporte de marketing</a></li>
+                    <?php if ($rol == 'gerente' || $rol == 'developer' ) { ?>
+                        <li><a href="<?php echo base_url() ?>admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a>
+                        </li>
+                    <?php } ?>
+                    <li><a href="<?php echo base_url() ?>admin/reporte_marketing">Reporte de marketing</a></li>
                 </ul>
             </li>
 
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' ){?>
-            <li><a href="<?php echo base_url()?>admin/codigos_descuento"><i class="icon icon-file"></i> <span>Codigos de descuento</span></a> </li>
-        <?php }?>
-        <?php if($rol =='gerente' || $rol == 'developer' ){?>
-            <li><a href="<?php echo base_url()?>admin/parametros"><i class="icon icon-file"></i> <span>Parametros</span></a> </li>
-        <?php }?>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer') { ?>
+            <li><a href="<?php echo base_url() ?>admin/codigos_descuento"><i class="icon icon-file"></i> <span>Codigos de descuento</span></a>
+            </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer') { ?>
+            <li><a href="<?php echo base_url() ?>admin/parametros"><i class="icon icon-file"></i>
+                    <span>Parametros</span></a></li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer') { ?>
+            <li><a href="<?php echo base_url() ?>admin/ver_clientes_forceos"><i class="icon icon-file"></i> <span>Usuarios force sos</span></a>
+            </li>
+        <?php } ?>
 
 
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
@@ -172,20 +195,20 @@
 <!-- footer content -->
 <!--Footer-part-->
 <div class="row-fluid">
-    <div id="footer" class="span12"> 2017 &copy; GPAUTOS </div>
+    <div id="footer" class="span12"> 2017 &copy; GPAUTOS</div>
 </div>
 <!--end-Footer-part-->
-<script src="<?php echo base_url()?>ui/admin/js/jquery.min.js"></script>
-<script src="<?php echo base_url()?>ui/admin/js/jquery.ui.custom.js"></script>
-<script src="<?php echo base_url()?>ui/admin/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url()?>ui/admin/js/jquery.uniform.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/jquery.min.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/jquery.ui.custom.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url() ?>ui/admin/js/jquery.uniform.js"></script>
 <?php echo $this->section('js_p') ?>
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
         a = s.createElement(o),
             m = s.getElementsByTagName(o)[0];
         a.async = 1;

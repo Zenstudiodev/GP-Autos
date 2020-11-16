@@ -407,6 +407,16 @@ $telefono = array(
                                                     </td>
                                                 </tr>
                                             <?php } ?>
+                                            <?php if ($precio_rotulacion) { ?>
+                                                <tr>
+                                                    <td>
+                                                        Calcomania
+                                                    </td>
+                                                    <td>
+                                                        <span id="anuncio_precio_facebook">Q.<?php echo $precio_rotulacion->parametro_valor; ?></span>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                             <?php if(isset($cupon_activo)){  ?>
                                                 <tr>
                                                     <td>

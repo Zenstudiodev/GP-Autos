@@ -55,6 +55,11 @@ img#logo_img {
     width: 230px;
 }
 
+#mobile_flag_break{
+    display: none;
+}
+
+
 /*
 *Materialize override
 */

@@ -77,6 +77,7 @@ class Carro extends Base_Controller
 
 			$data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
 		}
+        //$data['header_banners'] = $this->Banners_model->header_banners_activos();
 		$data['header_banners'] = $this->Banners_model->header_banners_feria_activos();
 		echo $this->templates->render('public/public_carro_feria', $data);
 
@@ -563,6 +564,7 @@ class Carro extends Base_Controller
 
         $data['carros'] = $this->Carros_model->resultado_busqueda_paginacion_feria($predio, $ubicacion, $tipo_vehiculo, $marca, $linea, $transmision, $combustible, $origen, $moneda, $p_min, $p_max, $a_min, $a_max, $config["per_page"], $page);
         $data['banners'] = $this->Banners_model->banneers_activos();
+        //$data['header_banners'] = $this->Banners_model->header_banners_activos();
         $data['header_banners'] = $this->Banners_model->header_banners_feria_activos();
         echo $this->templates->render('public/filtro_carro_feria', $data);
 	}
@@ -682,6 +684,67 @@ class Carro extends Base_Controller
         $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
 
         echo $this->templates->render('public/pago_feria', $data);
+
+    }
+    public function pagar_feria_activos(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect(base_url() . 'cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $this->Cliente_model->get_cliente_data($user_id);
+        $data['carros_pendientes'] = $this->Cliente_model->get_carros_asignados_cliente($user_id);
+        if ($this->Cliente_model->get_carros_cliente($user_id)) {
+
+            $data['carros'] = $this->Cliente_model->get_carros_cliente_activos($user_id);
+        } else {
+            $data['carros'] = false;
+        }
+        //$data['carros']=
+
+        echo $this->templates->render('public/pagar_activos_feria', $data);
+    }
+    function procesar_pago_feria_activos(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect(base_url() . 'cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+        $carros = $this->Cliente_model->get_carros_cliente_activos($user_id);
+	    //print_contenido($_POST);
+	    //print_contenido($carros);
+        $carro_pagar_feria = array();
+
+        print_contenido($this->session->userdata());
+        print_contenido($_SESSION);
+
+        foreach ($carros->result() as $carro) {
+           // print_contenido($carro);
+            $radio = $this->input->post('r_'.$carro->id_carro);
+            $id_carro = $carro->id_carro;
+
+            if($id_carro == $radio){
+
+                $datos_carro = array(
+                    $id_carro,
+                    $this->input->post('precio_feria_'.$carro->id_carro)
+                );
+                $_SESSION['carro_'.$id_carro] = $datos_carro;
+                print_contenido($datos_carro);
+                $this->session->set_userdata($datos_carro);
+                echo 'si se selecciono';
+
+                echo $id_carro;
+                echo 'precio de carro '. $this->input->post('precio_feria_'.$carro->id_carro);
+            }
+
+
+        }
+        //$this->session->set_userdata($carro_pagar_feria);
 
     }
     public function verificar_codigo_carro(){
