@@ -588,13 +588,13 @@ $t4x4_n = array(
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <input id="a_carro_min" name="a_carro_min" type="number"
-                                               min="1952" max="2019"
+                                               min="1952" max="2030"
                                                placeholder="Del año:"/>
                                         <label for="icon_prefix">Del año:</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="a_carro_max" name="a_carro_max" type="number"
-                                               min="1952" max="2019"
+                                               min="1952" max="2030"
                                                placeholder="Al año:"/>
                                         <label for="icon_prefix">Al año:</label>
                                     </div>
@@ -760,10 +760,10 @@ $t4x4_n = array(
     //Año de carro
     aCarroSlider = document.getElementById('a_carro');
     noUiSlider.create(aCarroSlider, {
-        start: [1952, 2019],
+        start: [1952, 2030],
         range: {
             'min': [1952],
-            'max': [2019]
+            'max': [2030]
         },
         step: 1,
         format: wNumb({

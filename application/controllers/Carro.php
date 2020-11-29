@@ -735,7 +735,7 @@ class Carro extends Base_Controller
                 );
                 $_SESSION['carro_'.$id_carro] = $datos_carro;
                 print_contenido($datos_carro);
-                $this->session->set_userdata($datos_carro);
+                //$this->session->set_userdata($datos_carro);
                 echo 'si se selecciono';
 
                 echo $id_carro;
