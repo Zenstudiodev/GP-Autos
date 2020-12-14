@@ -139,7 +139,7 @@ if($numero_a_atendar){
                                 <tr>
                                     <td>
                                         <a class="btn btn-success btn-large"
-                                           href='https://wa.me/502<?php echo $numero_a_atendar->bt_telefono ?>&text=<?php echo urlencode('Te saludamos de *GPAUTOS.NET  El predio virtual mas grande de Guatemala !!!* La manera mas efectiva de vender tu carro.') ?>'
+                                           href='https://wa.me/502<?php echo $numero_a_atendar->bt_telefono ?>?text=<?php echo urlencode('Te saludamos de *GPAUTOS.NET  El predio virtual mas grande de Guatemala !!!* La manera mas efectiva de vender tu carro.') ?>'
                                            target="_blank"> whatsApp</a>
                                     </td>
                                     <td>

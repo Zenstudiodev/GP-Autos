@@ -62,6 +62,17 @@
                 <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i> trash</a></li>
             </ul>
         </li>-->
+        <!--<li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i> new message</a></li>
+                <li class="divider"></li>
+                <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i> inbox</a></li>
+                <li class="divider"></li>
+                <li><a class="sOutbox" title="" href="#"><i class="icon-arrow-up"></i> outbox</a></li>
+                <li class="divider"></li>
+                <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i> trash</a></li>
+            </ul>
+        </li>-->
         <!--<li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>-->
         <li class=""><a title="" href="<?php echo base_url() ?>login/logout"><i class="icon icon-share-alt"></i> <span
                         class="text">Logout</span></a></li>
@@ -92,16 +103,19 @@
             <li><a href="<?php echo base_url() ?>admin/crear_carro_asesor"><i class="icon icon-signal"></i> <span>Subir carro (asesor)</span></a>
             </li>
         <?php } ?>
+
+
         <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') { ?>
-            <li><a href="<?php echo base_url() ?>marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a>
-            </li>
-        <?php } ?>
-        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') { ?>
-            <li><a href="<?php echo base_url() ?>marketing/bajar_numero"><i class="icon icon-file"></i> <span>Bajar número</span></a>
-            </li>
-        <?php } ?>
-        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') { ?>
-            <li><a href="<?php echo base_url() ?>marketing/seguimientos"><i class="icon icon-file"></i> <span>Seguimientos</span></a>
+            <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Seguimiento Marketing</span> <!--<span class="label label-important">5</span>--></a>
+                <ul>
+                    <li><a href="<?php echo base_url() ?>marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a>
+                    </li>
+                    <li><a href="<?php echo base_url() ?>marketing/bajar_numero"><i class="icon icon-file"></i> <span>Bajar número</span></a>
+                    </li>
+                    <li><a href="<?php echo base_url() ?>marketing/seguimientos"><i class="icon icon-file"></i> <span>Seguimientos</span></a>
+                    </li>
+                   <!-- <li><a href="<?php /*echo base_url() */?>predio/registros_predios">Registros</a></li>-->
+                </ul>
             </li>
         <?php } ?>
         <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'marketing') { ?>
@@ -144,7 +158,16 @@
             <li><a href="<?php echo base_url() ?>admin/ver_clientes_forceos"><i class="icon icon-file"></i> <span>Usuarios force sos</span></a>
             </li>
         <?php } ?>
-
+        <?php if ($rol == 'gerente' || $rol == 'developer') { ?>
+        <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Seguimiento predios</span> <!--<span class="label label-important">5</span>--></a>
+            <ul>
+                <li><a href="<?php echo base_url() ?>predio/capturar_numeros">Capturar número</a></li>
+                <li><a href="<?php echo base_url() ?>predio/bajar_numero">Bajar número</a></li>
+                <li><a href="<?php echo base_url() ?>predio/seguimientos">seguimientos</a></li>
+                <li><a href="<?php echo base_url() ?>predio/registros_predios">Registros</a></li>
+            </ul>
+        </li>
+        <?php } ?>
 
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
         <li ><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>

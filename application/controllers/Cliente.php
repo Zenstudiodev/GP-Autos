@@ -177,7 +177,6 @@ class Cliente extends Base_Controller
 
 
     }
-
     public function perfil()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -201,7 +200,6 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/perfil', $data);
     }
-
     public function seleccion_anuncio()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -227,7 +225,6 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/seleccion_anuncio', $data);
     }
-
     public function seleccion_anuncio_dev()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -251,7 +248,6 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/seleccion_anuncio_dev', $data);
     }
-
     public function forma_pago()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -345,7 +341,6 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/forma_pago', $data);
 
     }
-
     public function datos_pago()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -439,7 +434,6 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/datos_pago', $data);
     }
-
     public function pago_deposito()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -456,7 +450,6 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/pago_deposito', $data);
     }
-
     public function pago_efectivo()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -473,7 +466,6 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/pago_efectivo', $data);
     }
-
     public function guarda_pago_efectivo()
     {
         //comprobacion de sesion y datos de usuario
@@ -576,7 +568,6 @@ class Cliente extends Base_Controller
             redirect(base_url() . 'cliente/publicar_carro_vip');
         }
     }
-
     public function guarda_pago_deposito()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -600,7 +591,6 @@ class Cliente extends Base_Controller
         redirect(base_url() . 'Cliente/revisar_anuncio/' . $this->input->post('carro_id'));
 
     }
-
     public function guardar_pago_en_linea()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -717,7 +707,7 @@ class Cliente extends Base_Controller
         $billTo->firstName = $datos_usuario->first_name;
         $billTo->lastName = $datos_usuario->last_name;
         $billTo->street1 = $direccion_factura;
-        $billTo->city = $data['ubicacion_anuncio'];
+        //$billTo->city = $data['ubicacion_anuncio'];
         $billTo->state = $data['ubicacion_anuncio'];
         $billTo->postalCode = '01010';
         $billTo->country = 'GT';
@@ -951,7 +941,6 @@ class Cliente extends Base_Controller
         // This section will show all the reply fields.
         // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
     }
-
     public function guardar_pago_en_linea_feria()
     {
 
@@ -1126,14 +1115,12 @@ class Cliente extends Base_Controller
         // This section will show all the reply fields.
         // print("\nCAPTRUE RESPONSE: " . print_contenido($captureReply, true));
     }
-
     public function gracias_pago_feria()
     {
         $data = cargar_componentes_buscador();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         echo $this->templates->render('public/public_pago_feria_gracias', $data);
     }
-
     //notificacion de carro
     public function notiticacion_pago($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago)
     {
@@ -1178,7 +1165,6 @@ class Cliente extends Base_Controller
         //enviar correo
         $this->email->send();
     }
-
     public function notiticacion_pago_feria($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago, $carro_id)
     {
 
@@ -1220,7 +1206,6 @@ class Cliente extends Base_Controller
         //enviar correo
         $this->email->send();
     }
-
     public function notiticacion_error_pago($cliente_id, $correo, $nombre, $monto, $anuncio, $metodo_pago, $error)
     {
 
@@ -1265,7 +1250,6 @@ class Cliente extends Base_Controller
         //enviar correo
         $this->email->send();
     }
-
     public function publicar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1290,7 +1274,6 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/publicar_carro', $data);
 
     }
-
     public function publicar_carro_vip()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1315,7 +1298,6 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/publicar_carro_vip', $data);
 
     }
-
     public function editar_precio()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1341,7 +1323,6 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/editar_precio', $data);
     }
-
     public function editar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1367,7 +1348,6 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/editar_carro', $data);
     }
-
     public function llenar_carro_asignado()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1393,7 +1373,6 @@ class Cliente extends Base_Controller
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
         echo $this->templates->render('public/llenar_carro_asignado', $data);
     }
-
     public function guardar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1476,7 +1455,6 @@ class Cliente extends Base_Controller
 
 
     }
-
     public function guardar_carro_vip()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1541,7 +1519,6 @@ class Cliente extends Base_Controller
         $carro_id = $this->Carros_model->crear_carro_public($datos);
         redirect('cliente/subir_fotos/' . $carro_id);
     }
-
     public function guardar_editar_carro()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -2286,9 +2263,9 @@ class Cliente extends Base_Controller
                         (
                             "codigoEstablecimiento" => "2",
                             "idDispositivo" => "001",
-                            "serieAutorizada" => "GP01",
-                            "numeroResolucion" => "2019568702922229",
-                            "fechaResolucion" => "2019-10-02",
+                            "serieAutorizada" => "GP01A",
+                            "numeroResolucion" => "2020568702925836",
+                            "fechaResolucion" => "2020-07-31",
                             "tipoDocumento" => "FACE",
                             "serieDocumento" => "63",
                             "nitGface" => "55396127",
