@@ -53,6 +53,7 @@ class Usuarios_model extends CI_Model
             'username'=> $data['username'],
             'email'=> $data['correo'],
             'password'=> $data['clave'],
+            'telefono'=> $data['telefono'],
             'nombre'=> $data['nombre'],
             'rol'=> $data['rol'],
             'carros_activos'=> $data['carro_activos'],

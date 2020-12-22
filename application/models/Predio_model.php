@@ -28,13 +28,19 @@ class Predio_model extends CI_Model
     }
     //predios activos
     function predios_activos(){
-        $this->db->where('prv_estatus', 'Alta');
+        $this->db->where('prv_estatus !=', 'Baja');
         $query = $this->db->get('predio_virtual');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
 	function predios_admin(){
+        $query = $this->db->get('predio_virtual');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function predios_baja(){
+        $this->db->where('prv_estatus', 'baja');
         $query = $this->db->get('predio_virtual');
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -79,9 +85,16 @@ class Predio_model extends CI_Model
         $fecha = New DateTime();
 
         $datos = array(
+            'prv_tipo'=> $predio['tipo_predio'],
             'prv_nombre'=> $predio['nombre'],
-            'prv_direccion'=> $predio['diercción'],
+            'prv_direccion'=> $predio['direccion'],
             'prv_telefono'=> $predio['telefono'],
+            'prv_departamento'=> $predio['id_departamento'],
+            'prv_municipio'=> $predio['id_municipio'],
+            'prv_zona'=> $predio['zona'],
+            'prv_manta'=> $predio['manta'],
+            'prv_material_pop'=> $predio['material_pop'],
+            'prv_ruta'=> $predio['ruta'],
             'prv_descripcion'=> $predio['descripcion'],
             'prv_img'=> $predio['imagen'],
             'prv_estatus'=> $predio['estado'],
@@ -95,15 +108,24 @@ class Predio_model extends CI_Model
     }
     function actualizar_predio($predio){
         $datos = array(
+            'prv_tipo'=> $predio['tipo_predio'],
             'prv_nombre'=> $predio['nombre'],
-            'prv_direccion'=> $predio['diercción'],
+            'prv_direccion'=> $predio['direccion'],
             'prv_telefono'=> $predio['telefono'],
+            'prv_departamento'=> $predio['id_departamento'],
+            'prv_municipio'=> $predio['id_municipio'],
+            'prv_zona'=> $predio['zona'],
+            'prv_manta'=> $predio['manta'],
+            'prv_material_pop'=> $predio['material_pop'],
+            'prv_ruta'=> $predio['ruta'],
             'prv_descripcion'=> $predio['descripcion'],
             'prv_img'=> $predio['imagen'],
             'prv_estatus'=> $predio['estado'],
             'carros_activos'=> $predio['carros_activos'],
             'carros_permitidos'=> $predio['carros_permitidos']
         );
+
+
         $this->db->where('id_predio_virtual', $predio['id']);
         $query = $this->db->update('predio_virtual',$datos);
 
@@ -115,6 +137,13 @@ class Predio_model extends CI_Model
         else return false;
 
 
+    }
+
+    function get_users_predio($predio_id){
+        $this->db->where('predio_id', $predio_id);
+        $query = $this->db->get('users_b');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
     }
 
     function guardar_numero($data)

@@ -62,6 +62,21 @@ class Admin_model extends CI_Model
 
     }
 
+
+    //ubicacion perdios
+    public function get_departamentos(){
+        $query = $this->db->get('departamentos');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    public function get_municipios_departamento($departamento_id){
+        $this->db->where('id_departamento', $departamento_id);
+        $this->db->from('municipios');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
     //codigos de descuento
     public function guardar_codigo_descuento($datos_cupon){
         $datos = array(

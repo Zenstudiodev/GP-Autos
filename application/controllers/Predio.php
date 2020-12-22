@@ -325,6 +325,18 @@ class Predio extends Base_Controller
 
         echo 'actualizado';
     }
+    public function visitas(){
+        $data = compobarSesion();
+        $data['tipos'] = $this->Carros_model->tipos_vehiculo();
+        $data['parametro_numeros'] = $this->Admin_model->get_telefonos_bolsa();
+        // echo $data['user_id'];
+        //$data['numeros_ingresados_user'] = $this->Predio_model->get_numeros_ingresados_dia_user($data['user_id']);
+        $data['numero_a_atendar'] = $this->Predio_model->bajar_numero_bosla($data['user_id']);
+        $data['seguimientos'] = $this->Predio_model->get_seguimientos_by_user_id($data['user_id']);
+        $data['carros_individuales_publicados']= $this->Predio_model->get_carros_individuales_publicados_en_el_mes();
+        $data['carros_pv9_publicados']= $this->Predio_model->get_carros_pv9_publicados_en_el_mes();
+        echo $this->templates->render('admin/admin_seguimiento_numeros', $data);
+    }
 
     //buscar registros
     public function registros_en_bolsa_by_id()

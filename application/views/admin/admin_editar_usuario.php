@@ -50,7 +50,7 @@ foreach ($predios->result() as $predio)
         <pre>
 
             <?php
-            print_r($usuario);
+            //print_r($usuario);
             ?>
 
         </pre>
@@ -80,6 +80,12 @@ foreach ($predios->result() as $predio)
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="correo" class="col-sm-2 control-label">Teléfono</label>
+                                    <div class="col-sm-10">
+                                        <input type="tel" class="form-control" placeholder="Teléfono" id="telefono" name="telefono" value="<?php echo $usuario->telefono?>"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="nombre" class="col-sm-2 control-label">Clave</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" placeholder="Clave" id="clave" name="clave" value="<?php echo $usuario->password?>"/>
@@ -91,16 +97,29 @@ foreach ($predios->result() as $predio)
                                         <input type="text" class="form-control" placeholder="Nombre" id="nombre" name="nombre" value="<?php echo $usuario->nombre?>"/>
                                     </div>
                                 </div>
+                                <?php
+                                //Estado
+                                $rol_select   = array(
+                                    'name'     => 'rol',
+                                    'id'       => 'rol',
+                                    'class'    => ' browser-default form-control',
+                                    'required' => 'required'
+                                );
+                                $estado_select_options = array(
+                                    "developer" => "developer",
+                                    "gerente" => "gerente",
+                                    "Predio" => "Predio",
+                                    "Editor" => "Editor",
+                                    "Externo" => "Externo",
+                                    "Asesor" => "Asesor",
+                                    "marketing" => "marketing",
+                                );
+                                ?>
+
                                 <div class="form-group">
                                     <label for="rol" class="col-sm-2 control-label">ROL</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="rol" name="rol">
-                                            <option value="predio">Predio</option>
-                                            <option value="editor">Editor</option>
-                                            <option value="externo">Externo</option>
-                                            <option value="asesor">Asesor</option>
-                                            <option value="marketing">marketing</option>
-                                        </select>
+                                        <?php echo form_dropdown($rol_select, $estado_select_options, $usuario->rol) ?>
                                     </div>
                                 </div>
                                 <div class="form-group">

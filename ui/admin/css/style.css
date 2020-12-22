@@ -23,3 +23,7 @@
     height: 368px;
     overflow: scroll;
 }
+
+.form-horizontal .controls {
+    min-height: 60px;
+}

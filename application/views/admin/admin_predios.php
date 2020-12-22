@@ -6,22 +6,23 @@
  * Time: 1:59 PM
  */
 
- $this->layout('admin/admin_master', [
-    'title'    => $title,
-    'nombre'   => $nombre,
-    'user_id'  => $user_id,
+$this->layout('admin/admin_master', [
+    'title' => $title,
+    'nombre' => $nombre,
+    'user_id' => $user_id,
     'username' => $username,
-    'rol'      => $rol,
+    'rol' => $rol,
 ]);
 
 $ci =& get_instance();
 
- ?>
+?>
 <?php $this->start('css_p') ?>
     <!--cargamos css personalizado-->
-    <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/css/select2.css" />
-    <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/css/matrix-style.css" />
-    <link rel="stylesheet" href="<?php echo base_url()?>ui/admin/css/matrix-media.css" />
+
+    <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-style.css"/>
+    <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-media.css"/>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"/>
 <?php $this->stop() ?>
 
 
@@ -35,21 +36,44 @@ $ci =& get_instance();
             <hr>
             <div class="row-fluid">
                 <div class="span12">
-                    <?php if ($predios){ ?>
+                    <?php if ($predios) {
 
-                        <div class="widget-box">
-                            <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                                <h5>Listado de predios</h5>
-                            </div>
-                            <div class="widget-content nopadding">
-                                <a class="btn btn-success" href="<?php echo base_url()?>/admin/nuevo_predio">Nuevo</a>
-                                <table class="table table-bordered data-table">
+                    //print_contenido($predios->result());
+                    ?>
+
+                    <div class="widget-box">
+                        <div>
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="active"><a
+                                            href="<?php echo base_url() ?>admin/predios"> Predios alta</a></li>
+                                <li role="presentation" class=""><a
+                                            href="<?php echo base_url() ?>/admin/predios_baja"><i
+                                                class="icon-remove"></i> predios baja</a></li>
+                            </ul>
+                        </div>
+                        <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
+                            <h5>Listado de predios</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <a class="btn btn-success" href="<?php echo base_url() ?>/admin/nuevo_predio">Nuevo</a>
+                            <div class="table-responsive">
+                                <table class="table table-bordered data-table" id="predios_tabla">
                                     <thead>
                                     <tr>
+                                        <th>Acciones</th>
                                         <th>id</th>
-                                        <th>Nombre</th>
-                                        <th width="150px">Banner</th>
+                                        <th>tipo</th>
                                         <th>estado</th>
+                                        <th>Nombre</th>
+                                        <th>Dirección</th>
+                                        <th>Teléfono</th>
+                                        <th>Departamento</th>
+                                        <th>Municipio</th>
+                                        <th>Zona</th>
+                                        <th>Manta</th>
+                                        <th>Pop</th>
+                                        <th>Ruta</th>
+                                        <th width="150px">Banner</th>
                                         <th>carros permitidos</th>
                                         <th>Carros activos</th>
                                         <th>Carros inactivos</th>
@@ -62,20 +86,82 @@ $ci =& get_instance();
                                     foreach ($predios->result() as $predio) {
                                         ?>
                                         <tr class="gradeX">
-                                            <td><?php echo  $predio->id_predio_virtual?></td>
-                                            <td><a href="<?php echo base_url().'index.php/admin/editrar_predio/'.$predio->id_predio_virtual;?>"> <?php echo  $predio->prv_nombre?></a></td>
-                                            <td><img src="<?php echo base_url().'ui/public/images/predio/'. $predio->prv_img?>" class="img-responsive"></td>
-                                            <td><?php echo  $predio->prv_estatus?></td>
-                                            <td><?php echo  $predio->carros_permitidos?></td>
-                                            <td><?php echo  $ci->Carros_model->get_carros_activos_del_predio($predio->id_predio_virtual);?></td>
-                                            <td><?php echo  $ci->Carros_model->get_carros_inactivos_del_predio($predio->id_predio_virtual);?></td>
+                                            <td><a class="btn btn-success"
+                                                   href="<?php echo base_url() . 'index.php/admin/editrar_predio/' . $predio->id_predio_virtual; ?>">Editar</a>
+                                            </td>
+                                            <td><?php echo $predio->id_predio_virtual ?></td>
+                                            <td><?php echo $predio->prv_tipo ?></td>
+                                            <td><?php echo $predio->prv_estatus ?></td>
+                                            <td>
+                                                <a href="<?php echo base_url() . 'index.php/admin/editrar_predio/' . $predio->id_predio_virtual; ?>"> <?php echo $predio->prv_nombre ?></a>
+                                            </td>
+                                            <td><?php echo $predio->prv_direccion ?></td>
+                                            <td><?php echo $predio->prv_telefono ?></td>
+                                            <td><?php echo $predio->prv_departamento ?></td>
+                                            <td><?php echo $predio->prv_municipio ?></td>
+                                            <td><?php echo $predio->prv_zona ?></td>
+                                            <td><?php echo $predio->prv_manta ?></td>
+                                            <td><?php echo $predio->prv_material_pop ?></td>
+                                            <td><?php echo $predio->prv_ruta ?></td>
+                                            <td>
+                                                <?php if (file_exists('/home2/gpautos/public_html/ui/public/images/predio/' . $predio->prv_img) and $predio->prv_img != '') { ?>
+                                                    <img src="<?php echo base_url() . 'ui/public/images/predio/' . $predio->prv_img ?>"
+                                                         class="img-responsive">
+                                                <?php } else {
+                                                } ?>
+                                            </td>
+                                            <td><?php echo $predio->carros_permitidos ?></td>
+                                            <td><?php echo $ci->Carros_model->get_carros_activos_del_predio($predio->id_predio_virtual); ?></td>
+                                            <td><?php echo $ci->Carros_model->get_carros_inactivos_del_predio($predio->id_predio_virtual); ?></td>
                                         </tr>
-                                    <?php } ?>
+                                        <?php
+                                        $usuarios_predio = usuarios_de_predio($predio->id_predio_virtual);
+
+                                        if ($usuarios_predio) { ?>
+
+                                            <tr>
+                                                <td colspan="17">
+                                                    usuarios
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="17">
+                                                    <table class="table-bordered table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Accion</th>
+                                                            <th>Nombre</th>
+                                                            <th>Celular</th>
+                                                            <th>Correo</th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php
+                                                        foreach ($usuarios_predio->result() as $usuario) { ?>
+                                                            <tr class="gradeX">
+                                                                <td><a class="btn btn-success"
+                                                                       href=" <?php echo base_url() . 'admin/editar_usuario/' . $usuario->id ?>">Editar</a>
+                                                                </td>
+                                                                <td><?php echo $usuario->nombre ?></td>
+                                                                <td><?php echo $usuario->telefono ?></td>
+                                                                <td><?php echo $usuario->email ?></td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                        </tbody>
+
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        <?php }?>
+                                        <?php }?>
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <?php
+                    </div>
+                    <?php
                     } else {
                         echo 'Aun no hay predios';
                     } ?>
@@ -83,12 +169,17 @@ $ci =& get_instance();
             </div>
         </div>
     </div>
-<?php $this->stop() ?>
+    <?php $this->stop() ?>
 
 
-<?php $this->start('js_p') ?>
-    <script src="<?php echo base_url()?>ui/admin/js/select2.min.js"></script>
-    <script src="<?php echo base_url()?>ui/admin/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url()?>ui/admin/js/matrix.js"></script>
-    <script src="<?php echo base_url()?>ui/admin/js/matrix.tables.js"></script>
-<?php $this->stop() ?>
+    <?php $this->start('js_p') ?>
+    <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>
+
+    <script>
+        /*$('#predios_tabla').DataTable({
+            //paging: false
+        });*/
+    </script>
+
+    <?php $this->stop() ?>

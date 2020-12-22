@@ -290,7 +290,7 @@ class Admin extends Base_Controller
             //$data['carros'] =$data['carros_predio'];
             $data['carros'] = $data['carros_usuario_predio'];
         }
-        if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing' || $rol == 'supervisor' ) {
+        if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing' || $rol == 'supervisor') {
             $data['carros'] = $this->Carros_model->ListarCarros_admin();
         }
 
@@ -1492,7 +1492,16 @@ class Admin extends Base_Controller
     public function predios()
     {
         $data = compobarSesion();
-        $data['predios'] = $this->Predio_model->predios_admin();
+        $data['predios'] = $this->Predio_model->predios_activos();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        echo $this->templates->render('admin/admin_predios', $data);
+    }
+    public function predios_baja()
+    {
+        $data = compobarSesion();
+        $data['predios'] = $this->Predio_model->predios_baja();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
@@ -1502,6 +1511,7 @@ class Admin extends Base_Controller
     public function nuevo_predio()
     {
         $data = compobarSesion();
+        $data['departamentos'] = $this->Admin_model->get_departamentos();
         echo $this->templates->render('admin/nuevo_predio', $data);
     }
 
@@ -1510,21 +1520,32 @@ class Admin extends Base_Controller
         $data = compobarSesion();
         $data['id_predio'] = $this->uri->segment(3);
         $data['predio'] = $this->Predio_model->get_predio_data_admin($data['id_predio']);
+
+        $data['departamentos'] = $this->Admin_model->get_departamentos();
         echo $this->templates->render('admin/admin_editar_predio', $data);
     }
+
 
     public function guardar_predio()
     {
         $post_data = array(
+            'tipo_predio' => $this->input->post('tipo_predio'),
             'nombre' => $this->input->post('nombre'),
-            'diercción' => $this->input->post('diercción'),
+            'direccion' => $this->input->post('direccion'),
             'telefono' => $this->input->post('telefono'),
+            'id_departamento' => $this->input->post('id_departamento'),
+            'id_municipio' => $this->input->post('id_municipio'),
+            'zona' => $this->input->post('zona'),
+            'manta' => $this->input->post('manta'),
+            'material_pop' => $this->input->post('material_pop'),
+            'ruta' => $this->input->post('ruta'),
             'descripcion' => $this->input->post('descripcion'),
             'imagen' => $this->input->post('imagen'),
             'estado' => $this->input->post('estado'),
             'carros_activos' => $this->input->post('carros_activos'),
             'carros_permitidos' => $this->input->post('carros_permitidos'),
         );
+
         //print_r($post_data);
         $this->Predio_model->guardar_predio($post_data);
         redirect(base_url() . 'admin/predios/');
@@ -1532,17 +1553,46 @@ class Admin extends Base_Controller
 
     public function actualizar_predio()
     {
+        /*print_contenido($_POST);
+        exit();*/
+
         $post_data = array(
             'id' => $this->input->post('id'),
+            'tipo_predio' => $this->input->post('tipo_predio'),
             'nombre' => $this->input->post('nombre'),
-            'diercción' => $this->input->post('diercción'),
+            'direccion' => $this->input->post('direccion'),
             'telefono' => $this->input->post('telefono'),
+            'id_departamento' => $this->input->post('id_departamento'),
+            'id_municipio' => $this->input->post('id_municipio'),
+            'zona' => $this->input->post('zona'),
+            'manta' => $this->input->post('manta'),
+            'material_pop' => $this->input->post('material_pop'),
+            'ruta' => $this->input->post('ruta'),
             'descripcion' => $this->input->post('descripcion'),
             'imagen' => $this->input->post('imagen'),
             'estado' => $this->input->post('estado'),
             'carros_activos' => $this->input->post('carros_activos'),
             'carros_permitidos' => $this->input->post('carros_permitidos'),
         );
+        /*
+    [id] => 9
+    [tipo_predio] => pv9
+    [nombre] => GP AUTOS
+    [direccion] => 2da Avenida 20-29 Zona 10
+    [telefono] => 2376-0404
+    [id_departamento] => 7
+    [id_municipio] => 85
+    [municipio] => 10
+    [manta] => no
+    [material_pop] => pop
+    [descripcion] => descir
+    [imagen] => gp.jpg
+    [estado] => Alta
+    [carros_activos] => 0
+    [carros_permitidos] => 0
+
+        */
+
         //print_r($post_data);
         $this->Predio_model->actualizar_predio($post_data);
         redirect(base_url() . 'admin/predios/');
@@ -1565,6 +1615,20 @@ class Admin extends Base_Controller
 
     function subir_foto_predio()
     {
+    }
+
+    function get_municipio_departamento()
+    {
+        header("Access-Control-Allow-Origin: *");
+
+        $departamento = $this->uri->segment(3);
+        //pasamos variablea al modelo
+        $departamentos = $this->Admin_model->get_municipios_departamento($departamento);
+        //imprimimos en formato json el resultado
+        if ($departamentos) {
+            echo json_encode($departamentos->result_array());
+        }
+
     }
 
     //usuarios de predios
@@ -1631,6 +1695,7 @@ class Admin extends Base_Controller
             'user_id' => $this->input->post('user_id'),
             'username' => $this->input->post('username'),
             'correo' => $this->input->post('correo'),
+            'telefono' => $this->input->post('telefono'),
             'clave' => $this->input->post('clave'),
             'nombre' => $this->input->post('nombre'),
             'rol' => $this->input->post('rol'),
@@ -1903,14 +1968,16 @@ class Admin extends Base_Controller
             //echo'dep';
         }*/
     }
-    public function dar_baja_contrato_forcesos(){
+
+    public function dar_baja_contrato_forcesos()
+    {
 
         $curl = curl_init();
         $contract = $this->input->post('contract');
 
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://webapi.forcesos.com/api/clients/".$contract,
+            CURLOPT_URL => "https://webapi.forcesos.com/api/clients/" . $contract,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,

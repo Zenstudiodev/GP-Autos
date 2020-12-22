@@ -707,7 +707,7 @@ class Cliente extends Base_Controller
         $billTo->firstName = $datos_usuario->first_name;
         $billTo->lastName = $datos_usuario->last_name;
         $billTo->street1 = $direccion_factura;
-        //$billTo->city = $data['ubicacion_anuncio'];
+        $billTo->city = $data['ubicacion_anuncio'];
         $billTo->state = $data['ubicacion_anuncio'];
         $billTo->postalCode = '01010';
         $billTo->country = 'GT';

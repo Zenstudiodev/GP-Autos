@@ -81,7 +81,7 @@
 
 <!--sidebar-menu-->
 
-<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
+<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-th"></i>Menu</a>
     <ul>
 
         <!--<li><a href="<?php /*echo base_url()*/ ?>admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>-->
@@ -161,6 +161,7 @@
         <?php if ($rol == 'gerente' || $rol == 'developer') { ?>
         <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Seguimiento predios</span> <!--<span class="label label-important">5</span>--></a>
             <ul>
+                <li><a href="<?php echo base_url() ?>predio/visitas">Visitas</a></li>
                 <li><a href="<?php echo base_url() ?>predio/capturar_numeros">Capturar número</a></li>
                 <li><a href="<?php echo base_url() ?>predio/bajar_numero">Bajar número</a></li>
                 <li><a href="<?php echo base_url() ?>predio/seguimientos">seguimientos</a></li>
