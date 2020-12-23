@@ -8,108 +8,106 @@
 
 class Predio extends Base_Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model('Admin_model');
-		$this->load->model('Carros_model');
-		$this->load->model('Banners_model');
-		$this->load->model('Predio_model');
-		$this->load->helper('carros');
-		$this->load->library("pagination");
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Admin_model');
+        $this->load->model('Carros_model');
+        $this->load->model('Banners_model');
+        $this->load->model('Predio_model');
+        $this->load->helper('carros');
+        $this->load->library("pagination");
+    }
 
-	function index()
-	{
+    function index()
+    {
 
-		$data['carros']       = $this->Carros_model->get_carros_frontPage();
-		$data['tipos']        = $this->Carros_model->tipos_vehiculo();
-		$data['marca']        = $this->Carros_model->marca_vehiculo();
-		$data['combustibles'] = $this->Carros_model->combustible_vehiculo();
-		$data['ubicaciones']  = $this->Carros_model->ubicaciones_vehiculo();
-		echo $this->templates->render('public/public_home', $data);
+        $data['carros'] = $this->Carros_model->get_carros_frontPage();
+        $data['tipos'] = $this->Carros_model->tipos_vehiculo();
+        $data['marca'] = $this->Carros_model->marca_vehiculo();
+        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
+        $data['ubicaciones'] = $this->Carros_model->ubicaciones_vehiculo();
+        echo $this->templates->render('public/public_home', $data);
 
-	}
+    }
 
-	function ver()
-	{
+    function ver()
+    {
         $data = cargar_componentes_buscador();
-		//obtenemos el id del carro desde el segmento de url
-		$data['segmento'] = $this->uri->segment(3);
-		if (!$data['segmento'])
-		{
-			//TODO  redirigir a vista de listao de carros
-			//redirect('prospectos/prospectosList', 'refresh');
-		}
+        //obtenemos el id del carro desde el segmento de url
+        $data['segmento'] = $this->uri->segment(3);
+        if (!$data['segmento']) {
+            //TODO  redirigir a vista de listao de carros
+            //redirect('prospectos/prospectosList', 'refresh');
+        }
 
 
-		//numero de resultados
-		$data['numero_resultados'] = $this->Carros_model->get_predio_number_result($data['segmento']);
+        //numero de resultados
+        $data['numero_resultados'] = $this->Carros_model->get_predio_number_result($data['segmento']);
 
 
-		//pagination
-		$config = array();
-		$config["base_url"] = base_url() . "predio/ver/".$data['segmento'];
-		$config["total_rows"] = $data['numero_resultados'];
-		$config["per_page"] = 20;
-		$config["uri_segment"] =4;
-		$config["full_tag_open"] = '<ul class="pagination">';
-		$config["full_tag_close"] = '</ul>';
-		$config["num_tag_open"] = '<li class="waves-effect">';
-		$config["num_tag_close"] = '</li>';
-		$config["cur_tag_open"] = '<li class="active"><a>';
-		$config["cur_tag_close"] = '</a></li>';
-		$config["first_tag_open"] = '<li class="waves-effect">';
-		$config["first_tag_close"] = '</li>';
-		$config["last_tag_open"] = '<li class="waves-effect">';
-		$config["last_tag_close"] = '</li>';
-		$config["next_tag_open"] = '<li class="waves-effect">';
-		$config["next_tag_close"] = '</li>';
-		$config["prev_tag_open"] = '<li class="waves-effect">';
-		$config["prev_tag_close"] = '</li>';
+        //pagination
+        $config = array();
+        $config["base_url"] = base_url() . "predio/ver/" . $data['segmento'];
+        $config["total_rows"] = $data['numero_resultados'];
+        $config["per_page"] = 20;
+        $config["uri_segment"] = 4;
+        $config["full_tag_open"] = '<ul class="pagination">';
+        $config["full_tag_close"] = '</ul>';
+        $config["num_tag_open"] = '<li class="waves-effect">';
+        $config["num_tag_close"] = '</li>';
+        $config["cur_tag_open"] = '<li class="active"><a>';
+        $config["cur_tag_close"] = '</a></li>';
+        $config["first_tag_open"] = '<li class="waves-effect">';
+        $config["first_tag_close"] = '</li>';
+        $config["last_tag_open"] = '<li class="waves-effect">';
+        $config["last_tag_close"] = '</li>';
+        $config["next_tag_open"] = '<li class="waves-effect">';
+        $config["next_tag_close"] = '</li>';
+        $config["prev_tag_open"] = '<li class="waves-effect">';
+        $config["prev_tag_close"] = '</li>';
 
-		$this->pagination->initialize($config);
-		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-		$data["links"] = $this->pagination->create_links();
+        $this->pagination->initialize($config);
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+        $data["links"] = $this->pagination->create_links();
 
-		$data['banners'] = $this->Banners_model->banneers_activos();
+        $data['banners'] = $this->Banners_model->banneers_activos();
 
 
-        $data['predio']       = $this->Predio_model->get_predio_data($data['segmento']);
+        $data['predio'] = $this->Predio_model->get_predio_data($data['segmento']);
         $predio = $data['predio']->row();
-        if($predio->prv_estatus == 'Alta'){
-            $data['carros']       = $this->Carros_model->get_carros_for_predio($data['segmento'],$config["per_page"], $page);
-        }else{
+        if ($predio->prv_estatus == 'Alta') {
+            $data['carros'] = $this->Carros_model->get_carros_for_predio($data['segmento'], $config["per_page"], $page);
+        } else {
             $data['predio'] = false;
             $data['carros'] = false;
         }
 
 
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        echo $this->templates->render('public/public_predio', $data);
+    }
 
-		$data['header_banners'] = $this->Banners_model->header_banners_activos();
-		echo $this->templates->render('public/public_predio', $data);
-	}
-
-	function predios_amin(){
+    function predios_amin()
+    {
 
     }
-    function listado_predio(){
+
+    function listado_predio()
+    {
         $data = cargar_componentes_buscador();
         //obtenemos el id del carro desde el segmento de url
         $data['segmento'] = $this->uri->segment(3);
-        if (!$data['segmento'])
-        {
+        if (!$data['segmento']) {
             //TODO  redirigir a vista de listao de carros
             //redirect('prospectos/prospectosList', 'refresh');
-        }
-        else
-        {
+        } else {
 
             $data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
-            if($data['carro']){
+            if ($data['carro']) {
                 $data_carro = $data['carro']->row();
-                $predio=$this->Predio_model->get_predio_data($data_carro->id_predio_virtual);
-                if($predio) {
+                $predio = $this->Predio_model->get_predio_data($data_carro->id_predio_virtual);
+                if ($predio) {
                     $predio = $predio->row();
                     if ($predio->prv_estatus == 'Baja') {
                         $data['carro'] = false;
@@ -124,7 +122,9 @@ class Predio extends Base_Controller
         echo $this->templates->render('public/lista_predios', $data);
 
     }
-    function afiliarse(){
+
+    function afiliarse()
+    {
         $data = cargar_componentes_buscador();
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         $data['predios_activos'] = $this->Predio_model->predios_activos();
@@ -133,14 +133,16 @@ class Predio extends Base_Controller
         }
         echo $this->templates->render('public/registro_predio', $data);
     }
-    function guardar_afiliacion(){
-	    //print_contenido($_POST);
-	    //predio
-	    $nombre_predio = $this->input->post('nombre_predio');
-	    $direccion_predio = $this->input->post('direccion_predio');
-	    $telefono_predio = $this->input->post('telefono_predio');
-	    $descripcion_predio = $this->input->post('descripcion_predio');
-	    $numero_carros_predio = $this->input->post('numero_carros');
+
+    function guardar_afiliacion()
+    {
+        //print_contenido($_POST);
+        //predio
+        $nombre_predio = $this->input->post('nombre_predio');
+        $direccion_predio = $this->input->post('direccion_predio');
+        $telefono_predio = $this->input->post('telefono_predio');
+        $descripcion_predio = $this->input->post('descripcion_predio');
+        $numero_carros_predio = $this->input->post('numero_carros');
         //usuario
         $user_name = $this->input->post('user_name');
         $nombre_usuario = $this->input->post('nombre_usuario');
@@ -149,21 +151,21 @@ class Predio extends Base_Controller
 
         //comprobar si existe usuario
         $exsiste = usuario_predio_existe($user_name);
-        if($exsiste){
+        if ($exsiste) {
             //flag
             $this->session->set_flashdata('mensaje', 'ya existe el nombre de usuario');
-           redirect(base_url().'predio/afiliarse');
-        }else{
+            redirect(base_url() . 'predio/afiliarse');
+        } else {
             //crear Predio
             $datos_predio = array(
-                'nombre'=> $nombre_predio,
-                'diercción'=> $direccion_predio,
-                'telefono'=> $telefono_predio,
-                'descripcion'=> $descripcion_predio,
-                'imagen'=> '',
-                'estado'=> 'pendiente',
-                'carros_activos'=> '0',
-                'carros_permitidos'=> $numero_carros_predio
+                'nombre' => $nombre_predio,
+                'diercción' => $direccion_predio,
+                'telefono' => $telefono_predio,
+                'descripcion' => $descripcion_predio,
+                'imagen' => '',
+                'estado' => 'pendiente',
+                'carros_activos' => '0',
+                'carros_permitidos' => $numero_carros_predio
             );
             $predio_id = $this->Predio_model->guardar_predio($datos_predio);
             //crar usuario
@@ -186,11 +188,15 @@ class Predio extends Base_Controller
         }
 
 
-
-
     }
-    function subir_imagen_predio(){}
-    function solicitud_recibida(){}
+
+    function subir_imagen_predio()
+    {
+    }
+
+    function solicitud_recibida()
+    {
+    }
 
     public function capturar_numeros()
     {
@@ -201,6 +207,7 @@ class Predio extends Base_Controller
         $data['numeros_ingresados_user'] = $this->Predio_model->get_numeros_ingresados_dia_user($data['user_id']);
         echo $this->templates->render('admin/admin_capturar_numero_predio', $data);
     }
+
     public function guardar_numero()
     {
         $data = compobarSesion();
@@ -229,7 +236,7 @@ class Predio extends Base_Controller
         // echo $data['user_id'];
         //$data['numeros_ingresados_user'] = $this->Predio_model->get_numeros_ingresados_dia_user($data['user_id']);
         $data['numero_a_atendar'] = $this->Predio_model->bajar_numero_bosla($data['user_id']);
-        if ($data['numero_a_atendar']){
+        if ($data['numero_a_atendar']) {
             $numero = $data['numero_a_atendar']->row();
             $asignar_registro = array(
                 'bt_user_id_atendiendo' => $data['user_id'],
@@ -241,6 +248,7 @@ class Predio extends Base_Controller
         }
         echo $this->templates->render('admin/admin_bajar_numero', $data);
     }
+
     public function guardar_seguimiento()
     {
         print_contenido($_POST);
@@ -259,6 +267,7 @@ class Predio extends Base_Controller
         $this->Predio_model->guardar_seguimiento($datos_seguimiento);
         echo 'agendado';
     }
+
     //Seguimientos
     public function seguimientos()
     {
@@ -269,11 +278,13 @@ class Predio extends Base_Controller
         //$data['numeros_ingresados_user'] = $this->Predio_model->get_numeros_ingresados_dia_user($data['user_id']);
         $data['numero_a_atendar'] = $this->Predio_model->bajar_numero_bosla($data['user_id']);
         $data['seguimientos'] = $this->Predio_model->get_seguimientos_by_user_id($data['user_id']);
-        $data['carros_individuales_publicados']= $this->Predio_model->get_carros_individuales_publicados_en_el_mes();
-        $data['carros_pv9_publicados']= $this->Predio_model->get_carros_pv9_publicados_en_el_mes();
+        $data['carros_individuales_publicados'] = $this->Predio_model->get_carros_individuales_publicados_en_el_mes();
+        $data['carros_pv9_publicados'] = $this->Predio_model->get_carros_pv9_publicados_en_el_mes();
         echo $this->templates->render('admin/admin_seguimiento_numeros', $data);
     }
-    public function actualizar_estado_seguimiento(){
+
+    public function actualizar_estado_seguimiento()
+    {
         print_contenido($_POST);
 
         $datos_seguimiento = array(
@@ -282,18 +293,20 @@ class Predio extends Base_Controller
         $this->Predio_model->actualizar_estado_seguimiento($datos_seguimiento);
 
     }
-    public function display_seguimiento_info(){
+
+    public function display_seguimiento_info()
+    {
         header("Access-Control-Allow-Origin: *");
         //OBTENEMOS VARIABLES DE LA URL
-        $id_seguimiento  = $_GET['id_seguimiento'];
+        $id_seguimiento = $_GET['id_seguimiento'];
 
         $datos_seguimiento = $this->Predio_model->get_datos_seguimiento_by_id($id_seguimiento);
         $data['datos_seguimiento'] = $datos_seguimiento;
         //imprimimos en formato json el resultado
-        if($datos_seguimiento) {
+        if ($datos_seguimiento) {
             $seguimiento = $datos_seguimiento->row();
 
-            $datos_registro =$this->Predio_model->registros_en_bolsa_by_id($seguimiento->bts_bt_id);
+            $datos_registro = $this->Predio_model->registros_en_bolsa_by_id($seguimiento->bts_bt_id);
             $data['datos_registro'] = $datos_registro;
             //echo json_encode($datos_registro->result());
             // echo json_encode($datos_seguimiento->result());
@@ -302,6 +315,7 @@ class Predio extends Base_Controller
         echo $this->templates->render('admin/admin_seguimiento_registro', $data);
 
     }
+
     public function guardar_resultado_seguimiento()
     {
         //print_contenido($_POST);
@@ -325,17 +339,17 @@ class Predio extends Base_Controller
 
         echo 'actualizado';
     }
-    public function visitas(){
+
+    public function visitas()
+    {
         $data = compobarSesion();
-        $data['tipos'] = $this->Carros_model->tipos_vehiculo();
-        $data['parametro_numeros'] = $this->Admin_model->get_telefonos_bolsa();
-        // echo $data['user_id'];
-        //$data['numeros_ingresados_user'] = $this->Predio_model->get_numeros_ingresados_dia_user($data['user_id']);
-        $data['numero_a_atendar'] = $this->Predio_model->bajar_numero_bosla($data['user_id']);
-        $data['seguimientos'] = $this->Predio_model->get_seguimientos_by_user_id($data['user_id']);
-        $data['carros_individuales_publicados']= $this->Predio_model->get_carros_individuales_publicados_en_el_mes();
-        $data['carros_pv9_publicados']= $this->Predio_model->get_carros_pv9_publicados_en_el_mes();
-        echo $this->templates->render('admin/admin_seguimiento_numeros', $data);
+        $hoy = New DateTime();
+        $ruta = dia_a_ruta($hoy);
+
+
+        $data['ruta'] = $ruta;
+        $data['predios_ruta'] = $this->Predio_model->get_predios_ruta($ruta);
+        echo $this->templates->render('admin/admin_visitas_predio', $data);
     }
 
     //buscar registros
@@ -351,7 +365,9 @@ class Predio extends Base_Controller
             echo json_encode($datos_carro->result());
         }
     }
-    public function seguimientos_by_registro(){
+
+    public function seguimientos_by_registro()
+    {
         header("Access-Control-Allow-Origin: *");
         //OBTENEMOS VARIABLES DE LA URL
         $telefono = $_GET['telefono'];
@@ -359,6 +375,7 @@ class Predio extends Base_Controller
         $data['reistros_by_number'] = $this->Predio_model->registros_en_bolsa_by_telefono($telefono);
         echo $this->templates->render('admin/admin_seguimientos_by_registro', $data);
     }
+
     public function seguimientos_by_bt_id()
     {
         header("Access-Control-Allow-Origin: *");
@@ -372,14 +389,111 @@ class Predio extends Base_Controller
         }
     }
 
-    //control de predios
-    public function registros_predios(){
+    public function marcar_ingreso()
+    {
         $data = compobarSesion();
-        $usuarios_marketing = array('10', '78');
-        $data['usuarios_marketing']= $this->Predio_model->usuarios_marketing($usuarios_marketing);
+        $data['predio_id'] = $this->uri->segment(3);
 
-        print_contenido($data['usuarios_marketing']->result());
-        echo $this->templates->render('admin/admin_registro_marketing', $data);
+        echo $this->templates->render('admin/admin_marcar_visita_predio', $data);
+
+    }
+
+    public function guardar_ingreso()
+    {
+
+        //print_contenido($_POST);
+        $datos = array(
+            'user_id' => $this->input->post('user_id'),
+            'visita_ubicacion_lat' => $this->input->post('latitud'),
+            'visita_ubicacion_log' => $this->input->post('longitud'),
+            'visita_predio_id' => $this->input->post('predio_id'),
+        );
+        // print_contenido($datos);
+        $telefono_id = $this->Predio_model->guardar_ingreso_visita($datos);
+        //echo $telefono_id;
+        redirect(base_url() . 'predio/visitas');
+    }
+
+    public function marcar_salida()
+    {
+        $data = compobarSesion();
+        $data['predio_id'] = $this->uri->segment(3);
+        $data['title'] = 'marcar salida';
+
+        echo $this->templates->render('admin/admin_marcar_salida_predio', $data);
+    }
+
+    public function guardar_salida()
+    {
+        $datos = array(
+            'user_id' => $this->input->post('user_id'),
+            'visita_ubicacion_lat' => $this->input->post('latitud'),
+            'visita_ubicacion_log' => $this->input->post('longitud'),
+            'visita_predio_id' => $this->input->post('predio_id'),
+            'resultado_visita' => $this->input->post('resultado_visita'),
+        );
+
+        // print_contenido($datos);
+        $telefono_id = $this->Predio_model->guardar_salida_visita($datos);
+        //echo $telefono_id;
+        redirect(base_url() . 'predio/visitas');
+    }
+
+    //control de predios
+    public function registros_predios()
+    {
+        $data = compobarSesion();
+
+        echo $this->templates->render('admin/admin_registros_visita_predios', $data);
+    }
+
+    public function registros_predios_json()
+    {
+
+        $registros_visitas_predio = $this->Predio_model->get_registro_visitas_predio();
+
+        $registros_json = array();
+        foreach ($registros_visitas_predio->result() as $registro) {
+            //print_contenido($registro);
+
+            if($registro->visita_tipo == 'entrada'){
+                $registros = array(
+                    "title" => "Ingreso Predio ".$registro->visita_predio_id,
+                    "description" => "$registro->visita_resultado",
+                    "start" => $registro->visita_fecha."T".$registro->visita_hora,
+                    "end" => $registro->visita_fecha."T".$registro->visita_hora,
+                );
+            }
+            if($registro->visita_tipo == 'salida'){
+                $registros = array(
+                    "title" => "Salida Predio ".$registro->visita_predio_id,
+                    "description" => "$registro->visita_resultado",
+                    "start" => $registro->visita_fecha."T".$registro->visita_hora,
+                    "end" => $registro->visita_fecha."T".$registro->visita_hora,
+                );
+            }
+
+            array_push($registros_json, $registros);
+
+
+
+        }
+        $registros_json = json_encode($registros_json);
+       echo $registros_json;
+
+/*echo '<hr>';
+        echo '[
+    {
+      "title": "Event 1",
+      "start": "2020-12-23T09:00:00",
+      "end": "2020-12-23T18:00:00"
+    },
+    {
+      "title": "Event 2",
+      "start": "2020-12-24",
+      "end": "2020-12-25"
+    }
+  ]';*/
     }
 
 }

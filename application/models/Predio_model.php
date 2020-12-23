@@ -308,6 +308,60 @@ class Predio_model extends CI_Model
         return $insert_id;
     }
 
+    //visiatas predio
+    function get_predios_ruta($ruta){
+        $this->db->where('prv_ruta', $ruta);
+        $query = $this->db->get('predio_virtual');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+    function guardar_ingreso_visita($resultado)
+    {
+        $fecha = New DateTime();
+        $datos = array(
+            'visita_tipo' => 'entrada',
+            'visita_user_id' => $resultado['user_id'],
+            'visita_fecha' => $fecha->format('Y-m-d'),
+            'visita_hora' => $fecha->format('H:i:s'),
+            'visita_ubicacion_lat' => $resultado['visita_ubicacion_lat'],
+            'visita_ubicacion_log' => $resultado['visita_ubicacion_log'],
+            'visita_predio_id' => $resultado['visita_predio_id'],
+
+        );
+        $this->db->insert('visitas_predio', $datos);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+    }
+    function guardar_salida_visita($resultado)
+    {
+        $fecha = New DateTime();
+        $datos = array(
+            'visita_tipo' => 'salida',
+            'visita_user_id' => $resultado['user_id'],
+            'visita_fecha' => $fecha->format('Y-m-d'),
+            'visita_hora' => $fecha->format('H:i:s'),
+            'visita_ubicacion_lat' => $resultado['visita_ubicacion_lat'],
+            'visita_ubicacion_log' => $resultado['visita_ubicacion_log'],
+            'visita_predio_id' => $resultado['visita_predio_id'],
+            'visita_resultado' => $resultado['resultado_visita'],
+
+        );
+        $this->db->insert('visitas_predio', $datos);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+    }
+
+    function get_registro_visitas_predio(){
+
+        $query = $this->db->get('visitas_predio');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+
+
+
     //agenda de seguimientos
     function get_seguimientos_by_user_id($user_id)
     {
