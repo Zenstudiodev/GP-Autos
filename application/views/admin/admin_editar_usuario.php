@@ -108,10 +108,10 @@ foreach ($predios->result() as $predio)
                                 $estado_select_options = array(
                                     "developer" => "developer",
                                     "gerente" => "gerente",
-                                    "Predio" => "Predio",
-                                    "Editor" => "Editor",
-                                    "Externo" => "Externo",
-                                    "Asesor" => "Asesor",
+                                    "predio" => "predio",
+                                    "editor" => "editor",
+                                    "externo" => "externo",
+                                    "asesor" => "asesor",
                                     "marketing" => "marketing",
                                 );
                                 ?>

@@ -97,7 +97,7 @@ $ci =& get_instance();
                                             </td>
                                             <td><?php echo $predio->prv_direccion ?></td>
                                             <td><?php echo $predio->prv_telefono ?></td>
-                                            <td><?php echo $predio->prv_departamento ?></td>
+                                            <td><?php echo id_departamento_a_nombre($predio->prv_departamento) ?></td>
                                             <td><?php echo $predio->prv_municipio ?></td>
                                             <td><?php echo $predio->prv_zona ?></td>
                                             <td><?php echo $predio->prv_manta ?></td>
@@ -114,46 +114,7 @@ $ci =& get_instance();
                                             <td><?php echo $ci->Carros_model->get_carros_activos_del_predio($predio->id_predio_virtual); ?></td>
                                             <td><?php echo $ci->Carros_model->get_carros_inactivos_del_predio($predio->id_predio_virtual); ?></td>
                                         </tr>
-                                        <?php
-                                        $usuarios_predio = usuarios_de_predio($predio->id_predio_virtual);
 
-                                        if ($usuarios_predio) { ?>
-
-                                            <tr>
-                                                <td colspan="17">
-                                                    usuarios
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="17">
-                                                    <table class="table-bordered table">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Accion</th>
-                                                            <th>Nombre</th>
-                                                            <th>Celular</th>
-                                                            <th>Correo</th>
-
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <?php
-                                                        foreach ($usuarios_predio->result() as $usuario) { ?>
-                                                            <tr class="gradeX">
-                                                                <td><a class="btn btn-success"
-                                                                       href=" <?php echo base_url() . 'admin/editar_usuario/' . $usuario->id ?>">Editar</a>
-                                                                </td>
-                                                                <td><?php echo $usuario->nombre ?></td>
-                                                                <td><?php echo $usuario->telefono ?></td>
-                                                                <td><?php echo $usuario->email ?></td>
-                                                            </tr>
-                                                        <?php } ?>
-                                                        </tbody>
-
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        <?php }?>
                                         <?php }?>
 
                                     </tbody>
@@ -177,9 +138,9 @@ $ci =& get_instance();
     <script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>
 
     <script>
-        /*$('#predios_tabla').DataTable({
+        $('#predios_tabla').DataTable({
             //paging: false
-        });*/
+        });
     </script>
 
     <?php $this->stop() ?>
