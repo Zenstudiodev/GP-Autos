@@ -68,24 +68,30 @@
 
 
         <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor' || $rol == 'marketing') { ?>
-            <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Seguimiento Marketing</span> <!--<span class="label label-important">5</span>--></a>
+            <li class="submenu"><a href="#"><i class="icon icon-file"></i> <span>Seguimiento Marketing</span>
+                    <!--<span class="label label-important">5</span>--></a>
                 <ul>
-                    <li><a href="<?php echo base_url() ?>marketing/capturar_numeros"><i class="icon icon-file"></i> <span>Captura de números</span></a>
+                    <li><a href="<?php echo base_url() ?>marketing/capturar_numeros"><i class="icon icon-file"></i>
+                            <span>Captura de números</span></a>
                     </li>
                     <li><a href="<?php echo base_url() ?>marketing/bajar_numero"><i class="icon icon-file"></i> <span>Bajar número</span></a>
                     </li>
                     <li><a href="<?php echo base_url() ?>marketing/seguimientos"><i class="icon icon-file"></i> <span>Seguimientos</span></a>
                     </li>
-                   <!-- <li><a href="<?php /*echo base_url() */?>predio/registros_predios">Registros</a></li>-->
+                    <!-- <li><a href="<?php /*echo base_url() */ ?>predio/registros_predios">Registros</a></li>-->
                 </ul>
             </li>
         <?php } ?>
-        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'marketing') { ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'marketing' || $rol == 'supervisor_predio') { ?>
             <li><a href="<?php echo base_url() ?>admin/predios"><i class="icon icon-file"></i> <span>Predios</span></a>
             </li>
+        <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'marketing') { ?>
+
             <li><a href="<?php echo base_url() ?>admin/usuarios"><i class="icon icon-file"></i>
                     <span>Usuarios</span></a></li>
-            <li><a href="<?php echo base_url() ?>admin/pendientes"><i class="icon icon-file"></i> <span>vahiculos pendientes</span></a>
+            <li><a href="<?php echo base_url() ?>admin/pendientes"><i class="icon icon-file"></i>
+                    <span>vahiculos pendientes</span></a>
             </li>
         <?php } ?>
         <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'editor') { ?>
@@ -99,7 +105,7 @@
         <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'supervisor') { ?>
             <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>Reportes</span> </a>
                 <ul>
-                    <?php if ($rol == 'gerente' || $rol == 'developer' ) { ?>
+                    <?php if ($rol == 'gerente' || $rol == 'developer') { ?>
                         <li><a href="<?php echo base_url() ?>admin/trasancciones"><i class="icon icon-file"></i> <span>transacciones</span></a>
                         </li>
                     <?php } ?>
@@ -120,16 +126,21 @@
             <li><a href="<?php echo base_url() ?>admin/ver_clientes_forceos"><i class="icon icon-file"></i> <span>Usuarios force sos</span></a>
             </li>
         <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer'|| $rol == 'supervisor_predio') { ?>
+            <li><a href="<?php echo base_url() ?>predio/visitas"><i class="icon icon-file"></i> <span>Visitas</span></a></li>
+        <?php } ?>
         <?php if ($rol == 'gerente' || $rol == 'developer') { ?>
-        <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Seguimiento predios</span> <!--<span class="label label-important">5</span>--></a>
-            <ul>
-                <li><a href="<?php echo base_url() ?>predio/visitas">Visitas</a></li>
-                <li><a href="<?php echo base_url() ?>predio/capturar_numeros">Capturar número</a></li>
-                <li><a href="<?php echo base_url() ?>predio/bajar_numero">Bajar número</a></li>
-                <li><a href="<?php echo base_url() ?>predio/seguimientos">seguimientos</a></li>
-                <li><a href="<?php echo base_url() ?>predio/registros_predios">Registros</a></li>
-            </ul>
-        </li>
+
+            <li ><a href="#"><i class="icon icon-file"></i> <span>Seguimiento predios</span>
+                    <!--<span class="label label-important">5</span>--></a>
+                <ul>
+                    <!--<li><a href="<?php /*echo base_url() */?>predio/visitas">Visitas</a></li>
+                    <li><a href="<?php /*echo base_url() */?>predio/capturar_numeros">Capturar número</a></li>
+                    <li><a href="<?php /*echo base_url() */?>predio/bajar_numero">Bajar número</a></li>
+                    <li><a href="<?php /*echo base_url() */?>predio/seguimientos">seguimientos</a></li>-->
+                    <li><a href="<?php echo base_url() ?>predio/registros_predios">Registros</a></li>
+                </ul>
+            </li>
         <?php } ?>
 
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>

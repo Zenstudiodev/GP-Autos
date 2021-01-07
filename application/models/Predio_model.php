@@ -92,6 +92,9 @@ class Predio_model extends CI_Model
             'prv_departamento'=> $predio['id_departamento'],
             'prv_municipio'=> $predio['id_municipio'],
             'prv_zona'=> $predio['zona'],
+            'prv_nombre_encargado'=> $predio['nombre_encargado'],
+            'prv_telefono_encargado'=> $predio['telefono_encargado'],
+            'prv_correo_encargado'=> $predio['email_encargado'],
             'prv_manta'=> $predio['manta'],
             'prv_material_pop'=> $predio['material_pop'],
             'prv_ruta'=> $predio['ruta'],
@@ -115,6 +118,9 @@ class Predio_model extends CI_Model
             'prv_departamento'=> $predio['id_departamento'],
             'prv_municipio'=> $predio['id_municipio'],
             'prv_zona'=> $predio['zona'],
+            'prv_nombre_encargado'=> $predio['nombre_encargado'],
+            'prv_telefono_encargado'=> $predio['telefono_encargado'],
+            'prv_correo_encargado'=> $predio['email_encargado'],
             'prv_manta'=> $predio['manta'],
             'prv_material_pop'=> $predio['material_pop'],
             'prv_ruta'=> $predio['ruta'],
@@ -460,5 +466,56 @@ class Predio_model extends CI_Model
         else return false;
     }
 
+
+    //asesores predio
+
+    function get_asesores()
+    {
+
+        $query = $this->db->get('asesores_predio');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_asesores_by_predio_id($predio_id)
+    {
+        $this->db->where('asesor_predio_id', $predio_id);
+        $query = $this->db->get('asesores_predio');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_asesor_by_id($id_asesor)
+    {
+        $this->db->where('id_asesor_predio', $id_asesor);
+        $query = $this->db->get('asesores_predio');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function guardar_asesor_predio($asesor){
+        $datos = array(
+            'asesor_nombre'=> $asesor['asesor_nombre'],
+            'asesor_email'=> $asesor['asesor_email'],
+            'asesor_telefono'=> $asesor['asesor_telefono'],
+            'asesor_predio_id'=> $asesor['asesor_predio_id'],
+        );
+        $this->db->insert('asesores_predio', $datos);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+    }
+    function actualizar_asesor_predio($asesor){
+        $datos = array(
+            'asesor_nombre'=> $asesor['asesor_nombre'],
+            'asesor_email'=> $asesor['asesor_email'],
+            'asesor_telefono'=> $asesor['asesor_telefono'],
+        );
+        $this->db->where('id_asesor_predio', $asesor['id_asesor_predio']);
+        $query = $this->db->update('asesores_predio', $datos);
+
+
+
+    }
+    function borrar_asesor_predio($id_asesor){
+        $this->db->where('id_asesor_predio', $id_asesor);
+        $this->db->delete('asesores_predio');
+    }
 
 }

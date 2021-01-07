@@ -48,6 +48,34 @@ $municipios_select = array(
     'required' => 'required'
 );
 
+$nombre_encargado = array(
+    'type' => 'text',
+    'name' => 'nombre_encargado',
+    'id' => 'nombre_encargado',
+    'class' => ' form-control',
+    'placeholder' => 'Nombre encargado',
+    'value' => $predio_data->prv_nombre_encargado
+    //'disabled'    => 'disabled'
+);
+$telefono_encargado = array(
+    'type' => 'tel',
+    'name' => 'telefono_encargado',
+    'id' => 'telefono_encargado',
+    'class' => ' form-control',
+    'placeholder' => 'Teléfono encargado',
+    'value' => $predio_data->prv_telefono_encargado
+    //'disabled'    => 'disabled'
+);
+$email_encargado = array(
+    'type' => 'email',
+    'name' => 'email_encargado',
+    'id' => 'email_encargado',
+    'class' => ' form-control',
+    'placeholder' => 'Email encargado',
+    'value' => $predio_data->prv_correo_encargado
+    //'disabled'    => 'disabled'
+);
+
 $manta_select = array(
     'name' => 'manta',
     'id' => 'manta',
@@ -151,6 +179,24 @@ $manta_options = array(
                                     <div class="controls">
                                         <input type="text" class="span11 form-control" placeholder="Zona"
                                                value="<?php echo $predio_data->prv_zona ?>" id="zona" name="zona"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Nombre encargado</label>
+                                    <div class="controls">
+                                        <?php echo form_input($nombre_encargado); ?>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Teléfono encargado</label>
+                                    <div class="controls">
+                                        <?php echo form_input($telefono_encargado); ?>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Correo encargado</label>
+                                    <div class="controls">
+                                        <?php echo form_input($email_encargado); ?>
                                     </div>
                                 </div>
                                 <div class="control-group">

@@ -86,8 +86,11 @@ $ci =& get_instance();
                                     foreach ($predios->result() as $predio) {
                                         ?>
                                         <tr class="gradeX">
-                                            <td><a class="btn btn-success"
+                                            <td>
+                                                <a class="btn btn-success"
                                                    href="<?php echo base_url() . 'index.php/admin/editrar_predio/' . $predio->id_predio_virtual; ?>">Editar</a>
+                                                <a class="btn btn-info"
+                                                   href="<?php echo base_url() . 'index.php/predio/asesores_predio/' . $predio->id_predio_virtual; ?>">Asesores</a>
                                             </td>
                                             <td><?php echo $predio->id_predio_virtual ?></td>
                                             <td><?php echo $predio->prv_tipo ?></td>

@@ -343,14 +343,14 @@ $t4x4_n = array(
                     </a>
                 </div>
                 <!--CONTDOWN---->
-                <div id="feria_countDown">
+                <!--<div id="feria_countDown">
                     <div id="feria_cd_tittle">
                         La gran feria virtual termina en
                     </div>
                     <div id="getting-started"></div>
                 </div>
-                <a class="waves-effect waves-light btn red darken-2 white-text salir_feria_btn" href="<?php echo base_url(); ?>feria">Ir a feria</a>
-                <hr>
+                <a class="waves-effect waves-light btn red darken-2 white-text salir_feria_btn" href="<?php /*echo base_url(); */?>feria">Ir a feria</a>
+                <hr>-->
 
 
             </div>

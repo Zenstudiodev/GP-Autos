@@ -81,6 +81,7 @@ $this->layout('admin/admin_master', [
                                                     <td>
                                                         <a class="btn btn-success" href="<?php echo base_url() . 'predio/marcar_ingreso/' . $predio->id_predio_virtual; ?>">marcar Entrada</a>
                                                         <a class="btn btn-success"   href="<?php echo base_url() . 'predio/marcar_salida/' . $predio->id_predio_virtual; ?>">marcar Salida</a>
+                                                        <a class="btn btn-success"   href="<?php echo base_url() . 'predio/ver_carros_predio_admin/' . $predio->id_predio_virtual; ?>">Ver carros</a>
                                                     </td>
                                                     <td><?php echo $predio->id_predio_virtual ?></td>
                                                     <td><?php echo $predio->prv_tipo ?></td>

@@ -496,4 +496,88 @@ class Predio extends Base_Controller
   ]';*/
     }
 
+    public function ver_carros_predio_admin(){
+        $data = compobarSesion();
+        $predio_id = $this->uri->segment(3);
+
+        $data['carros_predio'] = $this->Predio_model->get_carros_predios($predio_id);
+        $data['predios'] = $this->Predio_model->predios_activos();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        echo $this->templates->render('admin/carros_predios_visita', $data);
+    }
+    public function asesores_predio(){
+        $data = compobarSesion();
+        $predio_id = $this->uri->segment(3);
+        $data['predio_id'] = $predio_id;
+
+        $data['asesores'] = $this->Predio_model->get_asesores_by_predio_id($predio_id);
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+
+        echo $this->templates->render('admin/asesores_predio_listado', $data);
+    }
+    public function crear_asesores_predio(){
+        $data = compobarSesion();
+        $predio_id = $this->uri->segment(3);
+
+        $data['asesores'] = $this->Predio_model->get_asesores_by_predio_id($predio_id);
+        $data['predio_id'] = $predio_id;
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        echo $this->templates->render('admin/crear_asesor_predio', $data);
+    }
+    public function guardar_asesor_predio()
+    {
+        print_contenido($_POST);
+
+        $datos = array(
+            'asesor_nombre' => $this->input->post('nombre_asesor'),
+            'asesor_email' => $this->input->post('email_asesor'),
+            'asesor_telefono' => $this->input->post('telefono_asesor'),
+            'asesor_predio_id' => $this->input->post('predio_id'),
+        );
+        // print_contenido($datos);
+        $telefono_id = $this->Predio_model->guardar_asesor_predio($datos);
+        //echo $telefono_id;
+        redirect(base_url() . 'predio/asesores_predio/'.$this->input->post('predio_id'));
+    }
+    public function editar_asesores_predio(){
+        $data = compobarSesion();
+        $asesor_id = $this->uri->segment(3);
+
+        $data['asesor_id'] = $asesor_id;
+        $data['asesor'] = $this->Predio_model->get_asesor_by_id($asesor_id);
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        echo $this->templates->render('admin/editar_asesor_predio', $data);
+    }
+    public function actualizar_asesor_predio()
+    {
+        $datos = array(
+            'id_asesor_predio' => $this->input->post('asesor_id'),
+            'asesor_nombre' => $this->input->post('nombre_asesor'),
+            'asesor_email' => $this->input->post('email_asesor'),
+            'asesor_telefono' => $this->input->post('telefono_asesor'),
+            'asesor_predio_id' => $this->input->post('predio_id'),
+        );
+        // print_contenido($datos);
+        $telefono_id = $this->Predio_model->actualizar_asesor_predio($datos);
+        //echo $telefono_id;
+        redirect(base_url() . 'predio/asesores_predio/'.$this->input->post('predio_id'));
+    }
+    public function borrar_asesores_predio(){
+        $data = compobarSesion();
+        $asesor_id = $this->uri->segment(3);
+        $this->Predio_model->borrar_asesor_predio($asesor_id);
+        $predio_id = $this->uri->segment(4);
+        redirect(base_url() . 'predio/asesores_predio/'.$predio_id);
+
+        echo $asesor_id;
+    }
+
 }

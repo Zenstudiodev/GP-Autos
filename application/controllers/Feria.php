@@ -18,12 +18,17 @@ class Feria extends Base_Controller
     }
     public function index()
     {
-        $data = cargar_componentes_buscador();
-        $data['banners'] = $this->Banners_model->banneers_activos();
-        //$data['header_banners'] = $this->Banners_model->header_banners_activos();
-        $data['header_banners'] = $this->Banners_model->header_banners_feria_activos();
-        $data['carros'] = $this->Carros_model->get_carros_frontPage_feria();
-        echo $this->templates->render('public/feria', $data);
+        if(false){
+            $data = cargar_componentes_buscador();
+            $data['banners'] = $this->Banners_model->banneers_activos();
+            //$data['header_banners'] = $this->Banners_model->header_banners_activos();
+            $data['header_banners'] = $this->Banners_model->header_banners_feria_activos();
+            $data['carros'] = $this->Carros_model->get_carros_frontPage_feria();
+            echo $this->templates->render('public/feria', $data);
+        }else{
+            redirect(base_url().'home/inicio');
+        }
+
     }
 
 }
