@@ -67,6 +67,9 @@ $this->layout('admin/admin_master', [
                                                 <th>Departamento</th>
                                                 <th>Municipio</th>
                                                 <th>Zona</th>
+                                                <th>Encargado</th>
+                                                <th>telefono encargado</th>
+                                                <th>correo encargado</th>
                                                 <th>Manta</th>
                                                 <th>Pop</th>
                                                 <th>Ruta</th>
@@ -94,6 +97,9 @@ $this->layout('admin/admin_master', [
                                                     <td><?php echo id_departamento_a_nombre($predio->prv_departamento) ?></td>
                                                     <td><?php echo id_municipio_a_nombre($predio->prv_municipio) ?></td>
                                                     <td><?php echo $predio->prv_zona ?></td>
+                                                    <td><?php echo $predio->prv_nombre_encargado ?></td>
+                                                    <td><?php echo $predio->prv_telefono_encargado ?></td>
+                                                    <td><?php echo $predio->prv_correo_encargado ?></td>
                                                     <td><?php echo $predio->prv_manta ?></td>
                                                     <td><?php echo $predio->prv_material_pop ?></td>
                                                     <td><?php echo $predio->prv_ruta ?></td>

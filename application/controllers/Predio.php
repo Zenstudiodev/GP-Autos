@@ -499,9 +499,11 @@ class Predio extends Base_Controller
     public function ver_carros_predio_admin(){
         $data = compobarSesion();
         $predio_id = $this->uri->segment(3);
+        $data['predio_id'] = $predio_id;
 
         $data['carros_predio'] = $this->Predio_model->get_carros_predios($predio_id);
         $data['predios'] = $this->Predio_model->predios_activos();
+        $data['asesores'] = $this->Predio_model->get_asesores_by_predio_id($predio_id);
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
