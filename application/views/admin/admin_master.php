@@ -129,7 +129,8 @@
         <?php if ($rol == 'gerente' || $rol == 'developer'|| $rol == 'supervisor_predio') { ?>
             <li><a href="<?php echo base_url() ?>predio/visitas"><i class="icon icon-file"></i> <span>Visitas</span></a></li>
         <?php } ?>
-        <?php if ($rol == 'gerente' || $rol == 'developer') { ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'supervisor_predio') { ?>
+            <li><a href="<?php echo base_url() ?>predio/registros_predios">Registros</a></li>
 
             <li ><a href="#"><i class="icon icon-file"></i> <span>Seguimiento predios</span>
                     <!--<span class="label label-important">5</span>--></a>

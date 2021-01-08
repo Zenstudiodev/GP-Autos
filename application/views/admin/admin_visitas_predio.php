@@ -90,7 +90,7 @@ $this->layout('admin/admin_master', [
                                                     <td><?php echo $predio->prv_tipo ?></td>
                                                     <td><?php echo $predio->prv_estatus ?></td>
                                                     <td>
-                                                        <a href="<?php echo base_url() . 'index.php/admin/editrar_predio/' . $predio->id_predio_virtual; ?>"> <?php echo $predio->prv_nombre ?></a>
+                                                         <?php echo $predio->prv_nombre ?>
                                                     </td>
                                                     <td><?php echo $predio->prv_direccion ?></td>
                                                     <td><?php echo $predio->prv_telefono ?></td>
