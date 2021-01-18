@@ -321,7 +321,6 @@ class Predio_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function guardar_ingreso_visita($resultado)
     {
         $fecha = New DateTime();
@@ -357,15 +356,12 @@ class Predio_model extends CI_Model
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
-
     function get_registro_visitas_predio(){
 
         $query = $this->db->get('visitas_predio');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
-
 
 
     //agenda de seguimientos
@@ -413,7 +409,6 @@ class Predio_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function numeros_agregados($user_id, $de, $a){
         $this->db->where('bp_user_id', $user_id);
         $this->db->where('bp_fecha_ingreso  >=', $de);

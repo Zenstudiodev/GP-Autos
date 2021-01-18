@@ -30,7 +30,6 @@ class Predio extends Base_Controller
         echo $this->templates->render('public/public_home', $data);
 
     }
-
     function ver()
     {
         $data = cargar_componentes_buscador();
@@ -87,12 +86,10 @@ class Predio extends Base_Controller
         $data['header_banners'] = $this->Banners_model->header_banners_activos();
         echo $this->templates->render('public/public_predio', $data);
     }
-
     function predios_amin()
     {
 
     }
-
     function listado_predio()
     {
         $data = cargar_componentes_buscador();
@@ -122,7 +119,6 @@ class Predio extends Base_Controller
         echo $this->templates->render('public/lista_predios', $data);
 
     }
-
     function afiliarse()
     {
         $data = cargar_componentes_buscador();
@@ -133,7 +129,6 @@ class Predio extends Base_Controller
         }
         echo $this->templates->render('public/registro_predio', $data);
     }
-
     function guardar_afiliacion()
     {
         //print_contenido($_POST);
@@ -189,15 +184,12 @@ class Predio extends Base_Controller
 
 
     }
-
     function subir_imagen_predio()
     {
     }
-
     function solicitud_recibida()
     {
     }
-
     public function capturar_numeros()
     {
         $data = compobarSesion();
@@ -207,7 +199,6 @@ class Predio extends Base_Controller
         $data['numeros_ingresados_user'] = $this->Predio_model->get_numeros_ingresados_dia_user($data['user_id']);
         echo $this->templates->render('admin/admin_capturar_numero_predio', $data);
     }
-
     public function guardar_numero()
     {
         $data = compobarSesion();
@@ -227,7 +218,6 @@ class Predio extends Base_Controller
         //echo $telefono_id;
         redirect(base_url() . 'marketing/capturar_numeros/');
     }
-
     public function bajar_numero()
     {
         $data = compobarSesion();
@@ -248,7 +238,6 @@ class Predio extends Base_Controller
         }
         echo $this->templates->render('admin/admin_bajar_numero', $data);
     }
-
     public function guardar_seguimiento()
     {
         print_contenido($_POST);
@@ -267,6 +256,10 @@ class Predio extends Base_Controller
         $this->Predio_model->guardar_seguimiento($datos_seguimiento);
         echo 'agendado';
     }
+    public function vista_busqueda_predio_asesor(){
+        $data = compobarSesion();
+        echo $this->templates->render('admin/vista_busqueda_predio_asesor', $data);
+    }
 
     //Seguimientos
     public function seguimientos()
@@ -282,7 +275,6 @@ class Predio extends Base_Controller
         $data['carros_pv9_publicados'] = $this->Predio_model->get_carros_pv9_publicados_en_el_mes();
         echo $this->templates->render('admin/admin_seguimiento_numeros', $data);
     }
-
     public function actualizar_estado_seguimiento()
     {
         print_contenido($_POST);
@@ -293,7 +285,6 @@ class Predio extends Base_Controller
         $this->Predio_model->actualizar_estado_seguimiento($datos_seguimiento);
 
     }
-
     public function display_seguimiento_info()
     {
         header("Access-Control-Allow-Origin: *");
@@ -315,7 +306,6 @@ class Predio extends Base_Controller
         echo $this->templates->render('admin/admin_seguimiento_registro', $data);
 
     }
-
     public function guardar_resultado_seguimiento()
     {
         //print_contenido($_POST);
@@ -339,7 +329,6 @@ class Predio extends Base_Controller
 
         echo 'actualizado';
     }
-
     public function visitas()
     {
         $data = compobarSesion();
@@ -365,7 +354,6 @@ class Predio extends Base_Controller
             echo json_encode($datos_carro->result());
         }
     }
-
     public function seguimientos_by_registro()
     {
         header("Access-Control-Allow-Origin: *");
@@ -375,7 +363,6 @@ class Predio extends Base_Controller
         $data['reistros_by_number'] = $this->Predio_model->registros_en_bolsa_by_telefono($telefono);
         echo $this->templates->render('admin/admin_seguimientos_by_registro', $data);
     }
-
     public function seguimientos_by_bt_id()
     {
         header("Access-Control-Allow-Origin: *");
@@ -388,7 +375,6 @@ class Predio extends Base_Controller
             echo json_encode($datos_registro->result());
         }
     }
-
     public function marcar_ingreso()
     {
         $data = compobarSesion();
@@ -397,7 +383,6 @@ class Predio extends Base_Controller
         echo $this->templates->render('admin/admin_marcar_visita_predio', $data);
 
     }
-
     public function guardar_ingreso()
     {
 
@@ -413,7 +398,6 @@ class Predio extends Base_Controller
         //echo $telefono_id;
         redirect(base_url() . 'predio/visitas');
     }
-
     public function marcar_salida()
     {
         $data = compobarSesion();
@@ -422,7 +406,6 @@ class Predio extends Base_Controller
 
         echo $this->templates->render('admin/admin_marcar_salida_predio', $data);
     }
-
     public function guardar_salida()
     {
         $datos = array(
@@ -446,7 +429,6 @@ class Predio extends Base_Controller
 
         echo $this->templates->render('admin/admin_registros_visita_predios', $data);
     }
-
     public function registros_predios_json()
     {
 
@@ -495,7 +477,6 @@ class Predio extends Base_Controller
     }
   ]';*/
     }
-
     public function ver_carros_predio_admin(){
         $data = compobarSesion();
         $predio_id = $this->uri->segment(3);

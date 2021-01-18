@@ -143,6 +143,13 @@
                 </ul>
             </li>
         <?php } ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'aseso_seguro') { ?>
+            <li>Seguros</li>
+            <li><a href="<?php echo base_url() ?>Seguros/buscar">Buscar</a></li>
+            <li><a href="<?php echo base_url() ?>Seguros/crear_cliente">Crear cliente Seguro</a></li>
+            <li><a href="<?php echo base_url() ?>Seguros/crear_poliza">Crear poliza Seguro</a></li>
+
+        <?php } ?>
 
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
         <li ><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
