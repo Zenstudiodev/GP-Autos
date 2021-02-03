@@ -23,30 +23,31 @@ $seguro_tipo = array(
     'value' => ''
     //'disabled'    => 'disabled'
 );
-$seguro_monto_poliza = array(
-    'type' => 'tel',
-    'name' => 'seguro_monto_poliza',
-    'id' => 'seguro_monto_poliza',
+
+$seguro_pagos = array(
+    'type' => 'number',
+    'name' => 'seguro_pagos',
+    'id' => 'seguro_pagos',
     'class' => ' form-control',
     'placeholder' => 'Pagos',
     'value' => ''
     //'disabled'    => 'disabled'
 );
-$seguro_pagos = array(
-    'type' => 'tel',
-    'name' => 'seguro_pagos',
-    'id' => 'seguro_pagos',
+$seguro_no_poliza = array(
+    'type' => 'text',
+    'name' => 'seguro_no_poliza',
+    'id' => 'seguro_no_poliza',
     'class' => ' form-control',
-    'placeholder' => 'Monto',
+    'placeholder' => 'No. poliza',
     'value' => ''
     //'disabled'    => 'disabled'
 );
-$seguro_no_poliza = array(
-    'type' => 'tel',
+$seguro_monto_poliza = array(
+    'type' => 'number',
     'name' => 'seguro_monto_poliza',
     'id' => 'seguro_monto_poliza',
     'class' => ' form-control',
-    'placeholder' => 'No. poliza',
+    'placeholder' => 'Monto',
     'value' => ''
     //'disabled'    => 'disabled'
 );
@@ -131,7 +132,6 @@ foreach ($predios->result() as $predio)
 
 
 
-
 ?>
 
 <?php $this->start('css_p') ?>
@@ -162,8 +162,9 @@ foreach ($predios->result() as $predio)
                         <h5>Datos del cliente</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form action="<?php echo base_url() . 'seguros/guardar_cliente_seguro' ?>" method="post"
+                        <form action="<?php echo base_url() . 'seguros/guardar_poliza_seguro' ?>" method="post"
                               class="form-horizontal">
+                            <input type="hidden" name="seguro_cliente_id" id="seguro_cliente_id" value="<?php echo $cliente_id; ?>">
                             <div class="control-group">
                                 <label class="control-label">Tipo</label>
                                 <div class="controls">
@@ -194,6 +195,7 @@ foreach ($predios->result() as $predio)
                                     <?php echo form_input($seguro_aseguradora); ?>
                                 </div>
                             </div>
+                            <input type="hidden" name="seguro_asesor_id" id="seguro_asesor_id" value="<?php echo $user_id;?>">
                             <div class="control-group">
                                 <label class="control-label">Marca carro</label>
                                 <div class="controls">
@@ -203,7 +205,7 @@ foreach ($predios->result() as $predio)
                             <div class="control-group">
                                 <label class="control-label">Linea carro</label>
                                 <div class="controls">
-                                    <?php echo form_input($seguro_carro_marca); ?>
+                                    <?php echo form_input($seguro_carro_linea); ?>
                                 </div>
                             </div>
                             <div class="control-group">

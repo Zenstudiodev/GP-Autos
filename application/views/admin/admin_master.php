@@ -126,19 +126,20 @@
             <li><a href="<?php echo base_url() ?>admin/ver_clientes_forceos"><i class="icon icon-file"></i> <span>Usuarios force sos</span></a>
             </li>
         <?php } ?>
-        <?php if ($rol == 'gerente' || $rol == 'developer'|| $rol == 'supervisor_predio') { ?>
-            <li><a href="<?php echo base_url() ?>predio/visitas"><i class="icon icon-file"></i> <span>Visitas</span></a></li>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'supervisor_predio') { ?>
+            <li><a href="<?php echo base_url() ?>predio/visitas"><i class="icon icon-file"></i> <span>Visitas</span></a>
+            </li>
         <?php } ?>
         <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'supervisor_predio') { ?>
             <li><a href="<?php echo base_url() ?>predio/registros_predios">Registros</a></li>
 
-            <li ><a href="#"><i class="icon icon-file"></i> <span>Seguimiento predios</span>
+            <li><a href="#"><i class="icon icon-file"></i> <span>Seguimiento predios</span>
                     <!--<span class="label label-important">5</span>--></a>
                 <ul>
-                    <!--<li><a href="<?php /*echo base_url() */?>predio/visitas">Visitas</a></li>
-                    <li><a href="<?php /*echo base_url() */?>predio/capturar_numeros">Capturar número</a></li>
-                    <li><a href="<?php /*echo base_url() */?>predio/bajar_numero">Bajar número</a></li>
-                    <li><a href="<?php /*echo base_url() */?>predio/seguimientos">seguimientos</a></li>-->
+                    <!--<li><a href="<?php /*echo base_url() */ ?>predio/visitas">Visitas</a></li>
+                    <li><a href="<?php /*echo base_url() */ ?>predio/capturar_numeros">Capturar número</a></li>
+                    <li><a href="<?php /*echo base_url() */ ?>predio/bajar_numero">Bajar número</a></li>
+                    <li><a href="<?php /*echo base_url() */ ?>predio/seguimientos">seguimientos</a></li>-->
                     <li><a href="<?php echo base_url() ?>predio/registros_predios">Registros</a></li>
                 </ul>
             </li>
@@ -150,6 +151,7 @@
             <li><a href="<?php echo base_url() ?>Seguros/crear_poliza">Crear poliza Seguro</a></li>
 
         <?php } ?>
+        <li class=""><a title="" href="<?php echo base_url() ?>login/logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 
         <!--<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
         <li ><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
