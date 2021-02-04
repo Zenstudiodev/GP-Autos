@@ -47,15 +47,15 @@ $comentario = array(
     'required' => 'required'
 );
 $tipo_resultado_select = array(
-    'name' => 'tipo_resultado',
-    'id' => 'tipo_resultado',
+    'name' => 'accion_seguimiento',
+    'id' => 'accion_seguimiento',
     'class' => ' form-control',
     'required' => 'required'
 );
 $tipo_resultado_select_options = array(
     "llamada" => "llamada",
-    "publicar" => "publicar",
-    "publicado" => "publicado",
+    "poliza" => "poliza",
+    "escribir" => "escribir",
     "no_interesado" => "No Interesado",
 );
 
@@ -80,7 +80,7 @@ $tipo_resultado_select_options = array(
                             <h5>Crear seguimiento</h5>
                         </div>
                         <div class="widget-content nopadding">
-                            <form id="formulario_seguimiento" class="form-horizontal">
+                            <form id="formulario_seguimiento" class="form-horizontal" method="post" action="<?php echo base_url().'seguros/guardar_seguimiento_cliente_seguro';?>">
                                 <div class="container">
                                     <div class="row">
                                         <div class="item form-group">
@@ -150,6 +150,27 @@ $tipo_resultado_select_options = array(
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12" for="name"></label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <fieldset>
+                                                    <div class="control-group">
+                                                        <div class="controls">
+                                                            <div class="input-prepend input-group">
+                                                                <div class="form-actions">
+
+                                                                    <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $cliente_id;?>">
+                                                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </form>
                         </div>

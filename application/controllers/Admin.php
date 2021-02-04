@@ -1492,11 +1492,16 @@ class Admin extends Base_Controller
     public function predios()
     {
         $data = compobarSesion();
+        $rol = $data['rol'];
         $data['predios'] = $this->Predio_model->predios_activos();
         if ($this->session->flashdata('mensaje')) {
             $data['mensaje'] = $this->session->flashdata('mensaje');
         }
+        if ($rol != 'supervisor_predio') {
         echo $this->templates->render('admin/admin_predios', $data);
+        }else{
+            echo $this->templates->render('admin/admin_buscar_predio', $data);
+        }
     }
     public function predios_baja()
     {

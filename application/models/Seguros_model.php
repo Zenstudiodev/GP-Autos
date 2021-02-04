@@ -85,23 +85,25 @@ class Seguros_model extends CI_Model
         else return false;
     }
 
-    function guardar_seguimiento_seguro($cliente){
+    public function guardar_seguimiento_seguro($seguimiento){
         //fecha
         $fecha = New DateTime();
         $datos = array(
-            'seguimiento_sc_cliente_id'=> $cliente['seguro_tipo'],
-            'seguimiento_sc_user_id'=> $cliente['seguro_cliente_id'],
-            'seguimiento_sc_tipo_seguimiento'=> $cliente['seguro_pagos'],
-            'seguimiento_sc_fecha_seguimiento'=> $cliente['seguro_monto_poliza'],
-            'seguimiento_sc_comentario'=> $cliente['seguro_no_poliza'],
-            'seguimiento_sc_accion'=> $cliente['seguro_aseguradora'],
+            'seguimiento_sc_cliente_id'=> $seguimiento['seguimiento_sc_cliente_id'],
+            'seguimiento_sc_user_id'=> $seguimiento['seguimiento_sc_user_id'],
+            'seguimiento_sc_tipo_seguimiento'=> $seguimiento['seguimiento_sc_tipo_seguimiento'],
+            'seguimiento_sc_fecha_seguimiento'=> $seguimiento['seguimiento_sc_fecha_seguimiento'],
+            'seguimiento_sc_hora_seguimiento'=> $seguimiento['seguimiento_sc_hora_seguimiento'],
+            'seguimiento_sc_comentario'=> $seguimiento['seguimiento_sc_comentario'],
+            'seguimiento_sc_accion'=> $seguimiento['seguimiento_sc_accion'],
         );
         $this->db->insert('seguimiento_seguros_creditos', $datos);
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
-    public function get_seguimientos_cliente($cliente_id){
+    public function get_seguimientos_by_cliente_id($cliente_id){
         $this->db->where('seguimiento_sc_cliente_id', $cliente_id);
+        $this->db->where('seguimiento_sc_tipo_seguimiento', 'seguro');
         $query = $this->db->get('seguimiento_seguros_creditos');
         if ($query->num_rows() > 0) return $query;
         else return false;

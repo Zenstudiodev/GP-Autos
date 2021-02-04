@@ -563,4 +563,11 @@ class Predio extends Base_Controller
         echo $asesor_id;
     }
 
+    public function predios_json(){
+
+        $data['predios_activos'] = $this->Predio_model->predios_activos();
+        $predios = $data['predios_activos']->result();
+        echo json_encode($predios);
+    }
+
 }
