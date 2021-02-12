@@ -70,6 +70,7 @@ $seguro_dpi = array(
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-style.css"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/matrix-media.css"/>
 <link rel="stylesheet" href="<?php echo base_url() ?>ui/admin/css/datepicker.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css">
 <?php $this->stop() ?>
 
 
@@ -127,6 +128,21 @@ $seguro_dpi = array(
                         </form>
                     </div>
                 </div>
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>Seguimientos</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div id='calendar'></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -138,8 +154,12 @@ $seguro_dpi = array(
 
 
 <?php $this->start('js_p') ?>
-<<script src="<?php echo base_url(); ?>/ui/vendor/EasyAutocomplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
+<script src="<?php echo base_url(); ?>/ui/vendor/EasyAutocomplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
 <script src="<?php echo base_url() ?>ui/admin/js/matrix.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
+<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/locales-all.min.js"></script>
 <!--<script src="<?php /*echo base_url() */?>ui/admin/js/matrix.form_common.js"></script>-->
 
 
@@ -147,6 +167,59 @@ $seguro_dpi = array(
 
     $(document).ready(function () {
     });
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            timeZone: 'UTC',
+            locale: 'es',
+            initialView: 'timeGridWeek',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'timeGridWeek,timeGridDay'
+            },
+            eventContent: function (arg, createElement) {
+                var innerText;
+
+                console.log(arg.event);
+                console.log(arg.event.title);
+
+                innerText = arg.event.extendedProps.description + '</br>';
+
+                // return createElement('p', {}, innerText)
+            },
+            /*eventClick: function(info) {
+                alert('Event: ' + info.event.title);
+                alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                alert('View: ' + info.view.type);
+
+                // change the border color just for fun
+                info.el.style.borderColor = 'red';
+            },*/
+            eventDidMount: function (info) {
+
+                eventContent: 'SOM,',
+                    console.log(info.event.extendedProps);
+                console.log(info.event.extendedProps.description);
+                // {description: "Lecture", department: "BioChemistry"}
+                var tooltip = new Tooltip(info.el, {
+                    title: info.event.extendedProps.description,
+                    placement: 'top',
+                    trigger: 'hover',
+                    container: 'body'
+                });
+            },
+            events: 'https://gpautos.net/Seguros/seguimientos_seguro_by_user_id_json',
+
+
+        });
+
+        calendar.render();
+
+
+    });
+
     var options_nopoliza = {
 
         url: "<?php echo base_url()?>Seguros/polizas_json",
@@ -175,7 +248,6 @@ $seguro_dpi = array(
         }
     };
     $("#seguro_no_poliza").easyAutocomplete(options_nopoliza);
-
     var options_seguro_carro_placa = {
 
         url: "<?php echo base_url()?>Seguros/polizas_json",
@@ -204,7 +276,6 @@ $seguro_dpi = array(
         }
     };
     $("#seguro_carro_placa").easyAutocomplete(options_seguro_carro_placa);
-
     var options_seguro_nombre = {
 
         url: "<?php echo base_url()?>Seguros/polizas_json",
@@ -233,7 +304,6 @@ $seguro_dpi = array(
         }
     };
     $("#seguro_nombre").easyAutocomplete(options_seguro_nombre);
-
     var options_seguro_telefono = {
 
         url: "<?php echo base_url()?>Seguros/polizas_json",
@@ -262,7 +332,6 @@ $seguro_dpi = array(
         }
     };
     $("#seguro_telefono").easyAutocomplete(options_seguro_telefono);
-
     var options_seguro_dpi = {
 
         url: "<?php echo base_url()?>Seguros/polizas_json",

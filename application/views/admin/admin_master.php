@@ -144,7 +144,7 @@
                 </ul>
             </li>
         <?php } ?>
-        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'aseso_seguro') { ?>
+        <?php if ($rol == 'gerente' || $rol == 'developer' || $rol == 'seguros') { ?>
             <li>Seguros</li>
             <li><a href="<?php echo base_url() ?>Seguros/buscar">Buscar</a></li>
             <li><a href="<?php echo base_url() ?>Seguros/crear_cliente">Crear cliente Seguro</a></li>

@@ -113,6 +113,7 @@ foreach ($predios->result() as $predio)
                                     "externo" => "externo",
                                     "asesor" => "asesor",
                                     "marketing" => "marketing",
+                                    "seguros" => "seguros",
                                 );
                                 ?>
 

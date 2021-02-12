@@ -108,5 +108,11 @@ class Seguros_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
+    public function get_seguimientos_by_user_id($user_id){
+        $this->db->where('seguimiento_sc_user_id', $user_id);
+        $this->db->where('seguimiento_sc_tipo_seguimiento', 'seguro');
+        $query = $this->db->get('seguimiento_seguros_creditos');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 }

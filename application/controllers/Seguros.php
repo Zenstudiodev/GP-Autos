@@ -43,7 +43,7 @@ class Seguros extends Base_Controller
             'cliente_seguro_telefono2' => $this->input->post('cliente_seguro_telefono2'),
             'cliente_seguro_direccion' => $this->input->post('cliente_seguro_direccion'),
             'cliente_seguro_dpi' => $this->input->post('cliente_seguro_dpi'),
-            'cliente_seguro_referido_predio_id' => $this->input->post('predio'),
+            'cliente_seguro_referido_predio_id' => $this->input->post('cliente_seguro_referido_predio_id'),
         );
 
         //print_r($post_data);
@@ -131,19 +131,49 @@ class Seguros extends Base_Controller
         $registro_seguimientos = $this->Seguros_model->get_seguimientos_by_cliente_id($cliente_id);
 
         $registros_json = array();
-        foreach ($registro_seguimientos->result() as $registro) {
-            //print_contenido($registro);
+        if($registro_seguimientos){
+            foreach ($registro_seguimientos->result() as $registro) {
+                //print_contenido($registro);
 
-            $registros = array(
-                "title" => "Accion ".$registro->seguimiento_sc_accion,
-                "description" => "$registro->seguimiento_sc_comentario",
-                "start" => $registro->seguimiento_sc_fecha_seguimiento."T".$registro->seguimiento_sc_hora_seguimiento,
-                "end" =>  $registro->seguimiento_sc_fecha_seguimiento."T".$registro->seguimiento_sc_hora_seguimiento,
-            );
+                $registros = array(
+                    "title" => "Accion ".$registro->seguimiento_sc_accion,
+                    "description" => "$registro->seguimiento_sc_comentario",
+                    "start" => $registro->seguimiento_sc_fecha_seguimiento."T".$registro->seguimiento_sc_hora_seguimiento,
+                    "end" =>  $registro->seguimiento_sc_fecha_seguimiento."T".$registro->seguimiento_sc_hora_seguimiento,
+                );
 
-            array_push($registros_json, $registros);
+                array_push($registros_json, $registros);
 
+            }
         }
+
+        $registros_json = json_encode($registros_json);
+        echo $registros_json;
+    }
+    public function seguimientos_seguro_by_user_id_json(){
+        $data = compobarSesion();
+        $user_id = $data['user_id'];
+        //echo $user_id;
+        $registro_seguimientos = $this->Seguros_model->get_seguimientos_by_user_id($user_id);
+
+        $registros_json = array();
+        if($registro_seguimientos){
+            foreach ($registro_seguimientos->result() as $registro) {
+                //print_contenido($registro);
+
+                $registros = array(
+                    "title" => "Accion ".$registro->seguimiento_sc_accion,
+                    "description" => "$registro->seguimiento_sc_comentario",
+                    "url" => base_url()."Seguros/perfil_cliente_seguro/".$registro->seguimiento_sc_cliente_id,
+                    "start" => $registro->seguimiento_sc_fecha_seguimiento."T".$registro->seguimiento_sc_hora_seguimiento,
+                    "end" =>  $registro->seguimiento_sc_fecha_seguimiento."T".$registro->seguimiento_sc_hora_seguimiento,
+                );
+
+                array_push($registros_json, $registros);
+
+            }
+        }
+
         $registros_json = json_encode($registros_json);
         echo $registros_json;
     }
