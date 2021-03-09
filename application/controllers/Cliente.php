@@ -200,6 +200,29 @@ class Cliente extends Base_Controller
 
         echo $this->templates->render('public/perfil', $data);
     }
+    public function perfil_test()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect(base_url() . 'cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $this->Cliente_model->get_cliente_data($user_id);
+        $data['carros_pendientes'] = $this->Cliente_model->get_carros_asignados_cliente($user_id);
+        if ($this->Cliente_model->get_carros_cliente($user_id)) {
+
+            $data['carros'] = $this->Cliente_model->get_carros_cliente($user_id);
+        } else {
+            $data['carros'] = false;
+        }
+        //$data['carros']=
+
+        echo $this->templates->render('public/perfil_test', $data);
+    }
     public function seleccion_anuncio()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1274,6 +1297,82 @@ class Cliente extends Base_Controller
         echo $this->templates->render('public/publicar_carro', $data);
 
     }
+    public function asignar_carro(){
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+        $datos_usuario = $this->Cliente_model->get_cliente_data($user_id);
+        $datos_usuario = $datos_usuario->row();
+
+        //print_contenido($datos_usuario->row());
+        $asignar_carro = array(
+            'crr_contacto_nombre' => $datos_usuario->first_name,
+            'crr_contacto_telefono' => $datos_usuario->phone,
+            'crr_contacto_email' => $datos_usuario->email,
+            'crr_estatus' => 'Pendiente',
+            'id_predio_virtual' => '',
+            'crr_nombre_propietario' => $datos_usuario->first_name,
+            'crr_telefono_propietario' => $datos_usuario->phone,
+            'crr_vencimiento' => $datos_usuario->email,
+            'user_id' => $user_id,
+        );
+        //print_contenido($asignar_carro);
+
+        $carro_id = $this->Carros_model->asignar_carro($asignar_carro);
+
+        redirect(base_url() . 'cliente/editar_carro_test/'.$carro_id);
+    }
+    public function editar_carro_test()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        $data['carro_id'] = $this->uri->segment(3);
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+
+        $data['tipos_cf'] = $this->Carros_model->tipos_vehiculo();
+        $data['marca_cf'] = $this->Carros_model->marca_vehiculo();
+        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
+        $data['tapiceria'] = $this->Carros_model->get_tapicerias();
+        $data['transmision'] = $this->Carros_model->get_transmision();
+        $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        echo $this->templates->render('public/editar_carro_test', $data);
+
+    }
+    public function publicar_carro_test()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $data = cargar_componentes_buscador();
+        $data['banners'] = $this->Banners_model->banneers_activos();
+        $data['header_banners'] = $this->Banners_model->header_banners_activos();
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+
+        $data['tipos_cf'] = $this->Carros_model->tipos_vehiculo();
+        $data['marca_cf'] = $this->Carros_model->marca_vehiculo();
+        $data['combustibles'] = $this->Carros_model->combustible_vehiculo();
+        $data['tapiceria'] = $this->Carros_model->get_tapicerias();
+        $data['transmision'] = $this->Carros_model->get_transmision();
+
+        echo $this->templates->render('public/publicar_carro_test', $data);
+
+    }
     public function publicar_carro_vip()
     {
         if (!$this->ion_auth->logged_in()) {
@@ -1598,6 +1697,90 @@ class Cliente extends Base_Controller
          echo '</pre>';*/
         $carro_id = $this->Carros_model->actualizar_carro_public($datos);
         redirect('cliente/perfil/');
+
+
+    }
+    public function guardar_editar_carro_test()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('cliente/login');
+        }
+        $user_id = $this->ion_auth->get_user_id();
+        $data['datos_usuario'] = $this->Cliente_model->get_cliente_data($user_id);
+        $usuario = $data['datos_usuario']->row();
+        print_contenido($_POST);
+
+        $datos = array(
+            'id_carro' => $this->input->post('id_carro'),
+            'crr_fecha' => $this->input->post('fecha'),
+            'crr_placa' => $this->input->post('placa'),
+            'id_tipo_carro' => $this->input->post('tipo_carro'),
+            'id_marca' => $this->input->post('marca_carro'),
+            'id_linea' => $this->input->post('linea_carro'),
+            'id_ubicacion' => $this->input->post('ubicacion'),
+            'crr_moneda_precio' => $this->input->post('moneda_carro'),
+            'crr_precio' => $this->input->post('precio'),
+            //'crr_descripcion'          => $this->input->post('avaluo_comercial'),
+            'crr_img' => $this->input->post('codigo') . '.jpg',
+            //'crr_img_ext'              => $this->input->post('avaluo_comercial'),
+            //'crr_img_path'             => $this->input->post('avaluo_comercial'),
+            'crr_modelo' => $this->input->post('modelo'),
+            'crr_origen' => $this->input->post('origen_carro'),
+            'crr_ac' => $this->input->post('ac'),
+            'crr_alarma' => $this->input->post('alarma'),
+            'crr_aros_magnecio' => $this->input->post('aros_m'),
+            'crr_bolsas_aire' => $this->input->post('bolsa_aire'),
+            'crr_cerradura_central' => $this->input->post('cerradura_c'),
+            'crr_cilindros' => $this->input->post('cilindros'),
+            'crr_color' => $this->input->post('color'),
+            'crr_combustible' => $this->input->post('combustible_carro'),
+            'crr_espejos' => $this->input->post('espejos_e'),
+            'crr_kilometraje' => $this->input->post('kilometraje'),
+            'crr_motor' => $this->input->post('motor'),
+            'crr_platos' => $this->input->post('platos'),
+            'crr_polarizado' => $this->input->post('polarizado'),
+            'crr_puertas' => $this->input->post('puertas_carro'),
+            'crr_radio' => $this->input->post('radio'),
+            'crr_sunroof' => $this->input->post('sun_roof'),
+            'crr_tapiceria' => $this->input->post('tapiceria_carro'),
+            'crr_timon_hidraulico' => $this->input->post('timon_h'),
+            'crr_transmision' => $this->input->post('transmision_carro'),
+            'crr_4x4' => $this->input->post('t4x4'),
+            'crr_vidrios_electricos' => $this->input->post('vidrios_e'),
+            //'crr_suspension_delantera' => $this->input->post('avaluo_comercial'),
+            //'crr_suspension_trasera'   => $this->input->post('avaluo_comercial'),
+            'crr_freno_delantero' => $this->input->post('freno_delantero'),
+            'crr_freno_trasero' => $this->input->post('freno_trasero'),
+            'crr_blindaje' => $this->input->post('blindaje'),
+            //'crr_caja'                 => $this->input->post('avaluo_comercial'),
+            //'crr_freno'                => $this->input->post('avaluo_comercial'),
+            //'crr_suspension'           => $this->input->post('avaluo_comercial'),
+            //'crr_ejes'                 => $this->input->post('avaluo_comercial'),
+            'crr_otros' => $this->input->post('otros'),
+            'crr_estado' => 'Usado',
+            //'crr_contacto'             => $this->input->post('avaluo_comercial'),
+            'crr_contacto_nombre' => $usuario->first_name,
+            'crr_contacto_telefono' => $usuario->phone,
+            'crr_contacto_email' => $usuario->email,
+            'crr_estatus' => 'Pendiente',
+            'id_predio_virtual' => '0',
+            //'crr_date'                 => $this->input->post('avaluo_comercial'),
+            'crr_premium' => 'no',
+            'crr_certiauto' => 'no',
+            //'crr_cuotaseguro'          => $this->input->post('avaluo_comercial'),
+            //'crr_cuotafinanciamiento'  => $this->input->post('avaluo_comercial'),
+            'crr_nombre_propietario' => $usuario->first_name,
+            'crr_telefono_propietario' => $usuario->phone,
+            'crr_vencimiento' => $usuario->email,
+            // 'user_id' => $user_id,
+        );
+        /* echo '<pre>';
+         print_r($datos);
+         echo '</pre>';*/
+        $carro_id = $this->Carros_model->actualizar_carro_public($datos);
+        echo 'despues del update';
+        //redirect('cliente/perfil/');
 
 
     }
