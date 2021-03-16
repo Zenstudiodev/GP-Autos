@@ -83,7 +83,6 @@ $estado_select_options = array(
     "Baja" => "Baja",
 );
 
-
 //TIPO
 $tipo_carro_select = array(
     'name' => 'tipo_carro_uf',
@@ -107,7 +106,6 @@ $marca_carro_select_options = array();
 foreach ($marca_cf->result() as $marca_carro) {
     $marca_carro_select_options[$marca_carro->nombre] = $marca_carro->nombre;
 }
-
 
 //LINEA
 $linea_carro_select = array(
@@ -176,7 +174,7 @@ $precio = array(
     'class' => 'validate',
     'placeholder' => 'Precio',
     'min' => '10000',
-    //'value'       => $carro->crr_precio,
+    'value'       => $carro->crr_precio,
     'required' => 'required'
 );
 
@@ -187,7 +185,7 @@ $modelo = array(
     'id' => 'modelo',
     'class' => ' validate ',
     'placeholder' => 'Modelo',
-    //'value'       => $carro->crr_modelo,
+    'value'       => $carro->crr_modelo,
     'required' => 'required'
 );
 
@@ -198,7 +196,7 @@ $titulo = array(
     'id' => 'titulo',
     'class' => 'form-control',
     //'placeholder' => 'Titulo del anuncio',
-    //'value'       => $carro->crr_blindaje,
+    'value'       => $carro->crr_titulo,
     //'required' => 'required'
 );
 //Descripción
@@ -208,7 +206,7 @@ $descripcion = array(
     'id' => 'descripcion',
     'class' => 'materialize-textarea validate',
     'data-length' => '300',
-    //'value'     => $carro->crr_otros,
+    'value'     => $carro->crr_otros,
     'required' => 'required'
 );
 
@@ -234,17 +232,18 @@ $combustible_carro_select_options = array();
 foreach ($combustibles->result() as $combustible) {
     $combustible_carro_select_options[$combustible->nombre] = $combustible->nombre;
 }
-
-//cilindros
-$cilindros = array(
-    'type' => 'text',
-    'name' => 'cilindros',
-    'id' => 'cilindros',
-    'class' => 'validate',
-    'placeholder' => 'Cilindros',
-    //'value'       => $carro->crr_cilindros,
-    //'required' => 'required'
+//transmision
+$transmision_carro_select = array(
+    'name' => 'transmision_carro',
+    'id' => 'transmision_carro',
+    'required' => 'required'
 );
+$transmision_select_options = array(
+    'AUTOMATICA' => 'AUTOMATICA',
+    'MECANICA' => 'MECANICA',
+    'TIPTRONIC' => 'TIPTRONIC'
+);
+
 //Color
 $color = array(
     'type' => 'text',
@@ -256,161 +255,184 @@ $color = array(
     'required' => 'required'
 );
 
+//motor
+$motor = array(
+    'type' => 'text',
+    'name' => 'motor',
+    'id' => 'motor',
+    'class' => 'form-control',
+    'placeholder' => 'Motor CC',
+    'value'       => $carro->crr_motor,
+    //'required' => 'required'
+);
+
+//cilindros
+$cilindros = array(
+    'type' => 'text',
+    'name' => 'cilindros',
+    'id' => 'cilindros',
+    'class' => 'validate',
+    'placeholder' => 'Cilindros',
+    'value'       => $carro->crr_cilindros,
+    //'required' => 'required'
+);
+
 $ac_s = array(
     'name' => 'ac',
-    'type' => 'radio',
     'id' => 'ac_s',
     'value' => 'Sí',
-    'class' => ' validate',
+    'checked' => radio_helper('Sí', $carro->crr_ac),
     'required' => 'required'
 );
 $ac_n = array(
     'name' => 'ac',
-    'type' => 'radio',
     'id' => 'ac_n',
-    'class' => ' validate',
     'value' => 'no',
+    'checked' => radio_helper('no', $carro->crr_ac),
 );
 
 $alarma_s = array(
     'name' => 'alarma',
     'id' => 'alarma_s',
     'value' => 'Sí',
-    'class' => ' validate',
+    'checked' => radio_helper('Sí', $carro->crr_alarma),
     'required' => 'required'
 );
 $alarma_n = array(
     'name' => 'alarma',
     'id' => 'alarma_n',
     'value' => 'no',
-    'class' => ' validate',
+    'checked' => radio_helper('no', $carro->crr_alarma),
 );
 
 $aros_m_s = array(
     'name' => 'aros_m',
     'id' => 'aros_m_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_aros_magnecio),
     'required' => 'required'
 );
 $aros_m_n = array(
     'name' => 'aros_m',
     'id' => 'aros_m_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_aros_magnecio),
 );
-
-
-$cerradura_c_s = array(
-    'name' => 'cerradura_c',
-    'id' => 'cerradura_c_s',
-    'value' => 'Sí',
-    'checked' => false,
-    'required' => 'required'
-);
-$cerradura_c_n = array(
-    'name' => 'cerradura_c',
-    'id' => 'cerradura_c_n',
-    'value' => 'no',
-    'checked' => false,
-);
-
 $bolsa_aire_s = array(
     'name' => 'bolsa_aire',
     'id' => 'bolsa_aire_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_bolsas_aire),
     'required' => 'required'
 );
 $bolsa_aire_n = array(
     'name' => 'bolsa_aire',
     'id' => 'bolsa_aire_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_bolsas_aire),
 );
+
+$cerradura_c_s = array(
+    'name' => 'cerradura_c',
+    'id' => 'cerradura_c_s',
+    'value' => 'Sí',
+    'checked' => radio_helper('Sí', $carro->crr_cerradura_central),
+    'required' => 'required'
+);
+$cerradura_c_n = array(
+    'name' => 'cerradura_c',
+    'id' => 'cerradura_c_n',
+    'value' => 'no',
+    'checked' => radio_helper('no', $carro->crr_cerradura_central),
+);
+
+
 
 $platos_s = array(
     'name' => 'platos',
     'id' => 'platos_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_platos),
     'required' => 'required'
 );
 $platos_n = array(
     'name' => 'platos',
     'id' => 'platos_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_platos),
 );
 
 $polarizado_s = array(
     'name' => 'polarizado',
     'id' => 'polarizado_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_polarizado),
     'required' => 'required'
 );
 $polarizado_n = array(
     'name' => 'polarizado',
     'id' => 'polarizado_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_polarizado),
 );
+
 
 $sun_roof_s = array(
     'name' => 'sun_roof',
     'id' => 'sun_roof_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_sunroof),
     'required' => 'required'
 );
 $sun_roof_n = array(
     'name' => 'sun_roof',
     'id' => 'sun_roof_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_sunroof),
 );
 
 $radio_s = array(
     'name' => 'radio',
     'id' => 'radio_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_radio),
     'required' => 'required'
 );
 $radio_n = array(
     'name' => 'radio',
     'id' => 'radio_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_radio),
 );
+
 $espejos_e_s = array(
     'name' => 'espejos_e',
     'id' => 'espejos_e_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_espejos),
     'required' => 'required'
 );
 $espejos_e_n = array(
     'name' => 'espejos_e',
     'id' => 'espejos_e_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_espejos),
 );
+
 
 //4x4
 $t4x4_s = array(
     'name' => 't4x4',
-    'id' => '4x4_s',
+    'id' => 't4x4_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_4x4),
     'required' => 'required'
 );
 $t4x4_n = array(
     'name' => 't4x4',
-    'id' => '4x4_n',
+    'id' => 't4x4_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_4x4),
 );
 
 //Premium
@@ -465,24 +487,16 @@ $timon_h_s = array(
     'name' => 'timon_h',
     'id' => 'timon_h_s',
     'value' => 'Sí',
+    'checked' => radio_helper('Sí', $carro->crr_timon_hidraulico),
     'required' => 'required'
 );
 $timon_h_n = array(
     'name' => 'timon_h',
     'id' => 'timon_h_n',
     'value' => 'no',
+    'checked' => radio_helper('no', $carro->crr_timon_hidraulico),
 );
-//transmision
-$transmision_carro_select = array(
-    'name' => 'transmision_carro',
-    'id' => 'transmision_carro',
-    'required' => 'required'
-);
-$transmision_select_options = array(
-    'AUTOMATICA' => 'AUTOMATICA',
-    'MECANICA' => 'MECANICA',
-    'TIPTRONIC' => 'TIPTRONIC'
-);
+
 /*if ($transmision)
 {
 	foreach ($transmision->result() as $transmision_carro)
@@ -512,14 +526,14 @@ $vidrios_e_s = array(
     'name' => 'vidrios_e',
     'id' => 'vidrios_e_s',
     'value' => 'Sí',
-    'checked' => false,
+    'checked' => radio_helper('Sí', $carro->crr_vidrios_electricos),
     'required' => 'required'
 );
 $vidrios_e_n = array(
     'name' => 'vidrios_e',
-    'id' => 'vidrios_e_n',
+    'id' => 'espejos_e_n',
     'value' => 'no',
-    'checked' => false,
+    'checked' => radio_helper('no', $carro->crr_vidrios_electricos),
 );
 //freno_delantero
 $freno_d_carro_select = array(
@@ -551,7 +565,7 @@ $blindaje = array(
     'id' => 'blindaje',
     'class' => 'form-control',
     'placeholder' => 'Blindaje',
-    //'value'       => $carro->crr_blindaje,
+    'value'       => $carro->crr_blindaje,
     //'required' => 'required'
 );
 
@@ -614,21 +628,10 @@ $kilometraje = array(
     'id' => 'kilometraje',
     'class' => 'form-control',
     'placeholder' => 'kilometraje',
-    //'value'       => $carro->crr_kilometraje,
+    'value'       => $carro->crr_kilometraje,
     'required' => 'required'
 );
 
-
-//motor
-$motor = array(
-    'type' => 'text',
-    'name' => 'motor',
-    'id' => 'motor',
-    'class' => 'form-control',
-    'placeholder' => 'Motor CC',
-    //'value'       => $carro->crr_motor,
-    //'required' => 'required'
-);
 
 //predio_id
 $predio_id = array(
@@ -638,7 +641,7 @@ $predio_id = array(
     'class' => 'form-control',
     'placeholder' => 'Predio ID',
     //'value'       => $carro->id_predio_virtual,
-    'required' => 'required'
+    //'required' => 'required'
 );
 
 //Boleta
@@ -705,7 +708,7 @@ $CI =& get_instance();
                                 </div>
                             <?php } ?>
                             <div class="container">
-                                <?php print_contenido($carro); ?>
+                                <?php //print_contenido($carro); ?>
                                 <form action="<?php echo base_url() ?>index.php/cliente/guardar_carro" method="post"
                                       class="" id="subir_carro_form">
                                     <ul class="collapsible" data-collapsible="expandable">
@@ -801,12 +804,12 @@ $CI =& get_instance();
                                                         <div class="row">
                                                             <div class="input-field col s12 m4">
                                                                 <!--COMBUSTIBLE-->
-                                                                <?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options) ?>
+                                                                <?php echo form_dropdown($combustible_carro_select, $combustible_carro_select_options, $carro->crr_combustible); ?>
                                                                 <label class="control-label">COMBUSTIBLE</label>
                                                             </div>
                                                             <div class="input-field col s12 m4">
                                                                 <!--TRANSMISIÓN-->
-                                                                <?php echo form_dropdown($transmision_carro_select, $transmision_select_options) ?>
+                                                                <?php echo form_dropdown($transmision_carro_select, $transmision_select_options, $carro->crr_transmision); ?>
                                                                 <label class="control-label">TRANSMISIÓN</label>
                                                             </div>
                                                             <div class="input-field col s12 m4">
@@ -849,24 +852,24 @@ $CI =& get_instance();
                                                     </div>
                                                     <div class="input-field col s12 m4">
                                                         <!--puertas-->
-                                                        <?php echo form_dropdown($puertas_carro_select, $puertas_select_options) ?>
+                                                        <?php echo form_dropdown($puertas_carro_select, $puertas_select_options, $carro->crr_puertas) ?>
                                                         <label class="control-label">PUERTAS</label>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="input-field col s12 m4">
                                                         <!--FRENO DELANTERO-->
-                                                        <?php echo form_dropdown($freno_d_carro_select, $freno_d_select_options) ?>
+                                                        <?php echo form_dropdown($freno_d_carro_select, $freno_d_select_options,$carro->crr_freno_delantero) ?>
                                                         <label class="control-label">FRENO DELANTERO</label>
                                                     </div>
                                                     <div class="input-field col s12 m4">
                                                         <!--FRENO TRASERO-->
-                                                        <?php echo form_dropdown($freno_t_carro_select, $freno_t_select_options) ?>
+                                                        <?php echo form_dropdown($freno_t_carro_select, $freno_t_select_options, $carro->crr_freno_trasero) ?>
                                                         <label class="control-label">FRENO TRASERO</label>
                                                     </div>
                                                     <div class="input-field col s12 m4">
                                                         <!--TAPICERIA-->
-                                                        <?php echo form_dropdown($tapiceria_carro_select, $tapiceria_carro_select_options) ?>
+                                                        <?php echo form_dropdown($tapiceria_carro_select, $tapiceria_carro_select_options,$carro->crr_tapiceria); ?>
                                                         <label class="control-label">TAPICERIA</label>
                                                     </div>
                                                 </div>
@@ -1061,22 +1064,22 @@ $CI =& get_instance();
                                                         </p>
                                                         <p>
                                                             <?php echo form_radio($t4x4_s); ?>
-                                                            <label for="4x4_s">Si</label>
+                                                            <label for="t4x4_s">Si</label>
 
                                                             <?php echo form_radio($t4x4_n); ?>
-                                                            <label for="4x4_n">No</label>
+                                                            <label for="t4x4_n">No</label>
                                                         </p>
                                                     </div>
 
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
+                                        <!--<li>
                                             <div class="collapsible-header active"><i class="material-icons">account_circle</i>Datos
                                                 del anunciante
                                             </div>
                                             <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                     <div class="container-fluid">
 
@@ -1192,7 +1195,7 @@ $CI =& get_instance();
                 alert("Data Saved: " + data);
             }
         });
-        console.log('actualizar on load');
+        //console.log('actualizar on load');
 
         var id_carro;
         var placa;
@@ -1211,11 +1214,11 @@ $CI =& get_instance();
         var transmision;
         var kilometraje;
         var motor;
-        var cilintdros;
+        var cilindros;
         var puertas;
         var freno_delantero;
-        var freno_traseo;
-        var tela;
+        var freno_trasero;
+        var tapiceria;
         var blindaje;
         var alarma;
         var aros;
@@ -1235,7 +1238,7 @@ $CI =& get_instance();
 
         $('select').material_select();
         $("#subir_carro_form").click(function () {
-            console.log('cambio forma');
+            //console.log('cambio forma');
 
             id_carro = $('#carro_id').val();
             placa = $('#placa').val();
@@ -1251,14 +1254,14 @@ $CI =& get_instance();
             origen = $("#origen_carro option:selected").text();
             color = $("#color").val();
             combustible = $("#combustible_carro option:selected").text();
-            transmision = $("#transmision option:selected").text();
+            transmision = $("#transmision_carro option:selected").text();
             kilometraje = $("#kilometraje").val();
             motor = $("#motor").val();
-            cilintdros = $("#cilindros").val();
+            cilindros = $("#cilindros").val();
             puertas = $("#puertas_carro option:selected").text();
             freno_delantero = $("#freno_delantero option:selected").text();
-            freno_traseo = $("#freno_trasero option:selected").text();
-            tela = $("#tela").val();
+            freno_trasero = $("#freno_trasero option:selected").text();
+            tapiceria = $("#tapiceria_carro").val();
             blindaje = $("#blindaje").val();
             alarma = $("input[name='alarma']:checked").val();
             aros = $("input[name='aros_m']:checked").val();
@@ -1284,15 +1287,17 @@ $CI =& get_instance();
                 descripcion_anuncio: descripcion_anuncio,
                 moneda: moneda,
                 precio: precio,
+                modelo: modelo,
                 color: color,
                 combustible: combustible,
                 kilometraje: kilometraje,
+                transmision: transmision,
                 motor: motor,
-                cilintdros: cilintdros,
+                cilindros: cilindros,
                 puertas: puertas,
                 freno_delantero: freno_delantero,
-                freno_traseo: freno_traseo,
-                tela: tela,
+                freno_trasero: freno_trasero,
+                tapiceria: tapiceria,
                 blindaje: blindaje,
                 alarma: alarma,
                 aros: aros,
@@ -1308,7 +1313,7 @@ $CI =& get_instance();
                 vidrios_electricos: vidrios_electricos,
                 t4x4: t4x4,
             };
-            console.log(form_data);
+            //console.log(form_data);
 
             $.ajax({
                 method: "POST",
@@ -1316,7 +1321,7 @@ $CI =& get_instance();
                 data: form_data
             })
                 .done(function (msg) {
-                    console.log("Data Saved: " + msg);
+                    //console.log("Data Saved: " + msg);
                 });
         });
     });

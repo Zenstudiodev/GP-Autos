@@ -238,6 +238,7 @@ class Carros_model extends CI_Model
             'id_marca'                 => $data['id_marca'],
             'id_linea'                 => $data['id_linea'],
             'id_ubicacion'             => $data['id_ubicacion'],
+            'crr_titulo'               => $data['crr_titulo'],
             'crr_moneda_precio'        => $data['crr_moneda_precio'],
             'crr_precio'               => $data['crr_precio'],
             //'crr_descripcion'          => $data['crr_descripcion'],

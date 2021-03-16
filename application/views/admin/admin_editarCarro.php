@@ -397,6 +397,7 @@ $radio_n = array(
     'value' => 'no',
     'checked' => radio_helper('no', $carro->crr_radio),
 );
+
 $espejos_e_s = array(
     'name' => 'espejos_e',
     'id' => 'espejos_e_s',

@@ -472,13 +472,13 @@ $telefono = array(
     $("#deviceFingerprintID").val(sessionID);
     //document.write('<input type="text" name="deviceFingerprintID" value="' + cybs_dfprofiler("visanetgt_gpautos","test") + '">');
     $('.card input').bind('focus', function () {
-        $('.card .status').hide();
+        //$('.card .status').hide();
     });
     $('.card input').bind('blur', function () {
-        $('.card .status').show();
+        //$('.card .status').show();
     });
 
-    $('.card input').cardcheck({
+    /*$('.card input').cardcheck({
         callback: function (result) {
             var status = (result.validLen && result.validLuhn) ? 'valid' : 'invalid',
                 message = '',
@@ -506,7 +506,7 @@ $telefono = array(
             // Show status message
             $('.card .status').removeClass('invalid valid').addClass(status).children('.status_message').text(message);
         }
-    });
+    });*/
 
     $(document).ready(function () {
         $('select').material_select();
