@@ -1346,6 +1346,7 @@ class Cliente extends Base_Controller
         $data['tapiceria'] = $this->Carros_model->get_tapicerias();
         $data['transmision'] = $this->Carros_model->get_transmision();
         $data['carro'] = $this->Carros_model->get_datos_carro_cliente($data['carro_id']);
+        $data['fotos_carro'] = $this->Carros_model->get_fotos_de_carro_by_id($data['carro_id']);
         echo $this->templates->render('public/editar_carro_test', $data);
 
     }
@@ -1901,6 +1902,103 @@ class Cliente extends Base_Controller
         $data['carro_id'] = $this->uri->segment(3);
         $this->Carros_model->public_dar_de_baja($data['carro_id']);
         redirect('cliente/perfil/');
+    }
+
+    public function guardar_imagen()
+    {
+        // print_contenido($_FILES);
+        //print_contenido($_GET);
+        //obtenemos el id del producto desde una cabecera http enviada desde el dropzone
+        //print_contenido($_SERVER);
+        //print_contenido($_POST);
+        $carro_id = $_GET['cid'];
+        //$producto_id = $_SERVER['HTTP_PRODUCTO_ID'];
+        //echo 'el id del producto es : ' . $producto_id;
+        //obtenemos los datos del producto con el id de la cabecera
+        //$datos_de_propiedad = $this->Carros_model->get_datos_carro_cliente($carro_id);
+        //$datos_de_propiedad = $datos_de_propiedad->row();
+
+        //obtenemos el numero de imagenes desde el producto
+        //$numero_de_imagenes = $datos_de_propiedad->imagen;
+
+        //generamos el nombre para la imagen que se va a subir
+        //comprobamos si hay algun nombre en la tabla de imagenes
+        $imagenes_carro = $this->Carros_model->get_fotos_de_carro_by_id($carro_id);
+        if ($imagenes_carro) {
+            //si ya tiene imagenes y existe la primera
+            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '.jpg')) {
+                $poner_nombre = false;
+                $i = 1;//numero de conteo que aumenta para modificar el nombre de la imagen
+                do { // comprbar los nombres mientras no se pueda poner el nombre
+                    if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '_' . $i . '.jpg')) {
+                        echo 'la imagen existe no ponerle asi';
+                        $poner_nombre = false;
+                    } else {
+                        echo 'la imagen no se encuentra ponerle asi \n ';
+                        $nombre_imagen = $carro_id . '_' . $i . '.jpg';
+                        $poner_nombre = true;
+                    }
+                    $i = $i + 1;
+                } while ($poner_nombre == false); //Loop minetras que no se pueda poner el nombre de la imagen
+                echo $nombre_imagen;
+            } else {
+                //si no existe la primera imagen
+                $nombre_imagen = $carro_id . '.jpg';
+            }
+        } else {
+            //si no existen imagenes
+            $nombre_imagen = $carro_id . '.jpg';
+        }
+
+        $tipo_imagen = $_FILES['imagen_carro']['type'];
+        $tipo_imagen = explode("/", $tipo_imagen);
+        $extension_imgen = $tipo_imagen[1]; // porción2
+
+        //datos de imagen
+        $datos_imagen = array(
+            "carro_id" => $carro_id,
+            "extencion" => $extension_imgen,
+            "nombre_imagen" => $nombre_imagen
+        );
+        //guadramos el nombre generado de la imagen y la asignamos a producto
+        $this->Carros_model->guardar_foto_tabla_fotos($datos_imagen);
+        //print_r($datos_imagen);
+
+        if (!empty($_FILES['imagen_carro']['name'])) { //si se envio un archivo
+            $tipo_imagen = $_FILES['imagen_carro']['type'];
+            echo '<p>' . $nombre_imagen . '</p>';
+            echo '<p>' . $tipo_imagen . '</p>';
+
+            $config['upload_path'] = './web/images_cont/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['file_name'] = $nombre_imagen;
+            $config['overwrite'] = TRUE;
+            //$config['max_size']      = 100;
+            //$config['max_width']     = 1024;
+            //$config['max_height']    = 768;
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('imagen_carro')) {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+            } else {
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './web/images_cont/' . $nombre_imagen;
+                //$config['create_thumb'] = TRUE;
+                $config['maintain_ratio'] = TRUE;
+                $config['width'] = 800;
+                //$config['height']       = 50;
+                $this->load->library('image_lib', $config);
+                if (!$this->image_lib->resize()) {
+                    echo $this->image_lib->display_errors();
+                }
+                $data = array('upload_data' => $this->upload->data());
+                //$this->load->view('subir_documento', $data);
+                echo $this->upload->data('file_name');
+                echo $this->upload->data('file_size');
+            }
+        } else {
+
+        }
     }
 
     public function subir_fotos()

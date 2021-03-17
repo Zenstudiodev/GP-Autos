@@ -639,6 +639,25 @@ class Carros_model extends CI_Model
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
+    //imagenes caroo
+    public function get_fotos_de_carro_by_id($carro_id)
+    {
+        $this->db->where('carro_id', $carro_id);
+        $this->db->order_by('nombre_imagen', 'desc');
+        $query = $this->db->get('imagenes_carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function guardar_foto_tabla_fotos($datos_foto)
+    {
+        $datos_de_imagen = array(
+            'carro_id' => $datos_foto['carro_id'],
+            'extencion' => 'jpg',
+            'nombre_imagen' => $datos_foto['nombre_imagen']
+        );
+        // insertamon en la base de datos
+        $this->db->insert('imagenes_carro', $datos_de_imagen);
+    }
 
 	//Feria
     function get_carros_frontPage_feria()

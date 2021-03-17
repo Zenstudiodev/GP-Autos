@@ -827,7 +827,34 @@ $CI =& get_instance();
                                                         </div>
                                                         <hr>
                                                         <div id="imagenes_subidas">
+                                                            <?php
+                                                            if ($fotos_carro) {
+                                                                ?>
+                                                                <div class="row">
+                                                                    <?php foreach ($fotos_carro->result() as $imagen) { ?>
+                                                                        <div class="col">
+                                                                            <div class="card">
+                                                                                <div class="card-image">
+                                                                                    <img class="responsive-img pad img_subida"
+                                                                                         src="<?php echo base_url() . '/web/images_cont/' . $imagen->nombre_imagen; ?>"
+                                                                                         alt="Photo" >
+                                                                                    <span class="card-title"><?php echo $imagen->nombre_imagen ?></span>
+                                                                                </div>
+                                                                                <div class="card-content">
 
+                                                                                </div>
+                                                                                <div class="card-action">
+                                                                                    <a href="<?php echo base_url() . '/web/images_cont/' . $imagen->imagen_id . '/' . $carro_id; ?>"
+                                                                                       class="btn btn-danger btn-xs">
+                                                                                        <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            <?php } else { ?>
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1125,8 +1152,8 @@ $CI =& get_instance();
         // event listeners
         var myDropzone = new Dropzone("#dpf",
             {
-                url: "<?php echo base_url(); ?>Admin/guardar_imagen?pid=<?php echo '';?>",
-                paramName: "imagen_propiedad",
+                url: "<?php echo base_url(); ?>cliente/guardar_imagen?cid=<?php echo $carro_id; ?>",
+                paramName: "imagen_carro",
                 parallelUploads: 1,
                 maxFiles: 15,
                 acceptedFiles: ".jpg,.jpeg",
