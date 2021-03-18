@@ -658,6 +658,18 @@ class Carros_model extends CI_Model
         // insertamon en la base de datos
         $this->db->insert('imagenes_carro', $datos_de_imagen);
     }
+    function get_datos_imagen($imagen_id)
+    {
+        $this->db->where('imagen_id', $imagen_id);
+        $query = $this->db->get('imagenes_carro');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function borrar_registro_imagen($imagen_id)
+    {
+        $this->db->where('imagen_id', $imagen_id);
+        $this->db->delete('imagenes_carro');
+    }
 
 	//Feria
     function get_carros_frontPage_feria()

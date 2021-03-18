@@ -844,7 +844,8 @@ $CI =& get_instance();
 
                                                                                 </div>
                                                                                 <div class="card-action">
-                                                                                    <a href="<?php echo base_url() . '/web/images_cont/' . $imagen->imagen_id . '/' . $carro_id; ?>"
+
+                                                                                    <a href="<?php echo base_url() . 'cliente/borrar_imagen/' . $imagen->imagen_id . '/' . $carro_id; ?>"
                                                                                        class="btn btn-danger btn-xs">
                                                                                         <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                                                     </a>

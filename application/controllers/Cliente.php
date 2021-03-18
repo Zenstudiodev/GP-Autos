@@ -1926,16 +1926,16 @@ class Cliente extends Base_Controller
         $imagenes_carro = $this->Carros_model->get_fotos_de_carro_by_id($carro_id);
         if ($imagenes_carro) {
             //si ya tiene imagenes y existe la primera
-            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '.jpg')) {
+            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '(1).jpg')) {
                 $poner_nombre = false;
                 $i = 1;//numero de conteo que aumenta para modificar el nombre de la imagen
                 do { // comprbar los nombres mientras no se pueda poner el nombre
-                    if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '_' . $i . '.jpg')) {
+                    if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '(' . $i . ').jpg')) {
                         echo 'la imagen existe no ponerle asi';
                         $poner_nombre = false;
                     } else {
                         echo 'la imagen no se encuentra ponerle asi \n ';
-                        $nombre_imagen = $carro_id . '_' . $i . '.jpg';
+                        $nombre_imagen = $carro_id .'(' . $i . ').jpg';
                         $poner_nombre = true;
                     }
                     $i = $i + 1;
@@ -1943,11 +1943,11 @@ class Cliente extends Base_Controller
                 echo $nombre_imagen;
             } else {
                 //si no existe la primera imagen
-                $nombre_imagen = $carro_id . '.jpg';
+                $nombre_imagen = $carro_id .'(1).jpg';
             }
         } else {
             //si no existen imagenes
-            $nombre_imagen = $carro_id . '.jpg';
+            $nombre_imagen = $carro_id .'(1).jpg';
         }
 
         $tipo_imagen = $_FILES['imagen_carro']['type'];
@@ -1990,13 +1990,54 @@ class Cliente extends Base_Controller
                 $this->load->library('image_lib', $config);
                 if (!$this->image_lib->resize()) {
                     echo $this->image_lib->display_errors();
+                    echo'\n';
                 }
                 $data = array('upload_data' => $this->upload->data());
                 //$this->load->view('subir_documento', $data);
+                echo'\n';
                 echo $this->upload->data('file_name');
+                echo'\n';
                 echo $this->upload->data('file_size');
             }
         } else {
+
+        }
+    }
+    public function borrar_imagen()
+    {
+
+        //Id de imagen desde segmento URL
+        $data['imagen_id'] = $this->uri->segment(3);
+        //Id de producto desde segmento URL
+        $data['prducto_id'] = $this->uri->segment(4);
+        $imagen_id = $data['imagen_id'];
+        $datos_imagen = $this->Carros_model->get_datos_imagen($imagen_id);
+        if ($datos_imagen) {
+            $datos_imagen = $datos_imagen->row();
+            $nombre_imagen = $datos_imagen->nombre_imagen;
+
+            //borrado de registro
+            $this->Carros_model->borrar_registro_imagen($imagen_id);
+
+            //borrado de imagen
+            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $nombre_imagen)) {
+                //echo 'imagen existe';
+                if (unlink('/home2/gpautos/public_html/web/images_cont/' . $nombre_imagen)) {
+                    $this->session->set_flashdata('mensaje', 'se borro la imagen');
+                    redirect(base_url() . 'cliente/editar_carro_test/' . $data['prducto_id']);
+                } else {
+                    echo 'no se borro';
+                }
+
+            } else {
+
+                //echo 'la imagen no existe';
+            }
+
+
+        } else {
+            $this->session->set_flashdata('mensaje', 'imagen no existe');
+            redirect(base_url() . '/admin/subir_fotos/' . $data['prducto_id']);
 
         }
     }
