@@ -354,7 +354,7 @@ class Cliente extends Base_Controller
 
             $carro_id = $this->Carros_model->asignar_carro($datos_usuario);
 
-            redirect(base_url() . 'cliente/perfil');
+            redirect(base_url() . 'cliente/editar_carro_test/'.$carro_id);
 
 
         } else {
@@ -931,7 +931,7 @@ class Cliente extends Base_Controller
             if ($data['tipo_anuncio'] == 'vip') {
                 redirect(base_url() . 'cliente/publicar_carro_vip');
             }*/
-            redirect(base_url() . 'cliente/perfil');
+            redirect(base_url() . 'cliente/editar_carro_test'.$carro_id);
             //redirect(base_url() . 'cliente/publicar_carro');
             //echo 'guardar numero de transaccion en base de datos';
             //echo $reply->requestID;
@@ -1926,16 +1926,16 @@ class Cliente extends Base_Controller
         $imagenes_carro = $this->Carros_model->get_fotos_de_carro_by_id($carro_id);
         if ($imagenes_carro) {
             //si ya tiene imagenes y existe la primera
-            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '(1).jpg')) {
+            if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '_1.jpg')) {
                 $poner_nombre = false;
                 $i = 1;//numero de conteo que aumenta para modificar el nombre de la imagen
                 do { // comprbar los nombres mientras no se pueda poner el nombre
-                    if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '(' . $i . ').jpg')) {
+                    if (file_exists('/home2/gpautos/public_html/web/images_cont/' . $carro_id . '_' . $i . '.jpg')) {
                         echo 'la imagen existe no ponerle asi';
                         $poner_nombre = false;
                     } else {
                         echo 'la imagen no se encuentra ponerle asi \n ';
-                        $nombre_imagen = $carro_id .'(' . $i . ').jpg';
+                        $nombre_imagen = $carro_id .'_' . $i . '.jpg';
                         $poner_nombre = true;
                     }
                     $i = $i + 1;
@@ -1943,11 +1943,11 @@ class Cliente extends Base_Controller
                 echo $nombre_imagen;
             } else {
                 //si no existe la primera imagen
-                $nombre_imagen = $carro_id .'(1).jpg';
+                $nombre_imagen = $carro_id .'_1.jpg';
             }
         } else {
             //si no existen imagenes
-            $nombre_imagen = $carro_id .'(1).jpg';
+            $nombre_imagen = $carro_id .'_1.jpg';
         }
 
         $tipo_imagen = $_FILES['imagen_carro']['type'];

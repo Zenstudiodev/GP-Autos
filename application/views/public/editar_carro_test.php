@@ -1115,9 +1115,9 @@ $CI =& get_instance();
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <input type="hidden" name="tipo" id="tipo" value="ingreso">
-                                                    <input type="hidden" name="carro_id" id="carro_id"
-                                                           value="<?php echo $carro_id; ?>">
-                                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                                    <input type="hidden" name="carro_id" id="carro_id" value="<?php echo $carro_id; ?>">
+                                                    <a href="<?php echo base_url();?>cliente/perfil" class="btn btn-success">Guardar</a>
+                                                    <!--<button type="submit" class="btn btn-success">Guardar</button>-->
                                                 </div>
                                             </div>
                                         </div>

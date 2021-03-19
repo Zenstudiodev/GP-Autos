@@ -27,37 +27,70 @@ class Carro extends Base_Controller
 		echo $this->templates->render('public/public_home', $data);
 	}
 	public function ver()
-	{
-        $data = cargar_componentes_buscador();
-		//obtenemos el id del carro desde el segmento de url
-		$data['segmento'] = $this->uri->segment(3);
-		if (!$data['segmento'])
-		{
-			//TODO  redirigir a vista de listao de carros
-			//redirect('prospectos/prospectosList', 'refresh');
-		}
-		else
-		{
+{
+    $data = cargar_componentes_buscador();
+    //obtenemos el id del carro desde el segmento de url
+    $data['segmento'] = $this->uri->segment(3);
+    if (!$data['segmento'])
+    {
+        //TODO  redirigir a vista de listao de carros
+        //redirect('prospectos/prospectosList', 'refresh');
+    }
+    else
+    {
 
-			$data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
-			if($data['carro']){
-			    $data_carro = $data['carro']->row();
-                $predio=$this->Predio_model->get_predio_data($data_carro->id_predio_virtual);
-                if($predio) {
-                    $predio = $predio->row();
-                    if ($predio->prv_estatus == 'Baja') {
-                        $data['carro'] = false;
-                    }
+        $data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
+        if($data['carro']){
+            $data_carro = $data['carro']->row();
+            $predio=$this->Predio_model->get_predio_data($data_carro->id_predio_virtual);
+            if($predio) {
+                $predio = $predio->row();
+                if ($predio->prv_estatus == 'Baja') {
+                    $data['carro'] = false;
                 }
-
             }
 
-		}
-		$data['header_banners'] = $this->Banners_model->header_banners_activos();
-		$this->Carros_model->registrar_visita($data['segmento']);
-		echo $this->templates->render('public/public_carro', $data);
+        }
 
-	}
+    }
+    $data['header_banners'] = $this->Banners_model->header_banners_activos();
+    $this->Carros_model->registrar_visita($data['segmento']);
+    echo $this->templates->render('public/public_carro', $data);
+
+}
+	public function ver_test()
+{
+    $data = cargar_componentes_buscador();
+    //obtenemos el id del carro desde el segmento de url
+    $data['segmento'] = $this->uri->segment(3);
+    if (!$data['segmento'])
+    {
+        //TODO  redirigir a vista de listao de carros
+        //redirect('prospectos/prospectosList', 'refresh');
+    }
+    else
+    {
+
+        $data['carro'] = $this->Carros_model->get_datos_carro($data['segmento']);
+        if($data['carro']){
+            $data_carro = $data['carro']->row();
+            $predio=$this->Predio_model->get_predio_data($data_carro->id_predio_virtual);
+            if($predio) {
+                $predio = $predio->row();
+                if ($predio->prv_estatus == 'Baja') {
+                    $data['carro'] = false;
+                }
+            }
+
+        }
+
+    }
+    $data['header_banners'] = $this->Banners_model->header_banners_activos();
+    $this->Carros_model->registrar_visita($data['segmento']);
+    $data['fotos_carro'] = $this->Carros_model->get_fotos_de_carro_by_id($data['segmento']);
+    echo $this->templates->render('public/public_carro_test', $data);
+
+}
 	public function registrar_whatsapp(){
         $id_carro = $this->input->post('id_carro');
         $this->Carros_model->registrar_whatsapp($id_carro);
