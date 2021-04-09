@@ -93,6 +93,7 @@
                                     <th>Marca</th>
                                     <th>Linea</th>
                                     <th>Modelo</th>
+                                    <th>Color</th>
                                     <th>Teléfono</th>
                                     <th>Inicio</th>
                                     <th>Vencimiento</th>
@@ -109,6 +110,7 @@
                                     <th>Marca</th>
                                     <th>Linea</th>
                                     <th>Modelo</th>
+                                    <th>Color</th>
                                     <th>Teléfono</th>
                                     <th>Inicio</th>
                                     <th>Vencimiento</th>
@@ -173,6 +175,7 @@
                                         <td><?php echo $carro->id_marca ?></td>
                                         <td><?php echo $carro->id_linea ?></td>
                                         <td><?php echo $carro->crr_modelo ?></td>
+                                        <td><?php echo $carro->crr_color ?></td>
                                         <td><?php echo $carro->crr_telefono_propietario?></td>
                                         <td> <?php echo $carro->crr_fecha ?></td>
                                         <td> <?php echo $carro->crr_vencimiento ?></td>
