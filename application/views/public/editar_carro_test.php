@@ -174,7 +174,7 @@ $precio = array(
     'class' => 'validate',
     'placeholder' => 'Precio',
     'min' => '10000',
-    'value'       => $carro->crr_precio,
+    'value' => $carro->crr_precio,
     'required' => 'required'
 );
 
@@ -185,7 +185,7 @@ $modelo = array(
     'id' => 'modelo',
     'class' => ' validate ',
     'placeholder' => 'Modelo',
-    'value'       => $carro->crr_modelo,
+    'value' => $carro->crr_modelo,
     'required' => 'required'
 );
 
@@ -196,7 +196,7 @@ $titulo = array(
     'id' => 'titulo',
     'class' => 'form-control',
     //'placeholder' => 'Titulo del anuncio',
-    'value'       => $carro->crr_titulo,
+    'value' => $carro->crr_titulo,
     //'required' => 'required'
 );
 //Descripción
@@ -206,7 +206,7 @@ $descripcion = array(
     'id' => 'descripcion',
     'class' => 'materialize-textarea validate',
     'data-length' => '300',
-    'value'     => $carro->crr_otros,
+    'value' => $carro->crr_otros,
     'required' => 'required'
 );
 
@@ -262,7 +262,7 @@ $motor = array(
     'id' => 'motor',
     'class' => 'form-control',
     'placeholder' => 'Motor CC',
-    'value'       => $carro->crr_motor,
+    'value' => $carro->crr_motor,
     //'required' => 'required'
 );
 
@@ -273,7 +273,7 @@ $cilindros = array(
     'id' => 'cilindros',
     'class' => 'validate',
     'placeholder' => 'Cilindros',
-    'value'       => $carro->crr_cilindros,
+    'value' => $carro->crr_cilindros,
     //'required' => 'required'
 );
 
@@ -345,7 +345,6 @@ $cerradura_c_n = array(
     'value' => 'no',
     'checked' => radio_helper('no', $carro->crr_cerradura_central),
 );
-
 
 
 $platos_s = array(
@@ -565,7 +564,7 @@ $blindaje = array(
     'id' => 'blindaje',
     'class' => 'form-control',
     'placeholder' => 'Blindaje',
-    'value'       => $carro->crr_blindaje,
+    'value' => $carro->crr_blindaje,
     //'required' => 'required'
 );
 
@@ -628,7 +627,7 @@ $kilometraje = array(
     'id' => 'kilometraje',
     'class' => 'form-control',
     'placeholder' => 'kilometraje',
-    'value'       => $carro->crr_kilometraje,
+    'value' => $carro->crr_kilometraje,
     'required' => 'required'
 );
 
@@ -749,13 +748,15 @@ $CI =& get_instance();
                                                                 <label class="control-label">LINEA</label>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="input-field col s12 m12">
-                                                                <!--UBICACIÓN-->
-                                                                <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, $carro->id_ubicacion); ?>
-                                                                <label class="control-label">UBICACIÓN</label>
+                                                        <?php if ($carro->id_predio_virtual != '9') { ?>
+                                                            <div class="row">
+                                                                <div class="input-field col s12 m12">
+                                                                    <!--UBICACIÓN-->
+                                                                    <?php echo form_dropdown($ubicacion_carro_select, $ubicacion_carro_select_options, $carro->id_ubicacion); ?>
+                                                                    <label class="control-label">UBICACIÓN</label>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        <?php } ?>
                                                         <div class="row">
                                                             <div class="input-field col s12 m12">
                                                                 <!--TITULO-->
@@ -837,7 +838,7 @@ $CI =& get_instance();
                                                                                 <div class="card-image">
                                                                                     <img class="responsive-img pad img_subida"
                                                                                          src="<?php echo base_url() . '/web/images_cont/' . $imagen->nombre_imagen; ?>"
-                                                                                         alt="Photo" >
+                                                                                         alt="Photo">
                                                                                     <span class="card-title"><?php echo $imagen->nombre_imagen ?></span>
                                                                                 </div>
                                                                                 <div class="card-content">
@@ -847,7 +848,9 @@ $CI =& get_instance();
 
                                                                                     <a href="<?php echo base_url() . 'cliente/borrar_imagen/' . $imagen->imagen_id . '/' . $carro_id; ?>"
                                                                                        class="btn btn-danger btn-xs">
-                                                                                        <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                                                        <i class="fa fa-trash"
+                                                                                           aria-hidden="true"></i>
+                                                                                        Borrar
                                                                                     </a>
                                                                                 </div>
                                                                             </div>
@@ -887,7 +890,7 @@ $CI =& get_instance();
                                                 <div class="row">
                                                     <div class="input-field col s12 m4">
                                                         <!--FRENO DELANTERO-->
-                                                        <?php echo form_dropdown($freno_d_carro_select, $freno_d_select_options,$carro->crr_freno_delantero) ?>
+                                                        <?php echo form_dropdown($freno_d_carro_select, $freno_d_select_options, $carro->crr_freno_delantero) ?>
                                                         <label class="control-label">FRENO DELANTERO</label>
                                                     </div>
                                                     <div class="input-field col s12 m4">
@@ -897,7 +900,7 @@ $CI =& get_instance();
                                                     </div>
                                                     <div class="input-field col s12 m4">
                                                         <!--TAPICERIA-->
-                                                        <?php echo form_dropdown($tapiceria_carro_select, $tapiceria_carro_select_options,$carro->crr_tapiceria); ?>
+                                                        <?php echo form_dropdown($tapiceria_carro_select, $tapiceria_carro_select_options, $carro->crr_tapiceria); ?>
                                                         <label class="control-label">TAPICERIA</label>
                                                     </div>
                                                 </div>
@@ -1115,8 +1118,10 @@ $CI =& get_instance();
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <input type="hidden" name="tipo" id="tipo" value="ingreso">
-                                                    <input type="hidden" name="carro_id" id="carro_id" value="<?php echo $carro_id; ?>">
-                                                    <a href="<?php echo base_url();?>cliente/perfil" class="btn btn-success">Guardar</a>
+                                                    <input type="hidden" name="carro_id" id="carro_id"
+                                                           value="<?php echo $carro_id; ?>">
+                                                    <a href="<?php echo base_url(); ?>cliente/perfil"
+                                                       class="btn btn-success">Guardar</a>
                                                     <!--<button type="submit" class="btn btn-success">Guardar</button>-->
                                                 </div>
                                             </div>
@@ -1219,7 +1224,7 @@ $CI =& get_instance();
                 $('select').material_select();
                 console.log(data);
             },
-            done:function (data) {
+            done: function (data) {
                 alert("Data Saved: " + data);
             }
         });
@@ -1273,7 +1278,11 @@ $CI =& get_instance();
             tipo_carro = $("#tipo_carro_uf option:selected").text();
             marca_carro = $("#marca_carro_uf option:selected").text();
             linea_carro = $("#linea_carro_uf option:selected").text();
+            <?php if($carro->id_predio_virtual != '9'){?>
             ubicacion = $("#ubicacion_carro option:selected").text();
+            <?php  }else{ ?>
+            ubicacion = 'GUATEMALA';
+            <?php } ?>
             titulo_anuncio = $("#titulo").val();
             descripcion_anuncio = $("#descripcion").val();
             moneda = $("#moneda_carro option:selected").text();

@@ -450,7 +450,7 @@ class Admin extends Base_Controller
         $cliente_id = $carro->user_id;
 
         $data['usuario'] = $this->Cliente_model->get_cliente_data($cliente_id);
-        $data['pagos_carro'] = $this->Pagos_model->get_pagos_user_admin($cliente_id);
+        $data['pagos_carro'] = $this->Pagos_model->get_pagos_user_admin($cliente_id, $carro->id_carro);
         if ($cliente_id == '0') {
             $data['pagos_carro'] = false;
         }

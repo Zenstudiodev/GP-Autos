@@ -199,4 +199,5 @@ class Seguros extends Base_Controller
         echo json_encode($polizas);
     }
 
+
 }
