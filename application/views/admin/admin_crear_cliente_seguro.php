@@ -119,6 +119,7 @@ foreach ($predios->result() as $predio)
                                         <option>Seguro</option>
                                         <option>Carro</option>
                                         <option>Predio</option>
+                                        <option>Credito</option>
                                     </select>
                                 </div>
                             </div>
