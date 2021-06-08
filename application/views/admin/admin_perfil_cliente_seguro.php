@@ -166,6 +166,159 @@ if ($datos_cliente) {
     </div>
 </div>
 </div>
+<?
+$fecha_seguimiento = array(
+    'name' => 'fecha_seguimiento',
+    'id' => 'fecha_seguimiento',
+    'placeholder' => 'Fecha',
+    'type' => 'date',
+    'class' => 'form-control',
+    'required' => 'required'
+
+);
+$hora_seguimiento = array(
+    'name' => 'hora_seguimiento',
+    'id' => 'hora_seguimiento',
+    'placeholder' => 'Hora',
+    'type' => 'time',
+    'class' => 'form-control',
+    'required' => 'required'
+
+);
+$comentario = array(
+    'name' => 'comentario_seguimiento',
+    'id' => 'comentario_seguimiento',
+    'placeholder' => 'Respuesta',
+    'class' => 'form-control col-md-7 col-xs-12',
+    'maxlength' => '230',
+    'required' => 'required'
+);
+$tipo_resultado_select = array(
+    'name' => 'accion_seguimiento',
+    'id' => 'accion_seguimiento',
+    'class' => ' form-control',
+    'required' => 'required'
+);
+$tipo_resultado_select_options = array(
+    "llamada" => "llamada",
+    "poliza" => "poliza",
+    "escribir" => "escribir",
+    "no_interesado" => "No Interesado",
+);?>
+
+<!-- Modal -->
+<div class="modal fade" id="seguimiento_modal" tabindex="-1" role="dialog" aria-labelledby="seguimiento_titulo">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="seguimiento_titulo">realizar seguimiento</h4>
+            </div>
+            <div class="modal-body">
+                <div id="datos_seguimiento"></div>
+                <form id="formulario_seguimiento">
+                    <div class="container">
+                        <div class="row">
+                            <div class="item form-group">
+                                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="fecha_seguimiento">Fecha</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <div class="input-prepend input-group"><span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <?php echo form_input($fecha_seguimiento) ?>
+                                                    <p id="bajar_numero_textarea"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item form-group">
+                                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="name">Hora</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <div class="input-prepend input-group"><span class="add-on input-group-addon"><i class="fa-clock-o"></i></span>
+                                                    <?php echo form_input($hora_seguimiento) ?>
+                                                    <p id="bajar_numero_textarea"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item form-group">
+                                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="name">resultado</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <div class="input-prepend input-group"><span class="add-on input-group-addon"><i class="fa fa-file"></i></span>
+                                                    <?php echo form_textarea($comentario) ?>
+                                                    <p id="bajar_numero_textarea"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item form-group">
+                                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="name">Siguiente paso</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i class="fa fa-file"></i></span>
+                                                    <?php echo form_dropdown($tipo_resultado_select, $tipo_resultado_select_options); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item form-group">
+                                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="name"></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <div class="input-prepend input-group">
+                                                    <div class="form-actions">
+
+                                                        <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $cliente_id;?>">
+                                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
+                <button type="button" class="btn btn-primary" id="guardar_seguimiento_btn">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?php $this->stop() ?>
 
 
@@ -215,6 +368,28 @@ if ($datos_cliente) {
                 });
             },
             events: 'https://gpautos.net/Seguros/seguimientos_seguro_by_cliente_json/<?php echo $datos_cliente->cliente_seguro_id?>',
+            eventClick: function (calEvent, jsEvent, view) {
+                //console.log($(calEvent.id));
+                seguimiento_id = calEvent.id;
+
+                $('#seguimiento_modal').modal('show');
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'html',
+                    url: '<?php echo base_url()?>marketing/display_seguimiento_info?id_seguimiento=' + calEvent.id,
+                    success: function (data) {
+                        //console.log(data);
+                        $("#datos_seguimiento").html(data);
+                        bt_id = $("#bt_id").text();
+
+                    }
+                });
+
+
+
+                // change the border color just for fun
+
+            }
 
 
         });

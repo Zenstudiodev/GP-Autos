@@ -113,6 +113,16 @@ foreach ($predios->result() as $predio)
                         <form action="<?php echo base_url() . 'seguros/guardar_cliente_seguro' ?>" method="post"
                               class="form-horizontal">
                             <div class="control-group">
+                                <label class="control-label">Tipo</label>
+                                <div class="controls">
+                                    <select class="form-control">
+                                        <option>Seguro</option>
+                                        <option>Carro</option>
+                                        <option>Predio</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
                                 <label class="control-label">Nombre</label>
                                 <div class="controls">
                                     <?php echo form_input($cliente_seguro_nombre); ?>
